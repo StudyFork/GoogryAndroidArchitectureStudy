@@ -1,33 +1,49 @@
 package com.sangjin.newproject
 
+import android.app.Application
 import android.text.TextUtils
 import android.util.Log
-import androidx.databinding.ObservableField
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.sangjin.newproject.data.model.Movie
-import com.sangjin.newproject.data.repository.NaverMoviesRepository
+import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
+import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
+import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
 
-class MovieListViewModel(private val repository: NaverMoviesRepository) {
+class MovieListViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val disposables = CompositeDisposable()
+    private val repository by lazy {
+        NaverMoviesRepositoryImpl(
+            RemoteDataSourceImpl(),
+            LocalDataSourceImpl(application)
+        )
+    }
 
-    private var _movieList = ObservableField<List<Movie>>()
-    val movieList = _movieList
+    private val compositeDisposable = CompositeDisposable()
 
-    private var _keyword = ObservableField<String>()
-    val keyword = _keyword
+    private var _movieList = MutableLiveData<List<Movie>>()
+    val movieList: LiveData<List<Movie>> = _movieList
 
-    private var _toastMsgRes = ObservableField<Int>()
-    val toastMsgRes = _toastMsgRes
-    private var _toastMsgString = ObservableField<String>()
-    val toastMsgString = _toastMsgString
+    var keyword = MutableLiveData<String>()
 
-    private var _hideKeypad = ObservableField<Unit>()
-    val hideKeypad = _hideKeypad
+    private var _toastMsg = MutableLiveData<String>()
+    val toastMsg: LiveData<String> = _toastMsg
+
+    private var _hideKeypad = MutableLiveData<Unit>()
+    val hideKeypad: LiveData<Unit> = _hideKeypad
+
+    private val refreshMovieSubject = PublishSubject.create<String>()
+
 
     init {
+        setRefreshMovieSubject()
         loadCache()
     }
 
@@ -40,55 +56,69 @@ class MovieListViewModel(private val repository: NaverMoviesRepository) {
                 if (!it.isNullOrEmpty()) {
 
                     //리스트 최신화
-                    _movieList.set(it)
+                    _movieList.value = it
 
                     //기록했던 검색어 출력
-                    _keyword.set(repository.getCacheKeyword())
+                    keyword.value = repository.getCacheKeyword()
                 }
             },
                 {
-
-                }).let {
-                disposables.add(it)
+                }
+            ).let {
+                compositeDisposable.add(it)
             }
 
     }
 
 
-    fun refreshList(keyword: String){
-        Log.d("Toast", keyword)
-        if (TextUtils.isEmpty(keyword)) {
-            _toastMsgRes.set(R.string.no_keyword)
-        } else {
-            repository.getNaverMovies(keyword)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    checkMovieResult(it.items)
-                },
-                    {
-                        _toastMsgString.set(it.toString())
+    fun refreshList() {
 
-                    }).let {
-                    disposables.add(it)
-                }
+        val keyword = keyword.value ?: return
+
+        if (TextUtils.isEmpty(keyword)) {
+            _toastMsg.value = getApplication<Application>().getString(R.string.no_keyword)
+        } else {
+            refreshMovieSubject.onNext(keyword)
         }
     }
+
+
+    //버튼이 2번 연속으로 눌리는 경우 한번만 요청이 가도록 하는 기능
+    private fun setRefreshMovieSubject() {
+        refreshMovieSubject
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .throttleFirst(2000L, TimeUnit.MILLISECONDS, Schedulers.computation())     //클릭 후 2초 안에 눌린 다른 클릭에는 반응하 않도록 설정
+            .subscribe { keyword ->
+                repository.getNaverMovies(keyword)
+                    .subscribe(
+                        {
+                            checkMovieResult(it.items)
+                        },
+                        {
+                            _toastMsg.value = it.toString()
+                        }
+                    )
+            }.let {
+                compositeDisposable.add(it)
+            }
+    }
+
 
     private fun checkMovieResult(movies: List<Movie>) {
 
         //리스트 최신화
-        _movieList.set(movies)
-        _hideKeypad.notifyChange()
+        _movieList.value = movies
+        _hideKeypad.value = Unit
 
         if (movies.isNullOrEmpty()) {
-            _toastMsgRes.set(R.string.no_movie_list)
+            _toastMsg.value = getApplication<Application>().getString(R.string.no_movie_list)
         }
 
     }
 
 
-    fun removeDisposable(){
-        disposables.dispose()
+    override fun onCleared() {
+        compositeDisposable.dispose()
+        super.onCleared()
     }
 }

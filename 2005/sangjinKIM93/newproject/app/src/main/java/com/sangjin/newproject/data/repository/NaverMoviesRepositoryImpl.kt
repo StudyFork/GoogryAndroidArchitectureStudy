@@ -6,6 +6,8 @@ import com.sangjin.newproject.data.model.NaverMovieResponse
 import com.sangjin.newproject.data.source.local.LocalDataSource
 import com.sangjin.newproject.data.source.remote.RemoteDataSource
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class NaverMoviesRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
@@ -14,6 +16,8 @@ class NaverMoviesRepositoryImpl(
 
     override fun getNaverMovies(query: String): Single<NaverMovieResponse> {
         return remoteDataSource.getMovieData(query)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess{ naverMovieResponse ->
                 saveMoviesCache(naverMovieResponse.items, query)
             }
