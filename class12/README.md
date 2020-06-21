@@ -12,8 +12,8 @@
 - 이호영 [pgshoot13](https://github.com/pgshoot13)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/pgshoot13)
 
-- 지운만 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
+- 지운만 [manjee-study](https://github.com/manjee-study)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/manjee-study)
 
 - 이송미 [songmilee](https://github.com/songmilee)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/songmilee)
