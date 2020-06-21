@@ -10,7 +10,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
+object NaverRemoteDataSourceImpl : NaverRemoteDataSource {
 
     override val retrofit: Retrofit by lazy {
         Retrofit.Builder()

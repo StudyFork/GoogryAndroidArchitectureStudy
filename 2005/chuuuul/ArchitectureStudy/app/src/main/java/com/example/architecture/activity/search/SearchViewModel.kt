@@ -1,25 +1,60 @@
 package com.example.architecture.activity.search
 
 import android.util.Log
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.example.architecture.R
 import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.repository.NaverRepositoryImpl
+import com.example.architecture.ext.createDefault
+import com.example.architecture.provider.ResourceProviderImpl
+import com.example.architecture.util.ConstValue.Companion.SEARCH_TIME_THROTTLE
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
+import java.util.concurrent.TimeUnit
 
-class SearchViewModel(private val naverRepository: NaverRepositoryImpl) {
+class SearchViewModel(
+    private val naverRepository: NaverRepositoryImpl,
+    private val resourceProvider: ResourceProviderImpl
+) : ViewModel() {
 
-    val keyword = ObservableField<String>("")
-    val isLoading = ObservableBoolean(false)
-    val movieList = ObservableArrayList<MovieModel>()
-    val showMessageEmptyKeyword = ObservableField<Unit>()
-    val showMessageEmptyResult = ObservableField<Unit>()
+    val keyword = MutableLiveData<String>("")
+    private val _isLoading = MutableLiveData<Boolean>(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _movieList = MutableLiveData<MutableList<MovieModel>>(mutableListOf())
+    val movieList: LiveData<MutableList<MovieModel>> = _movieList
+
+    private val _toastMessage = MutableLiveData<String>()
+    val toastMessage: LiveData<String> = _toastMessage
+
+    private val compositeDisposable = CompositeDisposable()
+    private val searchMovieSubject = BehaviorSubject.createDefault("")
+
+    fun bindViewModel() {
+        setSearchMovieSubject()
+    }
+
+    private fun setSearchMovieSubject() {
+
+        searchMovieSubject
+            .subscribeOn(AndroidSchedulers.mainThread())
+            .filter { it.isNotBlank() }
+            .throttleFirst(SEARCH_TIME_THROTTLE, TimeUnit.MILLISECONDS, Schedulers.computation())
+            .subscribe { keyword ->
+                setVisibleProgressBar(true)
+                naverRepository.getMovieList(keyword, this::onSuccess, this::onFailure)
+            }.addTo(compositeDisposable)
+    }
 
     fun searchMovie() {
-        keyword.get()?.let { keyword ->
+        keyword.value?.let { keyword ->
             if (isValidKeyword(keyword)) {
-                showProgressBar(true)
-                naverRepository.getMovieList(keyword, this::onSuccess, this::onFailure)
+                searchMovieSubject.onNext(keyword)
             }
         }
     }
@@ -27,7 +62,7 @@ class SearchViewModel(private val naverRepository: NaverRepositoryImpl) {
     private fun isValidKeyword(keyword: String): Boolean {
 
         return if (keyword.isBlank()) {
-            showMessageEmptyKeyword.notifyChange()
+            _toastMessage.value = resourceProvider.getString(R.string.empty_keyword)
             false
         } else {
             true
@@ -36,25 +71,33 @@ class SearchViewModel(private val naverRepository: NaverRepositoryImpl) {
 
     private fun onSuccess(movieList: List<MovieModel>) {
         if (movieList.isNotEmpty()) {
-            this.movieList.clear()
-            this.movieList.addAll(movieList)
+            _movieList.value?.also {
+                it.clear()
+                it.addAll(movieList)
+                _movieList.value = it
+            }
         } else {
-            showMessageEmptyResult.notifyChange()
+            _toastMessage.value = resourceProvider.getString(R.string.not_found_result)
         }
-        showProgressBar(false)
+        setVisibleProgressBar(false)
     }
 
     private fun onFailure(t: Throwable) {
         Log.d("chul", "OnFailure : $t")
-        showProgressBar(false)
+        setVisibleProgressBar(false)
     }
 
-    private fun showProgressBar(visible: Boolean) {
-        isLoading.set(visible)
+    private fun setVisibleProgressBar(visible: Boolean) {
+        _isLoading.value = visible
     }
+
 
     private fun clearCacheData(keyword: String) {
         naverRepository.clearCacheData()
+    }
+
+    fun unbindViewModel() {
+        compositeDisposable.clear()
     }
 
 }

@@ -71,5 +71,15 @@ dependencies {
     implementation "org.apache.commons:commons-text:$apache_commons_version"
     implementation "org.jsoup:jsoup:$jsoup_version"
 
+    // Activity KTX
+    implementation "androidx.activity:activity-ktx:$activity_ktx_version"
+
+    // Rx
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+
+    // LiveData KTX
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_ktx_version"
 
 }

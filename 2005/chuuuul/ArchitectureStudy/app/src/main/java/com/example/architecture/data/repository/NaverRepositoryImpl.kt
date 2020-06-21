@@ -1,6 +1,5 @@
 package com.example.architecture.data.repository
 
-import android.content.Context
 import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.source.local.NaverLocalDataSource
 import com.example.architecture.data.source.local.NaverLocalDataSourceImpl
@@ -8,11 +7,11 @@ import com.example.architecture.data.source.remote.NaverRemoteDataSource
 import com.example.architecture.data.source.remote.NaverRemoteDataSourceImpl
 
 
-class NaverRepositoryImpl(context : Context) : NaverRepository {
+class NaverRepositoryImpl(
+    private val naverLocalDataSource: NaverLocalDataSource,
+    private val naverRemoteDataSource: NaverRemoteDataSource
+) : NaverRepository {
 
-    init {
-        naverLocalDataSource = NaverLocalDataSourceImpl(context)
-    }
 
     override fun getMovieList(
         keyword: String,
@@ -45,8 +44,18 @@ class NaverRepositoryImpl(context : Context) : NaverRepository {
     }
 
     companion object {
-        private val naverRemoteDataSource: NaverRemoteDataSource = NaverRemoteDataSourceImpl()
-        private lateinit var naverLocalDataSource: NaverLocalDataSource
+        private var INSTANCE: NaverRepositoryImpl? = null
+
+        @JvmStatic
+        fun getInstance(
+            naverLocalDataSource: NaverLocalDataSourceImpl,
+            naverRemoteDataSource: NaverRemoteDataSourceImpl
+        ): NaverRepositoryImpl {
+            return INSTANCE ?: synchronized(NaverRepositoryImpl::class.java) {
+                INSTANCE ?: NaverRepositoryImpl(naverLocalDataSource, naverRemoteDataSource)
+                    .also { INSTANCE = it }
+            }
+        }
     }
 
 }

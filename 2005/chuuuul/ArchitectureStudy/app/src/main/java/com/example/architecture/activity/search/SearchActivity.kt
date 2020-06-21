@@ -2,52 +2,95 @@ package com.example.architecture.activity.search
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
-import androidx.databinding.Observable.OnPropertyChangedCallback
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.architecture.R
 import com.example.architecture.activity.search.adapter.MovieAdapter
 import com.example.architecture.data.repository.NaverRepositoryImpl
+import com.example.architecture.data.source.local.NaverLocalDataSourceImpl
+import com.example.architecture.data.source.remote.NaverRemoteDataSourceImpl
 import com.example.architecture.databinding.ActivitySearchBinding
+import com.example.architecture.ext.debounce
+import com.example.architecture.provider.ResourceProviderImpl
+import com.example.architecture.util.ConstValue.Companion.AUTO_SEARCH_TIME
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity() {
 
-    private val vm = SearchViewModel(NaverRepositoryImpl(this))
+    @Suppress("UNCHECKED_CAST")
+    private val vm: SearchViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+
+                val naverLocalDataSource = NaverLocalDataSourceImpl.getInstance(applicationContext)
+                val naverRemoteDataSource = NaverRemoteDataSourceImpl
+                val naverRepository = NaverRepositoryImpl.getInstance(naverLocalDataSource, naverRemoteDataSource)
+
+                val resourceProvider = ResourceProviderImpl(applicationContext)
+
+                return SearchViewModel(
+                    naverRepository,
+                    resourceProvider
+                ) as T
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding: ActivitySearchBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_search)
+        val binding: ActivitySearchBinding = DataBindingUtil.setContentView(this, R.layout.activity_search)
 
         binding.vm = vm
+        binding.lifecycleOwner = this
 
         setupRecyclerview()
-        setupViewModelEvent()
-
+        setupViewModelObserve()
     }
 
     private fun setupRecyclerview() {
         rv_search_movieList.adapter = MovieAdapter()
     }
 
-    private fun setupViewModelEvent() {
-        vm.showMessageEmptyResult.addOnPropertyChangedCallback(object :
-            OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(applicationContext, getString(R.string.not_found_result), Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        vm.showMessageEmptyKeyword.addOnPropertyChangedCallback(object :
-            OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(applicationContext, getString(R.string.empty_keyword), Toast.LENGTH_SHORT).show()
-            }
-        })
+    private fun setupViewModelObserve() {
+        showToast()
+        searchMovieAfterMoment()
     }
 
+    private fun showToast() {
+        vm.toastMessage
+            .observe(this, Observer { message ->
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            })
+    }
 
+    private fun searchMovieAfterMoment() {
+        vm.keyword
+            .debounce(AUTO_SEARCH_TIME)
+            .observe(this, Observer {
+                vm::searchMovie.invoke()
+            })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        bindViewModel()
+    }
+
+    private fun bindViewModel() {
+        vm.bindViewModel()
+    }
+
+    override fun onPause() {
+        unbindViewModel()
+        super.onPause()
+    }
+
+    private fun unbindViewModel() {
+        vm.unbindViewModel()
+    }
 }
