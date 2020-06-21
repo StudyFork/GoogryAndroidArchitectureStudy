@@ -9,8 +9,8 @@
 - 이다원 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
 
-- 이호영 [](https://github.com//)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
+- 이호영 [pgshoot13](https://github.com/pgshoot13)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/pgshoot13)
 
 - 지운만 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class12/)
