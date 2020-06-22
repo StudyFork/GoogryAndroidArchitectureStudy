@@ -1,30 +1,18 @@
 package com.sangjin.newproject
 
-import android.app.Application
 import android.text.TextUtils
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.sangjin.newproject.data.model.Movie
-import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
-import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
-import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
+import com.sangjin.newproject.data.repository.NaverMoviesRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
-class MovieListViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val repository by lazy {
-        NaverMoviesRepositoryImpl(
-            RemoteDataSourceImpl(),
-            LocalDataSourceImpl(application)
-        )
-    }
+class MovieListViewModel(private val repository: NaverMoviesRepository) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -76,7 +64,7 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
         val keyword = keyword.value ?: return
 
         if (TextUtils.isEmpty(keyword)) {
-            _toastMsg.value = getApplication<Application>().getString(R.string.no_keyword)
+            //_toastMsg.value = getApplication<Application>().getString(R.string.no_keyword)
         } else {
             refreshMovieSubject.onNext(keyword)
         }
@@ -111,7 +99,7 @@ class MovieListViewModel(application: Application) : AndroidViewModel(applicatio
         _hideKeypad.value = Unit
 
         if (movies.isNullOrEmpty()) {
-            _toastMsg.value = getApplication<Application>().getString(R.string.no_movie_list)
+            //_toastMsg.value = getApplication<Application>().getString(R.string.no_movie_list)
         }
 
     }
