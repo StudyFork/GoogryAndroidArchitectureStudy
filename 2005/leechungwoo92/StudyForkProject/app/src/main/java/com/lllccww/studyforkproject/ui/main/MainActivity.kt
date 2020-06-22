@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.data.repository.NaverMovieRepositoryImpl
-import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSourceImpl
 import com.lllccww.studyforkproject.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
