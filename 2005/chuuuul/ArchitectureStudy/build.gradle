@@ -13,6 +13,7 @@ buildscript {
         rxjava_version = '2.2.19'
         rxandroid_version = '2.1.1'
         livedata_ktx_version = '2.2.0'
+        koin_version = '2.1.5'
     }
 
     repositories {
