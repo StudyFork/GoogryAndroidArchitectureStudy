@@ -14,9 +14,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField("String", "CLIENT_ID", CLIENT_ID)
-        buildConfigField("String", "CLIENT_SECRET", CLIENT_SECRET)
     }
 
     buildTypes {
@@ -51,19 +48,11 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.4.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation "androidx.room:room-runtime:2.2.5"
-    kapt "androidx.room:room-compiler:2.2.5"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     implementation "org.koin:koin-androidx-viewmodel:2.1.5"
-    dependencies {
-        implementation('com.github.ihsanbal:LoggingInterceptor:3.1.0-rc5') {
-            exclude group: 'org.json', module: 'json'
-        }
-    }
+
+    implementation project(':data')
+    implementation project(':remote')
+    implementation project(':local')
 }
