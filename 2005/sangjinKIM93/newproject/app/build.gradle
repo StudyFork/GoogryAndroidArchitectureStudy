@@ -76,6 +76,10 @@ dependencies {
     // lifecycle-extensions
     implementation group: 'androidx.lifecycle', name: 'lifecycle-extensions', version: '2.1.0'
 
-
+    //koin
+    implementation "org.koin:koin-core:$koin_version"
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
 }
