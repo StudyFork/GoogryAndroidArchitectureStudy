@@ -1,11 +1,7 @@
-package com.sangjin.newproject.adapter
+package com.sangjin.newproject.activity.adapter
 
-import android.os.Build
-import android.text.Html
-import android.text.Spanned
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.sangjin.newproject.R
 import com.sangjin.newproject.data.model.Movie

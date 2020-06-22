@@ -9,14 +9,14 @@
             type="com.sangjin.newproject.data.model.Movie" />
         <variable
             name="viewModel"
-            type="com.sangjin.newproject.MovieListViewModel" />
+            type="com.sangjin.newproject.activity.MovieListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
-        tools:context=".MovieListActivity">
+        tools:context=".activity.MovieListActivity">
 
         <EditText
             android:id="@+id/movieNameET"

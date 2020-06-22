@@ -1,9 +1,10 @@
-package com.sangjin.newproject
+package com.sangjin.newproject.activity
 
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sangjin.newproject.R
 import com.sangjin.newproject.data.model.Movie
 import com.sangjin.newproject.data.repository.NaverMoviesRepository
 import com.sangjin.newproject.utils.ResourceProvider

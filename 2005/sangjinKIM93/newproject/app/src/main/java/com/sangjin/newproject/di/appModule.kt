@@ -1,6 +1,6 @@
 package com.sangjin.newproject.di
 
-import com.sangjin.newproject.MovieListViewModel
+import com.sangjin.newproject.activity.MovieListViewModel
 import com.sangjin.newproject.data.repository.NaverMoviesRepository
 import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
 import com.sangjin.newproject.data.source.local.LocalDataSource
@@ -23,6 +23,11 @@ val appModule = module {
 
     single<ResourceProvider> {ResourceProviderImpl(androidApplication())}
 
-    viewModel { MovieListViewModel(get(), get()) }
+    viewModel {
+        MovieListViewModel(
+            get(),
+            get()
+        )
+    }
 
 }

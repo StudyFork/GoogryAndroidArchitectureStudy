@@ -1,4 +1,4 @@
-package com.sangjin.newproject
+package com.sangjin.newproject.activity
 
 import android.content.Context
 import android.content.Intent
@@ -13,7 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.sangjin.newproject.adapter.MovieListAdapter
+import com.sangjin.newproject.R
+import com.sangjin.newproject.activity.adapter.MovieListAdapter
 import com.sangjin.newproject.databinding.ActivityMovieListBinding
 import kotlinx.android.synthetic.main.activity_movie_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -30,7 +31,9 @@ class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_movie_list
+        )
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
