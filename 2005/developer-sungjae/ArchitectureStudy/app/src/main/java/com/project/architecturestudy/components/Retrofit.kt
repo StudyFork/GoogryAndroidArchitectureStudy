@@ -17,8 +17,11 @@ object Retrofit {
 
     init {
         val interceptor = HttpLoggingInterceptor().apply {
-            this.setLevel(HttpLoggingInterceptor.Level.HEADERS)
-            this.setLevel(HttpLoggingInterceptor.Level.BODY)
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
         }
 
         okHttpClient = OkHttpClient.Builder()
@@ -27,7 +30,9 @@ object Retrofit {
             this.connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
             this.addInterceptor(interceptor)
             this.addInterceptor { chain ->
-                val request = chain.request().newBuilder()
+                val request = chain
+                    .request()
+                    .newBuilder()
                     .addHeader("X-Naver-Client-Id", BuildConfig.NAVER_CLIENT_ID)
                     .addHeader("X-Naver-Client-Secret", BuildConfig.NAVER_CLIENT_SECRET)
                     .build()
