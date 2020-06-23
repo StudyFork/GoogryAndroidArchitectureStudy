@@ -1,8 +1,10 @@
 package com.project.architecturestudy.components
 
 import com.project.architecturestudy.BuildConfig
-import com.project.architecturestudy.components.Constants.DEFAULT_TIME_OUT
+import com.project.architecturestudy.components.Constants.CONNECT_TIMEOUT
 import com.project.architecturestudy.components.Constants.NAVER_SEARCH_BASE_URL
+import com.project.architecturestudy.components.Constants.READ_TIMEOUT
+import com.project.architecturestudy.components.Constants.WRITE_TIMEOUT
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -27,7 +29,10 @@ object Retrofit {
         okHttpClient = OkHttpClient.Builder()
         okHttpClient.apply {
 
-            this.connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS)
+            this.connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+            this.writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+            this.readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            retryOnConnectionFailure(true)
             this.addInterceptor(interceptor)
             this.addInterceptor { chain ->
                 val request = chain
