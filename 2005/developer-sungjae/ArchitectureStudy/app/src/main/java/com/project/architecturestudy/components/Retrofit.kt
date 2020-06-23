@@ -16,7 +16,6 @@ object Retrofit {
     private val okHttpClient: OkHttpClient.Builder
 
     init {
-
         val interceptor = HttpLoggingInterceptor().apply {
             this.setLevel(HttpLoggingInterceptor.Level.HEADERS)
             this.setLevel(HttpLoggingInterceptor.Level.BODY)

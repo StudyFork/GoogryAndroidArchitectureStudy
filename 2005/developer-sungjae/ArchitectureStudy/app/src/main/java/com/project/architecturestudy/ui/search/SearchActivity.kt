@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.project.architecturestudy.Provider.ResourceProviderImpl
 import com.project.architecturestudy.R
 import com.project.architecturestudy.base.BaseActivity
 import com.project.architecturestudy.data.model.MovieItem
@@ -20,17 +21,19 @@ import org.jetbrains.anko.toast
 
 class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(R.layout.activity_search) {
 
+    @Suppress("UNCHECKED_CAST")
     override val vm: SearchViewModel by lazy {
         val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl.getInstance(MovieDataBase.getInstance(applicationContext).getMovieDao())
         val naverMovieRemoteDataSource = NaverMovieRemoteDataSourceImpl
         val repository = NaverMovieRepositoryImpl.getInstance(naverMovieLocalDataSource, naverMovieRemoteDataSource)
         val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return SearchViewModel(repository) as T
+                return SearchViewModel(repository, ResourceProviderImpl(applicationContext)) as T
             }
         })
         viewModelProvider[SearchViewModel::class.java]
     }
+
     private lateinit var adapter: SearchAdapter<MovieItemBinding, MovieItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,8 +48,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(R.la
         })
 
         vm.showToast.observe(this, Observer {
-            Log.d("observer", "$it")
-            toast(getString(it))
+            Log.d("observer", it)
+            toast(it)
         })
     }
 

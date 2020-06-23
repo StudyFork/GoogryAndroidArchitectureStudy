@@ -2,9 +2,9 @@ package com.project.architecturestudy.ui.search
 
 import android.util.Log
 import android.view.View
-import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.project.architecturestudy.Provider.ResourceProvider
 import com.project.architecturestudy.R
 import com.project.architecturestudy.base.BaseViewModel
 import com.project.architecturestudy.components.Constants.customTAG
@@ -16,13 +16,13 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewModel() {
+class SearchViewModel(private val repository: NaverMovieRepository, private val resourceProvider: ResourceProvider) : BaseViewModel() {
 
     private val _movieData = MutableLiveData<List<MovieItem>>()
     val movieData: LiveData<List<MovieItem>> = _movieData
 
-    private val _showToast = MutableLiveData<@StringRes Int>()
-    val showToast: LiveData<Int> = _showToast
+    private val _showToast = MutableLiveData<String>()
+    val showToast: LiveData<String> = _showToast
 
     private val _tvResultVisible = MutableLiveData<Int>().apply { this.value = View.GONE }
     val tvResultVisible: LiveData<Int> = _tvResultVisible
@@ -43,7 +43,7 @@ class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewMo
                     if (movieLocalItem.isNotEmpty()) {
                         val movieList = translatingToShow(movieLocalItem)
                         _movieData.postValue(movieList)
-                        _showToast.postValue(R.string.get_local_data_success)
+                        _showToast.postValue(resourceProvider.getString(R.string.get_local_data_success))
 
                     } else {
                         Log.d(customTAG, "RoomDatabase has no Data")
@@ -55,13 +55,13 @@ class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewMo
             },
             onFailure = {
                 Log.d(customTAG, "Throwable:$it")
-                _showToast.postValue(R.string.get_local_data_failure)
+                _showToast.postValue(resourceProvider.getString(R.string.get_local_data_failure))
             })
     }
 
     fun getMovieListFromRemote(searchWord: String) {
         if (searchWord.isEmpty()) {
-            _showToast.value = R.string.please_write
+            _showToast.value = resourceProvider.getString(R.string.please_write)
             return
         }
 
@@ -74,7 +74,7 @@ class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewMo
                         { remoteData ->
                             Log.d(customTAG, "getRemoteData:$remoteData")
                             _movieData.value = remoteData.items
-                            _showToast.value = R.string.get_data_success
+                            _showToast.value = resourceProvider.getString(R.string.get_data_success)
 
                             repository.deleteMovieList { dao ->
                                 Observable.fromCallable { dao.deleteAll() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -82,7 +82,7 @@ class SearchViewModel(private val repository: NaverMovieRepository) : BaseViewMo
                             }
 
                         }, { t ->
-                            _showToast.value = R.string.get_data_failure
+                            _showToast.value = resourceProvider.getString(R.string.get_data_failure)
                             Log.d(customTAG, t.toString())
                         }).addDisposable()
             })
