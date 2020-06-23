@@ -53,6 +53,7 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$roomruntime_version"
     kapt "android.arch.persistence.room:compiler:$roomcompile_version"
     implementation "android.arch.persistence.room:rxjava2:$roomrxjava_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
