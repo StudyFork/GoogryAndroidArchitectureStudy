@@ -1,19 +1,13 @@
 package com.project.architecturestudy.data.source.remote
 
-import com.project.architecturestudy.components.Retrofit
+import com.project.architecturestudy.components.NaverApiService
 import com.project.architecturestudy.data.model.NaverApiData
 import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
+import org.koin.java.KoinJavaComponent.inject
 
 object NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
 
-    override val service = Retrofit.service
-    override val disposable = CompositeDisposable()
+    override val service: NaverApiService by inject(NaverApiService::class.java)
 
-    override fun getMovieList(
-        keyWord: String,
-        onGetRemoteData: (Single<NaverApiData>) -> Unit
-    ) {
-        onGetRemoteData.invoke(service.getMovies(keyWord))
-    }
+    override fun getMovieList(keyWord: String): Single<NaverApiData> = service.getMovies(keyWord)
 }
