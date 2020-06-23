@@ -12,10 +12,11 @@ abstract class MovieDataBase : RoomDatabase() {
 
     companion object {
         private lateinit var db: MovieDataBase
+        const val DB_NAME = "movielist.db"
 
         fun getInstance(context: Context): MovieDataBase {
             synchronized(MovieDataBase::class) {
-                db = Room.databaseBuilder(context, MovieDataBase::class.java, "movielist.db")
+                db = Room.databaseBuilder(context, MovieDataBase::class.java, DB_NAME)
                     .fallbackToDestructiveMigration()
                     .build()
             }
