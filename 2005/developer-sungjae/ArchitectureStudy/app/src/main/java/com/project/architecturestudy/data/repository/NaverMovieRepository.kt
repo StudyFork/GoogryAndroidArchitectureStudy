@@ -8,16 +8,11 @@ import io.reactivex.Single
 
 interface NaverMovieRepository {
 
-    fun getMovieList(
-        keyWord: String,
-        onGetRemoteData: (Single<NaverApiData>) -> Unit
-    )
+    fun getMovieList(keyWord: String): Single<NaverApiData>
 
-    fun getCashedMovieList(
-        onSuccess: (Observable<List<MovieLocalItem>>) -> Unit,
-        onFailure: (t: Throwable) -> Unit
-    )
+    fun getCashedMovieList(): Observable<List<MovieLocalItem>>
 
-    fun saveMovieList(movieList: MovieLocalItem, onInsert: (Observable<Unit>) -> Unit)
-    fun deleteMovieList(onGetDao: (MovieItemDao) -> Unit)
+    fun saveMovieList(movieList: MovieLocalItem): Observable<Unit>
+
+    fun deleteMovieList(): MovieItemDao
 }
