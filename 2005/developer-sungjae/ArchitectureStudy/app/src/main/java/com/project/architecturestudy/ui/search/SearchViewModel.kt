@@ -35,28 +35,19 @@ class SearchViewModel(private val repository: NaverMovieRepository, private val 
     }
 
     private fun getMovieListFromLocal() {
-        repository.getCashedMovieList(
-            onSuccess = {
-                Log.d(customTAG, "getLocalData:$it")
-                it.subscribe({ movieLocalItem ->
-                    Log.d(customTAG, "RoomDatabase Get Data Success:$movieLocalItem")
-                    if (movieLocalItem.isNotEmpty()) {
-                        val movieList = translatingToShow(movieLocalItem)
-                        _movieData.postValue(movieList)
-                        _showToast.postValue(resourceProvider.getString(R.string.get_local_data_success))
+        repository.getCashedMovieList().subscribe(
+            { movieLocalItem ->
+                if (movieLocalItem.isNotEmpty()) {
+                    val movieList = translatingToShow(movieLocalItem)
+                    _movieData.postValue(movieList)
+                    _showToast.postValue(resourceProvider.getString(R.string.get_local_data_success))
 
-                    } else {
-                        Log.d(customTAG, "RoomDatabase has no Data")
-                    }
-                },
-                    {
-                        Log.d(customTAG, "RoomDatabase GetData Failure")
-                    }).addDisposable()
-            },
-            onFailure = {
-                Log.d(customTAG, "Throwable:$it")
-                _showToast.postValue(resourceProvider.getString(R.string.get_local_data_failure))
-            })
+                } else {
+                    Log.d(customTAG, "RoomDatabase has no Data")
+                }
+            }, {
+
+            }).addDisposable()
     }
 
     fun getMovieListFromRemote(searchWord: String) {
@@ -66,42 +57,38 @@ class SearchViewModel(private val repository: NaverMovieRepository, private val 
         }
 
         _tvResultVisible.value = View.VISIBLE
-        repository.getMovieList(searchWord,
-            onGetRemoteData = { single ->
-                single.observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(
-                        { remoteData ->
-                            Log.d(customTAG, "getRemoteData:$remoteData")
-                            _movieData.value = remoteData.items
-                            _showToast.value = resourceProvider.getString(R.string.get_data_success)
+        repository.getMovieList(searchWord)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                { remoteData ->
+                    Log.d(customTAG, "getRemoteData:$remoteData")
+                    _movieData.value = remoteData.items
+                    _showToast.value = resourceProvider.getString(R.string.get_data_success)
 
-                            repository.deleteMovieList { dao ->
-                                Observable.fromCallable { dao.deleteAll() }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe { saveMovieList(remoteData) }
-                            }
+                    Observable
+                        .fromCallable { repository.deleteMovieList().deleteAll() }
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe { saveMovieList(remoteData) }.addDisposable()
 
-                        }, { t ->
-                            _showToast.value = resourceProvider.getString(R.string.get_data_failure)
-                            Log.d(customTAG, t.toString())
-                        }).addDisposable()
-            })
-
+                }, { t ->
+                    _showToast.value = resourceProvider.getString(R.string.get_data_failure)
+                    Log.d(customTAG, t.toString())
+                }).addDisposable()
     }
 
     private fun saveMovieList(data: NaverApiData) {
         for (item in data.items) {
             val movieLocalItem = translatingToInsert(item)
-            repository.saveMovieList(movieLocalItem,
-                onInsert = { observable ->
-                    observable.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            Log.d(customTAG, "RoomDatabase Save Data Success")
-                        }, {
-                            Log.d(customTAG, "RoomDatabase Save Data Failure$it")
-                        })
-                })
+            repository.saveMovieList(movieLocalItem)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Log.d(customTAG, "RoomDatabase Save Data Success")
+                }, {
+                    Log.d(customTAG, "RoomDatabase Save Data Failure$it")
+                }).addDisposable()
         }
     }
 
