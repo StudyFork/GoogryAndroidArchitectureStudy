@@ -16,5 +16,5 @@ val localDataSourceModule = module {
 
     single { get<MovieDataBase>().getMovieDao() }
 
-    single<NaverMovieLocalDataSource> { NaverMovieLocalDataSourceImpl}
+    single<NaverMovieLocalDataSource> { NaverMovieLocalDataSourceImpl(get()) }
 }

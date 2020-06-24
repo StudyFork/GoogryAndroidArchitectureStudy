@@ -6,8 +6,6 @@ import io.reactivex.Observable
 
 interface NaverMovieLocalDataSource {
 
-    val movieItemDao: MovieItemDao
-
     fun getMovieList(): Observable<List<MovieLocalItem>>
 
     fun deleteMovieList(): MovieItemDao

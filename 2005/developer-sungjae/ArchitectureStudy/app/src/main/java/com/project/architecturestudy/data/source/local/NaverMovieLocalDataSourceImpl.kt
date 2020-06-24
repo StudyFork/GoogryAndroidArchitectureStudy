@@ -7,9 +7,8 @@ import io.reactivex.schedulers.Schedulers
 import org.koin.java.KoinJavaComponent.inject
 
 
-object NaverMovieLocalDataSourceImpl : NaverMovieLocalDataSource {
+class NaverMovieLocalDataSourceImpl(private val movieItemDao: MovieItemDao) : NaverMovieLocalDataSource {
 
-    override val movieItemDao: MovieItemDao by inject(MovieItemDao::class.java)
 
     override fun saveMovieList(data: MovieLocalItem): (Observable<Unit>) = Observable.fromCallable { movieItemDao.insert(data) }
 
