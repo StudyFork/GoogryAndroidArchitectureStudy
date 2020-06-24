@@ -1,7 +1,5 @@
 package com.project.architecturestudy.ui.search
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.Observer
@@ -23,23 +21,14 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(R.la
         binding.vm = vm
         binding.lifecycleOwner = this
         setRecyclerView()
-        onClickAdapterItem()
 
         vm.searchWord.observe(this, Observer {
             vm.invokeTextChanged()
         })
 
         vm.showToast.observe(this, Observer {
-            Log.d("observer", it)
             toast(it)
         })
-    }
-
-    private fun onClickAdapterItem() {
-        adapter.onClick = { item ->
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
-            startActivity(intent)
-        }
     }
 
     private fun setRecyclerView() {
