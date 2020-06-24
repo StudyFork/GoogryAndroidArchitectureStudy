@@ -49,7 +49,9 @@ class SearchActivity : AppCompatActivity() {
         vm.keyword
             .debounce(AUTO_SEARCH_TIME)
             .observe(this, Observer {
-                vm::searchMovie.invoke()
+                if (it.isNotEmpty()) {
+                    vm::searchMovie.invoke()
+                }
             })
     }
 
