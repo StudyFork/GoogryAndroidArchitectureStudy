@@ -1,6 +1,7 @@
 package com.project.architecturestudy.ui.search
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import com.project.architecturestudy.R
 import com.project.architecturestudy.base.BaseActivity
@@ -17,17 +18,21 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>(R.la
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        with(binding) {
-            vm = vm
-            lifecycleOwner = this@SearchActivity
-            listviewMovie.adapter = adapter
-        }
+        binding.vm = vm
+        binding.lifecycleOwner = this
+        setRecyclerView()
+
         vm.searchWord.observe(this, Observer {
             vm.invokeTextChanged()
         })
 
         vm.showToast.observe(this, Observer {
+            Log.d("observer", it)
             toast(it)
         })
+    }
+
+    private fun setRecyclerView() {
+        binding.listviewMovie.adapter = adapter
     }
 }
