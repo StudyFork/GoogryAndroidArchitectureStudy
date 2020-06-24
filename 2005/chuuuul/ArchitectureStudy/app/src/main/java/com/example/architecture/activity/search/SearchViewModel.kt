@@ -51,18 +51,20 @@ class SearchViewModel(
             }.addTo(compositeDisposable)
     }
 
-    fun searchMovie() {
+    fun searchMovie(showMessage: Boolean = true) {
         keyword.value?.let { keyword ->
-            if (isValidKeyword(keyword)) {
+            if (isValidKeyword(keyword, showMessage)) {
                 searchMovieSubject.onNext(keyword)
             }
         }
     }
 
-    private fun isValidKeyword(keyword: String): Boolean {
+    private fun isValidKeyword(keyword: String, showMessage: Boolean): Boolean {
 
         return if (keyword.isBlank()) {
-            _toastMessage.value = resourceProvider.getString(R.string.empty_keyword)
+            if (showMessage) {
+                _toastMessage.value = resourceProvider.getString(R.string.empty_keyword)
+            }
             false
         } else {
             true
