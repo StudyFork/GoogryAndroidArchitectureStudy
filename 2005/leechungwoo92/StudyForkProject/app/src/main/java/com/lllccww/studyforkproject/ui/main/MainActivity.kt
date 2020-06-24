@@ -16,6 +16,7 @@ import com.lllccww.studyforkproject.R
 import com.lllccww.studyforkproject.data.repository.NaverMovieRepositoryImpl
 import com.lllccww.studyforkproject.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,10 +24,11 @@ class MainActivity : AppCompatActivity() {
     private var total = 0
     private var display = 0
     private lateinit var movieListAdapter: MovieListAdapter
+    private val mainViewModel : MainViewModel by inject()
 
 
     private lateinit var binding: ActivityMainBinding
-    private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl()
+    //private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,12 +36,12 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
 
-        val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
+    /*    val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return MainViewModel(naverMovieRepositoryImpl) as T
             }
-        })
-        val mainViewModel = viewModelProvider[MainViewModel::class.java]
+        })*/
+        //val mainViewModel = viewModelProvider[MainViewModel::class.java]
 
 
         binding.vm = mainViewModel
