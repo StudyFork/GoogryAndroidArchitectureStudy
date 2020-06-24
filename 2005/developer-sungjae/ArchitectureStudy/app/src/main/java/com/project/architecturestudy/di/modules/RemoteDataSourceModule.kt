@@ -5,5 +5,5 @@ import com.project.architecturestudy.data.source.remote.NaverMovieRemoteDataSour
 import org.koin.dsl.module
 
 val remoteDataSourceModule = module {
-    single<NaverMovieRemoteDataSource> { NaverMovieRemoteDataSourceImpl }
+    single<NaverMovieRemoteDataSource> { NaverMovieRemoteDataSourceImpl(get()) }
 }
