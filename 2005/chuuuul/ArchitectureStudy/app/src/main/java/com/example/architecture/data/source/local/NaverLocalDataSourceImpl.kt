@@ -44,17 +44,17 @@ class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSou
             .apply()
     }
 
-    companion object {
-        private var INSTANCE: NaverLocalDataSourceImpl? = null
-
-        @JvmStatic
-        fun getInstance(context: Context): NaverLocalDataSourceImpl {
-            synchronized(NaverLocalDataSourceImpl::javaClass) {
-                if (INSTANCE == null) {
-                    INSTANCE = NaverLocalDataSourceImpl(context)
-                }
-                return INSTANCE!!
-            }
-        }
-    }
+//    companion object {
+//        private var INSTANCE: NaverLocalDataSourceImpl? = null
+//
+//        @JvmStatic
+//        fun getInstance(context: Context): NaverLocalDataSourceImpl {
+//            synchronized(NaverLocalDataSourceImpl::javaClass) {
+//                if (INSTANCE == null) {
+//                    INSTANCE = NaverLocalDataSourceImpl(context)
+//                }
+//                return INSTANCE!!
+//            }
+//        }
+//    }
 }

@@ -6,9 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.architecture.R
 import com.example.architecture.data.model.MovieModel
-import com.example.architecture.data.repository.NaverRepositoryImpl
-import com.example.architecture.ext.createDefault
-import com.example.architecture.provider.ResourceProviderImpl
+import com.example.architecture.data.repository.NaverRepository
+import com.example.architecture.provider.ResourceProvider
 import com.example.architecture.util.ConstValue.Companion.SEARCH_TIME_THROTTLE
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -18,11 +17,12 @@ import io.reactivex.subjects.BehaviorSubject
 import java.util.concurrent.TimeUnit
 
 class SearchViewModel(
-    private val naverRepository: NaverRepositoryImpl,
-    private val resourceProvider: ResourceProviderImpl
+    private val naverRepository: NaverRepository,
+    private val resourceProvider: ResourceProvider
 ) : ViewModel() {
 
     val keyword = MutableLiveData<String>("")
+
     private val _isLoading = MutableLiveData<Boolean>(false)
     val isLoading: LiveData<Boolean> = _isLoading
 
