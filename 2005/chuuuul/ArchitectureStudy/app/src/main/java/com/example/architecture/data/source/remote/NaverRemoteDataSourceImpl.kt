@@ -3,14 +3,11 @@ package com.example.architecture.data.source.remote
 import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.model.MovieResponseModel
 import com.example.architecture.retrofit.MovieSearchService
-import org.koin.java.KoinJavaComponent.inject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
-
-    private val movieSearchService by inject(MovieSearchService::class.java)
+class NaverRemoteDataSourceImpl(private val movieSearchService: MovieSearchService) : NaverRemoteDataSource {
 
     override fun getMovieList(
         keyWord: String,

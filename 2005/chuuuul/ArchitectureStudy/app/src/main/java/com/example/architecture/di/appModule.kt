@@ -15,7 +15,7 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    single<NaverRemoteDataSource> { NaverRemoteDataSourceImpl() }
+    single<NaverRemoteDataSource> { NaverRemoteDataSourceImpl(get()) }
     single<NaverLocalDataSource> { NaverLocalDataSourceImpl(androidContext()) }
     single<NaverRepository> { NaverRepositoryImpl(get(), get()) }
     single<ResourceProvider> { ResourceProviderImpl(androidContext()) }
