@@ -12,12 +12,14 @@ import com.hwaniiidev.architecture.R
 import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
 import com.hwaniiidev.architecture.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
 
-    private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl(this)
+    val viewModel : MainViewModel by inject()
+//    private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl(this)
 
     lateinit private var imm: InputMethodManager
     lateinit var binding: ActivityMainBinding
@@ -25,12 +27,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(naverMovieRepositoryImpl) as T
-            }
-        })
-        val viewModel = viewModelProvider[MainViewModel::class.java]
+//        val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//                return MainViewModel(naverMovieRepositoryImpl) as T
+//            }
+//        })
+//        val viewModel = viewModelProvider[MainViewModel::class.java]
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.apply {
