@@ -2,15 +2,20 @@ package com.hwaniiidev.architecture.data.repository
 
 import android.content.Context
 import android.util.Log
+import com.hwaniiidev.architecture.data.source.local.NaverMovieLocalDataSource
 import com.hwaniiidev.architecture.data.source.local.NaverMovieLocalDataSourceImpl
+import com.hwaniiidev.architecture.data.source.remote.NaverMovieRemoteDataSource
 import com.hwaniiidev.architecture.data.source.remote.NaverMovieRemoteDataSourceImpl
 import com.hwaniiidev.architecture.model.Item
 import com.hwaniiidev.architecture.model.ResponseMovieSearchData
 
-class NaverMovieRepositoryImpl(context: Context) : NaverMovieRepository {
-    private val mContext = context
-    private val naverMovieRemoteSource = NaverMovieRemoteDataSourceImpl()
-    private val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl(mContext)
+class NaverMovieRepositoryImpl(
+    private val naverMovieRemoteSource : NaverMovieRemoteDataSource,
+    private val naverMovieLocalDataSource : NaverMovieLocalDataSource
+) : NaverMovieRepository {
+//    private val mContext = context
+//    private val naverMovieRemoteSource = NaverMovieRemoteDataSourceImpl()
+//    private val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl(mContext)
 
     override fun searchMovies(
         query: String,
