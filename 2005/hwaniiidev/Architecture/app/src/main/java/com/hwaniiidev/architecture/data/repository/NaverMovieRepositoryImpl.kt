@@ -10,12 +10,9 @@ import com.hwaniiidev.architecture.model.Item
 import com.hwaniiidev.architecture.model.ResponseMovieSearchData
 
 class NaverMovieRepositoryImpl(
-    private val naverMovieRemoteSource : NaverMovieRemoteDataSource,
-    private val naverMovieLocalDataSource : NaverMovieLocalDataSource
+    private val naverMovieRemoteSource: NaverMovieRemoteDataSource,
+    private val naverMovieLocalDataSource: NaverMovieLocalDataSource
 ) : NaverMovieRepository {
-//    private val mContext = context
-//    private val naverMovieRemoteSource = NaverMovieRemoteDataSourceImpl()
-//    private val naverMovieLocalDataSource = NaverMovieLocalDataSourceImpl(mContext)
 
     override fun searchMovies(
         query: String,

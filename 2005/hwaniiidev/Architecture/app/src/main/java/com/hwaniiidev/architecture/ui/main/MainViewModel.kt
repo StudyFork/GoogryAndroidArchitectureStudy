@@ -11,10 +11,13 @@ class MainViewModel(
     val naverMovieRepositoryImpl: NaverMovieRepository
 ) : ViewModel() {
     val searchQuery = MutableLiveData<String>()
+
     private val _movies = MutableLiveData<List<Item>>()
     val movies: LiveData<List<Item>> = _movies
+
     private val _error = MutableLiveData<SearchError>()
     val error: LiveData<SearchError> = _error
+
     private val _hideKeyboard = MutableLiveData<Unit>()
     val hideKeyboard: LiveData<Unit> = _hideKeyboard
 
