@@ -1,45 +1,51 @@
 package r.test.rapp.main
 
+import android.content.res.Resources
 import android.text.TextUtils
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import r.test.rapp.R
 import r.test.rapp.data.model.Item
 import r.test.rapp.data.repository.MovieRepository
 import r.test.rapp.data.repository.MovieRepositoryImpl
 
-class MainViewModel {
+class MainViewModel(private val res: Resources) : ViewModel() {
     private val repository: MovieRepository = MovieRepositoryImpl()
 
-    val movies = ObservableArrayList<Item>()
-    val keyword = ObservableField<String>()
-    val toastMsg = ObservableField<String>()
-    val toastRes = ObservableField<Int>()
-    val isLoading = ObservableField<Boolean>()
-    val showKeypad = ObservableField<Boolean>()
+    private val _movies = MutableLiveData<List<Item>>()
+    private val _keyword = MutableLiveData<String>()
+    private val _toastMsg = MutableLiveData<String>()
+    private val _isLoading = MutableLiveData<Boolean>()
+    private val _hideKeypad = MutableLiveData<Unit>()
+
+    val movies: LiveData<List<Item>> = _movies
+    val keyword: LiveData<String> = _keyword
+    val toastMsg: LiveData<String> = _toastMsg
+    val isLoading: LiveData<Boolean> = _isLoading
+    val hideKeypad: LiveData<Unit> = _hideKeypad
 
     fun searchData() {
 
-        val searchQuery = keyword.get() ?: return
+        val searchQuery = keyword.value
 
         if (TextUtils.isEmpty(searchQuery)) {
-            toastRes.set(R.string.enter_keyword)
+            _toastMsg.value = res.getString(R.string.enter_keyword)
             return
         }
-        isLoading.set(true)
-        showKeypad.set(false)
+        _isLoading.value = true
+        _hideKeypad.value = Unit
 
 
         repository.getMovieList(
-            searchQuery,
+            searchQuery!!,
             onSuccess = { vo ->
-                movies.clear()
-                movies.addAll(vo.items)
-                isLoading.set(false)
+                _movies.value = vo.items
+                _isLoading.value = false
             },
             onFail = { f ->
-                isLoading.set(false)
-                toastMsg.set(f.toString())
+                _isLoading.value = false
+                _toastMsg.value = f.toString()
             })
     }
 

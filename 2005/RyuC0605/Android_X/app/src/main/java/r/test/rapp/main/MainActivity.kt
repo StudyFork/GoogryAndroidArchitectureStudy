@@ -11,25 +11,25 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_main.*
 import r.test.rapp.R
 import r.test.rapp.databinding.ActivityMainBinding
 
 @Suppress("DEPRECATION")
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     private lateinit var progress: ProgressDialog
-    private  var vm: MainViewModel = MainViewModel()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.vm = vm;
 
         initView()
-        bindViewModel()
+        bindViewModel(genMainViewModel())
         showKeyPad()
     }
 
@@ -55,50 +55,56 @@ class MainActivity : AppCompatActivity(){
         progress = ProgressDialog(this)
         lv_contents.emptyView = txt_empty
 
-        val adt = MovieAdapter(vm)
+        val adt = MovieAdapter()
         lv_contents.adapter = adt
         lv_contents.onItemClickListener = OnItemClickListenerImpl(adt)
     }
 
-    private fun bindViewModel() {
-        vm.toastMsg.addOnPropertyChangedCallback(object :Observable.OnPropertyChangedCallback() {
+    private fun bindViewModel(vm: MainViewModel) {
+        vm.movies.observe(this, Observer {
+            val inputList = vm.movies.value ?: return@Observer
 
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val msg = vm.toastMsg.get()  ?: return
-                showToast(msg)
-            }
+            val adt = lv_contents.adapter as MovieAdapter
+            val movieList = adt.getMovieList()
+            movieList.clear()
+            movieList.addAll(inputList)
+            adt.notifyDataSetChanged()
         })
 
-        vm.toastRes.addOnPropertyChangedCallback(object :Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val msgId = vm.toastRes.get()  ?: return
-                showToast(msgId)
-            }
+        vm.toastMsg.observe(this, Observer {
+            val msg = vm.toastMsg.value ?: return@Observer
+            showToast(msg)
         })
 
-        vm.isLoading.addOnPropertyChangedCallback(object :Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val showLoding = vm.isLoading.get()  ?: return
-                if(showLoding)
-                    progress.show()
-                else
-                    progress.hide()
-            }
+        vm.isLoading.observe(this, Observer {
+            val showLoding = vm.isLoading.value ?: return@Observer
+            if (showLoding)
+                progress.show()
+            else
+                progress.hide()
         })
 
-        vm.showKeypad.addOnPropertyChangedCallback(object :Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val showKeypad = vm.showKeypad.get()  ?: return
-                if(showKeypad)
-                    showKeyPad()
-                else
-                    hideKeyPad()
-            }
+        vm.hideKeypad.observe(this, Observer {
+            hideKeyPad()
         })
-
     }
 
-    private class OnItemClickListenerImpl(private val adt: MovieAdapter) : AdapterView.OnItemClickListener {
+    private fun genMainViewModel(): MainViewModel {
+
+        val provider = ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(applicationContext.resources) as T
+            }
+        })
+
+        var vm: MainViewModel = provider.get(MainViewModel::class.java)
+        binding.vm = vm;
+        binding.lifecycleOwner = this
+        return vm
+    }
+
+    private class OnItemClickListenerImpl(private val adt: MovieAdapter) :
+        AdapterView.OnItemClickListener {
 
         override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 
