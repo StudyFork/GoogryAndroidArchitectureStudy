@@ -82,8 +82,8 @@ class SearchViewModel(private val repository: NaverMovieRepository, private val 
         for (item in data.items) {
             val movieLocalItem = translatingToInsert(item)
             repository.saveMovieList(movieLocalItem)
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe({
                     Log.d(customTAG, "RoomDatabase Save Data Success")
                 }, {
