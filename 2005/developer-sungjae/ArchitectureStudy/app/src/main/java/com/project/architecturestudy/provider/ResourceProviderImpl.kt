@@ -1,4 +1,4 @@
-package com.project.architecturestudy.Provider
+package com.project.architecturestudy.provider
 
 import android.content.Context
 

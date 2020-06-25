@@ -1,7 +1,7 @@
 package com.project.architecturestudy.di.modules
 
-import com.project.architecturestudy.Provider.ResourceProvider
-import com.project.architecturestudy.Provider.ResourceProviderImpl
+import com.project.architecturestudy.provider.ResourceProvider
+import com.project.architecturestudy.provider.ResourceProviderImpl
 import com.project.architecturestudy.data.repository.NaverMovieRepository
 import com.project.architecturestudy.data.repository.NaverMovieRepositoryImpl
 import com.project.architecturestudy.ui.search.SearchViewModel

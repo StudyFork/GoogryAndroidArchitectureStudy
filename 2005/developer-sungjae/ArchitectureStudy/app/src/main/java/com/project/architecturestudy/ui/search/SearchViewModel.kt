@@ -4,7 +4,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.project.architecturestudy.Provider.ResourceProvider
+import com.project.architecturestudy.provider.ResourceProvider
 import com.project.architecturestudy.R
 import com.project.architecturestudy.base.BaseViewModel
 import com.project.architecturestudy.components.Constants.customTAG
