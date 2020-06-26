@@ -4,8 +4,8 @@ import r.test.rapp.data.model.MovieVo
 import r.test.rapp.data.source.remote.NaverRemoteDataSource
 import r.test.rapp.data.source.remote.NaverRemoteDataSourceImpl
 
-class MovieRepositoryImpl : MovieRepository {
-    val naverSource: NaverRemoteDataSource = NaverRemoteDataSourceImpl()
+class MovieRepositoryImpl(private val naverSource: NaverRemoteDataSource) : MovieRepository {
+//    val naverSource: NaverRemoteDataSource = NaverRemoteDataSourceImpl()
 
     override fun getMovieList(
         keyword: String,
