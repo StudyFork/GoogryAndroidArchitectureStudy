@@ -10,15 +10,15 @@ import retrofit2.Callback
 import retrofit2.Converter
 import retrofit2.Response
 
-class NaverRemoteDataSourceImpl :
+class NaverRemoteDataSourceImpl(private val api: NaverApi) :
     NaverRemoteDataSource {
     override fun getData(
         keyword: String,
         onSuccess: (movies: MovieVo) -> Unit,
         onFail: (t: Throwable) -> Unit
     ) {
-        val api: NaverApi =
-            RetrofitClient.getClient(BuildConfig.NAVER_API_URL).create(NaverApi::class.java)
+//        val api: NaverApi =
+//            RetrofitClient.getClient(BuildConfig.NAVER_API_URL).create(NaverApi::class.java)
 
         api.searchMovie(keyword).enqueue(object : Callback<MovieVo> {
             override fun onFailure(call: Call<MovieVo>, t: Throwable) {
