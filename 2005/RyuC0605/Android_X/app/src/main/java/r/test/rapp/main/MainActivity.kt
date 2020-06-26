@@ -70,10 +70,7 @@ class MainActivity : AppCompatActivity() {
             val inputList = vm.movies.value ?: return@Observer
 
             val adt = lv_contents.adapter as MovieAdapter
-            val movieList = adt.getMovieList()
-            movieList.clear()
-            movieList.addAll(inputList)
-            adt.notifyDataSetChanged()
+            adt.refreshData(inputList)
         })
 
         vm.toastMsg.observe(this, Observer {
