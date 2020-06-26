@@ -5,5 +5,5 @@ import androidx.databinding.BindingAdapter
 
 @BindingAdapter("parseHtml")
 fun TextView.parseHtml(text: String?) {
-    this.text = text?.parseHTMLTag()
+    this.text = text?.parseHtmlTag()
 }

@@ -11,10 +11,7 @@ fun View.onClick(url: String) {
     setOnClickListener {
         url.let { url ->
             ContextCompat.startActivity(
-                context,
-                Intent(
-                    Intent.ACTION_VIEW, Uri.parse(url)
-                ),
+                context, Intent(Intent.ACTION_VIEW, Uri.parse(url)),
                 null
             )
         }
