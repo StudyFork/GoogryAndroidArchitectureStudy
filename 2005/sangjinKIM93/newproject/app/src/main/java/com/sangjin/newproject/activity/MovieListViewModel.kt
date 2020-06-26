@@ -1,5 +1,6 @@
 package com.sangjin.newproject.activity
 
+import android.content.Context
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,14 +8,13 @@ import androidx.lifecycle.ViewModel
 import com.sangjin.newproject.R
 import com.sangjin.newproject.data.model.Movie
 import com.sangjin.newproject.data.repository.NaverMoviesRepository
-import com.sangjin.newproject.utils.ResourceProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
-class MovieListViewModel(private val repository: NaverMoviesRepository, private val resourceProvider: ResourceProvider) : ViewModel() {
+class MovieListViewModel(private val repository: NaverMoviesRepository, private val applicationContext: Context) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -66,7 +66,7 @@ class MovieListViewModel(private val repository: NaverMoviesRepository, private 
         val keyword = keyword.value ?: return
 
         if (TextUtils.isEmpty(keyword)) {
-            _toastMsg.value = resourceProvider.getString(R.string.no_keyword)
+            _toastMsg.value = applicationContext.getString(R.string.no_keyword)
         } else {
             refreshMovieSubject.onNext(keyword)
         }
@@ -101,7 +101,7 @@ class MovieListViewModel(private val repository: NaverMoviesRepository, private 
         _hideKeypad.value = Unit
 
         if (movies.isNullOrEmpty()) {
-            _toastMsg.value = resourceProvider.getString(R.string.no_movie_list)
+            _toastMsg.value = applicationContext.getString(R.string.no_movie_list)
         }
 
     }
