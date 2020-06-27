@@ -6,12 +6,9 @@ import io.reactivex.Observable
 
 interface NaverMovieLocalDataSource {
 
-    fun getMovieList(
-        onSuccess: (Observable<List<MovieLocalItem>>) -> Unit,
-        onFailure: (t: Throwable) -> Unit
-    )
+    fun getMovieList(): Observable<List<MovieLocalItem>>
 
+    fun deleteMovieList(): MovieItemDao
 
-    fun deleteMovieList(onGetDao : (MovieItemDao) -> Unit)
-    fun saveMovieList(data: MovieLocalItem, onInsert: (Observable<Unit>) -> Unit)
+    fun saveMovieList(data: MovieLocalItem): Observable<Unit>
 }
