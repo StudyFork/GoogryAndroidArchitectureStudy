@@ -1,13 +1,13 @@
 package com.lllccww.studyforkproject.data.source.remote
 
-import com.lllccww.studyforkproject.SearchRetrofit
+import com.lllccww.studyforkproject.ApiService
 import com.lllccww.studyforkproject.data.model.Movie
 import com.lllccww.studyforkproject.data.model.MovieItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
+class MovieRemoteDataSourceImpl(private val api: ApiService) : MovieRemoteDataSource {
 
     override fun getMovieList(
         query: String,
@@ -16,11 +16,11 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
     ) {
 
         //영화정보 요청
-        SearchRetrofit.getService().listMovie(keyword = query)
+        api.listMovie(keyword = query)
             .enqueue(object : Callback<Movie> {
                 override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                    if(response.isSuccessful){
-                        val movieItems = response.body()?.items?:return
+                    if (response.isSuccessful) {
+                        val movieItems = response.body()?.items ?: return
                         onSuccess(movieItems!!)
                     }
 
