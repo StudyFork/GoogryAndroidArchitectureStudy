@@ -3,21 +3,11 @@ package com.example.architecture.data.source.remote
 import com.example.architecture.data.model.MovieModel
 import com.example.architecture.data.model.MovieResponseModel
 import com.example.architecture.retrofit.MovieSearchService
-import com.example.architecture.util.ConstValue
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-object NaverRemoteDataSourceImpl : NaverRemoteDataSource {
-
-    override val retrofit: Retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl(ConstValue.MOVIE_SEARCH_API_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+class NaverRemoteDataSourceImpl(private val movieSearchService: MovieSearchService) : NaverRemoteDataSource {
 
     override fun getMovieList(
         keyWord: String,
@@ -25,8 +15,7 @@ object NaverRemoteDataSourceImpl : NaverRemoteDataSource {
         onFailure: (t: Throwable) -> Unit
     ) {
 
-        val service = retrofit.create(MovieSearchService::class.java)
-        val call = service.requestSearchMovie(keyWord)
+        val call = movieSearchService.requestSearchMovie(keyWord)
         call.enqueue(object : Callback<MovieResponseModel> {
 
             override fun onResponse(
