@@ -12,9 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import r.test.rapp.R
 import r.test.rapp.databinding.ActivityMainBinding
 
@@ -24,12 +23,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var progress: ProgressDialog
     private lateinit var binding: ActivityMainBinding
 
+    private val vm: MainViewModel by viewModel()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.vm = vm;
+        binding.lifecycleOwner = this
 
         initView()
-        bindViewModel(genMainViewModel())
+        bindViewModel(vm)
+//        bindViewModel(genMainViewModel())
         showKeyPad()
     }
 
@@ -65,10 +70,7 @@ class MainActivity : AppCompatActivity() {
             val inputList = vm.movies.value ?: return@Observer
 
             val adt = lv_contents.adapter as MovieAdapter
-            val movieList = adt.getMovieList()
-            movieList.clear()
-            movieList.addAll(inputList)
-            adt.notifyDataSetChanged()
+            adt.refreshData(inputList)
         })
 
         vm.toastMsg.observe(this, Observer {
@@ -89,19 +91,20 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun genMainViewModel(): MainViewModel {
-
-        val provider = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(applicationContext.resources) as T
-            }
-        })
-
-        var vm: MainViewModel = provider.get(MainViewModel::class.java)
-        binding.vm = vm;
-        binding.lifecycleOwner = this
-        return vm
-    }
+//    private fun genMainViewModel(): MainViewModel {
+//
+//        val provider = ViewModelProvider(this, object : ViewModelProvider.Factory {
+//            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//                return MainViewModel(applicationContext.resources) as T
+//            }
+//        })
+//
+//        var vm: MainViewModel = provider.get(MainViewModel::class.java)
+//        binding.vm = vm;
+//
+//        binding.lifecycleOwner = this
+//        return vm
+//    }
 
     private class OnItemClickListenerImpl(private val adt: MovieAdapter) :
         AdapterView.OnItemClickListener {

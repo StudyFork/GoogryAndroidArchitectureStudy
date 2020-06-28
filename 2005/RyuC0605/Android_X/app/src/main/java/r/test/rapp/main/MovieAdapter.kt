@@ -50,4 +50,10 @@ class MovieAdapter() : BaseAdapter() {
     override fun getCount(): Int {
         return movieList.size
     }
+
+    fun refreshData(inputList : List<Item>) {
+        movieList.clear()
+        movieList.addAll(inputList)
+        notifyDataSetChanged()
+    }
 }
