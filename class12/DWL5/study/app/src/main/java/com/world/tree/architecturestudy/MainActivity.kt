@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         btnSearch.setOnClickListener {
-            SearchRetrofit.getService().requestSearchMovie(etUrl.text.toString())
+            SearchRetrofit.getService().requestSearchMovie(query = etUrl.text.toString())
                 .enqueue(object : Callback<Movie> {
                     override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                         response.body()?.let {
