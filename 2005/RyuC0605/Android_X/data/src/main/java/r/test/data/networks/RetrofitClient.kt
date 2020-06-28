@@ -1,13 +1,13 @@
-package r.test.rapp.networks
+package r.test.data.networks
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import r.test.rapp.BuildConfig
+import r.test.data.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object RetrofitClient {
+internal object RetrofitClient {
     private const val TIME_OUT_SEC = 10
 
     fun getClient(baseUrl: String?): Retrofit {

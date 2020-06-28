@@ -1,4 +1,4 @@
-package r.test.rapp.data.model
+package r.test.data.model
 
 import android.os.Build
 import android.text.Html

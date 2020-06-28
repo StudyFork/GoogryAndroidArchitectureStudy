@@ -1,13 +1,13 @@
-package r.test.rapp.main
+package r.test.data
 
 import android.app.Application
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import r.test.rapp.R
-import r.test.rapp.data.model.Item
-import r.test.rapp.data.repository.MovieRepository
+import r.test.data.R
+import r.test.data.model.Item
+import r.test.data.repository.MovieRepository
 
 class MainViewModel(private val res: Application, private val repository: MovieRepository) : ViewModel() {
 //    private val repository: MovieRepository = MovieRepositoryImpl(NaverRemoteDataSourceImpl())

@@ -1,8 +1,8 @@
-package r.test.rapp.data.source.remote
+package r.test.data.remote
 
-import r.test.rapp.data.model.MovieVo
+import r.test.data.model.MovieVo
 
-interface NaverRemoteDataSource {
+internal interface NaverRemoteDataSource {
 
     fun getData(
         keyword: String,
