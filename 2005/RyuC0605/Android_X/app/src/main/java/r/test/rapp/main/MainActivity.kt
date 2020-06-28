@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import r.test.data.MainViewModel
 import r.test.rapp.R
 import r.test.rapp.databinding.ActivityMainBinding
 

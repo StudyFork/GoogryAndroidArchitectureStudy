@@ -1,4 +1,4 @@
-package r.test.rapp.networks
+package r.test.rapp.ui.extend
 
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
