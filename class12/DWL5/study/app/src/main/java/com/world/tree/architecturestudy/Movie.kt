@@ -5,9 +5,9 @@ class Movie (
     var total : Int,
     var start : Int,
     var display : Int,
-    var items : List<Items>
+    var items : List<Item>
 ) {
-    data class Items(
+    data class Item(
         val title:String,
         val link : String,
         val image : String,
