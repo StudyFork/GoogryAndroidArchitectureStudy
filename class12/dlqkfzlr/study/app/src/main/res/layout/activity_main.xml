@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <LinearLayout
         android:id="@+id/movie_search_bar"
@@ -18,13 +18,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:layout_width="300dp"
+            android:id="@+id/movie_search_et"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_weight="1"
             android:hint="영화 키워드를 입력해주세요." />
 
         <Button
-            android:layout_width="100dp"
+            android:id="@+id/movie_search_btn"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_weight="1.8"
             android:text="검색" />
 
     </LinearLayout>
