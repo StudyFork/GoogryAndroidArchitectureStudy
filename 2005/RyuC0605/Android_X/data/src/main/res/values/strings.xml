@@ -1,0 +1,4 @@
+<resources>
+    <string name="empty_result">not found for search result.</string>
+    <string name="enter_keyword">enter the keyword</string>
+</resources>
