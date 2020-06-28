@@ -1,13 +1,17 @@
 package com.world.tree.architecturestudy
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter(data : List<Movie.Item>) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private var movies : List<Movie.Item> = data
+class MovieAdapter(context: Context) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+    private lateinit var movies : List<Movie.Item>
+    private val context = context
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
@@ -18,13 +22,17 @@ class MovieAdapter(data : List<Movie.Item>) : RecyclerView.Adapter<MovieAdapter.
     }
 
     override fun getItemCount(): Int {
+        if (!::movies.isInitialized)  return 0
         return movies.size
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.itemView.findViewById<TextView>(R.id.txtTitle).text = movies[position].title
-        holder.itemView.findViewById<TextView>(R.id.txtDirector).text = movies[position].director
-        holder.itemView.findViewById<TextView>(R.id.txtActor).text = movies[position].actor
+        Glide.with(context).load(movies[position].image)
+            .centerCrop()
+            .into(holder.itemView.imgPoster)
+        holder.itemView.txtTitle.text = movies[position].title
+        holder.itemView.txtDirector.text = movies[position].director
+        holder.itemView.txtActor.text = movies[position].actor
     }
 
     fun setDataList(data: List<Movie.Item>) {
