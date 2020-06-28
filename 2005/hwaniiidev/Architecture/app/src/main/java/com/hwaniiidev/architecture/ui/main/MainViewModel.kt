@@ -4,17 +4,20 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
+import com.hwaniiidev.architecture.data.repository.NaverMovieRepository
 import com.hwaniiidev.architecture.model.Item
 
 class MainViewModel(
-    val naverMovieRepositoryImpl: NaverMovieRepositoryImpl
+    val naverMovieRepositoryImpl: NaverMovieRepository
 ) : ViewModel() {
     val searchQuery = MutableLiveData<String>()
+
     private val _movies = MutableLiveData<List<Item>>()
     val movies: LiveData<List<Item>> = _movies
+
     private val _error = MutableLiveData<SearchError>()
     val error: LiveData<SearchError> = _error
+
     private val _hideKeyboard = MutableLiveData<Unit>()
     val hideKeyboard: LiveData<Unit> = _hideKeyboard
 

@@ -6,39 +6,30 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.hwaniiidev.architecture.R
-import com.hwaniiidev.architecture.data.repository.NaverMovieRepositoryImpl
 import com.hwaniiidev.architecture.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
 
-    private val naverMovieRepositoryImpl = NaverMovieRepositoryImpl(this)
+    val mainViewModel: MainViewModel by inject()
 
     lateinit private var imm: InputMethodManager
-    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(naverMovieRepositoryImpl) as T
-            }
-        })
-        val viewModel = viewModelProvider[MainViewModel::class.java]
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        var binding: ActivityMainBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.apply {
-            this.viewModel = viewModel
+            this.viewModel = mainViewModel
             lifecycleOwner = this@MainActivity
         }
 
-        viewModel.error.observe(this, Observer {
+        mainViewModel.error.observe(this, Observer {
             when (it) {
                 SearchError.QUERY_IS_NONE,
                 SearchError.RESPONSE_ERROR,
@@ -48,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.hideKeyboard.observe(this, Observer {
+        mainViewModel.hideKeyboard.observe(this, Observer {
             hideKeyBoard()
         })
 

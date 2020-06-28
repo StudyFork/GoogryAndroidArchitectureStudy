@@ -1,13 +1,14 @@
 package com.hwaniiidev.architecture.data.source.remote
 
-import com.hwaniiidev.architecture.ApiCall
+import com.hwaniiidev.architecture.RetrofitService
 import com.hwaniiidev.architecture.model.ResponseMovieSearchData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
-    private val api = ApiCall.api
+class NaverMovieRemoteDataSourceImpl(
+    private val api: RetrofitService
+) : NaverMovieRemoteDataSource {
 
     override fun getRemoteMovies(
         query: String,
