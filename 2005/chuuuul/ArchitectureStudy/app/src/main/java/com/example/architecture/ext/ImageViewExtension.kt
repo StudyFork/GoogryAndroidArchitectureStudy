@@ -4,7 +4,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.example.architecture.R
-import com.example.architecture.util.ConstValue.Companion.NO_IMAGE_URL
+import com.example.architecture.util.ConstValue.NO_IMAGE_URL
 
 @BindingAdapter("android:imageSrc")
 fun ImageView.loadImage(url: String?) {

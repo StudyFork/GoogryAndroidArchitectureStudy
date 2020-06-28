@@ -9,7 +9,7 @@ import com.example.architecture.R
 import com.example.architecture.activity.search.adapter.MovieAdapter
 import com.example.architecture.databinding.ActivitySearchBinding
 import com.example.architecture.ext.debounce
-import com.example.architecture.util.ConstValue.Companion.AUTO_SEARCH_TIME
+import com.example.architecture.util.ConstValue.AUTO_SEARCH_TIME
 import kotlinx.android.synthetic.main.activity_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 

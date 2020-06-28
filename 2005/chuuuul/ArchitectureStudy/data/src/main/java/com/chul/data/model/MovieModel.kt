@@ -1,4 +1,4 @@
-package com.example.architecture.data.model
+package com.chul.data.model
 
 data class MovieModel(
     val image: String,

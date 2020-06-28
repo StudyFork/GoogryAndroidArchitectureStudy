@@ -2,8 +2,8 @@ package com.example.architecture.ext
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.chul.data.model.MovieModel
 import com.example.architecture.activity.search.adapter.MovieAdapter
-import com.example.architecture.data.model.MovieModel
 
 
 @BindingAdapter("android:items")

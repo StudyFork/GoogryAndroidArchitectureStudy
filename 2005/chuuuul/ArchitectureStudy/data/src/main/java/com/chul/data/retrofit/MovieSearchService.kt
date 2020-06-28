@@ -1,7 +1,8 @@
-package com.example.architecture.retrofit
+package com.chul.data.retrofit
 
-import com.example.architecture.BuildConfig
-import com.example.architecture.data.model.MovieResponseModel
+
+import com.chul.data.BuildConfig
+import com.chul.data.model.MovieResponseModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers

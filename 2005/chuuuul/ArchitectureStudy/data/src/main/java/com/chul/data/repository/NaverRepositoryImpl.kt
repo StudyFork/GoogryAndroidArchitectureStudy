@@ -1,8 +1,8 @@
-package com.example.architecture.data.repository
+package com.chul.data.repository
 
-import com.example.architecture.data.model.MovieModel
-import com.example.architecture.data.source.local.NaverLocalDataSource
-import com.example.architecture.data.source.remote.NaverRemoteDataSource
+import com.chul.data.model.MovieModel
+import com.chul.data.source.local.NaverLocalDataSource
+import com.chul.data.source.remote.NaverRemoteDataSource
 
 
 class NaverRepositoryImpl(

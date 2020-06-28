@@ -16,8 +16,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "Naver_Client_Id", Naver_Client_Id)
-        buildConfigField("String", "Naver_Client_Secret", Naver_Client_Secret)
     }
 
     buildTypes {
@@ -85,5 +83,8 @@ dependencies {
     // Koin
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
+
+    // Multi Module
+    implementation project(":data")
 
 }

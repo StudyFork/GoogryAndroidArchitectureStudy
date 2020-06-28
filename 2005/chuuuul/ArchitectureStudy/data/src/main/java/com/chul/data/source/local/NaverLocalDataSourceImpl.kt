@@ -1,11 +1,11 @@
-package com.example.architecture.data.source.local
+package com.chul.data.source.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.architecture.data.model.MovieModel
-import com.example.architecture.util.AppUtil.convertGsonToJson
-import com.example.architecture.util.AppUtil.convertJsonToGson
-import com.example.architecture.util.ConstValue.Companion.MOVIE_SHARED_PREFERENCE_NAME
+import com.chul.data.model.MovieModel
+import com.chul.data.util.AppUtil.convertGsonToJson
+import com.chul.data.util.AppUtil.convertJsonToGson
+import com.chul.data.util.ConstValue.MOVIE_SHARED_PREFERENCE_NAME
 
 class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSource {
 

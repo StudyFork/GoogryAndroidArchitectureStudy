@@ -1,12 +1,12 @@
 package com.example.architecture.di
 
+import com.chul.data.repository.NaverRepository
+import com.chul.data.repository.NaverRepositoryImpl
+import com.chul.data.source.local.NaverLocalDataSource
+import com.chul.data.source.local.NaverLocalDataSourceImpl
+import com.chul.data.source.remote.NaverRemoteDataSource
+import com.chul.data.source.remote.NaverRemoteDataSourceImpl
 import com.example.architecture.activity.search.SearchViewModel
-import com.example.architecture.data.repository.NaverRepository
-import com.example.architecture.data.repository.NaverRepositoryImpl
-import com.example.architecture.data.source.local.NaverLocalDataSource
-import com.example.architecture.data.source.local.NaverLocalDataSourceImpl
-import com.example.architecture.data.source.remote.NaverRemoteDataSource
-import com.example.architecture.data.source.remote.NaverRemoteDataSourceImpl
 import com.example.architecture.provider.ResourceProvider
 import com.example.architecture.provider.ResourceProviderImpl
 import org.koin.android.ext.koin.androidContext
