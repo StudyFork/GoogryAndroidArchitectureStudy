@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MovieAdapter(data : ArrayList<Movie.Item>) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    var movies : ArrayList<Movie.Item> = data
+class MovieAdapter(data : List<Movie.Item>) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+    private var movies : List<Movie.Item> = data
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
@@ -27,7 +27,7 @@ class MovieAdapter(data : ArrayList<Movie.Item>) : RecyclerView.Adapter<MovieAda
         holder.itemView.findViewById<TextView>(R.id.txtActor).text = movies[position].actor
     }
 
-    fun setDataList(data: ArrayList<Movie.Item>) {
+    fun setDataList(data: List<Movie.Item>) {
         this.movies = data
         notifyDataSetChanged()
     }
