@@ -1,7 +1,8 @@
 package com.example.architecture
 
 import android.app.Application
-import com.example.architecture.di.apiModule
+import com.chul.data.di.apiModule
+import com.chul.data.di.dataModule
 import com.example.architecture.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -17,7 +18,7 @@ class ArchitectureApplication : Application() {
                 androidLogger()
             }
             androidContext(this@ArchitectureApplication)
-            modules(appModule, apiModule)
+            modules(appModule, apiModule, dataModule)
         }
     }
 }

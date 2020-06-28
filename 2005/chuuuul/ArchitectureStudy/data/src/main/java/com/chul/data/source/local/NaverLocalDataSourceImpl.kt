@@ -7,7 +7,7 @@ import com.chul.data.util.AppUtil.convertGsonToJson
 import com.chul.data.util.AppUtil.convertJsonToGson
 import com.chul.data.util.ConstValue.MOVIE_SHARED_PREFERENCE_NAME
 
-class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSource {
+internal class NaverLocalDataSourceImpl(private val context: Context) : NaverLocalDataSource {
 
     private val sharedPref: SharedPreferences by lazy {
         context.getSharedPreferences(

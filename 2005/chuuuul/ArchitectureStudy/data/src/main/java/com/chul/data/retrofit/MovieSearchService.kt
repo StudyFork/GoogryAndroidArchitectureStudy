@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
-interface MovieSearchService {
+internal interface MovieSearchService {
 
     @Headers(
         "X-Naver-Client-Id: ${BuildConfig.Naver_Client_Id}"

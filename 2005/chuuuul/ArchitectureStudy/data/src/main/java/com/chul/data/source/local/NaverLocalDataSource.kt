@@ -2,7 +2,7 @@ package com.chul.data.source.local
 
 import com.chul.data.model.MovieModel
 
-interface NaverLocalDataSource {
+internal interface NaverLocalDataSource {
     fun getMovieList(
         keyword: String,
         onSuccess: (movieList: List<MovieModel>) -> Unit

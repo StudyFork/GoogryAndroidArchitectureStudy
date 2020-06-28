@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverRemoteDataSourceImpl(private val movieSearchService: MovieSearchService) : NaverRemoteDataSource {
+internal class NaverRemoteDataSourceImpl(private val movieSearchService: MovieSearchService) : NaverRemoteDataSource {
 
     override fun getMovieList(
         keyWord: String,
