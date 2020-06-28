@@ -2,7 +2,7 @@ package r.test.data.remote
 
 import r.test.data.model.MovieVo
 
-internal interface NaverRemoteDataSource {
+interface NaverRemoteDataSource {
 
     fun getData(
         keyword: String,
