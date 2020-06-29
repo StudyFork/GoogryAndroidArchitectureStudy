@@ -1,4 +1,4 @@
-package com.example.architecturestudy.Data
+package com.example.architecturestudy.data
 
 data class MovieData(
     val actor: String,

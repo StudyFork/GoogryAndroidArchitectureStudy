@@ -1,6 +1,4 @@
-package com.example.architecturestudy.Data
-
-import com.example.architecturestudy.Data.MovieData
+package com.example.architecturestudy.data
 
 data class MovieMeta(
     val display: Int,
