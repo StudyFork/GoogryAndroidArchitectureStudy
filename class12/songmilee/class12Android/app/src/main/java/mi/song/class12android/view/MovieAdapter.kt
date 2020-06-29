@@ -38,9 +38,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVH>() {
 
     inner class MovieVH(itemView:View) : RecyclerView.ViewHolder(itemView){
         private val imgThumbnail:ImageView = itemView.findViewById(R.id.iv_thumbnail)
-        private val  tvTitle:TextView = itemView.findViewById(R.id.tv_title)
-        private val  tvDirector:TextView = itemView.findViewById(R.id.tv_director)
-        private val  tvActor:TextView = itemView.findViewById(R.id.tv_actor)
+        private val tvTitle:TextView = itemView.findViewById(R.id.tv_title)
+        private val tvDirector:TextView = itemView.findViewById(R.id.tv_director)
+        private val tvActor:TextView = itemView.findViewById(R.id.tv_actor)
 
         fun bind(movieInfo: MovieInfo){
             tvTitle.text = movieInfo.title
