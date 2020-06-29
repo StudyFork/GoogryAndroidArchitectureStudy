@@ -5,9 +5,9 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import com.project.architecturestudy.R
 import com.project.architecturestudy.base.BaseActivity
-import com.project.architecturestudy.data.model.MovieItem
 import com.project.architecturestudy.databinding.ActivitySearchBinding
 import com.project.architecturestudy.databinding.MovieItemBinding
+import com.project.data.model.MovieItem
 import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
