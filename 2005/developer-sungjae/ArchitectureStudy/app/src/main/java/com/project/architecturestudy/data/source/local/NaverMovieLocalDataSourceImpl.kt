@@ -4,7 +4,6 @@ import com.project.architecturestudy.data.source.local.room.MovieItemDao
 import com.project.architecturestudy.data.source.local.room.MovieLocalItem
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import org.koin.java.KoinJavaComponent.inject
 
 
 class NaverMovieLocalDataSourceImpl(private val movieItemDao: MovieItemDao) : NaverMovieLocalDataSource {
