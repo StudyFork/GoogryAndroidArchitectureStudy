@@ -11,7 +11,6 @@ import m.woong.architecturestudy.network.MovieApi
 import m.woong.architecturestudy.network.NetworkConnectionInterceptor
 import m.woong.architecturestudy.network.response.MovieResponse
 import m.woong.architecturestudy.ui.adapter.MovieAdapter
-import m.woong.architecturestudy.ui.item.MovieItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private val movieList = ArrayList<MovieItem>()
+    private val movieList = ArrayList<MovieResponse.Item>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,18 +46,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     /*
      * Operation: Request Movie List
      */
@@ -72,14 +59,14 @@ class MainActivity : AppCompatActivity() {
                     movieList.clear()
                     for (item in body!!.items) {
                         movieList.add(
-                            MovieItem(
-                                item.title,
-                                item.link,
-                                item.image,
-                                item.subtitle,
-                                item.pubDate,
-                                item.director,
+                            MovieResponse.Item(
                                 item.actor,
+                                item.director,
+                                item.image,
+                                item.link,
+                                item.pubDate,
+                                item.subtitle,
+                                item.title,
                                 item.userRating
                             )
                         )

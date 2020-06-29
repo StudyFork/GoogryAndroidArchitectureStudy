@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import m.woong.architecturestudy.R
-import m.woong.architecturestudy.ui.item.MovieItem
+import m.woong.architecturestudy.network.response.MovieResponse
 
-class MovieAdapter(private val movieList: ArrayList<MovieItem>) :
+class MovieAdapter(private val movieList: ArrayList<MovieResponse.Item>) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(v: View) : RecyclerView.ViewHolder(v) {
