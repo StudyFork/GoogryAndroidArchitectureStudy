@@ -19,6 +19,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
+    private val clientId = "hDyUQTbovi0BszAf5h87"
+    private val clientSecret = "3FsmSYBKbJ"
+    private val baseUrl = "https://openapi.naver.com"
+    var searchTitle = ""
+    var item = listOf<NaverApiData.Item>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,7 +37,10 @@ class MainActivity : AppCompatActivity() {
             adapter = viewAdapter
         }
 
-
+        val retrofit = Retrofit.Builder().baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val service: NaverApiInterface = retrofit.create(NaverApiInterface::class.java)
 
         etv_search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -52,7 +61,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun doSearch(service: NaverApiInterface) {
+        service.getSearch(
+            clientId = clientId,
+            clientPw = clientSecret,
+            query = searchTitle
+        ).enqueue(object : Callback<NaverApiData> {
+            override fun onFailure(call: Call<NaverApiData>, t: Throwable) {
+            }
 
+            override fun onResponse(call: Call<NaverApiData>, response: Response<NaverApiData>) {
+                item = response.body()!!.items
+                recyclerView.adapter = RecyclerAdapter(item)
+                recyclerView.adapter?.notifyDataSetChanged()
+            }
+        })
+    }
 }
 
 
