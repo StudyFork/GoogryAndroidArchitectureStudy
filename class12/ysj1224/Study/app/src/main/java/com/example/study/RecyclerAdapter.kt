@@ -1,5 +1,6 @@
 package com.example.study
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,7 @@ class RecyclerAdapter(apiItem: List<NaverApiData.Item>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.title.text = item[position].title
+        holder.title.text = Html.fromHtml(item[position].title).toString()
         holder.subtitle.text = item[position].subtitle
         Glide.with(holder.image.context)
             .load(item[position].image)
