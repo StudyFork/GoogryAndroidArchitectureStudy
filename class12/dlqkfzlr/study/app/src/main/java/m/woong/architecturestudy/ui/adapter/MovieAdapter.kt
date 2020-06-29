@@ -15,17 +15,10 @@ class MovieAdapter(private val movieList: ArrayList<MovieItem>) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val imageImageView: ImageView
-        val titleTextView: TextView
-        val pubDateTextView: TextView
-        val directorTextView: TextView
-
-        init {
-            imageImageView = v.findViewById(R.id.movie_image)
-            titleTextView = v.findViewById(R.id.movie_title)
-            pubDateTextView = v.findViewById(R.id.movie_pubdate)
-            directorTextView = v.findViewById(R.id.movie_director)
-        }
+        val imageImageView: ImageView = v.findViewById(R.id.movie_image)
+        val titleTextView: TextView = v.findViewById(R.id.movie_title)
+        val pubDateTextView: TextView = v.findViewById(R.id.movie_pubdate)
+        val directorTextView: TextView = v.findViewById(R.id.movie_director)
     }
 
     // Create new views (invoked by the layout manager)
