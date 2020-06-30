@@ -38,7 +38,6 @@ android {
 }
 
 dependencies {
-    def room_version = "2.2.5"
     def koin_version = "2.1.6"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -50,19 +49,15 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
-    //roomDB
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    kaptTest "androidx.room:room-testing:$room_version"
-
     //Koin
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
+
+    //data module
+    implementation project(':data')
 }
