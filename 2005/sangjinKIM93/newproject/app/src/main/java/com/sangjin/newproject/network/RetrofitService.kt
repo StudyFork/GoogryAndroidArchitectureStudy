@@ -1,8 +1,8 @@
-package com.sangjin.newproject
+package com.sangjin.newproject.network
 
+import com.sangjin.newproject.BuildConfig
 import com.sangjin.newproject.data.model.NaverMovieResponse
 import io.reactivex.Single
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory

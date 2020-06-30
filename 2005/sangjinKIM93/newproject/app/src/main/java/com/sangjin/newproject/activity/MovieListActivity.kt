@@ -1,4 +1,4 @@
-package com.sangjin.newproject
+package com.sangjin.newproject.activity
 
 import android.content.Context
 import android.content.Intent
@@ -10,37 +10,30 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.sangjin.newproject.adapter.MovieListAdapter
-import com.sangjin.newproject.data.repository.NaverMoviesRepositoryImpl
-import com.sangjin.newproject.data.source.local.LocalDataSourceImpl
-import com.sangjin.newproject.data.source.local.RoomDb
-import com.sangjin.newproject.data.source.remote.RemoteDataSourceImpl
+import com.sangjin.newproject.R
+import com.sangjin.newproject.activity.adapter.MovieListAdapter
 import com.sangjin.newproject.databinding.ActivityMovieListBinding
 import kotlinx.android.synthetic.main.activity_movie_list.*
+import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class MovieListActivity : AppCompatActivity() {
 
     private lateinit var movieListAdapter: MovieListAdapter
 
-    private val viewModel by lazy {
-        ViewModelProviders.of(this).get(MovieListViewModel::class.java)
-    }
-
+    private val viewModel: MovieListViewModel by viewModel()
 
     private lateinit var binding: ActivityMovieListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_list)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_movie_list
+        )
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
