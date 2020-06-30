@@ -8,12 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hwaniiidev.architecture.R
 import com.hwaniiidev.architecture.databinding.ItemMovieListBinding
-import com.hwaniiidev.architecture.model.Item
+import com.hwaniiidev.architecture.model.ItemApp
 
 
 class AdapterMovieList :
     RecyclerView.Adapter<AdapterMovieList.MovieHolder>() {
-    val movieList: ArrayList<Item> = ArrayList()
+    val movieList: ArrayList<ItemApp> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -45,7 +45,7 @@ class AdapterMovieList :
         holder.binding.executePendingBindings()
     }
 
-    fun addItem(items: List<Item>) {
+    fun addItem(items: List<ItemApp>) {
         movieList.clear()
         movieList.addAll(items)
         notifyDataSetChanged()

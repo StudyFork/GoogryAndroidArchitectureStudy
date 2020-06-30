@@ -8,7 +8,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hwaniiidev.architecture.R
-import com.hwaniiidev.architecture.model.Item
+import com.hwaniiidev.architecture.model.ItemApp
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String) {
@@ -28,7 +28,7 @@ fun loadHtml(view: TextView, title: String) {
 }
 
 @BindingAdapter("setMovies")
-fun setMovies(view: RecyclerView, movies: List<Item>?) {
+fun setMovies(view: RecyclerView, movies: List<ItemApp>?) {
     val adapter =
         view.adapter as? AdapterMovieList ?: AdapterMovieList().apply { view.adapter = this }
     if (!movies.isNullOrEmpty()) {

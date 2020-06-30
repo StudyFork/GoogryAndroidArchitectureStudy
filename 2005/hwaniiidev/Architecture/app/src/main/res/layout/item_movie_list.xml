@@ -5,7 +5,7 @@
 
         <variable
             name="movieItem"
-            type="com.hwaniiidev.architecture.model.Item" />
+            type="com.hwaniiidev.architecture.model.ItemApp" />
     </data>
 
     <LinearLayout

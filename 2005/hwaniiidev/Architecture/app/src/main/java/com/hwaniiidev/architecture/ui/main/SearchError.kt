@@ -1,7 +1,5 @@
 package com.hwaniiidev.architecture.ui.main
 
-import com.hwaniiidev.architecture.R
-
 enum class SearchError(val errorMessage:String){
     INIT("원하는 검색어를 입력해주세요."),
     NONE_ERROR(""),
