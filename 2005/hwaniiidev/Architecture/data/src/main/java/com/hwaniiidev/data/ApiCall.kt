@@ -1,4 +1,4 @@
-package com.hwaniiidev.architecture
+package com.hwaniiidev.data
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

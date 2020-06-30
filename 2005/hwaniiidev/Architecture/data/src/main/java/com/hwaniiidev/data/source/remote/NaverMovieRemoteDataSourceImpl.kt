@@ -1,7 +1,8 @@
-package com.hwaniiidev.architecture.data.source.remote
+package com.hwaniiidev.data.source.remote
 
-import com.hwaniiidev.architecture.RetrofitService
-import com.hwaniiidev.architecture.model.ResponseMovieSearchData
+import android.util.Log
+import com.hwaniiidev.data.RetrofitService
+import com.hwaniiidev.data.model.ResponseMovieSearchData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +25,10 @@ class NaverMovieRemoteDataSourceImpl(
                 ) {
                     if (response.isSuccessful) {
                         var result = response.body()
+                        result!!.items.forEach {
+                            Log.d("ttt","${it.title}")
+                            Log.d("ttt","${it.query}")
+                        }
                         if (result != null) {
                             result.query = query
                             onSuccess(result)
