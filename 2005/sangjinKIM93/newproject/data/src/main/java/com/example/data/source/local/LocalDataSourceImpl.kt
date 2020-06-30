@@ -1,15 +1,15 @@
-package com.sangjin.newproject.data.source.local
+package com.example.data.source.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
-import com.sangjin.newproject.data.model.Movie
-import com.sangjin.newproject.utils.ConstValue
+import com.example.data.ConstValue
+import com.example.data.model.Movie
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class LocalDataSourceImpl(private val context: Context) : LocalDataSource {
+class LocalDataSourceImpl(private val context: Context) :
+    LocalDataSource {
 
     private val sharedPref : SharedPreferences by lazy {
         context.getSharedPreferences(

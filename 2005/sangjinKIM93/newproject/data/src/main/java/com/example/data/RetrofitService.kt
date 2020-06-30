@@ -1,7 +1,6 @@
-package com.sangjin.newproject.network
+package com.example.data
 
-import com.sangjin.newproject.BuildConfig
-import com.sangjin.newproject.data.model.NaverMovieResponse
+import com.example.data.model.NaverMovieResponse
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

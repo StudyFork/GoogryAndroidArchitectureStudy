@@ -1,6 +1,6 @@
-package com.sangjin.newproject.data.source.remote
+package com.example.data.source.remote
 
-import com.sangjin.newproject.data.model.NaverMovieResponse
+import com.example.data.model.NaverMovieResponse
 import io.reactivex.Single
 
 interface RemoteDataSource {

@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sangjin.newproject.R
-import com.sangjin.newproject.data.model.Movie
-import com.sangjin.newproject.data.repository.NaverMoviesRepository
+import com.example.data.model.Movie
+import com.example.data.repository.NaverMoviesRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

@@ -1,11 +1,11 @@
-package com.sangjin.newproject.data.source.local
+package com.example.data.source.local
 
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sangjin.newproject.data.model.Movie
+import com.example.data.model.Movie
 import io.reactivex.Single
 
 @Dao

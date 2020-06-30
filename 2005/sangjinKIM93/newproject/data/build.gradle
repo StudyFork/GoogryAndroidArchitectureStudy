@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 
 android {
     compileSdkVersion 29
@@ -17,9 +19,20 @@ android {
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        buildTypes {
+            debug{
+                buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com/"')
+                buildConfigField("String", "X_Naver_Client_Id", '"Eoo188aalN5O119lfhGY"')
+                buildConfigField("String", "X_Naver_Client_Secret", '"siIgsqKRng"')
+            }
+            release {
+                buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com/"')
+                buildConfigField("String", "X_Naver_Client_Id", '"Eoo188aalN5O119lfhGY"')
+                buildConfigField("String", "X_Naver_Client_Secret", '"siIgsqKRng"')
+
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
         }
     }
 }
@@ -33,4 +46,24 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+
+    //retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+
+    // Room
+    implementation "androidx.room:room-runtime:2.0.0"
+    kapt "androidx.room:room-compiler:2.0.0"
+
+    //rxJava
+    implementation "io.reactivex.rxjava2:rxjava:2.1.1"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.8.1'
+    implementation "androidx.room:room-rxjava2:2.2.0-alpha02"
+
+    //koin
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
 }

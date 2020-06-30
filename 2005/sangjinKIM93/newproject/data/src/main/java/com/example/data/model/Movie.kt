@@ -1,10 +1,8 @@
-package com.sangjin.newproject.data.model
+package com.example.data.model
 
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
-import android.widget.TextView
-import androidx.databinding.BindingAdapter
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

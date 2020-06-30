@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sangjin.newproject.R
 import com.sangjin.newproject.activity.adapter.MovieListAdapter
-import com.sangjin.newproject.data.model.Movie
+import com.example.data.model.Movie
 
 
 @BindingAdapter("imageLoader")

@@ -1,7 +1,7 @@
-package com.sangjin.newproject.data.repository
+package com.example.data.repository
 
-import com.sangjin.newproject.data.model.Movie
-import com.sangjin.newproject.data.model.NaverMovieResponse
+import com.example.data.model.Movie
+import com.example.data.model.NaverMovieResponse
 import io.reactivex.Single
 
 interface NaverMoviesRepository {

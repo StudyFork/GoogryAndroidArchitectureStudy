@@ -1,6 +1,6 @@
-package com.sangjin.newproject.data.source.local
+package com.example.data.source.local
 
-import com.sangjin.newproject.data.model.Movie
+import com.example.data.model.Movie
 import io.reactivex.Single
 
 interface LocalDataSource {
