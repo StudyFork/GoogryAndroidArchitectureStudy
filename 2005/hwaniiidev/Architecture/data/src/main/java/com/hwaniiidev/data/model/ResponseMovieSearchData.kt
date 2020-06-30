@@ -1,4 +1,4 @@
-package com.hwaniiidev.architecture.model
+package com.hwaniiidev.data.model
 
 data class ResponseMovieSearchData(
     var query : String,
