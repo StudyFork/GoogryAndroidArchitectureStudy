@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: RecyclerAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     private val clientId = "hDyUQTbovi0BszAf5h87"
