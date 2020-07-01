@@ -1,4 +1,4 @@
-package com.example.studyforkandroid.data
+package com.example.data.model
 
 import com.google.gson.annotations.SerializedName
 

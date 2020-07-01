@@ -1,6 +1,6 @@
-package com.example.studyforkandroid.module
+package com.example.data.module
 
-import com.example.studyforkandroid.BuildConfig
+import com.example.data.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

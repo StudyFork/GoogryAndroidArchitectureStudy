@@ -1,6 +1,6 @@
-package com.example.studyforkandroid.data.source
+package com.example.data.source
 
-import com.example.studyforkandroid.data.Movie
+import com.example.data.model.Movie
 
 interface MovieRepository {
 

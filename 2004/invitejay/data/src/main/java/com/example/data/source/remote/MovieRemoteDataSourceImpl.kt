@@ -1,8 +1,8 @@
-package com.example.studyforkandroid.data.source.remote
+package com.example.data.source.remote
 
-import com.example.studyforkandroid.data.Movie
-import com.example.studyforkandroid.data.MovieResponse
-import com.example.studyforkandroid.network.MovieApi
+import com.example.data.model.Movie
+import com.example.data.model.MovieResponse
+import com.example.data.network.MovieApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException

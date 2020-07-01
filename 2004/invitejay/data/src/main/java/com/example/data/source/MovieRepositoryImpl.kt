@@ -1,7 +1,7 @@
-package com.example.studyforkandroid.data.source
+package com.example.data.source
 
-import com.example.studyforkandroid.data.Movie
-import com.example.studyforkandroid.data.source.remote.MovieRemoteDataSource
+import com.example.data.model.Movie
+import com.example.data.source.remote.MovieRemoteDataSource
 
 class MovieRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource

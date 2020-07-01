@@ -3,31 +3,31 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-def appkeyPropertiesFile = rootProject.file("appkey.properties")
-def appkeyProperties = new Properties()
-appkeyProperties.load(new FileInputStream(appkeyPropertiesFile))
-
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
 
         applicationId "com.example.studyforkandroid"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField("String", "BASE_URI", appkeyProperties['BASE_URI'])
-        buildConfigField("String", "CLIENT_ID", appkeyProperties['NAVER_APPID'])
-        buildConfigField("String", "SECRET_KEY", appkeyProperties['NAVER_SECRET'])
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // For Kotlin projects
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
     dataBinding {
         enabled = true
@@ -46,15 +46,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation "com.squareup.okhttp3:logging-interceptor:3.4.2"
-
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
-
-    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 
     implementation "org.koin:koin-core:2.1.0"
     implementation "org.koin:koin-android:2.1.0"

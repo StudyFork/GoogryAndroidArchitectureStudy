@@ -1,6 +1,6 @@
-package com.example.studyforkandroid.data.source.remote
+package com.example.data.source.remote
 
-import com.example.studyforkandroid.data.Movie
+import com.example.data.model.Movie
 
 interface MovieRemoteDataSource {
 

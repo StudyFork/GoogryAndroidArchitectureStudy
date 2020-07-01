@@ -1,6 +1,6 @@
-package com.example.studyforkandroid.module
+package com.example.data.module
 
-import com.example.studyforkandroid.network.MovieApi
+import com.example.data.network.MovieApi
 import org.koin.dsl.module
 import retrofit2.Retrofit
 

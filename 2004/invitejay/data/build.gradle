@@ -1,6 +1,11 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def appkeyPropertiesFile = rootProject.file("appkey.properties")
+def appkeyProperties = new Properties()
+appkeyProperties.load(new FileInputStream(appkeyPropertiesFile))
 
 android {
     compileSdkVersion 29
@@ -14,6 +19,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
+
+        buildConfigField("String", "BASE_URI", appkeyProperties['BASE_URI'])
+        buildConfigField("String", "CLIENT_ID", appkeyProperties['NAVER_APPID'])
+        buildConfigField("String", "SECRET_KEY", appkeyProperties['NAVER_SECRET'])
     }
 
     buildTypes {
@@ -22,7 +31,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // For Kotlin projects
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -33,4 +49,14 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation "org.koin:koin-core:2.1.0"
+    implementation "org.koin:koin-android:2.1.0"
+    implementation "org.koin:koin-android-viewmodel:2.1.0"
+
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "com.squareup.okhttp3:logging-interceptor:3.4.2"
+
 }

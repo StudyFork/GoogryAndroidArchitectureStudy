@@ -1,6 +1,6 @@
-package com.example.studyforkandroid.network
+package com.example.data.network
 
-import com.example.studyforkandroid.data.MovieResponse
+import com.example.data.model.MovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
