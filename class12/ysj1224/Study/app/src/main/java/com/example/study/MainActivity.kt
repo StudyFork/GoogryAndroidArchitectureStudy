@@ -42,17 +42,8 @@ class MainActivity : AppCompatActivity() {
             .build()
         val service: NaverApiInterface = retrofit.create(NaverApiInterface::class.java)
 
-        etv_search.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                searchTitle = s.toString()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
-
         btn_check.setOnClickListener {
-            if (searchTitle.isEmpty()) {
+            if (etv_search.text.isEmpty()) {
                 Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 doSearch(service)
