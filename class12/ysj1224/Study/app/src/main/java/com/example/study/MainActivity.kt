@@ -15,14 +15,15 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+const val clientId = "hDyUQTbovi0BszAf5h87"
+const val clientSecret = "3FsmSYBKbJ"
+const val baseUrl = "https://openapi.naver.com"
+
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
-    private val clientId = "hDyUQTbovi0BszAf5h87"
-    private val clientSecret = "3FsmSYBKbJ"
-    private val baseUrl = "https://openapi.naver.com"
     var item = listOf<NaverApiData.Item>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
