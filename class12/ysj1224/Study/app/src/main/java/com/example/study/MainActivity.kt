@@ -3,6 +3,7 @@ package com.example.study
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     private val clientId = "hDyUQTbovi0BszAf5h87"
     private val clientSecret = "3FsmSYBKbJ"
     private val baseUrl = "https://openapi.naver.com"
-    var searchTitle = ""
     var item = listOf<NaverApiData.Item>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +44,10 @@ class MainActivity : AppCompatActivity() {
 
         btn_check.setOnClickListener {
             if (etv_search.text.isEmpty()) {
+                Log.d("search","${etv_search.text}")
                 Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
+                Log.d("search","${etv_search.text}")
                 doSearch(service)
             }
 
@@ -56,14 +58,14 @@ class MainActivity : AppCompatActivity() {
         service.getSearch(
             clientId = clientId,
             clientPw = clientSecret,
-            query = searchTitle
+            query = etv_search.text.toString()
         ).enqueue(object : Callback<NaverApiData> {
             override fun onFailure(call: Call<NaverApiData>, t: Throwable) {
             }
 
             override fun onResponse(call: Call<NaverApiData>, response: Response<NaverApiData>) {
                 if (response.isSuccessful) {
-                    item = response.body().items
+                    item = response.body()!!.items
                     recyclerView.adapter = RecyclerAdapter(item)
                     recyclerView.adapter?.notifyDataSetChanged()
                 } else {
