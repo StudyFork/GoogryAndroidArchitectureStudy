@@ -32,8 +32,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_movie">
-
-    </androidx.recyclerview.widget.RecyclerView>
+        tools:listitem="@layout/item_movie"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
