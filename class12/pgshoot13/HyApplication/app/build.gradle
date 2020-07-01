@@ -39,4 +39,11 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    kapt 'android.arch.lifecycle:compiler:1.1.1'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
 }
