@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
                                 //metaData?.getAsJsonArray
                                 metaData?.let {
                                     val movieList = ArrayList<MovieData>()
-                                    Log.i("@@@@", it.items.toString())
                                     if (it.items.isNotEmpty()) {
                                         movieList.addAll(it.items)
                                         movieAdapter.setData(movieList = movieList)

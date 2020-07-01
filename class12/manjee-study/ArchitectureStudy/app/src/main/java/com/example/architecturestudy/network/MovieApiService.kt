@@ -28,6 +28,13 @@ class MovieApiService {
             .readTimeout(readWriteTimeOutSec, TimeUnit.SECONDS)
             .writeTimeout(readWriteTimeOutSec, TimeUnit.SECONDS)
             .addInterceptor(mHttpLoggingIntercepter)
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .addHeader("Content-Type", "application/json;charset=UTF-8")
+                    .addHeader("X-Naver-Client-Id", "JSnG5WlnTivnbGj7NFqL")
+                    .addHeader("X-Naver-Client-Secret", "iDSdCN3VjL").build()
+                chain.proceed(request)
+            }
 
         return Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
             .baseUrl(naverApiUrl)
