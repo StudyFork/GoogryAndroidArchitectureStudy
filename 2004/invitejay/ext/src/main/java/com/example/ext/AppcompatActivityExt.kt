@@ -1,4 +1,4 @@
-package com.example.studyforkandroid.ext
+package com.example.ext
 
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity

@@ -1,4 +1,4 @@
-package com.example.studyforkandroid.ext
+package com.example.ext
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

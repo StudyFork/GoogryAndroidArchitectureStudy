@@ -1,4 +1,4 @@
 include ':app'
-rootProject.name='StudyForkAndroid'
+rootProject.name = 'StudyForkAndroid'
 include ':ext'
 include ':data'
