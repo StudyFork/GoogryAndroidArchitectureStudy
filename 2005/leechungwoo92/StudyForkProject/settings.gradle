@@ -1,3 +1,4 @@
 rootProject.name='StudyForkProject'
 include ':app'
 include ':data'
+include ':remote'
