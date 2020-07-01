@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         btn_check.setOnClickListener {
-            if (searchTitle == "") {
+            if (searchTitle.isEmpty()) {
                 Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 doSearch(service)
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<NaverApiData>, response: Response<NaverApiData>) {
                 if (response.isSuccessful) {
-                    item = response.body()!!.items
+                    item = response.body().items
                     recyclerView.adapter = RecyclerAdapter(item)
                     recyclerView.adapter?.notifyDataSetChanged()
                 } else {
