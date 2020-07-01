@@ -4,6 +4,8 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -37,9 +39,9 @@ class RecyclerAdapter(apiItem: List<NaverApiData.Item>) :
     }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var title = view.tv_title
-        var subtitle = view.tv_subtitle
-        var image = view.iv_image
+        val title: TextView = view.tv_title
+        val subtitle: TextView = view.tv_subtitle
+        val image: ImageView = view.iv_image
     }
 }
 
