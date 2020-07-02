@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         movie_search_btn.setOnClickListener {
-            var keyword = movie_search_et.text
+            val keyword = movie_search_et.text
             Toast.makeText(
                 this@MainActivity,
                 "검색! :$keyword",
