@@ -14,13 +14,6 @@ import m.woong.architecturestudy.network.response.MovieResponse
 class MovieAdapter(private val movieList: ArrayList<MovieResponse.Item>) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    class MovieViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val imageImageView: ImageView = v.findViewById(R.id.movie_image)
-        val titleTextView: TextView = v.findViewById(R.id.movie_title)
-        val pubDateTextView: TextView = v.findViewById(R.id.movie_pubdate)
-        val directorTextView: TextView = v.findViewById(R.id.movie_director)
-    }
-
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -56,4 +49,11 @@ class MovieAdapter(private val movieList: ArrayList<MovieResponse.Item>) :
     }
 
     override fun getItemCount() = movieList.size
+
+    class MovieViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        val imageImageView: ImageView = v.findViewById(R.id.movie_image)
+        val titleTextView: TextView = v.findViewById(R.id.movie_title)
+        val pubDateTextView: TextView = v.findViewById(R.id.movie_pubdate)
+        val directorTextView: TextView = v.findViewById(R.id.movie_director)
+    }
 }
