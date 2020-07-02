@@ -17,8 +17,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewAdapter: MovieAdapter
     private lateinit var service: MovieApi
     private val movieList = ArrayList<MovieResponse.Item>()
 
@@ -39,11 +38,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewManager = LinearLayoutManager(this)
         viewAdapter = MovieAdapter(movieList)
         recyclerView = findViewById<RecyclerView>(R.id.movie_rv).apply {
             setHasFixedSize(true)
-            layoutManager = viewManager
             adapter = viewAdapter
         }
     }
