@@ -3,7 +3,7 @@ package io.github.jesterz91.local.dao
 import androidx.room.*
 
 @Dao
-interface BaseDao<T> {
+internal interface BaseDao<T> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(data: T)

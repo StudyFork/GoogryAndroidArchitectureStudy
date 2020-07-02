@@ -6,7 +6,7 @@ import io.github.jesterz91.local.dao.MovieDao
 import io.github.jesterz91.local.mapper.MovieLocalMapper
 import io.reactivex.Maybe
 
-class MovieLocalDataSourceImpl(private val movieDao: MovieDao) : MovieLocalDataSource {
+internal class MovieLocalDataSourceImpl(private val movieDao: MovieDao) : MovieLocalDataSource {
 
     override fun loadMovieInfo(query: String): Maybe<List<MovieEntity>> {
         return movieDao

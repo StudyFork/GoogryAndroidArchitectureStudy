@@ -3,7 +3,7 @@ package io.github.jesterz91.data.mapper
 import io.github.jesterz91.data.model.MovieEntity
 import io.github.jesterz91.domain.model.Movie
 
-object MovieEntityMapper : Mapper<MovieEntity, Movie> {
+internal object MovieEntityMapper : Mapper<MovieEntity, Movie> {
 
     override fun mapToDomain(entity: MovieEntity): Movie {
         return Movie(

@@ -7,7 +7,7 @@ import io.github.jesterz91.remote.mapper.MovieRemoteMapper
 import io.github.jesterz91.remote.model.MovieSearchResponse
 import io.reactivex.Single
 
-class MovieRemoteDataSourceImpl(private val movieApi: MovieApi) : MovieRemoteDataSource {
+internal class MovieRemoteDataSourceImpl(private val movieApi: MovieApi) : MovieRemoteDataSource {
 
     override fun requestMovieInfo(query: String): Single<List<MovieEntity>> {
         return movieApi

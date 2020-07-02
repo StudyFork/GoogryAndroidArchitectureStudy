@@ -4,7 +4,7 @@ import io.github.jesterz91.domain.model.Movie
 import io.github.jesterz91.domain.repository.MovieRepository
 import io.reactivex.Flowable
 
-class GetMovieUseCase(
+internal class GetMovieUseCase(
     private val movieRepository: MovieRepository
 ) : UseCase<Flowable<List<Movie>>, String>() {
 

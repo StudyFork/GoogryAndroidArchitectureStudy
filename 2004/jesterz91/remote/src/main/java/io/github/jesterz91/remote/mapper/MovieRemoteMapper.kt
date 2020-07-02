@@ -3,7 +3,7 @@ package io.github.jesterz91.remote.mapper
 import io.github.jesterz91.data.model.MovieEntity
 import io.github.jesterz91.remote.model.MovieRemote
 
-object MovieRemoteMapper : Mapper<MovieRemote, MovieEntity> {
+internal object MovieRemoteMapper : Mapper<MovieRemote, MovieEntity> {
 
     override fun mapToEntity(remote: MovieRemote): MovieEntity {
         return MovieEntity(

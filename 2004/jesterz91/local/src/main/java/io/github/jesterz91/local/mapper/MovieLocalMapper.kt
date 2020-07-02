@@ -3,7 +3,7 @@ package io.github.jesterz91.local.mapper
 import io.github.jesterz91.data.model.MovieEntity
 import io.github.jesterz91.local.model.MovieLocal
 
-object MovieLocalMapper : Mapper<MovieLocal, MovieEntity> {
+internal object MovieLocalMapper : Mapper<MovieLocal, MovieEntity> {
 
     override fun mapToEntity(local: MovieLocal): MovieEntity {
         return MovieEntity(

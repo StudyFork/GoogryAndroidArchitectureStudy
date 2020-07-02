@@ -9,7 +9,7 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class MovieRepositoryImpl(
+internal class MovieRepositoryImpl(
     private val movieLocalDataSource: MovieLocalDataSource,
     private val movieRemoteDataSource: MovieRemoteDataSource
 ) : MovieRepository {

@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class MovieSearchResponse(
+internal data class MovieSearchResponse(
     @Json(name = "lastBuildDate")
     val lastBuildDate: String,
     @Json(name = "total")
