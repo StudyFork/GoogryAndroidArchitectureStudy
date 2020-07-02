@@ -5,7 +5,7 @@
     <data>
         <variable
             name="movieItem"
-            type="com.lllccww.studyforkproject.data.model.MovieItem" />
+            type="com.lllccww.data.model.MovieItem" />
 
     </data>
 

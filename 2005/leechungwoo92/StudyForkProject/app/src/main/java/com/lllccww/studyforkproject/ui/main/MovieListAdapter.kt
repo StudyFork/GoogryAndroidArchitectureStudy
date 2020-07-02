@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
-import com.lllccww.studyforkproject.data.model.MovieItem
+import com.lllccww.data.model.MovieItem
 import com.lllccww.studyforkproject.databinding.ItemMovieListBinding
 
 class MovieListAdapter :

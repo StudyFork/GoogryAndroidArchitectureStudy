@@ -1,9 +1,10 @@
 package com.lllccww.studyforkproject.ui.main
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.lllccww.studyforkproject.data.model.MovieItem
-import com.lllccww.studyforkproject.data.repository.NaverMovieRepository
+import com.lllccww.data.model.MovieItem
+import com.lllccww.data.repository.NaverMovieRepository
 
 class MainViewModel(private val movieRepository: NaverMovieRepository) : ViewModel() {
     val movieItemList = MutableLiveData<ArrayList<MovieItem>>()
@@ -35,12 +36,13 @@ class MainViewModel(private val movieRepository: NaverMovieRepository) : ViewMod
 
                 } else {
                     movieItemList.value = (movieItem as ArrayList<MovieItem>)
+                    Log.d("query","query: $inputQuery")
                 }
             },
             failure = {
                 progressBar.value = false
                 toastMessage.value = it.message.toString()
-
+                Log.d("query","query: $inputQuery")
             }
 
         )

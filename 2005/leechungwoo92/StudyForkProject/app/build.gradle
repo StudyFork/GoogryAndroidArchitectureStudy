@@ -50,5 +50,8 @@ dependencies {
 
     implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
 
+    implementation project(":data")
+    implementation project(":remote")
+
 
 }

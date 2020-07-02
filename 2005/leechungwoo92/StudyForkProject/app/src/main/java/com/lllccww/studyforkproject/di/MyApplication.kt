@@ -1,7 +1,9 @@
 package com.lllccww.studyforkproject.di
 
 import android.app.Application
-import com.lllccww.studyforkproject.BuildConfig
+import androidx.databinding.library.BuildConfig
+import com.lllccww.data.di.repositoryModule
+import com.lllccww.remote.di.remoteDataModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -17,7 +19,9 @@ class MyApplication : Application() {
             }
             androidContext(this@MyApplication)
             modules(
-                movieModule,
+                //movieModule,
+                repositoryModule,
+                remoteDataModule,
                 viewmodelModule
             )
 
