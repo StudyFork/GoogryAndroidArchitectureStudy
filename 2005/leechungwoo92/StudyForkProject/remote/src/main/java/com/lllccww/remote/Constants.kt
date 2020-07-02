@@ -1,4 +1,4 @@
-package com.lllccww.studyforkproject
+package com.lllccww.remote
 
 object Constants {
 

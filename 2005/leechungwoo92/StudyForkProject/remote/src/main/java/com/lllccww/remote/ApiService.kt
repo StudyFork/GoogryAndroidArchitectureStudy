@@ -1,9 +1,9 @@
-package com.lllccww.studyforkproject
+package com.lllccww.remote
 
 
-import com.lllccww.studyforkproject.Constants.CLIENT_ID
-import com.lllccww.studyforkproject.Constants.CLIENT_SECRET
-import com.lllccww.studyforkproject.data.model.Movie
+import com.lllccww.remote.Constants.CLIENT_ID
+import com.lllccww.remote.Constants.CLIENT_SECRET
+import com.lllccww.remote.model.MovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -19,8 +19,8 @@ interface ApiService {
     @GET("v1/search/movie.json")
     fun listMovie(
         @Query("query") keyword: String
-        //@Query("start") start: Int
-    ): Call<Movie>
+
+    ): Call<MovieResponse>
 
 
 }
