@@ -13,7 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         viewAdapter = MovieAdapter(item)
         viewManager = LinearLayoutManager(this)
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
+        recyclerView.apply {
             setHasFixedSize(true)
             adapter = viewAdapter
             layoutManager = viewManager
