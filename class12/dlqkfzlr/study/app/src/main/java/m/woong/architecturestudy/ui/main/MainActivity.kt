@@ -57,19 +57,8 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val body = response.body()
                     movieList.clear()
-                    for (item in body!!.items) {
-                        movieList.add(
-                            MovieResponse.Item(
-                                item.actor,
-                                item.director,
-                                item.image,
-                                item.link,
-                                item.pubDate,
-                                item.subtitle,
-                                item.title,
-                                item.userRating
-                            )
-                        )
+                    body?.let {
+                        movieList.addAll(body.items)
                     }
                     viewAdapter.notifyDataSetChanged()
                 } else {
