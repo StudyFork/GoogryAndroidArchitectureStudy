@@ -1,9 +1,9 @@
-package com.lllccww.studyforkproject.data.repository
+package com.lllccww.data.repository
 
-import com.lllccww.studyforkproject.data.model.MovieItem
-import com.lllccww.studyforkproject.data.source.remote.MovieRemoteDataSource
+import com.lllccww.data.model.MovieItem
+import com.lllccww.data.source.remote.MovieRemoteDataSource
 
-class NaverMovieRepositoryImpl(private val movieRemoteDataSource: MovieRemoteDataSource) : NaverMovieRepository {
+internal class NaverMovieRepositoryImpl(private val movieRemoteDataSource: MovieRemoteDataSource) : NaverMovieRepository {
 
     //private val movieRemoteDataSourceImpl = MovieRemoteDataSourceImpl()
     override fun getSearchMovie(

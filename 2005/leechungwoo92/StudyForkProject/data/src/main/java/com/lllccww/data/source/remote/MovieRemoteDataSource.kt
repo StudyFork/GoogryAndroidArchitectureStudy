@@ -1,6 +1,6 @@
-package com.lllccww.studyforkproject.data.source.remote
+package com.lllccww.data.source.remote
 
-import com.lllccww.studyforkproject.data.model.MovieItem
+import com.lllccww.data.model.MovieItem
 
 interface MovieRemoteDataSource {
 

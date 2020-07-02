@@ -1,4 +1,4 @@
-package com.lllccww.studyforkproject.data.model
+package com.lllccww.data.model
 
 data class MovieItem(
     val title: String,

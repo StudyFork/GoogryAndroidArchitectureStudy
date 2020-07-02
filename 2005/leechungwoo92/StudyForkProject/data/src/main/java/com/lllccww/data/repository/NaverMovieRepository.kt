@@ -1,6 +1,6 @@
-package com.lllccww.studyforkproject.data.repository
+package com.lllccww.data.repository
 
-import com.lllccww.studyforkproject.data.model.MovieItem
+import com.lllccww.data.model.MovieItem
 
 interface NaverMovieRepository {
 
