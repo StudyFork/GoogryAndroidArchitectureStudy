@@ -19,16 +19,16 @@
 
         <EditText
             android:id="@+id/movie_search_et"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:hint="영화 키워드를 입력해주세요." />
 
         <Button
             android:id="@+id/movie_search_btn"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="1.8"
+            android:layout_weight="0.4"
             android:text="검색" />
 
     </LinearLayout>
