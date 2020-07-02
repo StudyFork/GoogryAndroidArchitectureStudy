@@ -1,6 +1,8 @@
 package com.example.study
 
 import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
@@ -13,5 +15,12 @@ interface NaverApiInterface {
         @Header("X-Naver-Client-Secret") clientPw: String,
         @Query("query") query: String
     ): Call<NaverApiData>
+}
+
+object NaverRetrofit{
+    val retrofit = Retrofit.Builder().baseUrl(baseUrl)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    fun service(): NaverApiInterface = retrofit.create(NaverApiInterface::class.java)
 }
 

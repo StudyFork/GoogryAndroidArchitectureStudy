@@ -36,10 +36,7 @@ class MainActivity : AppCompatActivity() {
             adapter = viewAdapter
         }
 
-        val retrofit = Retrofit.Builder().baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        val service: NaverApiInterface = retrofit.create(NaverApiInterface::class.java)
+
 
         btn_check.setOnClickListener {
             if (etv_search.text.isEmpty()) {
@@ -47,14 +44,14 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 Log.d("search","${etv_search.text}")
-                doSearch(service)
+                doSearch()
             }
 
         }
     }
 
-    private fun doSearch(service: NaverApiInterface) {
-        service.getSearch(
+    private fun doSearch() {
+        NaverRetrofit.service().getSearch(
             clientId = clientId,
             clientPw = clientSecret,
             query = etv_search.text.toString()
