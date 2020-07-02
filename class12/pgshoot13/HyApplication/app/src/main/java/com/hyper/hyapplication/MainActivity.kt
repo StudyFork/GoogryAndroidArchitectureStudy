@@ -17,9 +17,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
-    private val clientId = "ImN25OL4axIIwuH6jXDj"
-    private val clientSecret = "vysJ6N1WXx"
-    private val baseUrl = "https://openapi.naver.com"
+    private val CLIENT_ID = "ImN25OL4axIIwuH6jXDj"
+    private val CLIENT_SECRET = "vysJ6N1WXx"
+    private val BASE_URL = "https://openapi.naver.com"
 
     var searchTitle = ""
     var item = listOf<ResultGetSearchMovie.Item>()
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             layoutManager = viewManager
         }
 
-        val retrofit = Retrofit.Builder().baseUrl(baseUrl)
+        val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         val service: NaverAPI = retrofit.create(NaverAPI::class.java)
@@ -53,8 +53,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun movieSearch(service: NaverAPI) {
         service.getSearchMovie(
-            clientId = clientId,
-            clientSecret = clientSecret,
+            clientId = CLIENT_ID,
+            clientSecret = CLIENT_SECRET,
             query = searchTitle
         ).enqueue(object : Callback<ResultGetSearchMovie> {
             override fun onFailure(call: Call<ResultGetSearchMovie>, t: Throwable) {
