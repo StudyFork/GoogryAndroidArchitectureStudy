@@ -14,11 +14,10 @@ class NetworkConnectionInterceptor(
     private val applicationContext = context.applicationContext
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        if (!isInternetAvailable())
-            throw IOException("Make sure you have an active data connection")
+        if (!isInternetAvailable()) throw IOException("Make sure you have an active data connection")
         val request = chain.request().newBuilder()
-            .addHeader("X-Naver-Client-Id", client_id)
-            .addHeader("X-Naver-Client-Secret", client_secret)
+            .addHeader("X-Naver-Client-Id", CLIENT_ID)
+            .addHeader("X-Naver-Client-Secret", CLIENT_SECRET)
             .build()
         return chain.proceed(request)
     }
@@ -40,7 +39,7 @@ class NetworkConnectionInterceptor(
     }
 
     companion object {
-        val client_id = "lHrslPhzC2bFPf8LZ4kB"
-        val client_secret = "0vJ3mpzX6_"
+        const val CLIENT_ID = "lHrslPhzC2bFPf8LZ4kB"
+        const val CLIENT_SECRET = "0vJ3mpzX6_"
     }
 }
