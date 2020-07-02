@@ -19,11 +19,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var service: MovieApi
     private val movieList = ArrayList<MovieResponse.Item>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        service = MovieApi.invoke(NetworkConnectionInterceptor(this))
 
         movie_search_btn.setOnClickListener {
             val keyword = movie_search_et.text
@@ -50,7 +52,6 @@ class MainActivity : AppCompatActivity() {
      * Operation: Request Movie List
      */
     private fun requestToGetMovieList(keyword: String) {
-        val service = MovieApi.invoke(NetworkConnectionInterceptor(this))
         val call = service.movieSearch(keyword)
         call.enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
