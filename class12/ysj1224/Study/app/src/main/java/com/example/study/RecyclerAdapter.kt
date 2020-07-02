@@ -1,6 +1,5 @@
 package com.example.study
 
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.rv_item.view.*
 
-class RecyclerAdapter(apiItem: List<NaverApiData.Item>) :
+class RecyclerAdapter :
     RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
-    var item = apiItem
+    private lateinit var item: List<NaverApiData.Item>
+
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -25,7 +25,8 @@ class RecyclerAdapter(apiItem: List<NaverApiData.Item>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.title.text = HtmlCompat.fromHtml(item[position].title, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        holder.title.text =
+            HtmlCompat.fromHtml(item[position].title, HtmlCompat.FROM_HTML_MODE_LEGACY)
         holder.subtitle.text = item[position].subtitle
         Glide.with(holder.image.context)
             .load(item[position].image)
@@ -35,7 +36,15 @@ class RecyclerAdapter(apiItem: List<NaverApiData.Item>) :
     }
 
     override fun getItemCount(): Int {
-        return item.size
+        if(::item.isInitialized){
+            return item.size
+        }
+        return 0
+    }
+
+    fun setItem(apiItem: List<NaverApiData.Item>){
+        item = apiItem
+        notifyDataSetChanged()
     }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {

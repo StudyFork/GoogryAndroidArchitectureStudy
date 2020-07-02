@@ -24,14 +24,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
-    var item = listOf<NaverApiData.Item>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         viewManager = LinearLayoutManager(this)
-        viewAdapter = RecyclerAdapter(item)
+        viewAdapter = RecyclerAdapter()
         recyclerView = findViewById<RecyclerView>(R.id.rv_main).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -63,12 +61,11 @@ class MainActivity : AppCompatActivity() {
         ).enqueue(object : Callback<NaverApiData> {
             override fun onFailure(call: Call<NaverApiData>, t: Throwable) {
             }
-
             override fun onResponse(call: Call<NaverApiData>, response: Response<NaverApiData>) {
                 if (response.isSuccessful) {
-                    item = response.body()!!.items
-                    recyclerView.adapter = RecyclerAdapter(item)
-                    recyclerView.adapter?.notifyDataSetChanged()
+                    response.body()?.let {
+                       viewAdapter.setItem(it.items)
+                    }
                 } else {
                     Toast.makeText(this@MainActivity, "네트워크를 확인해주세요.", Toast.LENGTH_SHORT).show()
                 }
