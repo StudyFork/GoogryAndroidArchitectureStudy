@@ -65,9 +65,12 @@ class MainActivity : AppCompatActivity() {
                 response: Response<ResultGetSearchMovie>
             ) {
                 item = response.body()!!.items
-                recyclerView.apply {
-                    adapter = MovieAdapter(item)
-                    adapter?.notifyDataSetChanged()
+
+                item?.let {
+                    recyclerView.apply {
+                        adapter = MovieAdapter(item)
+                        adapter?.notifyDataSetChanged()
+                    }
                 }
             }
         })
