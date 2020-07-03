@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: MovieAdapter
     private lateinit var service: MovieApi
-    private val movieList = ArrayList<MovieResponse.Item>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
