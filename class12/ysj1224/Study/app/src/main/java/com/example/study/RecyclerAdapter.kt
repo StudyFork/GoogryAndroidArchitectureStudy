@@ -9,7 +9,6 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.rv_item.view.*
-import java.util.ArrayList
 
 class RecyclerAdapter :
     RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
@@ -37,7 +36,7 @@ class RecyclerAdapter :
     }
 
     override fun getItemCount(): Int {
-            return item.size
+        return item.size
     }
 
     fun setItem(apiItem: List<NaverApiData.Item>) {
