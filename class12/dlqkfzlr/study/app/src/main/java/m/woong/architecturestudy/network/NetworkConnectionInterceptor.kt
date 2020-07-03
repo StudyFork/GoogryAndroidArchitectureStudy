@@ -8,11 +8,9 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
 
-class NetworkConnectionInterceptor(
-    context: Context
-) : Interceptor {
+class NetworkConnectionInterceptor() : Interceptor {
 
-    private val applicationContext =  App.get()
+    private val applicationContext = App.appContext
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isInternetAvailable()) throw IOException("Make sure you have an active data connection")

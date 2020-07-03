@@ -1,17 +1,17 @@
 package m.woong.architecturestudy
 
 import android.app.Application
+import android.content.Context
 
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        instance = this
+        context = applicationContext
     }
 
     companion object {
-        private var instance: App? = null
-        fun get(): App? {
-            return instance
-        }
+        private var context: Context? = null
+        val appContext: Context?
+            get() = context
     }
 }
