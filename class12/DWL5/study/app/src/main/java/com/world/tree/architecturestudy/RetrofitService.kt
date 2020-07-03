@@ -30,6 +30,6 @@ object SearchRetrofit {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-    fun getService(): RetrofitService = retrofit.create(RetrofitService::class.java)
+    val retrofitService: RetrofitService = retrofit.create(RetrofitService::class.java)
 
 }
