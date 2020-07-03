@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter(context: Context) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private lateinit var movies : List<Movie.Item>
-    private val context = context
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
@@ -27,7 +26,7 @@ class MovieAdapter(context: Context) : RecyclerView.Adapter<MovieAdapter.MovieVi
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        Glide.with(context).load(movies[position].image)
+        Glide.with(holder.itemView.imgPoster).load(movies[position].image)
             .centerCrop()
             .into(holder.itemView.imgPoster)
         holder.itemView.txtTitle.text = movies[position].title
