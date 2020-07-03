@@ -3,6 +3,7 @@ package m.woong.architecturestudy.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import m.woong.architecturestudy.App
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -11,7 +12,7 @@ class NetworkConnectionInterceptor(
     context: Context
 ) : Interceptor {
 
-    private val applicationContext = context.applicationContext
+    private val applicationContext =  App.get()
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isInternetAvailable()) throw IOException("Make sure you have an active data connection")
@@ -25,7 +26,7 @@ class NetworkConnectionInterceptor(
     private fun isInternetAvailable(): Boolean {
         var result = false
         val connectivityManager =
-            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+            applicationContext?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
         connectivityManager?.let {
             it.getNetworkCapabilities(connectivityManager.activeNetwork)?.apply {
                 result = when {
