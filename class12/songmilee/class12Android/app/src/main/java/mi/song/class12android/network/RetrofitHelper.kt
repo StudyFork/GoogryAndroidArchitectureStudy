@@ -9,14 +9,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitHelper {
     companion object {
         private const val BASE_URL = "https://openapi.naver.com/v1/search/"
-        private var retrofitService:Retrofit? = null
+        private var retrofitService: Retrofit? = null
 
-        fun getService(context:Context) : MovieService {
-            if (retrofitService == null){
+        fun getService(context: Context): MovieService {
+            if (retrofitService == null) {
                 val okHttpClient = OkHttpClient.Builder().addInterceptor { chain ->
                     val newRequest = chain.request().newBuilder()
                         .addHeader("X-Naver-Client-Id", context.getString(R.string.naver_client_id))
-                        .addHeader("X-Naver-Client-Secret", context.getString(R.string.naver_client_secret))
+                        .addHeader(
+                            "X-Naver-Client-Secret",
+                            context.getString(R.string.naver_client_secret)
+                        )
                         .build()
 
                     chain.proceed(newRequest)

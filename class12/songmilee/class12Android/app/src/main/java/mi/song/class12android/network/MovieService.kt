@@ -8,5 +8,5 @@ import retrofit2.http.Query
 interface MovieService {
 
     @GET("movie.json")
-    fun getMovieInfo(@Query("query") query:String) : Call<JsonObject>
+    fun getMovieInfo(@Query("query") query: String): Call<JsonObject>
 }

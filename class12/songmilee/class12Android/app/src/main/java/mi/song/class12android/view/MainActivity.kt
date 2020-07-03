@@ -18,13 +18,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    var edtQuery:EditText? = null
-    var btnSearch:Button? = null
-    var listMovie:RecyclerView? = null
+    var edtQuery: EditText? = null
+    var btnSearch: Button? = null
+    var listMovie: RecyclerView? = null
 
-    var movieAdapter:MovieAdapter? = null
+    var movieAdapter: MovieAdapter? = null
 
-    lateinit var movieService:MovieService
+    lateinit var movieService: MovieService
 
     val queryMovie: View.OnClickListener = View.OnClickListener {
         edtQuery?.text?.toString()?.let { query ->
@@ -32,15 +32,17 @@ class MainActivity : AppCompatActivity() {
 
             movieService.getMovieInfo(query).enqueue(object : Callback<JsonObject> {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                    Toast.makeText(baseContext, "Sorry, try it next time", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "Sorry, try it next time", Toast.LENGTH_SHORT)
+                        .show()
                 }
 
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                    if(response.isSuccessful){
+                    if (response.isSuccessful) {
                         val jsonBody = response.body()
-                        jsonBody?.getAsJsonArray("items")?.let{ items ->
-                            for(movie in items){
-                                val resultInfo = Gson().fromJson(movie.asJsonObject, MovieInfo::class.java)
+                        jsonBody?.getAsJsonArray("items")?.let { items ->
+                            for (movie in items) {
+                                val resultInfo =
+                                    Gson().fromJson(movie.asJsonObject, MovieInfo::class.java)
                                 movieAdapter?.addMovieInfo(resultInfo)
                             }
                         }
@@ -58,13 +60,13 @@ class MainActivity : AppCompatActivity() {
         init()
     }
 
-    fun init(){
+    fun init() {
         movieService = RetrofitHelper.getService(baseContext)
 
         initUi()
     }
 
-    fun initUi(){
+    fun initUi() {
         edtQuery = findViewById(R.id.edt_query)
 
         btnSearch = findViewById(R.id.btn_search)

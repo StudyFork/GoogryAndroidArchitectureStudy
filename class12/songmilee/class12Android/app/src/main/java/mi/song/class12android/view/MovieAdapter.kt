@@ -14,18 +14,24 @@ import mi.song.class12android.model.data.MovieInfo
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
     private val movieList = ArrayList<MovieInfo>()
 
-    fun addMovieInfo(movieInfo:MovieInfo){
+    fun addMovieInfo(movieInfo: MovieInfo) {
         movieList.add(movieInfo)
         notifyItemInserted(movieList.size - 1)
     }
 
-    fun clearMovieList(){
+    fun clearMovieList() {
         movieList.clear()
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieVh {
-        return MovieVh(LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false))
+        return MovieVh(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_movie,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -36,13 +42,13 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
         holder.bind(movieList[position])
     }
 
-    inner class MovieVh(itemView:View) : RecyclerView.ViewHolder(itemView){
-        private val imgThumbnail:ImageView = itemView.findViewById(R.id.iv_thumbnail)
-        private val tvTitle:TextView = itemView.findViewById(R.id.tv_title)
-        private val tvDirector:TextView = itemView.findViewById(R.id.tv_director)
-        private val tvActor:TextView = itemView.findViewById(R.id.tv_actor)
+    inner class MovieVh(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val imgThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
+        private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
+        private val tvDirector: TextView = itemView.findViewById(R.id.tv_director)
+        private val tvActor: TextView = itemView.findViewById(R.id.tv_actor)
 
-        fun bind(movieInfo: MovieInfo){
+        fun bind(movieInfo: MovieInfo) {
             tvTitle.text = movieInfo.title
             tvDirector.text = movieInfo.director
             tvActor.text = movieInfo.actor
