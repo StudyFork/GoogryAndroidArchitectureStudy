@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private lateinit var movies : List<Movie.Item>
+    private val movies : ArrayList<Movie.Item> = ArrayList()
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
@@ -21,7 +21,6 @@ class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        if (!::movies.isInitialized)  return 0
         return movies.size
     }
 
@@ -34,8 +33,12 @@ class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         holder.itemView.txtActor.text = movies[position].actor
     }
 
-    fun setDataList(data: List<Movie.Item>) {
-        this.movies = data
-        notifyDataSetChanged()
+    fun addData(data: Movie.Item) {
+        movies.add(data)
+        notifyItemInserted(movies.size - 1)
+    }
+
+    fun clearData() {
+        movies.clear();
     }
 }
