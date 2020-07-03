@@ -1,20 +1,30 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+def appkeyPropertiesFile = rootProject.file("appkey.properties")
+def appkeyProperties = new Properties()
+appkeyProperties.load(new FileInputStream(appkeyPropertiesFile))
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
-    defaultConfig {
 
-        applicationId "com.example.studyforkandroid"
+    defaultConfig {
         minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+
+        buildConfigField("String", "BASE_URI", appkeyProperties['BASE_URI'])
+        buildConfigField("String", "CLIENT_ID", appkeyProperties['NAVER_APPID'])
+        buildConfigField("String", "SECRET_KEY", appkeyProperties['NAVER_SECRET'])
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,9 +39,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    dataBinding {
-        enabled = true
-    }
 }
 
 dependencies {
@@ -39,10 +46,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -51,6 +54,9 @@ dependencies {
     implementation "org.koin:koin-android:2.1.0"
     implementation "org.koin:koin-android-viewmodel:2.1.0"
 
-    implementation project(':data')
-    implementation project(':ext')
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "com.squareup.okhttp3:logging-interceptor:3.4.2"
+
 }

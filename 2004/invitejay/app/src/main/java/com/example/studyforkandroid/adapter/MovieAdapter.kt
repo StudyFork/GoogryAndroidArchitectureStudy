@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyforkandroid.R
-import com.example.studyforkandroid.data.Movie
+import com.example.data.model.Movie
 import com.example.studyforkandroid.databinding.ItemMovieBinding
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {

@@ -3,8 +3,8 @@ package com.example.studyforkandroid.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.studyforkandroid.data.Movie
-import com.example.studyforkandroid.data.source.MovieRepository
+import com.example.data.model.Movie
+import com.example.data.source.MovieRepository
 
 class MovieViewModel(
     private val movieRepository: MovieRepository
