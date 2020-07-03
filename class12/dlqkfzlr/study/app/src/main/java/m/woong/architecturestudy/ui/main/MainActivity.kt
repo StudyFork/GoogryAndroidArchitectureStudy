@@ -3,7 +3,6 @@ package m.woong.architecturestudy.ui.main
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import m.woong.architecturestudy.R
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             val keyword = movie_search_et.text
             Toast.makeText(
                 this@MainActivity,
-                "검색! :$keyword",
+                "검색 :$keyword",
                 Toast.LENGTH_SHORT
             ).show()
             if (keyword != null) {
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        viewAdapter = MovieAdapter(movieList)
+        viewAdapter = MovieAdapter()
         recyclerView = findViewById<RecyclerView>(R.id.movie_rv).apply {
             setHasFixedSize(true)
             adapter = viewAdapter
@@ -54,11 +53,10 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if (response.isSuccessful) {
                     val body = response.body()
-                    movieList.clear()
+                    viewAdapter.clearData()
                     body?.let {
-                        movieList.addAll(body.items)
+                        viewAdapter.addAllData(body.items)
                     }
-                    viewAdapter.notifyDataSetChanged()
                 } else {
                     Toast.makeText(
                         this@MainActivity,

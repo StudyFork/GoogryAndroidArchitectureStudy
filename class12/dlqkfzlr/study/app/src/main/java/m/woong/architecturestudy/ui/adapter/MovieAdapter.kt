@@ -11,8 +11,10 @@ import com.bumptech.glide.Glide
 import m.woong.architecturestudy.R
 import m.woong.architecturestudy.network.response.MovieResponse
 
-class MovieAdapter(private val movieList: ArrayList<MovieResponse.Item>) :
+class MovieAdapter() :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+
+    private var movieList: ArrayList<MovieResponse.Item> = ArrayList()
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(
@@ -45,6 +47,15 @@ class MovieAdapter(private val movieList: ArrayList<MovieResponse.Item>) :
         } else {
             Html.fromHtml(words).toString()
         }
+    }
+
+    fun addAllData(data: List<MovieResponse.Item>) {
+        movieList.addAll(data)
+        notifyDataSetChanged()
+    }
+
+    fun clearData() {
+        movieList.clear()
     }
 
     override fun getItemCount() = movieList.size
