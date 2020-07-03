@@ -16,6 +16,7 @@ class KoinApplication : Application() {
             // declare used Android context
             androidContext(this@KoinApplication)
             // declare modules
+            modules(appModule)
             modules(dataModule)
         }
     }

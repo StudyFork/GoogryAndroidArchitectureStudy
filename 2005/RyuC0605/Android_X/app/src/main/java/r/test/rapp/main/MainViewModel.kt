@@ -1,4 +1,4 @@
-package r.test.data
+package r.test.rapp.main
 
 import android.app.Application
 import android.text.TextUtils
