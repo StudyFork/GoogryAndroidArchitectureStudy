@@ -26,30 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var movieService:MovieService
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        init()
-    }
-
-    fun init(){
-        movieService = RetrofitHelper.getService(baseContext)
-
-        initUi()
-    }
-
-    fun initUi(){
-        edtQuery = findViewById(R.id.edt_query)
-
-        btnSearch = findViewById(R.id.btn_search)
-        btnSearch?.setOnClickListener(queryMovie)
-
-        listMovie = findViewById(R.id.list_movie)
-        movieAdapter = MovieAdapter()
-        listMovie?.adapter = movieAdapter
-    }
-    
     val queryMovie: View.OnClickListener = View.OnClickListener {
         edtQuery?.text?.toString()?.let { query ->
             movieAdapter?.clearMovieList()
@@ -73,5 +49,29 @@ class MainActivity : AppCompatActivity() {
 
             })
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        init()
+    }
+
+    fun init(){
+        movieService = RetrofitHelper.getService(baseContext)
+
+        initUi()
+    }
+
+    fun initUi(){
+        edtQuery = findViewById(R.id.edt_query)
+
+        btnSearch = findViewById(R.id.btn_search)
+        btnSearch?.setOnClickListener(queryMovie)
+
+        listMovie = findViewById(R.id.list_movie)
+        movieAdapter = MovieAdapter()
+        listMovie?.adapter = movieAdapter
     }
 }
