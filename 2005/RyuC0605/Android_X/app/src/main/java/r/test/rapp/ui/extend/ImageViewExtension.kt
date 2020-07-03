@@ -1,4 +1,4 @@
-package r.test.rapp.networks
+package r.test.rapp.ui.extend
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

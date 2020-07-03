@@ -5,7 +5,7 @@
     <data>
         <variable
             name="movie"
-            type="r.test.rapp.data.model.Item" />
+            type="r.test.data.model.Item" />
     </data>
 
     <LinearLayout

@@ -21,15 +21,10 @@ android {
     }
     buildTypes {
         debug{
-            buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com"')
-            buildConfigField("String", "X_NAVER_CLIENT_ID", '"ODK9MahW0fWrdX0wQnXL"')
-            buildConfigField("String", "X_NAVER_CLIENT_SECRET", '"Cf72qvUQ0N"')
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
-            buildConfigField("String", "NAVER_API_URL", '"https://openapi.naver.com"')
-            buildConfigField("String", "X_NAVER_CLIENT_ID", '"ODK9MahW0fWrdX0wQnXL"')
-            buildConfigField("String", "X_NAVER_CLIENT_SECRET", '"Cf72qvUQ0N"')
-
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -50,11 +45,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
-    // retrofit
-    implementation "com.squareup.retrofit2:retrofit:2.5.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.3.0"
-    // okhttp interceptor
-    implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"
     // glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
@@ -67,4 +57,6 @@ dependencies {
     implementation "org.koin:koin-androidx-fragment:$koin_version"
     // Koin AndroidX Experimental features
     implementation "org.koin:koin-androidx-ext:$koin_version"
+
+    implementation project(":data")
 }

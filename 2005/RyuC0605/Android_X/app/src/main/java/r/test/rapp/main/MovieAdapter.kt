@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import r.test.rapp.R
-import r.test.rapp.data.model.Item
+import r.test.data.model.Item
 import r.test.rapp.databinding.RowContentBinding
 
 /**

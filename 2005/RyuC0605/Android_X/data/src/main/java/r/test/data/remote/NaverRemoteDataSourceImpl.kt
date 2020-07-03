@@ -1,16 +1,16 @@
-package r.test.rapp.data.source.remote
+package r.test.data.remote
 
 import okhttp3.ResponseBody
-import r.test.rapp.BuildConfig
-import r.test.rapp.data.model.MovieVo
-import r.test.rapp.networks.NaverApi
-import r.test.rapp.networks.RetrofitClient
+import r.test.data.BuildConfig
+import r.test.data.model.MovieVo
+import r.test.data.networks.NaverApi
+import r.test.data.networks.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Converter
 import retrofit2.Response
 
-class NaverRemoteDataSourceImpl(private val api: NaverApi) :
+internal class NaverRemoteDataSourceImpl(private val api: NaverApi) :
     NaverRemoteDataSource {
     override fun getData(
         keyword: String,

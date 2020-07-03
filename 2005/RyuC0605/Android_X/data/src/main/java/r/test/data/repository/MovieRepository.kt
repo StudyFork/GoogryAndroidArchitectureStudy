@@ -1,6 +1,6 @@
-package r.test.rapp.data.repository
+package r.test.data.repository
 
-import r.test.rapp.data.model.MovieVo
+import r.test.data.model.MovieVo
 
 interface MovieRepository {
 
