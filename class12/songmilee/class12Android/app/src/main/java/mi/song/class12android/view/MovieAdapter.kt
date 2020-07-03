@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import mi.song.class12android.R
 import mi.song.class12android.model.data.MovieInfo
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVH>() {
+class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
     private val movieList = ArrayList<MovieInfo>()
 
     fun addMovieInfo(movieInfo:MovieInfo){
@@ -24,19 +24,19 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVH>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieVH {
-        return MovieVH(LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieVh {
+        return MovieVh(LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false))
     }
 
     override fun getItemCount(): Int {
         return movieList.size
     }
 
-    override fun onBindViewHolder(holder: MovieVH, position: Int) {
+    override fun onBindViewHolder(holder: MovieVh, position: Int) {
         holder.bind(movieList[position])
     }
 
-    inner class MovieVH(itemView:View) : RecyclerView.ViewHolder(itemView){
+    inner class MovieVh(itemView:View) : RecyclerView.ViewHolder(itemView){
         private val imgThumbnail:ImageView = itemView.findViewById(R.id.iv_thumbnail)
         private val tvTitle:TextView = itemView.findViewById(R.id.tv_title)
         private val tvDirector:TextView = itemView.findViewById(R.id.tv_director)
