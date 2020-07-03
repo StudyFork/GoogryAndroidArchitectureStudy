@@ -13,13 +13,9 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var movieApiService: MovieApiService
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        movieApiService = MovieApiService()
 
         init()
     }
@@ -31,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         searchButton.setOnClickListener {
             searchEditText.text?.toString()?.let { title ->
-                movieApiService.createService().searchMovie(title)
+                MovieApiService.movieApiService.searchMovie(title)
                     .enqueue(object : Callback<MovieMeta> {
                         override fun onFailure(call: Call<MovieMeta>, t: Throwable) {
 
@@ -44,7 +40,6 @@ class MainActivity : AppCompatActivity() {
                             if (response.isSuccessful) {
                                 val metaData = response.body()
 
-                                //metaData?.getAsJsonArray
                                 metaData?.let {
                                     val movieList = ArrayList<MovieData>()
                                     if (it.items.isNotEmpty()) {
