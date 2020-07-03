@@ -18,9 +18,9 @@ interface NaverApiInterface {
 }
 
 object NaverRetrofit{
-    val retrofit = Retrofit.Builder().baseUrl(baseUrl)
+    private val retrofit: Retrofit = Retrofit.Builder().baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    fun service(): NaverApiInterface = retrofit.create(NaverApiInterface::class.java)
+    val service: NaverApiInterface = retrofit.create(NaverApiInterface::class.java)
 }
 

@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doSearch() {
-        NaverRetrofit.service().getSearch(
+        NaverRetrofit.service.getSearch(
             clientId = clientId,
             clientPw = clientSecret,
             query = etv_search.text.toString()
