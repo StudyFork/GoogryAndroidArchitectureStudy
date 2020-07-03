@@ -34,17 +34,16 @@ class MovieAdapter(private val movieList: ArrayList<MovieResponse.Item>) :
             .centerCrop()
             .placeholder(R.drawable.ic_launcher_foreground)
             .into(holder.imageImageView)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            holder.titleTextView.text =
-                Html.fromHtml(movieList[position].title, Html.FROM_HTML_MODE_LEGACY)
-            holder.pubDateTextView.text =
-                Html.fromHtml(movieList[position].pubDate, Html.FROM_HTML_MODE_LEGACY)
-            holder.directorTextView.text =
-                Html.fromHtml(movieList[position].director, Html.FROM_HTML_MODE_LEGACY)
+        holder.titleTextView.text = parseHtmlTag(movieList[position].title)
+        holder.pubDateTextView.text = parseHtmlTag(movieList[position].pubDate)
+        holder.directorTextView.text = parseHtmlTag(movieList[position].director)
+    }
+
+    private fun parseHtmlTag(words: String): String {
+        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            Html.fromHtml(words, Html.FROM_HTML_MODE_LEGACY).toString()
         } else {
-            holder.titleTextView.text = Html.fromHtml(movieList[position].title)
-            holder.pubDateTextView.text = Html.fromHtml(movieList[position].pubDate)
-            holder.directorTextView.text = Html.fromHtml(movieList[position].director)
+            Html.fromHtml(words).toString()
         }
     }
 
