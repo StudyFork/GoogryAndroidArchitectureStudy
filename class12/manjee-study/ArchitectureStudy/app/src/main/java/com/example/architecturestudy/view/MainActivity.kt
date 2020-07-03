@@ -1,9 +1,7 @@
 package com.example.architecturestudy.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.architecturestudy.R
 import com.example.architecturestudy.data.MovieData
 import com.example.architecturestudy.data.MovieMeta
@@ -29,12 +27,10 @@ class MainActivity : AppCompatActivity() {
     private fun init() {
         val movieAdapter = MovieAdapter()
 
-        movieRecyclerView.layoutManager = LinearLayoutManager(this)
         movieRecyclerView.adapter = movieAdapter
 
         searchButton.setOnClickListener {
             searchEditText.text?.toString()?.let { title ->
-                Log.e("!!!!", title)
                 movieApiService.createService().searchMovie(title)
                     .enqueue(object : Callback<MovieMeta> {
                         override fun onFailure(call: Call<MovieMeta>, t: Throwable) {
