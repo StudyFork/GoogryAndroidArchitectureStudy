@@ -1,13 +1,12 @@
 package r.test.data
 
-import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import r.test.data.networks.NaverApi
 import r.test.data.networks.RetrofitClient
-import r.test.data.repository.MovieRepository
-import r.test.data.repository.MovieRepositoryImpl
 import r.test.data.remote.NaverRemoteDataSource
 import r.test.data.remote.NaverRemoteDataSourceImpl
+import r.test.data.repository.MovieRepository
+import r.test.data.repository.MovieRepositoryImpl
 
 val dataModule = module {
 
@@ -24,8 +23,6 @@ val dataModule = module {
             get()
         )
     }
-
-    viewModel { MainViewModel(get(), get()) }
 }
 
 fun genRetrofitApi(): NaverApi {
