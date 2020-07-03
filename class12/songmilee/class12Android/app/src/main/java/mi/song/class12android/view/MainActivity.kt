@@ -7,10 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import mi.song.class12android.R
-import mi.song.class12android.model.data.MovieInfo
 import mi.song.class12android.model.data.MovieResponse
 import mi.song.class12android.network.MovieService
 import mi.song.class12android.network.RetrofitHelper
@@ -19,17 +16,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    var edtQuery: EditText? = null
-    var btnSearch: Button? = null
-    var listMovie: RecyclerView? = null
+    lateinit var edtQuery: EditText
+    lateinit var btnSearch: Button
+    lateinit var listMovie: RecyclerView
 
-    var movieAdapter: MovieAdapter? = null
+    lateinit var movieAdapter: MovieAdapter
 
     lateinit var movieService: MovieService
 
     val queryMovie: View.OnClickListener = View.OnClickListener {
-        edtQuery?.text?.toString()?.let { query ->
-            movieAdapter?.clearMovieList()
+        edtQuery.text?.toString()?.let { query ->
+            movieAdapter.clearMovieList()
 
             movieService.getMovieInfo(query).enqueue(object : Callback<MovieResponse> {
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
@@ -43,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful) {
                         response.body()?.items?.apply {
-                            movieAdapter?.addMovieInfo(this)
+                            movieAdapter.addMovieInfo(this)
                         }
                     }
                 }
@@ -69,10 +66,10 @@ class MainActivity : AppCompatActivity() {
         edtQuery = findViewById(R.id.edt_query)
 
         btnSearch = findViewById(R.id.btn_search)
-        btnSearch?.setOnClickListener(queryMovie)
+        btnSearch.setOnClickListener(queryMovie)
 
         listMovie = findViewById(R.id.list_movie)
         movieAdapter = MovieAdapter()
-        listMovie?.adapter = movieAdapter
+        listMovie.adapter = movieAdapter
     }
 }
