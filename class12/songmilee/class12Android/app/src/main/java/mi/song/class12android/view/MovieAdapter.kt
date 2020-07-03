@@ -47,7 +47,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
             tvDirector.text = movieInfo.director
             tvActor.text = movieInfo.actor
 
-            movieInfo.image?.let { Glide.with(itemView.context).load(movieInfo.image).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).into(imgThumbnail) }
+            movieInfo.image?.let {
+                Glide.with(itemView.context)
+                    .load(movieInfo.image)
+                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                    .into(imgThumbnail)
+            }
         }
     }
 }
