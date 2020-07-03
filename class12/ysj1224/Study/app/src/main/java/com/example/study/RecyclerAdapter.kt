@@ -9,10 +9,11 @@ import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.rv_item.view.*
+import java.util.ArrayList
 
 class RecyclerAdapter :
     RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
-    private lateinit var item: List<NaverApiData.Item>
+    private var item = mutableListOf<NaverApiData.Item>()
 
 
     override fun onCreateViewHolder(
@@ -36,15 +37,14 @@ class RecyclerAdapter :
     }
 
     override fun getItemCount(): Int {
-        if(::item.isInitialized){
             return item.size
-        }
-        return 0
     }
 
-    fun setItem(apiItem: List<NaverApiData.Item>){
-        item = apiItem
+    fun setItem(apiItem: List<NaverApiData.Item>) {
+        item.clear()
+        item.addAll(apiItem)
         notifyDataSetChanged()
+
     }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
