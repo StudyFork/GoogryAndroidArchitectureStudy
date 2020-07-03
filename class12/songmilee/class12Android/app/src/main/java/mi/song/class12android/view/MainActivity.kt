@@ -6,7 +6,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     
     val queryMovie: View.OnClickListener = View.OnClickListener {
         edtQuery?.text?.toString()?.let { query ->
-            movieAdapter?.resetMovieList()
+            movieAdapter?.clearMovieList()
 
             movieService.getMovieInfo(query).enqueue(object : Callback<JsonObject> {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {

@@ -19,7 +19,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
         notifyItemInserted(movieList.size - 1)
     }
 
-    fun resetMovieList(){
+    fun clearMovieList(){
         movieList.clear()
         notifyDataSetChanged()
     }
