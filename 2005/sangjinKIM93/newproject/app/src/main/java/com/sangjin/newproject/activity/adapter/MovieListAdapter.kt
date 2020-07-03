@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sangjin.newproject.R
-import com.sangjin.newproject.data.model.Movie
+import com.example.data.model.Movie
 import com.sangjin.newproject.databinding.ItemMovieBinding
 
 class MovieListAdapter(clickListener : ((Int) -> Unit)) : RecyclerView.Adapter<MovieListViewHolder>() {

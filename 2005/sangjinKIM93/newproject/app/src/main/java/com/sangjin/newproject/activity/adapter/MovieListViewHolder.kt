@@ -1,7 +1,7 @@
 package com.sangjin.newproject.activity.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import com.sangjin.newproject.data.model.Movie
+import com.example.data.model.Movie
 import com.sangjin.newproject.databinding.ItemMovieBinding
 
 class MovieListViewHolder(private val binding: ItemMovieBinding) :

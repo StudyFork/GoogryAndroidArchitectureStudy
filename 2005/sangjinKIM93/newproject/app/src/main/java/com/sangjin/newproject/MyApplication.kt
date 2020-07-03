@@ -1,6 +1,7 @@
 package com.sangjin.newproject
 
 import android.app.Application
+import com.example.data.di.dataModule
 import com.sangjin.newproject.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -18,6 +19,7 @@ class MyApplication : Application() {
             }
             androidContext(this@MyApplication)
             modules(appModule)
+            modules(dataModule)
         }
     }
 }

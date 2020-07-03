@@ -1,10 +1,10 @@
-package com.sangjin.newproject.data.source.local
+package com.example.data.source.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sangjin.newproject.data.model.Movie
+import com.example.data.model.Movie
 
 @Database(entities = arrayOf(Movie::class), version = 2)
 abstract class RoomDb : RoomDatabase(){

@@ -1,6 +1,7 @@
-package com.sangjin.newproject.data.source.remote
+package com.example.data.source.remote
 
-import com.sangjin.newproject.network.MovieApi
+import com.example.data.MovieApi
+
 
 class RemoteDataSourceImpl : RemoteDataSource {
 

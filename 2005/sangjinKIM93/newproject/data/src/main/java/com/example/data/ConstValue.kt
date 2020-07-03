@@ -1,4 +1,4 @@
-package com.sangjin.newproject.utils
+package com.example.data
 
 class ConstValue {
 

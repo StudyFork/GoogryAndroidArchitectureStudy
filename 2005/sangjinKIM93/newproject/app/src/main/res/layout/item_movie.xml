@@ -6,7 +6,7 @@
     <data>
         <variable
             name="movie"
-            type="com.sangjin.newproject.data.model.Movie" />
+            type="com.example.data.model.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,10 +1,9 @@
-package com.sangjin.newproject.data.repository
+package com.example.data.repository
 
-import android.util.Log
-import com.sangjin.newproject.data.model.Movie
-import com.sangjin.newproject.data.model.NaverMovieResponse
-import com.sangjin.newproject.data.source.local.LocalDataSource
-import com.sangjin.newproject.data.source.remote.RemoteDataSource
+import com.example.data.model.Movie
+import com.example.data.model.NaverMovieResponse
+import com.example.data.source.local.LocalDataSource
+import com.example.data.source.remote.RemoteDataSource
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
