@@ -14,9 +14,9 @@ import mi.song.class12android.model.data.MovieInfo
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
     private val movieList = ArrayList<MovieInfo>()
 
-    fun addMovieInfo(movieInfo: MovieInfo) {
-        movieList.add(movieInfo)
-        notifyItemInserted(movieList.size - 1)
+    fun addMovieInfo(movieList: List<MovieInfo>) {
+        this.movieList.addAll(movieList)
+        notifyDataSetChanged()
     }
 
     fun clearMovieList() {

@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import mi.song.class12android.R
 import mi.song.class12android.model.data.MovieInfo
+import mi.song.class12android.model.data.MovieResponse
 import mi.song.class12android.network.MovieService
 import mi.song.class12android.network.RetrofitHelper
 import retrofit2.Call
@@ -30,21 +31,19 @@ class MainActivity : AppCompatActivity() {
         edtQuery?.text?.toString()?.let { query ->
             movieAdapter?.clearMovieList()
 
-            movieService.getMovieInfo(query).enqueue(object : Callback<JsonObject> {
-                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+            movieService.getMovieInfo(query).enqueue(object : Callback<MovieResponse> {
+                override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     Toast.makeText(baseContext, "Sorry, try it next time", Toast.LENGTH_SHORT)
                         .show()
                 }
 
-                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                override fun onResponse(
+                    call: Call<MovieResponse>,
+                    response: Response<MovieResponse>
+                ) {
                     if (response.isSuccessful) {
-                        val jsonBody = response.body()
-                        jsonBody?.getAsJsonArray("items")?.let { items ->
-                            for (movie in items) {
-                                val resultInfo =
-                                    Gson().fromJson(movie.asJsonObject, MovieInfo::class.java)
-                                movieAdapter?.addMovieInfo(resultInfo)
-                            }
+                        response.body()?.items?.apply {
+                            movieAdapter?.addMovieInfo(this)
                         }
                     }
                 }
