@@ -37,10 +37,10 @@ class MainActivity : AppCompatActivity() {
     fun init(){
         movieService = RetrofitHelper.getService(baseContext)
 
-        initUI()
+        initUi()
     }
 
-    fun initUI(){
+    fun initUi(){
         edtQuery = findViewById(R.id.edt_query)
 
         btnSearch = findViewById(R.id.btn_search)
