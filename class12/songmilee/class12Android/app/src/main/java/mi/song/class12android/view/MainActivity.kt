@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
 
         listMovie = findViewById(R.id.list_movie)
         movieAdapter = MovieAdapter()
-        listMovie?.layoutManager = LinearLayoutManager(baseContext)
         listMovie?.adapter = movieAdapter
     }
     

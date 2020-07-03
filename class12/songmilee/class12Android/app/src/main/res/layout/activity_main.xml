@@ -30,6 +30,7 @@
         android:id="@+id/list_movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_movie"/>
+        tools:listitem="@layout/item_movie"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 </LinearLayout>
