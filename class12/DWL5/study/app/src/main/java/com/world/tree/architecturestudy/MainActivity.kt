@@ -17,11 +17,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val adapter = MovieAdapter()
-        recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
         btnSearch.setOnClickListener {
-            SearchRetrofit.getService().requestSearchMovie(query = etUrl.text.toString())
+            SearchRetrofit.retrofitService.requestSearchMovie(query = etUrl.text.toString())
                 .enqueue(object : Callback<Movie> {
                     override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                         response.body()?.let {
