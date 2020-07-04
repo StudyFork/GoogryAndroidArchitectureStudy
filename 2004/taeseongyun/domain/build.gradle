@@ -39,7 +39,4 @@ dependencies {
 
     //koin
     implementation deps.androidx.koin
-
-    //data
-//    implementation project(':data')
 }

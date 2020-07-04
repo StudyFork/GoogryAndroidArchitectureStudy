@@ -3,7 +3,7 @@ package com.tsdev.presentation
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tsdev.data.source.Item
+import com.tsdev.domain.model.Item
 import com.tsdev.domain.repository.NaverMovieRepository
 import com.tsdev.presentation.base.BaseViewModel
 import com.tsdev.presentation.ext.SingleEventLiveData

@@ -1,6 +1,6 @@
-package com.tsdev.domain.model
+package com.tsdev.data.model
 
-data class Item(
+data class EntryItem(
     val actor: String,
     val director: String,
     val image: String,
@@ -10,3 +10,4 @@ data class Item(
     val title: String,
     val userRating: String
 )
+
