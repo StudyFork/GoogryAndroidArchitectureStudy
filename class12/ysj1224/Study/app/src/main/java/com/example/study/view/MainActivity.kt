@@ -1,10 +1,14 @@
-package com.example.study
+package com.example.study.view
 
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.study.NaverApiData
+import com.example.study.NaverRetrofit
+import com.example.study.R
+import com.example.study.RecyclerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback

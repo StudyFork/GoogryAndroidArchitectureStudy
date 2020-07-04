@@ -1,5 +1,6 @@
 package com.example.study
 
+import com.example.study.view.baseUrl
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
