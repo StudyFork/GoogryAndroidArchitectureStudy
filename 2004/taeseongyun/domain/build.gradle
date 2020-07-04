@@ -36,7 +36,4 @@ dependencies {
 
     //rx
     implementation deps.library.rx.java
-
-    //koin
-    implementation deps.androidx.koin
 }

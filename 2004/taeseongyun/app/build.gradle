@@ -73,7 +73,7 @@ dependencies {
     implementation deps.library.rx.android
 
     //multi-module
-//    implementation project(':data')
+    implementation project(':data')
     implementation project(':domain')
     implementation project(':remote')
     implementation project(':presentation')

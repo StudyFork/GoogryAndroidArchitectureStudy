@@ -1,8 +1,8 @@
 package com.tsdev.tsandroid
 
 import android.app.Application
-import com.tsdev.domain.di.domainMapperModule
-import com.tsdev.domain.di.repositoryModule
+import com.tsdev.data.di.mapperModule
+import com.tsdev.data.di.naverMovieRepository
 import com.tsdev.presentation.di.resourceProviderModule
 import com.tsdev.presentation.di.viewModelModule
 import com.tsdev.remote.di.networkModule
@@ -27,8 +27,8 @@ class NaverMovieSearchApp : Application() {
             modules(
                 networkModule,
                 remoteMapperModule,
-                domainMapperModule,
-                repositoryModule,
+                mapperModule,
+                naverMovieRepository,
                 rxJavaEventBusModule,
                 viewModelModule,
                 remoteModule,

@@ -3,7 +3,7 @@ package com.tsdev.presentation
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tsdev.domain.model.Item
+import com.tsdev.domain.model.DomainItem
 import com.tsdev.domain.repository.NaverMovieRepository
 import com.tsdev.presentation.base.BaseViewModel
 import com.tsdev.presentation.ext.SingleEventLiveData
@@ -21,8 +21,8 @@ class MainViewModel(
     val isLoading: SingleEventLiveData<Boolean>
         get() = _isLoading
 
-    private val _movieList = MutableLiveData<List<Item>>()
-    val movieList: LiveData<List<Item>>
+    private val _movieList = MutableLiveData<List<DomainItem>>()
+    val movieList: LiveData<List<DomainItem>>
         get() = _movieList
 
     val query = MutableLiveData<String>()

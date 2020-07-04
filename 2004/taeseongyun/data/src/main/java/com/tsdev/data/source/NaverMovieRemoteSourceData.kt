@@ -4,5 +4,5 @@ import com.tsdev.data.model.EntryItem
 import io.reactivex.rxjava3.core.Single
 
 interface NaverMovieRemoteSourceData {
-    fun getMovieList(query: String): Single<EntryItem>
+    fun getMovieList(query: String): Single<List<EntryItem>>
 }
