@@ -49,13 +49,10 @@ class MovieAdapter() :
         }
     }
 
-    fun addAllData(data: List<MovieResponse.Item>) {
+    fun resetData(data: List<MovieResponse.Item>) {
+        movieList.clear()
         movieList.addAll(data)
         notifyDataSetChanged()
-    }
-
-    fun clearData() {
-        movieList.clear()
     }
 
     override fun getItemCount() = movieList.size

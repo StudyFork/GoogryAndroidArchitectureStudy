@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        service = MovieApi.invoke(NetworkConnectionInterceptor(this))
+        service = MovieApi.invoke(NetworkConnectionInterceptor())
 
         movie_search_btn.setOnClickListener {
             val keyword = movie_search_et.text
@@ -52,9 +52,8 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if (response.isSuccessful) {
                     val body = response.body()
-                    viewAdapter.clearData()
                     body?.let {
-                        viewAdapter.addAllData(body.items)
+                        viewAdapter.resetData(body.items)
                     }
                 } else {
                     Toast.makeText(
