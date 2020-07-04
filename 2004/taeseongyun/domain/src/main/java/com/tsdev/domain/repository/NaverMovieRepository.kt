@@ -1,6 +1,6 @@
 package com.tsdev.domain.repository
 
-import com.tsdev.data.source.Item
+import com.tsdev.domain.model.Item
 import io.reactivex.rxjava3.core.Single
 
 interface NaverMovieRepository  {

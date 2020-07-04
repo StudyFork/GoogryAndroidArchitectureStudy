@@ -1,6 +1,6 @@
-package com.tsdev.data.source.remote
+package com.tsdev.data.source
 
-import com.tsdev.data.source.MovieResponse
+import com.tsdev.data.model.MovieResponse
 import io.reactivex.rxjava3.core.Single
 
 interface NaverMovieRemoteSourceData {

@@ -1,5 +1,5 @@
 package com.tsdev.domain.mapper
 
-interface Mapper<T, S> {
-    fun toData(data: T): S
+interface Mapper<E, T> {
+    fun toData(data: E): T
 }

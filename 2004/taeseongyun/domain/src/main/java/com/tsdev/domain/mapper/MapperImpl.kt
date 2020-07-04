@@ -1,8 +1,8 @@
 package com.tsdev.domain.mapper
 
-import com.tsdev.data.source.Item
-import com.tsdev.data.source.MovieResponse
 import com.tsdev.domain.ext.htmlConvert
+import com.tsdev.domain.model.Item
+import com.tsdev.domain.model.MovieResponse
 
 internal class MapperImpl : Mapper<MovieResponse, List<Item>> {
 

@@ -1,6 +1,6 @@
 package com.tsdev.remote.network.mapper
 
-import com.tsdev.data.source.MovieResponse
+import com.tsdev.data.model.MovieResponse
 import com.tsdev.remote.source.MovieDomainResponse
 import io.reactivex.rxjava3.core.Single
 

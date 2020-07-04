@@ -41,5 +41,5 @@ dependencies {
     implementation deps.androidx.koin
 
     //data
-    implementation project(':data')
+//    implementation project(':data')
 }

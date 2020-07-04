@@ -1,7 +1,7 @@
 package com.tsdev.remote
 
-import com.tsdev.data.source.MovieResponse
-import com.tsdev.data.source.remote.NaverMovieRemoteSourceData
+import com.tsdev.data.model.MovieResponse
+import com.tsdev.data.source.NaverMovieRemoteSourceData
 import com.tsdev.remote.network.NaverMovieAPI
 import com.tsdev.remote.network.mapper.Mapper
 import com.tsdev.remote.source.MovieDomainResponse
