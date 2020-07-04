@@ -43,9 +43,9 @@ class MainActivity : AppCompatActivity() {
         searchButton.setOnClickListener {
             searchTitle = searchText.text.toString()
 
-            if (searchTitle == "") {
-            } else {
+            if (searchTitle.isNotEmpty()) {
                 movieSearch(service)
+            } else {
             }
         }
     }
