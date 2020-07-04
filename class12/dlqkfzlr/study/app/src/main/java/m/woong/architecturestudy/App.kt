@@ -11,7 +11,7 @@ class App : Application() {
 
     companion object {
         private var context: Context? = null
-        val appContext: Context?
-            get() = context
+        var appContext: Context? = null
+            private set
     }
 }
