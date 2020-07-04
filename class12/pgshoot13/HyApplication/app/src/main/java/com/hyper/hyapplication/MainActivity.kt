@@ -2,7 +2,6 @@ package com.hyper.hyapplication
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -28,11 +27,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewAdapter = MovieAdapter(item)
-        viewManager = LinearLayoutManager(this)
         recyclerView.apply {
             setHasFixedSize(true)
             adapter = viewAdapter
-            layoutManager = viewManager
         }
 
         val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
