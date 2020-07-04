@@ -2,7 +2,6 @@ package com.hyper.hyapplication
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -12,8 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewAdapter: MovieAdapter
 
     private val CLIENT_ID = "ImN25OL4axIIwuH6jXDj"
     private val CLIENT_SECRET = "vysJ6N1WXx"
