@@ -5,8 +5,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.study.NaverApiData
-import com.example.study.NaverRetrofit
+import com.example.study.data.model.NaverApiData
+import com.example.study.data.api.NaverRetrofit
 import com.example.study.R
 import com.example.study.RecyclerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -47,12 +47,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun doSearch() {
-        NaverRetrofit.service.getSearch(
+        NaverRetrofit.SERVICE.getSearch(
             clientId = clientId,
             clientPw = clientSecret,
             query = etv_search.text.toString()
         ).enqueue(object : Callback<NaverApiData> {
             override fun onFailure(call: Call<NaverApiData>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "네트워크를 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<NaverApiData>, response: Response<NaverApiData>) {

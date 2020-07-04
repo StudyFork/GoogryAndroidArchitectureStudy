@@ -1,5 +1,6 @@
-package com.example.study
+package com.example.study.data.api
 
+import com.example.study.data.model.NaverApiData
 import com.example.study.view.baseUrl
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -8,7 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 
-interface NaverApiInterface {
+interface NaverApi {
 
     @GET("/v1/search/movie.json")
     fun getSearch(
@@ -22,6 +23,7 @@ object NaverRetrofit{
     private val retrofit: Retrofit = Retrofit.Builder().baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    val service: NaverApiInterface = retrofit.create(NaverApiInterface::class.java)
+    val SERVICE: NaverApi = retrofit.create(
+        NaverApi::class.java)
 }
 
