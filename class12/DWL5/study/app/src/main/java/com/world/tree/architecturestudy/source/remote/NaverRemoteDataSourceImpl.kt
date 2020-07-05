@@ -1,4 +1,4 @@
-package com.world.tree.architecturestudy.source
+package com.world.tree.architecturestudy.source.remote
 
 import com.world.tree.architecturestudy.RetrofitService
 import com.world.tree.architecturestudy.model.Movie
@@ -6,7 +6,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverRemoteDataSourceImpl(val remoteService: RetrofitService) : NaverRemoteDataSource {
+class NaverRemoteDataSourceImpl(val remoteService: RetrofitService) :
+    NaverRemoteDataSource {
 
 
     override fun getMovies(

@@ -1,8 +1,9 @@
-package com.world.tree.architecturestudy.repository
+package com.world.tree.architecturestudy.repository.remote
 
 import com.world.tree.architecturestudy.model.Movie
 
-class NaverRepositoryImpl(val remoteDataSource: NaverRepositoryImpl) : NaverRepository {
+class NaverRepositoryImpl(val remoteDataSource: NaverRepositoryImpl) :
+    NaverRepository {
     override fun getMovies(
         q: String,
         success: (List<Movie.Item>) -> Unit,
