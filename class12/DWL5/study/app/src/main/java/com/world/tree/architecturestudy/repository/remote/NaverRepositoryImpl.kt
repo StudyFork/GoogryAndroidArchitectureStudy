@@ -1,8 +1,9 @@
 package com.world.tree.architecturestudy.repository.remote
 
 import com.world.tree.architecturestudy.model.Movie
+import com.world.tree.architecturestudy.source.remote.NaverRemoteDataSourceImpl
 
-class NaverRepositoryImpl(val remoteDataSource: NaverRepositoryImpl) :
+class NaverRepositoryImpl(private val remoteDataSource: NaverRemoteDataSourceImpl) :
     NaverRepository {
     override fun getMovies(
         q: String,
