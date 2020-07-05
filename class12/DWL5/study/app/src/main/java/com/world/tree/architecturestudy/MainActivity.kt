@@ -1,9 +1,9 @@
 package com.world.tree.architecturestudy
 
-import com.world.tree.architecturestudy.Movie.Item
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.world.tree.architecturestudy.model.Movie
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback

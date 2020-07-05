@@ -1,11 +1,11 @@
 package com.world.tree.architecturestudy
 
+import com.world.tree.architecturestudy.model.Movie
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
 const val CLIENT_ID = "oJ6_BI6HBryWI4Fl2iyW"
