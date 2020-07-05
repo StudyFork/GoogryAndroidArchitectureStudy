@@ -15,8 +15,8 @@ import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
 class MainActivity : AppCompatActivity() {
     lateinit var edtQuery: EditText
     lateinit var btnSearch: Button
-    lateinit var listMovie: RecyclerView
 
+    lateinit var listMovie: RecyclerView
     lateinit var movieAdapter: MovieAdapter
 
     lateinit var searchMovieRepository: SearchMovieRepository
@@ -28,11 +28,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun success(movieList: List<MovieInfo>) {
+    private fun success(movieList: List<MovieInfo>) {
         movieAdapter.addMovieInfo(movieList)
     }
 
-    fun fail(t: Throwable) {
+    private fun fail(t: Throwable) {
         Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
     }
 
@@ -44,13 +44,13 @@ class MainActivity : AppCompatActivity() {
         init()
     }
 
-    fun init() {
+    private fun init() {
         searchMovieRepository = SearchMovieRepositoryImpl(baseContext)
 
         initUi()
     }
 
-    fun initUi() {
+    private fun initUi() {
         edtQuery = findViewById(R.id.edt_query)
 
         btnSearch = findViewById(R.id.btn_search)
