@@ -1,4 +1,4 @@
-package com.example.architecturestudy.view
+package com.example.architecturestudy.ui
 
 import android.view.LayoutInflater
 import android.view.View

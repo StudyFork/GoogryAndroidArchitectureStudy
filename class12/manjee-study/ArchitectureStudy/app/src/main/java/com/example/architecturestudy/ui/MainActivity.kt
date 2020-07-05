@@ -1,4 +1,4 @@
-package com.example.architecturestudy.view
+package com.example.architecturestudy.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
