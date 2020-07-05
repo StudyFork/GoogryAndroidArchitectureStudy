@@ -5,10 +5,9 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface MovieApi {
-
+interface MovieRemoteDataSource {
     @GET("movie.json")
     fun searchMovie(
-        @Query("query") title: String
+        @Query("query") query: String
     ): Call<MovieMeta>
 }

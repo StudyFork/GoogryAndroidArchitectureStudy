@@ -6,13 +6,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-object MovieApiService {
+object MovieRemoteService {
 
     private const val naverApiUrl = "https://openapi.naver.com/v1/search/"
     private const val readWriteTimeOutSec: Long = 20
 
-    val movieApiService: MovieApi
-        get() = movieRetrofit.create(MovieApi::class.java)
+    val movieApiService: MovieRemoteDataSource
+        get() = movieRetrofit.create(MovieRemoteDataSource::class.java)
 
 
     private val mHttpLoggingIntercepter = HttpLoggingInterceptor()

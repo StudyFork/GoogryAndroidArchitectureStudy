@@ -1,17 +1,19 @@
 package com.example.architecturestudy.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.model.MovieData
 import com.example.architecturestudy.data.model.MovieMeta
-import com.example.architecturestudy.data.source.remote.MovieApiService
+import com.example.architecturestudy.data.repository.MovieRespositoryImpl
+import com.example.architecturestudy.data.source.remote.RemoteCallback
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    private val movieRepository = MovieRespositoryImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,29 +29,23 @@ class MainActivity : AppCompatActivity() {
 
         searchButton.setOnClickListener {
             searchEditText.text?.toString()?.let { title ->
-                MovieApiService.movieApiService.searchMovie(title)
-                    .enqueue(object : Callback<MovieMeta> {
-                        override fun onFailure(call: Call<MovieMeta>, t: Throwable) {
 
+                val call = movieRepository.remoteSearchMovie(title, object : RemoteCallback<MovieMeta> {
+                    override fun onFailure(call: Call<MovieMeta>, t: Throwable) {
+                        Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onResponse(
+                        call: Call<MovieMeta>,
+                        response: Response<MovieMeta>
+                    ) {
+                        val metaData = response.body()
+                        metaData?.let {
+                            movieAdapter.setData(movieList = it.items)
                         }
+                    }
 
-                        override fun onResponse(
-                            call: Call<MovieMeta>,
-                            response: Response<MovieMeta>
-                        ) {
-                            if (response.isSuccessful) {
-                                val metaData = response.body()
-
-                                metaData?.let {
-                                    val movieList = ArrayList<MovieData>()
-                                    if (it.items.isNotEmpty()) {
-                                        movieList.addAll(it.items)
-                                        movieAdapter.setData(movieList = movieList)
-                                    }
-                                }
-                            }
-                        }
-                    })
+                })
             }
         }
     }
