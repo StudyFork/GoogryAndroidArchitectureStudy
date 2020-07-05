@@ -1,4 +1,4 @@
-package mi.song.class12android.view
+package mi.song.class12android.ui
 
 import android.view.LayoutInflater
 import android.view.View
