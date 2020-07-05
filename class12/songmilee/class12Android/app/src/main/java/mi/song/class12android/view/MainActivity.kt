@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import mi.song.class12android.R
-import mi.song.class12android.model.data.MovieResponse
+import mi.song.class12android.data.model.MovieResponse
 import mi.song.class12android.network.MovieService
 import mi.song.class12android.network.RetrofitHelper
 import retrofit2.Call

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import mi.song.class12android.R
-import mi.song.class12android.model.data.MovieInfo
+import mi.song.class12android.data.model.MovieInfo
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
     private val movieList = ArrayList<MovieInfo>()
