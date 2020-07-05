@@ -24,12 +24,10 @@ class MainActivity : AppCompatActivity() {
                 .enqueue(object : Callback<Movie> {
                     override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                         response.body()?.let {
-                            for (item in it.items) {
-                                adapter.addData(item)
-                            }
+                            adapter.addData(it.items)
                         }
                     }
-                    
+
                     override fun onFailure(call: Call<Movie>, t: Throwable) {
                         Toast.makeText(this@MainActivity, "실패", Toast.LENGTH_LONG)
                             .show()
