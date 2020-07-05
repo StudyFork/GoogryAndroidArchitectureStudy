@@ -3,9 +3,9 @@ package com.example.architecturestudy.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.architecturestudy.R
-import com.example.architecturestudy.data.MovieData
-import com.example.architecturestudy.data.MovieMeta
-import com.example.architecturestudy.network.MovieApiService
+import com.example.architecturestudy.data.model.MovieData
+import com.example.architecturestudy.data.model.MovieMeta
+import com.example.architecturestudy.data.source.remote.MovieApiService
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback

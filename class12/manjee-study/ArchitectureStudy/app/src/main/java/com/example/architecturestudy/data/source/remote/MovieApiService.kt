@@ -1,4 +1,4 @@
-package com.example.architecturestudy.network
+package com.example.architecturestudy.data.source.remote
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
