@@ -17,9 +17,6 @@ class MainActivity : AppCompatActivity() {
     private val CLIENT_SECRET = "vysJ6N1WXx"
     private val BASE_URL = "https://openapi.naver.com"
 
-    var searchTitle = ""
-    var item = listOf<ResultGetSearchMovie.Item>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         val service: NaverAPI = retrofit.create(NaverAPI::class.java)
 
         searchButton.setOnClickListener {
-            searchTitle = searchText.text.toString()
 
             if (searchTitle.isNotEmpty()) {
                 movieSearch(service)
@@ -49,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         service.getSearchMovie(
             clientId = CLIENT_ID,
             clientSecret = CLIENT_SECRET,
-            query = searchTitle
+            query = searchText.text.toString()
         ).enqueue(object : Callback<ResultGetSearchMovie> {
             override fun onFailure(call: Call<ResultGetSearchMovie>, t: Throwable) {
             }
