@@ -33,9 +33,9 @@ class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         holder.itemView.txtActor.text = movies[position].actor
     }
 
-    fun addData(data: Movie.Item) {
-        movies.add(data)
-        notifyItemInserted(movies.size - 1)
+    fun addData(data: List<Movie.Item>) {
+        movies.addAll(data)
+        notifyDataSetChanged()
     }
 
     fun clearData() {
