@@ -22,10 +22,7 @@ class MovieRespositoryImpl : MovieRepository {
                 call: Call<MovieMeta>,
                 response: Response<MovieMeta>
             ) {
-                val metaData = response.body()
-                metaData?.let {
-                    success(it.items)
-                }
+                response.body()?.items?.let { success(it) }
             }
 
         })
