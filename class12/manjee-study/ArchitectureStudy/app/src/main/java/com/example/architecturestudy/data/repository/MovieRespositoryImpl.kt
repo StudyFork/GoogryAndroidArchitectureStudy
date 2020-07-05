@@ -5,11 +5,7 @@ import com.example.architecturestudy.data.source.remote.MovieRemoteService
 import com.example.architecturestudy.data.source.remote.RemoteCallback
 
 class MovieRespositoryImpl : MovieRepository {
-    override fun remoteSearchMovie(
-        title: String,
-        searchMovieCallback: RemoteCallback<MovieMeta>
-    ): RemoteCallback<MovieMeta> {
+    override fun remoteSearchMovie(title: String, searchMovieCallback: RemoteCallback<MovieMeta>) {
         MovieRemoteService.movieApiService.searchMovie(title).enqueue(searchMovieCallback)
-        return searchMovieCallback
     }
 }

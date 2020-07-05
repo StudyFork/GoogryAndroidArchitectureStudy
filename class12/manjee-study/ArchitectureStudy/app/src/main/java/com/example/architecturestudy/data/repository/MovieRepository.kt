@@ -4,5 +4,5 @@ import com.example.architecturestudy.data.model.MovieMeta
 import com.example.architecturestudy.data.source.remote.RemoteCallback
 
 interface MovieRepository {
-    fun remoteSearchMovie(title: String, searchMovieCallback: RemoteCallback<MovieMeta>): RemoteCallback<MovieMeta>
+    fun remoteSearchMovie(title: String, searchMovieCallback: RemoteCallback<MovieMeta>)
 }

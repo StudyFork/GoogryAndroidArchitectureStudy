@@ -29,8 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         searchButton.setOnClickListener {
             searchEditText.text?.toString()?.let { title ->
-
-                val call = movieRepository.remoteSearchMovie(title, object : RemoteCallback<MovieMeta> {
+                movieRepository.remoteSearchMovie(title, object : RemoteCallback<MovieMeta> {
                     override fun onFailure(call: Call<MovieMeta>, t: Throwable) {
                         Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
                     }
