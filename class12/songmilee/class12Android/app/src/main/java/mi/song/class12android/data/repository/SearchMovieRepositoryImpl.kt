@@ -11,7 +11,7 @@ import retrofit2.Response
 class SearchMovieRepositoryImpl(context: Context) : SearchMovieRepository {
     private val movieService = RetrofitHelper.getService(context)
 
-    override fun getMovie(
+    override fun getRemoteMovieData(
         query: String,
         success: (List<MovieInfo>) -> Unit,
         fail: (Throwable) -> Unit

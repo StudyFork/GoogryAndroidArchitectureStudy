@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     val queryMovie: View.OnClickListener = View.OnClickListener {
         edtQuery.text?.toString()?.let { query ->
             movieAdapter.clearMovieList()
-            searchMovieRepository.getMovie(query, success = ::success, fail = ::fail)
+            searchMovieRepository.getRemoteMovieData(query, success = ::success, fail = ::fail)
         }
     }
 
