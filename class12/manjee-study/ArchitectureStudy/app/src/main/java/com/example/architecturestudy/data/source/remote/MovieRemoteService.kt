@@ -31,8 +31,9 @@ object MovieRemoteService {
             chain.proceed(request)
         }
 
-    private val movieRetrofit: Retrofit = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(naverApiUrl)
-        .client(mOkHttpClient.build())
-        .build()
+    private val movieRetrofit: Retrofit =
+        Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(naverApiUrl)
+            .client(mOkHttpClient.build())
+            .build()
 }
