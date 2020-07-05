@@ -8,12 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import mi.song.class12android.R
-import mi.song.class12android.data.model.MovieResponse
-import mi.song.class12android.data.source.remote.MovieService
-import mi.song.class12android.data.source.remote.RetrofitHelper
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import mi.song.class12android.data.model.MovieInfo
+import mi.song.class12android.data.repository.SearchMovieRepository
+import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
 
 class MainActivity : AppCompatActivity() {
     lateinit var edtQuery: EditText
@@ -22,32 +19,23 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var movieAdapter: MovieAdapter
 
-    lateinit var movieService: MovieService
+    lateinit var searchMovieRepository: SearchMovieRepository
 
     val queryMovie: View.OnClickListener = View.OnClickListener {
         edtQuery.text?.toString()?.let { query ->
             movieAdapter.clearMovieList()
-
-            movieService.getMovieInfo(query).enqueue(object : Callback<MovieResponse> {
-                override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                    Toast.makeText(baseContext, "Sorry, try it next time", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-                override fun onResponse(
-                    call: Call<MovieResponse>,
-                    response: Response<MovieResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        response.body()?.items?.apply {
-                            movieAdapter.addMovieInfo(this)
-                        }
-                    }
-                }
-
-            })
+            searchMovieRepository.getMovie(query, success = ::success, fail = ::fail)
         }
     }
+
+    fun success(movieList: List<MovieInfo>) {
+        movieAdapter.addMovieInfo(movieList)
+    }
+
+    fun fail(t: Throwable) {
+        Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun init() {
-        movieService = RetrofitHelper.getService(baseContext)
+        searchMovieRepository = SearchMovieRepositoryImpl(baseContext)
 
         initUi()
     }
