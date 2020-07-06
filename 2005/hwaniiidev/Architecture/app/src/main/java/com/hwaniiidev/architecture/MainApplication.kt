@@ -1,6 +1,7 @@
 package com.hwaniiidev.architecture
 
 import android.app.Application
+import com.hwaniiidev.architecture.module.mainViewModel
 import com.hwaniiidev.architecture.module.searchModule
 import com.hwaniiidev.data.dataModule
 import org.koin.android.ext.koin.androidContext
@@ -14,7 +15,7 @@ class MainApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@MainApplication)
-            modules(searchModule,dataModule)
+            modules(mainViewModel,dataModule)
         }
     }
 }
