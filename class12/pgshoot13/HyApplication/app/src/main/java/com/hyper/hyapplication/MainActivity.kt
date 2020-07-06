@@ -1,6 +1,7 @@
 package com.hyper.hyapplication
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewAdapter = MovieAdapter(item)
+        viewAdapter = MovieAdapter()
         recyclerView.apply {
             setHasFixedSize(true)
             adapter = viewAdapter
@@ -49,20 +50,20 @@ class MainActivity : AppCompatActivity() {
         ).enqueue(object : Callback<ResultGetSearchMovie> {
             override fun onFailure(call: Call<ResultGetSearchMovie>, t: Throwable) {
             }
-
             override fun onResponse(
                 call: Call<ResultGetSearchMovie>,
                 response: Response<ResultGetSearchMovie>
             ) {
-                item = response.body()!!.items
-
-                item?.let {
-                    recyclerView.apply {
-                        adapter = MovieAdapter(item)
-                        adapter?.notifyDataSetChanged()
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        viewAdapter.resetData(it.items)
                     }
+                } else {
+                    Toast.makeText(this@MainActivity, "네트워크를 확인해주세요.", Toast.LENGTH_SHORT).show()
                 }
             }
         })
     }
 }
+
+

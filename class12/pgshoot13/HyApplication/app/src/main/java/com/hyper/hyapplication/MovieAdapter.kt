@@ -8,10 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MovieAdapter(private val movieLists: List<ResultGetSearchMovie.Item>) :
+class MovieAdapter() :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
-    override fun getItemCount(): Int = movieLists.size
+    private var movieList: ArrayList<ResultGetSearchMovie.Item> = ArrayList()
+
+    override fun getItemCount(): Int = movieList.size
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         return ViewHolder(view)
@@ -19,7 +21,7 @@ class MovieAdapter(private val movieLists: List<ResultGetSearchMovie.Item>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val movieList = movieLists[position]
+        val movieList = movieList[position]
 
         Glide.with(holder.itemView.context).load(movieList.image).override(1024)
             .into(holder.movieImage)
@@ -33,5 +35,11 @@ class MovieAdapter(private val movieLists: List<ResultGetSearchMovie.Item>) :
         val movieTitleTextView: TextView = itemView.findViewById<TextView>(R.id.movieTitleTv)
         val movieDirectorTextView: TextView = itemView.findViewById<TextView>(R.id.movieDirectorTv)
         val movieActorTextView: TextView = itemView.findViewById<TextView>(R.id.movieActorTv)
+    }
+
+    fun resetData(item: List<ResultGetSearchMovie.Item>) {
+        movieList.clear()
+        movieList.addAll(item)
+        notifyDataSetChanged()
     }
 }
