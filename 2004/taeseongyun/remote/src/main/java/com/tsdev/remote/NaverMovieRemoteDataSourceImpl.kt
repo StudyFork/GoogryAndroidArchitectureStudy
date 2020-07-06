@@ -9,15 +9,14 @@ import io.reactivex.rxjava3.core.Single
 
 internal class NaverMovieRemoteDataSourceImpl(
     private val naverMovieAPI: NaverMovieAPI,
-    private val mapper: Mapper<EntryItem, RemoteItem>
+    private val mapper: Mapper<RemoteItem, EntryItem>
 ) : NaverMovieRemoteSourceData {
 
     override fun getMovieList(query: String): Single<List<EntryItem>> {
         return naverMovieAPI.getSearchMovie(query)
+            .map { it.items }
             .map {
-                it.items
+                it.map(mapper::toData)
             }
-            .map { it.map (mapper::toData)  }
-
     }
 }

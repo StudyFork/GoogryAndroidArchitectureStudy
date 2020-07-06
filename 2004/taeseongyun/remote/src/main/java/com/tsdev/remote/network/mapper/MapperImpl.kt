@@ -4,35 +4,38 @@ import com.tsdev.data.model.EntryItem
 import com.tsdev.remote.model.RemoteItem
 import io.reactivex.rxjava3.core.Single
 
-object MapperImpl : Mapper<EntryItem, RemoteItem> {
-    override fun toData(data: Single<EntryItem>): Single<RemoteItem> {
-        return data.map { entry ->
-            RemoteItem(
-                actor = entry.actor,
-                director = entry.director,
-                image = entry.image,
-                link = entry.link,
-                pubDate = entry.pubDate,
-                subtitle = entry.subtitle,
-                title = entry.title,
-                userRating = entry.userRating
-            )
-        }
+object MapperImpl : Mapper<RemoteItem, EntryItem> {
+    override fun toData(data: RemoteItem): EntryItem {
+        return EntryItem(
+            actor = data.actor.split("|")
+                .filter {
+                    it.isNotEmpty()
+                }
+                .joinToString(", "),
+            director = data.director.split("|")
+                .filter {
+                    it.isNotEmpty()
+                }
+                .joinToString { it },
+            image = data.image,
+            link = data.link,
+            pubDate = data.pubDate,
+            subtitle = data.subtitle,
+            title = data.title,
+            userRating = data.userRating
+        )
     }
 
-    override fun fromData(data: Single<RemoteItem>): Single<EntryItem> {
-        return data.map { remote ->
-            EntryItem(
-                actor = remote.actor,
-                director = remote.director,
-                image = remote.image,
-                link = remote.link,
-                pubDate = remote.pubDate,
-                subtitle = remote.subtitle,
-                title = remote.title,
-                userRating = remote.userRating
-            )
-        }
+    override fun fromData(data: EntryItem): RemoteItem {
+        return RemoteItem(
+            actor = data.actor,
+            director = data.director,
+            image = data.image,
+            link = data.link,
+            pubDate = data.pubDate,
+            subtitle = data.subtitle,
+            title = data.title,
+            userRating = data.userRating
+        )
     }
-
 }

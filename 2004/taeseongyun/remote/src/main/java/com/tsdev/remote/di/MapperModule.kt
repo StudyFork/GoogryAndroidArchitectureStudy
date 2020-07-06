@@ -7,5 +7,5 @@ import com.tsdev.remote.network.mapper.MapperImpl
 import org.koin.dsl.module
 
 val remoteMapperModule = module {
-    single<Mapper<EntryItem, RemoteItem>> { MapperImpl }
+    single<Mapper<RemoteItem, EntryItem>> { MapperImpl }
 }
