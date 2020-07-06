@@ -1,8 +1,7 @@
-package com.hwaniiidev.architecture.data.repository
+package com.hwaniiidev.data.repository
 
 import com.hwaniiidev.data.model.Item
 import com.hwaniiidev.data.model.ResponseMovieSearchData
-import com.hwaniiidev.data.repository.NaverMovieRepository
 import com.hwaniiidev.data.source.local.NaverMovieLocalDataSource
 import com.hwaniiidev.data.source.remote.NaverMovieRemoteDataSource
 
