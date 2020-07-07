@@ -13,20 +13,15 @@ import mi.song.class12android.data.repository.SearchMovieRepository
 import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
 
 class MainActivity : AppCompatActivity() {
-    lateinit var edtQuery: EditText
-    lateinit var btnSearch: Button
+    private lateinit var edtQuery: EditText
+    private lateinit var btnSearch: Button
 
-    lateinit var listMovie: RecyclerView
-    lateinit var movieAdapter: MovieAdapter
+    private lateinit var listMovie: RecyclerView
+    private lateinit var movieAdapter: MovieAdapter
 
-    lateinit var searchMovieRepository: SearchMovieRepository
+    private lateinit var searchMovieRepository: SearchMovieRepository
 
-    val queryMovie: View.OnClickListener = View.OnClickListener {
-        edtQuery.text?.toString()?.let { query ->
-            movieAdapter.clearMovieList()
-            searchMovieRepository.getRemoteMovieData(query, success = ::success, fail = ::fail)
-        }
-    }
+    private lateinit var queryMovie: View.OnClickListener
 
     private fun success(movieList: List<MovieInfo>) {
         movieAdapter.addMovieInfo(movieList)
@@ -51,6 +46,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUi() {
+        queryMovie = View.OnClickListener {
+            edtQuery.text?.toString()?.let { query ->
+                movieAdapter.clearMovieList()
+                searchMovieRepository.getRemoteMovieData(query, success = ::success, fail = ::fail)
+            }
+        }
+
         edtQuery = findViewById(R.id.edt_query)
 
         btnSearch = findViewById(R.id.btn_search)
