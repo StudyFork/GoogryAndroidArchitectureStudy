@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.hyper.hyapplication.MovieAdapter
 import com.hyper.hyapplication.R
 import com.hyper.hyapplication.repository.NaverRepositoryImpl
+import com.hyper.hyapplication.source.remote.NaverRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val CLIENT_ID = "ImN25OL4axIIwuH6jXDj"
@@ -15,7 +16,7 @@ const val BASE_URL = "https://openapi.naver.com"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewAdapter: MovieAdapter
-    private val moviList = NaverRepositoryImpl()
+    private val moviList = NaverRepositoryImpl(NaverRemoteDataSourceImpl())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

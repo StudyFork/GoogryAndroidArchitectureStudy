@@ -1,13 +1,10 @@
 package com.hyper.hyapplication.repository
 
 import com.hyper.hyapplication.model.ResultGetSearchMovie
-import com.hyper.hyapplication.source.remote.NaverRemoteDataSource
 import com.hyper.hyapplication.source.remote.NaverRemoteDataSourceImpl
 
-class NaverRepositoryImpl : NaverRepository {
-    private val movieDataSourceImpl: NaverRemoteDataSource by lazy {
-        NaverRemoteDataSourceImpl()
-    }
+class NaverRepositoryImpl(private val movieDataSourceImpl: NaverRemoteDataSourceImpl) :
+    NaverRepository {
 
     override fun movieSearch(
         query: String,
