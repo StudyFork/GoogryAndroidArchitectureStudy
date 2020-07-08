@@ -1,7 +1,5 @@
 package m.woong.architecturestudy.data.source.local.model
 
-import m.woong.architecturestudy.data.source.remote.model.MovieResponse
-
 /*
 @Entity
 data class Movie(
@@ -14,5 +12,4 @@ data class Movie(
     @PrimaryKey(autoGenerate = true)
     var id : Int = 0
 }
- */
-
+*/
