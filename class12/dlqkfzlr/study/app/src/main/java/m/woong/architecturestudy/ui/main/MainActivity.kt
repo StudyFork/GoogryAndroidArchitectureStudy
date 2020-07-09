@@ -6,33 +6,47 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import m.woong.architecturestudy.R
-import m.woong.architecturestudy.network.MovieApi
-import m.woong.architecturestudy.network.NetworkConnectionInterceptor
-import m.woong.architecturestudy.network.response.MovieResponse
+import m.woong.architecturestudy.data.repository.NaverRepository
+import m.woong.architecturestudy.data.repository.NaverRepositoryImpl
+import m.woong.architecturestudy.data.source.remote.MovieApi
+import m.woong.architecturestudy.data.source.remote.NaverRemoteDataSource
+import m.woong.architecturestudy.data.source.remote.NaverRemoteDataSourceImpl
 import m.woong.architecturestudy.ui.adapter.MovieAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: MovieAdapter
+
     private lateinit var service: MovieApi
+    private lateinit var repository: NaverRepository
+    private lateinit var remoteDataSource: NaverRemoteDataSource
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        service = MovieApi.invoke(NetworkConnectionInterceptor())
+        service = MovieApi.MovieRetrofit.service
+        remoteDataSource = NaverRemoteDataSourceImpl(service)
+        repository = NaverRepositoryImpl(remoteDataSource)
 
         movie_search_btn.setOnClickListener {
-            val keyword = movie_search_et.text
-            Toast.makeText(
-                this@MainActivity,
-                "검색 :$keyword",
-                Toast.LENGTH_SHORT
-            ).show()
-            if (keyword != null) {
-                requestToGetMovieList(keyword.toString())
+            val keyword = movie_search_et.text.toString()
+            if (keyword.isEmpty()) {
+                Toast.makeText(
+                    this@MainActivity,
+                    "검색어를 입력해주세요",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                repository.getRecentMovie(keyword,
+                    success = {
+                        viewAdapter.resetData(it.items)
+                    }, failure = {
+                        Toast.makeText(
+                            this@MainActivity,
+                            "응답 실패 :$it",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    })
             }
         }
 
@@ -41,33 +55,6 @@ class MainActivity : AppCompatActivity() {
             setHasFixedSize(true)
             adapter = viewAdapter
         }
-    }
-
-    /*
-     * Operation: Request Movie List
-     */
-    private fun requestToGetMovieList(keyword: String) {
-        val call = service.movieSearch(keyword)
-        call.enqueue(object : Callback<MovieResponse> {
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                if (response.isSuccessful) {
-                    val body = response.body()
-                    body?.let {
-                        viewAdapter.resetData(body.items)
-                    }
-                } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "응답실패:${response.message()}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                t.printStackTrace()
-            }
-        })
 
     }
 }

@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import m.woong.architecturestudy.R
-import m.woong.architecturestudy.network.response.MovieResponse
+import m.woong.architecturestudy.data.source.remote.model.MovieResponse
 
 class MovieAdapter() :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {

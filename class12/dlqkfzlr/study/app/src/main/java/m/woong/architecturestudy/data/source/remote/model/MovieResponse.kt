@@ -1,4 +1,4 @@
-package m.woong.architecturestudy.network.response
+package m.woong.architecturestudy.data.source.remote.model
 
 import com.google.gson.annotations.SerializedName
 
