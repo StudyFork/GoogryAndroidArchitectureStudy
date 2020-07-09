@@ -1,12 +1,11 @@
 package com.world.tree.architecturestudy
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.world.tree.architecturestudy.model.Movie
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {

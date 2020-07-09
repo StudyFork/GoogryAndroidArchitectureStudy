@@ -1,4 +1,4 @@
-package com.world.tree.architecturestudy
+package com.world.tree.architecturestudy.model
 
 class Movie(
     var lastBuildDate: String,
