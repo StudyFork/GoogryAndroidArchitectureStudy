@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RemoteInterfaceImpl: RemoteInterface {
+class RemoteDataSourceImpl: RemoteDataSource {
     override fun getSearch(
         query: String,
         response: (List<NaverApiData.Item>) -> Unit,

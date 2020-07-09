@@ -1,10 +1,10 @@
 package com.example.study.data.repository
 
 import com.example.study.data.model.NaverApiData
-import com.example.study.data.remote.RemoteInterfaceImpl
+import com.example.study.data.remote.RemoteDataSourceImpl
 
 class MovieListRepositoryImpl : MovieListRepository {
-    private val remoteInterfaceImpl = RemoteInterfaceImpl()
+    private val remoteInterfaceImpl = RemoteDataSourceImpl()
 
     override fun doSearch(
         query: String,
