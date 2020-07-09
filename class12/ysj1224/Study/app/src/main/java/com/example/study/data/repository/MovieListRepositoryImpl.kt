@@ -1,7 +1,7 @@
 package com.example.study.data.repository
 
-import com.example.study.data.api.NaverRetrofit
 import com.example.study.data.model.NaverApiData
+import com.example.study.data.remote.RemoteService
 import com.example.study.view.clientId
 import com.example.study.view.clientSecret
 import retrofit2.Call
@@ -14,7 +14,7 @@ class MovieListRepositoryImpl : MovieListRepository {
         response: (List<NaverApiData.Item>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        NaverRetrofit.SERVICE.getSearch(
+        RemoteService.movieApiService.getSearch(
             clientId = clientId,
             clientPw = clientSecret,
             query = query
@@ -22,7 +22,6 @@ class MovieListRepositoryImpl : MovieListRepository {
             override fun onFailure(call: Call<NaverApiData>, t: Throwable) {
                 fail(t)
             }
-
             override fun onResponse(call: Call<NaverApiData>, response: Response<NaverApiData>) {
                 if (response.isSuccessful) {
                     response.body()?.let {

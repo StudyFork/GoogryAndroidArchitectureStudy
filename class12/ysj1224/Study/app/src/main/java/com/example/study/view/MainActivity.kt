@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
                     etv_search.text.toString(),
                     response = { viewAdapter.setItem(it) },
                     fail = { Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show() })
+
             }
         }
     }

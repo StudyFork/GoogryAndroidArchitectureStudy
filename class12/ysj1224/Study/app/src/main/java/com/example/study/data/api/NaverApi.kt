@@ -19,11 +19,5 @@ interface NaverApi {
     ): Call<NaverApiData>
 }
 
-object NaverRetrofit{
-    private val retrofit: Retrofit = Retrofit.Builder().baseUrl(baseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    val SERVICE: NaverApi = retrofit.create(
-        NaverApi::class.java)
-}
+
 
