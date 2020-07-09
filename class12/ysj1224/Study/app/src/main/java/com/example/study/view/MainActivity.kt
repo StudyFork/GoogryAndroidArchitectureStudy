@@ -16,7 +16,7 @@ const val baseUrl = "https://openapi.naver.com"
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerAdapter
-    private val moviList = MovieListRepositoryImpl()
+    private val movieListRepositoryImpl = MovieListRepositoryImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             if (etv_search.text.isEmpty()) {
                 Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else {
-                moviList.doSearch(
+                movieListRepositoryImpl.doSearch(
                     etv_search.text.toString(),
                     response = { viewAdapter.setItem(it) },
                     fail = { Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show() })
