@@ -1,4 +1,4 @@
 package com.hyper.hyapplication.source.local
 
-class NaverLocalDataSourceImpl {
+class NaverLocalDataSourceImpl : NaverLocalDataSource {
 }
