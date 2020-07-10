@@ -1,4 +1,4 @@
-package mi.song.class12android.model.data
+package mi.song.class12android.data.model
 
 
 import com.google.gson.annotations.SerializedName
