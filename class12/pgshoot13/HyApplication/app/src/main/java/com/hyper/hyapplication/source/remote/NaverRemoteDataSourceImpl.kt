@@ -2,9 +2,10 @@ package com.hyper.hyapplication.source.remote
 
 import com.hyper.hyapplication.NaverRetrofit
 import com.hyper.hyapplication.model.ResultGetSearchMovie
-import com.hyper.hyapplication.ui.CLIENT_ID
-import com.hyper.hyapplication.ui.CLIENT_SECRET
 import retrofit2.Response
+
+const val CLIENT_ID = "ImN25OL4axIIwuH6jXDj"
+const val CLIENT_SECRET = "vysJ6N1WXx"
 
 class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
 

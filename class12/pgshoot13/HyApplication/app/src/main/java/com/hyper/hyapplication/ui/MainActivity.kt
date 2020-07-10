@@ -9,15 +9,11 @@ import com.hyper.hyapplication.repository.NaverRepositoryImpl
 import com.hyper.hyapplication.source.remote.NaverRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
-const val CLIENT_ID = "ImN25OL4axIIwuH6jXDj"
-const val CLIENT_SECRET = "vysJ6N1WXx"
-const val BASE_URL = "https://openapi.naver.com"
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewAdapter: MovieAdapter
     private val moviList = NaverRepositoryImpl(NaverRemoteDataSourceImpl())
-    private val searchList = searchText.text.toString()
+//    private val searchList = searchText.text.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +26,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         searchButton.setOnClickListener {
-            if (searchList.isNotEmpty()) {
+            if (searchText.text.toString().isNotEmpty()) {
                 moviList.movieSearch(
-                    searchList,
+                    searchText.text.toString(),
                     success = { viewAdapter.resetData(it) },
                     failure = {
                         Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show()
