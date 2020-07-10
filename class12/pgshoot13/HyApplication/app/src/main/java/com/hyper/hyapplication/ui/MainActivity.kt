@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewAdapter: MovieAdapter
     private val moviList = NaverRepositoryImpl(NaverRemoteDataSourceImpl())
+    private val searchList = searchText.text.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +30,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         searchButton.setOnClickListener {
-            if (searchText.text.toString().isNotEmpty()) {
+            if (searchList.isNotEmpty()) {
                 moviList.movieSearch(
-                    searchText.text.toString(),
+                    searchList,
                     success = { viewAdapter.resetData(it) },
                     failure = {
                         Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show()
