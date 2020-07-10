@@ -1,10 +1,7 @@
 package com.hyper.hyapplication
 
 import com.hyper.hyapplication.model.ResultGetSearchMovie
-import com.hyper.hyapplication.ui.BASE_URL
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
@@ -18,10 +15,4 @@ interface NaverAPI {
         @Query("display") display: Int? = null,
         @Query("start") start: Int? = null
     ): Call<ResultGetSearchMovie>
-}
-object NaverRetrofit {
-    private val retrofit: Retrofit = Retrofit.Builder().baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    val service: NaverAPI = retrofit.create(NaverAPI::class.java)
 }
