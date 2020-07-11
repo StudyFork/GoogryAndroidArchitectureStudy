@@ -16,7 +16,6 @@ class MovieAdapter() :
 
     private var movieList: ArrayList<MovieResponse.Item> = ArrayList()
 
-    // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

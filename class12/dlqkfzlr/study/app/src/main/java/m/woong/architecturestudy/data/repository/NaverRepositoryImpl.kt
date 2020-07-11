@@ -5,6 +5,7 @@ import m.woong.architecturestudy.data.source.remote.model.MovieResponse
 
 class NaverRepositoryImpl(
     //private val localDataSource: NaverLocalDataSource,
+
     private val remoteDataSource: NaverRemoteDataSource
 ) : NaverRepository {
     
