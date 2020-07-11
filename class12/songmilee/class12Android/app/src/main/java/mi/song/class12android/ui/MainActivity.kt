@@ -12,7 +12,7 @@ import mi.song.class12android.data.model.MovieInfo
 import mi.song.class12android.data.repository.SearchMovieRepository
 import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MovieInterface.View {
     private lateinit var edtQuery: EditText
     private lateinit var btnSearch: Button
 
@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchMovieRepository: SearchMovieRepository
 
     private lateinit var queryMovie: View.OnClickListener
+
+    private lateinit var presenter: MovieInterface.Presenter
 
     private fun success(movieList: List<MovieInfo>) {
         movieAdapter.addMovieInfo(movieList)
