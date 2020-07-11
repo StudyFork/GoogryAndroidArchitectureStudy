@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main), SearchMovieConstract.View {
 
-    private val movieRepository = MovieRespositoryImpl()
+    private lateinit var movieAdapter: MovieAdapter
     private val searchMoviePresenter = SearchMoviePresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,29 +22,22 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), SearchMovieConst
     }
 
     private fun init() {
-        val movieAdapter = MovieAdapter()
+        movieAdapter = MovieAdapter()
 
         movieRecyclerView.adapter = movieAdapter
 
         searchButton.setOnClickListener {
             searchEditText.text?.toString()?.let { title ->
-//                searchMoviePresenter.remoteSearchMovie(title)
-//
-//                movieRepository.remoteSearchMovie(
-//                    title,
-//                    success = { movieList -> movieAdapter.setData(movieList) },
-//                    fail = { t ->
-//                        Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
-//                    })
+                searchMoviePresenter.remoteSearchMovie(title)
             }
         }
     }
 
     override fun showMovieList(movieList: List<MovieData>) {
-        TODO("Not yet implemented")
+        movieAdapter.setData(movieList)
     }
 
     override fun showSearchFailToast(throwable: Throwable) {
-        TODO("Not yet implemented")
+        Toast.makeText(applicationContext, throwable.message, Toast.LENGTH_SHORT).show()
     }
 }
