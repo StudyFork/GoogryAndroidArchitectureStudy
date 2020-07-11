@@ -18,9 +18,6 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
 
     private lateinit var listMovie: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
-
-    private lateinit var searchMovieRepository: SearchMovieRepository
-
     private lateinit var queryMovie: View.OnClickListener
 
     private lateinit var presenter: MovieInterface.Presenter
@@ -42,8 +39,8 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
     }
 
     private fun init() {
-        searchMovieRepository = SearchMovieRepositoryImpl(baseContext)
-
+        presenter = MoviePresenter(baseContext)
+        
         initUi()
     }
 
@@ -51,7 +48,7 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
         queryMovie = View.OnClickListener {
             edtQuery.text?.toString()?.let { query ->
                 movieAdapter.clearMovieList()
-                searchMovieRepository.getRemoteMovieData(query, success = ::success, fail = ::fail)
+//                searchMovieRepository.getRemoteMovieData(query, success = ::success, fail = ::fail)
             }
         }
 

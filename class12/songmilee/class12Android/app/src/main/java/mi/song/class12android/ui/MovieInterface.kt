@@ -6,6 +6,6 @@ interface MovieInterface {
     }
 
     interface Presenter {
-
+        fun requestMovieData(query:String)
     }
 }
