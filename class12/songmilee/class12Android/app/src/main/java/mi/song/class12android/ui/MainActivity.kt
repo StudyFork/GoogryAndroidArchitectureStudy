@@ -26,11 +26,6 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
         movieAdapter.addMovieInfo(movieList)
     }
 
-    private fun fail(t: Throwable) {
-        Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,8 +34,8 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
     }
 
     private fun init() {
-        presenter = MoviePresenter(baseContext)
-        
+        presenter = MoviePresenter(baseContext, this)
+
         initUi()
     }
 
@@ -60,5 +55,9 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
         listMovie = findViewById(R.id.list_movie)
         movieAdapter = MovieAdapter()
         listMovie.adapter = movieAdapter
+    }
+
+    override fun showMessage(msg: String) {
+        Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
     }
 }
