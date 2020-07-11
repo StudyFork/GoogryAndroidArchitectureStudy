@@ -10,6 +10,6 @@ interface SearchMovieConstract {
     }
 
     interface Presenter {
-        fun remoteSearchMovie(movieTitle: String, success: (List<MovieData>) -> Unit, fail: (Throwable) -> Unit)
+        fun remoteSearchMovie(movieTitle: String)
     }
 }
