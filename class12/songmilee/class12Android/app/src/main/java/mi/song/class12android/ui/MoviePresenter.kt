@@ -5,7 +5,8 @@ import mi.song.class12android.R
 import mi.song.class12android.data.repository.SearchMovieRepository
 import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
 
-class MoviePresenter(val context: Context, val view:MovieInterface.View) : MovieInterface.Presenter {
+class MoviePresenter(val context: Context, val view: MovieInterface.View) :
+    MovieInterface.Presenter {
     private val searchMovieRepository: SearchMovieRepository by lazy {
         SearchMovieRepositoryImpl(context)
     }
@@ -15,9 +16,10 @@ class MoviePresenter(val context: Context, val view:MovieInterface.View) : Movie
 
         searchMovieRepository.getRemoteMovieData(query,
             success = {
-            view.updateMovieList(it)
-        }, fail = {
-            view.showMessage(it.message?:context.getString(R.string.unknown_error))
-        })
+                view.clearMovieList()
+                view.updateMovieList(it)
+            }, fail = {
+                view.showMessage(it.message ?: context.getString(R.string.unknown_error))
+            })
     }
 }
