@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.project.architecturestudy.data.model.MovieItem" />
+            type="com.project.data.model.MovieItem" />
 
     </data>
 

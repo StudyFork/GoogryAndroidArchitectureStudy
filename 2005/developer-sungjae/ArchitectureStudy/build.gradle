@@ -2,20 +2,41 @@
 
 buildscript {
     ext {
+        //kotlin
         kotlin_version = '1.3.72'
-        gson_version = '2.7.2'
+
+        //AndroidX
+        ktx_version = '1.1.0'
+        appcompat_version = '1.1.0'
+        constraint_version = '1.1.3'
+
+        //Anko
+        anko_version = '0.10.8'
+
+        //Retrofit
         retrofit_version = '2.7.2'
         rxadapter_version = '2.7.2'
-        okhttplogging_version = '4.4.1'
-        anko_version = '0.10.8'
         rxandroid_version = '2.1.1'
+        okhttplogging_version = '4.4.1'
+        //Gson
+        gson_version = '2.7.2'
+
+        //Picasso
         picasso_version = '2.71828'
+
+        //Html
         jsoup_version = '1.13.1'
         commonstext_version = '1.7'
-        roomruntime_version = '1.1.1'
-        roomcompile_version = '1.1.1'
-        roomrxjava_version = '1.1.1'
-        koin_version = '2.1.3'
+
+        //Room
+        room_version = '2.2.3'
+        recyclerview_version = '1.1.0'
+        koin_version = '2.1.5'
+
+        // Test
+        jnit_version = '4.13'
+        test_ext_version = '1.1.1'
+        espresso_version = '3.2.0'
     }
     repositories {
         google()
