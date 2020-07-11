@@ -21,7 +21,7 @@ class MoviePresenter(
             success = {
                 view.showMovieList(it)
             }, failure = {
-                view.showErrorResponseError(it.toString())
+                view.showErrorResponseMsg(it)
             })
     }
 

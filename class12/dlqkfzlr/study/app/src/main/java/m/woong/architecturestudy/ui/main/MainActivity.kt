@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MovieContract.Vi
         Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_LONG).show()
     }
 
-    override fun showErrorResponseError(errorMsg: String) {
-        Toast.makeText(this, "응답을 받아오지 못했습니다.\n 에러코드:$errorMsg", Toast.LENGTH_LONG).show()
+    override fun showErrorResponseMsg(t: Throwable) {
+        Toast.makeText(this, "응답을 받아오지 못했습니다.\n 에러코드:$t", Toast.LENGTH_LONG).show()
     }
 }

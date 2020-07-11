@@ -7,7 +7,7 @@ interface MovieContract {
     interface View {
         fun showMovieList(movieResponse: MovieResponse)
         fun showErrorEmptyQuery()
-        fun showErrorResponseError(errorMsg: String)
+        fun showErrorResponseMsg(t: Throwable)
     }
 
     interface Presenter {
