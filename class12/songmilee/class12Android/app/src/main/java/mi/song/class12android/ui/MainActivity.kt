@@ -22,10 +22,6 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
 
     private lateinit var presenter: MovieInterface.Presenter
 
-    private fun success(movieList: List<MovieInfo>) {
-        movieAdapter.addMovieInfo(movieList)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -59,5 +55,9 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
 
     override fun showMessage(msg: String) {
         Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun updateMovieList(list: List<MovieInfo>) {
+        movieAdapter.addMovieInfo(list)
     }
 }
