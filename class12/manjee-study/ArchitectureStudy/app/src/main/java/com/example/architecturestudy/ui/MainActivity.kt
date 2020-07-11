@@ -4,16 +4,17 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.architecturestudy.R
+import com.example.architecturestudy.data.model.MovieData
 import com.example.architecturestudy.data.repository.MovieRespositoryImpl
+import com.example.architecturestudy.presenter.SearchMovieConstract
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main), SearchMovieConstract.View {
 
     private val movieRepository = MovieRespositoryImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         init()
     }
@@ -33,5 +34,13 @@ class MainActivity : AppCompatActivity() {
                     })
             }
         }
+    }
+
+    override fun showMovieList(movieList: List<MovieData>) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showSearchFailToast(throwable: Throwable) {
+        TODO("Not yet implemented")
     }
 }

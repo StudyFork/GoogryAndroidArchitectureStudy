@@ -9,11 +9,11 @@ import retrofit2.Response
 
 class MovieRespositoryImpl : MovieRepository {
     override fun remoteSearchMovie(
-        title: String,
+        movieTitle: String,
         success: (List<MovieData>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        MovieRemoteService.movieApiService.searchMovie(title).enqueue(object : Callback<MovieMeta> {
+        MovieRemoteService.movieApiService.searchMovie(movieTitle).enqueue(object : Callback<MovieMeta> {
             override fun onFailure(call: Call<MovieMeta>, t: Throwable) {
                 fail(t)
             }
