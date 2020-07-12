@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import mi.song.class12android.R
 import mi.song.class12android.data.model.MovieInfo
+import mi.song.class12android.presenter.MovieInterface
+import mi.song.class12android.presenter.MoviePresenter
 
 class MainActivity : AppCompatActivity(), MovieInterface.View {
     private lateinit var edtQuery: EditText
@@ -28,7 +30,8 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
     }
 
     private fun init() {
-        presenter = MoviePresenter(baseContext, this)
+        presenter =
+            MoviePresenter(baseContext, this)
 
         initUi()
     }

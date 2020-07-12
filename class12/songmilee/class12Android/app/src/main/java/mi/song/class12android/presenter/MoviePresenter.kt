@@ -1,4 +1,4 @@
-package mi.song.class12android.ui
+package mi.song.class12android.presenter
 
 import android.content.Context
 import mi.song.class12android.R
