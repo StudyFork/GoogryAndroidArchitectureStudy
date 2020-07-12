@@ -13,7 +13,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewAdapter: MovieAdapter
     private val moviList = NaverRepositoryImpl(NaverRemoteDataSourceImpl())
-    private val searchList = searchText.text.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         searchButton.setOnClickListener {
+            val searchList = searchText.text.toString()
             if (searchList.isNotEmpty()) {
                 moviList.movieSearch(
                     searchList,
