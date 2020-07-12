@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.study.data.model.NaverApiData
 import kotlinx.android.synthetic.main.rv_item.view.*
 
 class RecyclerAdapter :
