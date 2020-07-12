@@ -7,8 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.hyper.hyapplication.model.ResultGetSearchMovie
 
-class MovieAdapter() :
+class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     private var movieList: ArrayList<ResultGetSearchMovie.Item> = ArrayList()
