@@ -1,4 +1,4 @@
-package com.world.tree
+package com.world.tree.architecturestudy
 
 import android.app.Application
 

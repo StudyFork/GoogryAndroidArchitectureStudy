@@ -1,15 +1,12 @@
-package com.world.tree.architecturestudy
+package com.world.tree.architecturestudy.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.world.tree.CommonApplication
-import com.world.tree.MovieContainer
-import com.world.tree.architecturestudy.model.Movie
+import com.world.tree.architecturestudy.CommonApplication
+import com.world.tree.architecturestudy.MovieContainer
+import com.world.tree.architecturestudy.R
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     lateinit var  movieContainer: MovieContainer
