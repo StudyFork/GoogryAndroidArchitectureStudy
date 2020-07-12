@@ -17,5 +17,4 @@ class MovieContainer () {
 
     private val remoteDataSource = NaverRemoteDataSourceImpl(movieService)
     val repository = NaverRepositoryImpl(remoteDataSource)
-
 }
