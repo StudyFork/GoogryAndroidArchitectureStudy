@@ -1,9 +1,6 @@
-package com.world.tree.architecturestudy
+package com.world.tree.architecturestudy.model
 
-import com.world.tree.architecturestudy.model.Movie
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query

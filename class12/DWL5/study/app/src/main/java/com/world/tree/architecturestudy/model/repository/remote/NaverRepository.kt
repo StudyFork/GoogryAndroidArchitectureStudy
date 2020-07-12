@@ -1,4 +1,4 @@
-package com.world.tree.architecturestudy.repository.remote
+package com.world.tree.architecturestudy.model.repository.remote
 
 import com.world.tree.architecturestudy.model.Movie
 
