@@ -23,17 +23,20 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.Vie
 
         searchButton.setOnClickListener {
             val searchList = searchText.text.toString()
-            if (searchList.isNotEmpty()) {
-                moviList.movieSearch(
-                    searchList,
-                    success = { viewAdapter.resetData(it) },
-                    failure = {
-                        Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show()
-                    })
-            } else {
-                Toast.makeText(this, "fail", Toast.LENGTH_LONG).show()
-            }
+            presenter.movieSearch(searchList)
         }
+    }
+
+    override fun showMovie(item: List<ResultGetSearchMovie.Item>) {
+
+    }
+
+    override fun showFailure(it: Throwable) {
+
+    }
+
+    override fun showEmptyMessage() {
+
     }
 }
 
