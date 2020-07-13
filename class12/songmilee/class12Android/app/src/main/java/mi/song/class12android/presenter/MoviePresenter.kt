@@ -7,9 +7,8 @@ import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
 
 class MoviePresenter(val context: Context, val view: MovieInterface.View) :
     MovieInterface.Presenter {
-    private val searchMovieRepository: SearchMovieRepository by lazy {
-        SearchMovieRepositoryImpl(context)
-    }
+    private val searchMovieRepository: SearchMovieRepository = SearchMovieRepositoryImpl(context)
+
 
     override fun requestMovieData(query: String) {
         if (query.isEmpty()) return
