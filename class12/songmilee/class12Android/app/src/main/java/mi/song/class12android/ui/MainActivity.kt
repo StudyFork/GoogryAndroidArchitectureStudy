@@ -58,10 +58,7 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
     }
 
     override fun updateMovieList(list: List<MovieInfo>) {
-        movieAdapter.addMovieInfo(list)
-    }
-
-    override fun clearMovieList() {
         movieAdapter.clearMovieList()
+        movieAdapter.addMovieInfo(list)
     }
 }

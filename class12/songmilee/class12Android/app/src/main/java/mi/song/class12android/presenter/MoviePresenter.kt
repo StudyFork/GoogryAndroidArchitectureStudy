@@ -14,7 +14,6 @@ class MoviePresenter(private val context: Context, private val view: MovieInterf
 
         searchMovieRepository.getRemoteMovieData(query,
             success = {
-                view.clearMovieList()
                 view.updateMovieList(it)
             }, fail = {
                 view.showMessage(it.message ?: context.getString(R.string.unknown_error))
