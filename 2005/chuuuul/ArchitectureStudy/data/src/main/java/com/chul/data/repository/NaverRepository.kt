@@ -1,7 +1,6 @@
-package com.example.architecture.data.repository
+package com.chul.data.repository
 
-import com.example.architecture.data.model.MovieModel
-import com.example.architecture.data.source.remote.NaverRemoteDataSourceImpl
+import com.chul.data.model.MovieModel
 
 interface NaverRepository {
 

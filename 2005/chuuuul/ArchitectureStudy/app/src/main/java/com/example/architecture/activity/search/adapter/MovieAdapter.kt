@@ -8,8 +8,8 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.chul.data.model.MovieModel
 import com.example.architecture.R
-import com.example.architecture.data.model.MovieModel
 import com.example.architecture.databinding.ItemMovieBinding
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {

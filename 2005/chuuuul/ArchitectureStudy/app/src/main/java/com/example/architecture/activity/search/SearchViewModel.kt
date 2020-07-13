@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.chul.data.model.MovieModel
+import com.chul.data.repository.NaverRepository
 import com.example.architecture.R
-import com.example.architecture.data.model.MovieModel
-import com.example.architecture.data.repository.NaverRepository
 import com.example.architecture.provider.ResourceProvider
-import com.example.architecture.util.ConstValue.Companion.SEARCH_TIME_THROTTLE
+import com.example.architecture.util.ConstValue.SEARCH_TIME_THROTTLE
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

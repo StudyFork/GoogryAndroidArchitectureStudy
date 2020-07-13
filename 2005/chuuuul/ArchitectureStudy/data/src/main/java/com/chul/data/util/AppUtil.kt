@@ -1,4 +1,4 @@
-package com.example.architecture.util
+package com.chul.data.util
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

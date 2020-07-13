@@ -1,6 +1,6 @@
-package com.example.architecture.data.source.remote
+package com.chul.data.source.remote
 
-import com.example.architecture.data.model.MovieModel
+import com.chul.data.model.MovieModel
 
 interface NaverRemoteDataSource {
 

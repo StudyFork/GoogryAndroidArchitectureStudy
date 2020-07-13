@@ -6,7 +6,7 @@
 
         <variable
             name="movie"
-            type="com.example.architecture.data.model.MovieModel" />
+            type="com.chul.data.model.MovieModel" />
 
         <variable
             name="onItemClick"

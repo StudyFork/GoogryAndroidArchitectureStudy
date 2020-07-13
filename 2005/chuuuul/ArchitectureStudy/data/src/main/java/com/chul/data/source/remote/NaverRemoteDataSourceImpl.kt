@@ -1,13 +1,13 @@
-package com.example.architecture.data.source.remote
+package com.chul.data.source.remote
 
-import com.example.architecture.data.model.MovieModel
-import com.example.architecture.data.model.MovieResponseModel
-import com.example.architecture.retrofit.MovieSearchService
+import com.chul.data.model.MovieModel
+import com.chul.data.model.MovieResponseModel
+import com.chul.data.retrofit.MovieSearchService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverRemoteDataSourceImpl(private val movieSearchService: MovieSearchService) : NaverRemoteDataSource {
+internal class NaverRemoteDataSourceImpl(private val movieSearchService: MovieSearchService) : NaverRemoteDataSource {
 
     override fun getMovieList(
         keyWord: String,

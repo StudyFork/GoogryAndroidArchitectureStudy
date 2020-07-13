@@ -1,8 +1,8 @@
-package com.example.architecture.data.source.local
+package com.chul.data.source.local
 
-import com.example.architecture.data.model.MovieModel
+import com.chul.data.model.MovieModel
 
-interface NaverLocalDataSource {
+internal interface NaverLocalDataSource {
     fun getMovieList(
         keyword: String,
         onSuccess: (movieList: List<MovieModel>) -> Unit
