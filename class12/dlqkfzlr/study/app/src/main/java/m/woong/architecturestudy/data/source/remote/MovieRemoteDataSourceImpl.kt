@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverRemoteDataSourceImpl(private val movieApi: MovieApi) : NaverRemoteDataSource {
+class MovieRemoteDataSourceImpl(private val movieApi: MovieApi) : MovieRemoteDataSource {
 
     override fun getMovie(
         query: String,

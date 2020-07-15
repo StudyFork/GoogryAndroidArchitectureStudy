@@ -2,7 +2,7 @@ package m.woong.architecturestudy.data.source.remote
 
 import m.woong.architecturestudy.data.source.remote.model.MovieResponse
 
-interface NaverRemoteDataSource {
+interface MovieRemoteDataSource {
 
     fun getMovie(
         query: String,

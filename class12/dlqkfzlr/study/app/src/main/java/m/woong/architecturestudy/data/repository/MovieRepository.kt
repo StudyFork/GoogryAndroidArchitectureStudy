@@ -2,7 +2,7 @@ package m.woong.architecturestudy.data.repository
 
 import m.woong.architecturestudy.data.source.remote.model.MovieResponse
 
-interface NaverRepository {
+interface MovieRepository {
 
     fun getRecentMovie(query: String,
                        success: (MovieResponse) -> Unit,
