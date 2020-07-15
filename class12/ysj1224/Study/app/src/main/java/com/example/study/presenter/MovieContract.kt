@@ -1,4 +1,4 @@
-package com.example.study
+package com.example.study.presenter
 
 import com.example.study.data.model.NaverApiData
 

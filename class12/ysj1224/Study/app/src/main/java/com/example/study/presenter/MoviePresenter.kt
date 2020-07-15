@@ -1,4 +1,4 @@
-package com.example.study
+package com.example.study.presenter
 
 import com.example.study.data.repository.MovieListRepositoryImpl
 
@@ -8,9 +8,9 @@ class MoviePresenter(
 ) : MovieContract.Presenter {
 
     override fun requestMovieList(query: String) {
-        if(query.isEmpty()){
+        if (query.isEmpty()) {
             showQueryEmpty()
-        }else{
+        } else {
             doSearch(query)
         }
 
