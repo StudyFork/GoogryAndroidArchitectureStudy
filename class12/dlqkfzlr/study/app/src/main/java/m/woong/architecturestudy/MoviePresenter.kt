@@ -1,31 +1,10 @@
 package m.woong.architecturestudy
 
-import m.woong.architecturestudy.data.repository.NaverRepositoryImpl
+interface MoviePresenter : MovieContract.Presenter {
 
-class MoviePresenter(
-    private val view: MovieContract.View,
-    private val repository: NaverRepositoryImpl
-) : MovieContract.Presenter {
+    override fun requestMovieList(query: String)
 
-    override fun requestMovieList(query: String) {
+    fun getRecentMovie(query: String)
 
-        if (query.isEmpty()) {
-            showErrorEmptyQuery()
-        } else {
-            getRecentMovie(query)
-        }
-    }
-
-    private fun getRecentMovie(query: String) {
-        repository.getRecentMovie(query,
-            success = {
-                view.showMovieList(it)
-            }, failure = {
-                view.showErrorResponseMsg(it)
-            })
-    }
-
-    private fun showErrorEmptyQuery() {
-        view.showErrorEmptyQuery()
-    }
+    fun showErrorEmptyQuery()
 }
