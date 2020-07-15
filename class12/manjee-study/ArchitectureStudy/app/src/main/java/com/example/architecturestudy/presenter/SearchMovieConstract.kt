@@ -10,6 +10,6 @@ interface SearchMovieConstract {
     }
 
     interface Presenter {
-        fun remoteSearchMovie(movieTitle: String)
+        fun searchMovieOnRemote(movieTitle: String)
     }
 }

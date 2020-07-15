@@ -9,7 +9,7 @@ import retrofit2.Response
 
 class MovieRespositoryImpl : MovieRepository {
 
-    override fun remoteSearchMovie(
+    override fun searchMovieOnRemote(
         movieTitle: String,
         success: (List<MovieData>) -> Unit,
         fail: (Throwable) -> Unit

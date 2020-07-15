@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), SearchMovieConst
 
         searchButton.setOnClickListener {
             searchEditText.text?.toString()?.let { title ->
-                searchMoviePresenter.remoteSearchMovie(title)
+                searchMoviePresenter.searchMovieOnRemote(title)
             }
         }
     }

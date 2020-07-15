@@ -6,10 +6,10 @@ class SearchMoviePresenter(private val view: SearchMovieConstract.View) : Search
 
     private val movieRepository = MovieRespositoryImpl()
 
-    override fun remoteSearchMovie(
+    override fun searchMovieOnRemote(
         movieTitle: String
     ) {
-        movieRepository.remoteSearchMovie(
+        movieRepository.searchMovieOnRemote(
             movieTitle,
             success = { movieList -> view.showMovieList(movieList) },
             fail = { t -> view.showSearchFailToast(t) })
