@@ -9,28 +9,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import mi.song.class12android.R
 import mi.song.class12android.data.model.MovieInfo
-import mi.song.class12android.data.repository.SearchMovieRepository
-import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
+import mi.song.class12android.presenter.MovieInterface
+import mi.song.class12android.presenter.MoviePresenter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MovieInterface.View {
     private lateinit var edtQuery: EditText
     private lateinit var btnSearch: Button
 
     private lateinit var listMovie: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
-
-    private lateinit var searchMovieRepository: SearchMovieRepository
-
     private lateinit var queryMovie: View.OnClickListener
 
-    private fun success(movieList: List<MovieInfo>) {
-        movieAdapter.addMovieInfo(movieList)
-    }
-
-    private fun fail(t: Throwable) {
-        Toast.makeText(baseContext, t.message, Toast.LENGTH_SHORT).show()
-    }
-
+    private lateinit var presenter: MovieInterface.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +30,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        searchMovieRepository = SearchMovieRepositoryImpl(baseContext)
+        presenter =
+            MoviePresenter(baseContext, this)
 
         initUi()
     }
@@ -48,8 +39,7 @@ class MainActivity : AppCompatActivity() {
     private fun initUi() {
         queryMovie = View.OnClickListener {
             edtQuery.text?.toString()?.let { query ->
-                movieAdapter.clearMovieList()
-                searchMovieRepository.getRemoteMovieData(query, success = ::success, fail = ::fail)
+                presenter.requestMovieData(query)
             }
         }
 
@@ -61,5 +51,14 @@ class MainActivity : AppCompatActivity() {
         listMovie = findViewById(R.id.list_movie)
         movieAdapter = MovieAdapter()
         listMovie.adapter = movieAdapter
+    }
+
+    override fun showMessage(msg: String) {
+        Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun updateMovieList(list: List<MovieInfo>) {
+        movieAdapter.clearMovieList()
+        movieAdapter.addMovieInfo(list)
     }
 }

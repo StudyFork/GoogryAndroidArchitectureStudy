@@ -2,4 +2,5 @@
     <string name="app_name">class12Android</string>
     <string name="search">검색</string>
     <string name="movie_hint">찾고자 하는 영화를 입력해 주세요</string>
+    <string name="unknown_error">문제가 발생하였습니다. 잠시 후 시도해주세요.</string>
 </resources>
