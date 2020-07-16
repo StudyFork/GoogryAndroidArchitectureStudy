@@ -9,7 +9,7 @@ import com.example.study.RecyclerAdapter
 import com.example.study.data.model.NaverApiData
 import com.example.study.data.repository.MovieListRepositoryImpl
 import com.example.study.presenter.MovieContract
-import com.example.study.presenter.MoviePresenterImpl
+import com.example.study.presenter.MoviePresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val clientId = "hDyUQTbovi0BszAf5h87"
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerAdapter
     private val moviePresenter: MovieContract.Presenter by lazy {
-        MoviePresenterImpl(
+        MoviePresenter(
             this,
             MovieListRepositoryImpl()
         )

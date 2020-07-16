@@ -1,10 +1,28 @@
 package com.example.study.presenter
 
-interface MoviePresenter : MovieContract.Presenter {
+import com.example.study.data.repository.MovieListRepository
 
-    override fun requestMovieList(query: String)
+class MoviePresenter(
+    private val view: MovieContract.View,
+    private val repository: MovieListRepository
+) : MovieContract.Presenter {
 
-    fun doSearch(query: String)
+    override fun requestMovieList(query: String) {
+        if (query.isEmpty()) {
+            showQueryEmpty()
+        } else {
+            doSearch(query)
+        }
+    }
 
-    fun showQueryEmpty()
+    fun doSearch(query: String) {
+        repository.doSearch(
+            query = query,
+            response = { view.showMovieList(it) },
+            fail = { view.showErrorResponse(it) })
+    }
+
+    fun showQueryEmpty() {
+        view.showQueryEmpty()
+    }
 }
