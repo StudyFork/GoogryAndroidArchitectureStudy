@@ -1,10 +1,30 @@
 package m.woong.architecturestudy
 
-interface MoviePresenter : MovieContract.Presenter {
+import m.woong.architecturestudy.data.repository.MovieRepository
 
-    override fun requestMovieList(query: String)
+class MoviePresenter(
+    private val view: MovieContract.View,
+    private val repository: MovieRepository
+) : MovieContract.Presenter {
 
-    fun getRecentMovie(query: String)
+    override fun requestMovieList(query: String) {
+        if (query.isEmpty()) {
+            showErrorEmptyQuery()
+        } else {
+            getRecentMovie(query)
+        }
+    }
 
-    fun showErrorEmptyQuery()
+    fun getRecentMovie(query: String) {
+        repository.getRecentMovie(query,
+            success = {
+                view.showMovieList(it)
+            }, failure = {
+                view.showErrorResponseMsg(it)
+            })
+    }
+
+    fun showErrorEmptyQuery() {
+        view.showErrorEmptyQuery()
+    }
 }

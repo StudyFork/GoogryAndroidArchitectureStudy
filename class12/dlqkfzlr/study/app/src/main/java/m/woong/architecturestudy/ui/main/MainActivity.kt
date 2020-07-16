@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MovieContract.Vi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appContainer = (application as MyApplication).appContainer
-        moviePresenter = MoviePresenterImpl(this, appContainer.movieRepository)
+        moviePresenter = MoviePresenter(this, appContainer.movieRepository)
         viewAdapter = MovieAdapter()
         recyclerView = findViewById<RecyclerView>(R.id.movie_rv).apply {
             setHasFixedSize(true)
