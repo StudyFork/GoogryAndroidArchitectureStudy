@@ -10,6 +10,7 @@ class MoviePresenterImpl(private val view: MovieContract.View,
             view.showToast("검색어를 입력 해 주세요.")
         }
         repository.getMovies(q, success = {
+            view.clearList()
             view.setMovieData(it)
         }, error ={
             it.message?.let {message ->
