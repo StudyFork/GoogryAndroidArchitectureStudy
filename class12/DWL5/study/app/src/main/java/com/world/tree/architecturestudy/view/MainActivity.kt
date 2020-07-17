@@ -7,14 +7,14 @@ import com.world.tree.architecturestudy.CommonApplication
 import com.world.tree.architecturestudy.MovieContainer
 import com.world.tree.architecturestudy.R
 import com.world.tree.architecturestudy.model.Movie
-import com.world.tree.architecturestudy.presenter.MoviePresenter
+import com.world.tree.architecturestudy.presenter.MovieContract
 import com.world.tree.architecturestudy.presenter.MoviePresenterImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MoviePresenter.View {
+class MainActivity : AppCompatActivity(), MovieContract.View {
     private lateinit var movieContainer: MovieContainer
     private lateinit var adapter: MovieAdapter
-    private lateinit var presenter: MoviePresenter
+    private lateinit var presenter: MovieContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

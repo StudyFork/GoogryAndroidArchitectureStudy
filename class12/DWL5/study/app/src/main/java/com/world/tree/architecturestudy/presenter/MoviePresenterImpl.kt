@@ -2,9 +2,8 @@ package com.world.tree.architecturestudy.presenter
 
 import com.world.tree.architecturestudy.model.repository.remote.NaverRepository
 
-class MoviePresenterImpl(private val view: MoviePresenter.View,
-                         private val repository: NaverRepository): MoviePresenter {
-
+class MoviePresenterImpl(private val view: MovieContract.View,
+                         private val repository: NaverRepository): MovieContract.Presenter {
 
     override fun searchMovie(q:String) {
         if (q.isBlank()) {
@@ -18,5 +17,4 @@ class MoviePresenterImpl(private val view: MoviePresenter.View,
             }
         })
     }
-
 }
