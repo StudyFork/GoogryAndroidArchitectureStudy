@@ -8,15 +8,15 @@ class MainPresenter(private val viewAdapter: MainContract.View) : MainContract.P
     private val moviList = NaverRepositoryImpl(NaverRemoteDataSourceImpl())
 
     override fun movieSearch(query: String) {
-        if (query.isNotEmpty()) {
+        if (query.isEmpty()) {
+            viewAdapter.showEmptyMessage()
+        } else {
             moviList.movieSearch(
                 query,
                 success = { viewAdapter.showMovie(it) },
                 failure = {
                     viewAdapter.showFailure(it)
                 })
-        } else {
-            viewAdapter.showEmptyMessage()
         }
     }
 }
