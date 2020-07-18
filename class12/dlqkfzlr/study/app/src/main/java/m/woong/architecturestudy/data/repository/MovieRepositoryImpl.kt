@@ -1,12 +1,12 @@
 package m.woong.architecturestudy.data.repository
 
-import m.woong.architecturestudy.data.source.remote.NaverRemoteDataSource
+import m.woong.architecturestudy.data.source.remote.MovieRemoteDataSource
 import m.woong.architecturestudy.data.source.remote.model.MovieResponse
 
-class NaverRepositoryImpl(
+class MovieRepositoryImpl(
     //private val localDataSource: NaverLocalDataSource,
-    private val remoteDataSource: NaverRemoteDataSource
-) : NaverRepository {
+    private val remoteDataSource: MovieRemoteDataSource
+) : MovieRepository {
     
     override fun getRecentMovie(
         query: String,

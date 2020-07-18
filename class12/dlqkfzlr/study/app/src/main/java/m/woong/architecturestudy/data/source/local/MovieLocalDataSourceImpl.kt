@@ -2,7 +2,7 @@ package m.woong.architecturestudy.data.source.local
 
 import m.woong.architecturestudy.data.source.remote.model.MovieResponse
 
-class NaverLocalDataSourceImpl : NaverLocalDataSource {
+class MovieLocalDataSourceImpl : MovieLocalDataSource {
 
     override fun getMovie() {
         TODO("Not yet implemented")
