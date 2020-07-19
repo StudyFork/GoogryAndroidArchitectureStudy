@@ -1,10 +1,11 @@
-package com.world.tree.architecturestudy
+package com.world.tree.architecturestudy.view
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.world.tree.architecturestudy.R
 import com.world.tree.architecturestudy.model.Movie
 import kotlinx.android.synthetic.main.item_movie.view.*
 

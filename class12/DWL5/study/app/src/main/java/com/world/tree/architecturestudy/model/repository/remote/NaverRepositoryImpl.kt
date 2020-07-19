@@ -1,8 +1,7 @@
-package com.world.tree.architecturestudy.repository.remote
+package com.world.tree.architecturestudy.model.repository.remote
 
 import com.world.tree.architecturestudy.model.Movie
-import com.world.tree.architecturestudy.source.remote.NaverRemoteDataSource
-import com.world.tree.architecturestudy.source.remote.NaverRemoteDataSourceImpl
+import com.world.tree.architecturestudy.model.source.remote.NaverRemoteDataSource
 
 class NaverRepositoryImpl(private val remoteDataSource: NaverRemoteDataSource) :
     NaverRepository {

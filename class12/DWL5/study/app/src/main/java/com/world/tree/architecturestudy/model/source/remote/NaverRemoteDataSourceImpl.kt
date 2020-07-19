@@ -1,11 +1,10 @@
-package com.world.tree.architecturestudy.source.remote
+package com.world.tree.architecturestudy.model.source.remote
 
-import com.world.tree.architecturestudy.MovieApi
+import com.world.tree.architecturestudy.model.MovieApi
 import com.world.tree.architecturestudy.model.Movie
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class NaverRemoteDataSourceImpl(private val remoteService: MovieApi) :
     NaverRemoteDataSource {
