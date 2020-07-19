@@ -2,26 +2,20 @@ package mi.song.class12android.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
 import mi.song.class12android.R
 import mi.song.class12android.data.model.MovieInfo
 import mi.song.class12android.data.repository.SearchMovieRepository
 import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
+import mi.song.class12android.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var edtQuery: EditText
-    private lateinit var btnSearch: Button
-
-    private lateinit var listMovie: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
-
     private lateinit var searchMovieRepository: SearchMovieRepository
-
     private lateinit var queryMovie: View.OnClickListener
+    private lateinit var binding: ActivityMainBinding
 
     private fun success(movieList: List<MovieInfo>) {
         movieAdapter.addMovieInfo(movieList)
@@ -34,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
 
         init()
     }
@@ -47,19 +41,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun initUi() {
         queryMovie = View.OnClickListener {
-            edtQuery.text?.toString()?.let { query ->
+            binding.edtQuery.text?.toString()?.let { query ->
                 movieAdapter.clearMovieList()
                 searchMovieRepository.getRemoteMovieData(query, success = ::success, fail = ::fail)
             }
         }
 
-        edtQuery = findViewById(R.id.edt_query)
+        binding.btnSearch.setOnClickListener(queryMovie)
 
-        btnSearch = findViewById(R.id.btn_search)
-        btnSearch.setOnClickListener(queryMovie)
-
-        listMovie = findViewById(R.id.list_movie)
         movieAdapter = MovieAdapter()
-        listMovie.adapter = movieAdapter
+        binding.listMovie.adapter = movieAdapter
     }
 }
