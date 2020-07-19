@@ -1,8 +1,12 @@
 package com.world.tree.architecturestudy.view
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.world.tree.architecturestudy.CommonApplication
 import com.world.tree.architecturestudy.MovieContainer
@@ -13,7 +17,8 @@ import com.world.tree.architecturestudy.presenter.MovieContract
 import com.world.tree.architecturestudy.presenter.MoviePresenterImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MovieContract.View {
+
+class MainActivity : AppCompatActivity(), MovieContract.View, MovieAdapter.OnItemClickListener {
     private lateinit var movieContainer: MovieContainer
     private lateinit var adapter: MovieAdapter
     private lateinit var presenter: MovieContract.Presenter
@@ -25,12 +30,14 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         movieContainer = (application as CommonApplication).movieContainer
         presenter = MoviePresenterImpl( this, movieContainer.repository)
         adapter = MovieAdapter()
+        adapter.setOnclickItemListener(this)
         recyclerView.adapter = adapter
 
         btnSearch.setOnClickListener {
             presenter.searchMovie(etUrl.text.toString())
         }
     }
+
 
     override fun showToast(m: String) {
         Toast.makeText(this, m, Toast.LENGTH_SHORT).show()
@@ -42,5 +49,13 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     override fun clearList() {
         adapter.clearData()
+    }
+
+    override fun goToLink(link: String) {
+        Log.d("Main", "goToLink() called link : $link")
+        baseContext.startActivity(
+            Intent(Intent.ACTION_VIEW, Uri.parse(link))
+                .addFlags(FLAG_ACTIVITY_NEW_TASK)
+        )
     }
 }

@@ -13,11 +13,18 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private val movies: ArrayList<Movie.Item> = ArrayList()
+    private lateinit var onItemClickListener: OnItemClickListener
+
+    interface OnItemClickListener {
+        fun goToLink(link: String)
+    }
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = DataBindingUtil.bind<ItemMovieBinding>(itemView)!!
         fun bind(data: Movie.Item) {
             binding.movie = data
+            if (::onItemClickListener.isInitialized) binding.onItemClickListener =
+                onItemClickListener
             binding.executePendingBindings()
         }
     }
@@ -37,6 +44,9 @@ class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         holder.bind(movies[position])
     }
 
+    fun setOnclickItemListener(onItemClickListener: OnItemClickListener) {
+        this.onItemClickListener = onItemClickListener
+    }
 
     fun addData(data: List<Movie.Item>) {
         movies.addAll(data)

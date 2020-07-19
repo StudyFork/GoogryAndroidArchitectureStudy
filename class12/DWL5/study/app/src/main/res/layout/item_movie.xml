@@ -8,11 +8,15 @@
             name="movie"
             type="com.world.tree.architecturestudy.model.Movie.Item" />
 
+        <variable
+            name="onItemClickListener"
+            type="com.world.tree.architecturestudy.view.MovieAdapter.OnItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{()-> onItemClickListener.goToLink(movie.link)}">
 
         <ImageView
             android:id="@+id/imgPoster"
