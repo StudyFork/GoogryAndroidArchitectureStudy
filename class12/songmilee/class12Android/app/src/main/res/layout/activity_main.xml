@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="mainView"
+            type="mi.song.class12android.ui.MainActivity" />
     </data>
 
     <LinearLayout
