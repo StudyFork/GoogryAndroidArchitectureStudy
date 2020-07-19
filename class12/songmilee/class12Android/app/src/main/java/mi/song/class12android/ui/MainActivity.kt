@@ -33,13 +33,7 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
     }
 
     private fun initUi() {
-        queryMovie = View.OnClickListener {
-            binding.edtQuery.text?.toString()?.let { query ->
-                presenter.requestMovieData(query)
-            }
-        }
-
-        binding.btnSearch.setOnClickListener(queryMovie)
+        binding.mainView = this@MainActivity
 
         movieAdapter = MovieAdapter()
         binding.listMovie.adapter = movieAdapter
@@ -52,5 +46,11 @@ class MainActivity : AppCompatActivity(), MovieInterface.View {
     override fun updateMovieList(list: List<MovieInfo>) {
         movieAdapter.clearMovieList()
         movieAdapter.addMovieInfo(list)
+    }
+
+    override fun queryMovie() {
+        binding.edtQuery.text?.toString()?.let { query ->
+            presenter.requestMovieData(query)
+        }
     }
 }

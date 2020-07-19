@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="mainView"
             type="mi.song.class12android.ui.MainActivity" />
@@ -32,6 +33,7 @@
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:onClick="@{() -> mainView.queryMovie()}"
                 android:text="@string/search" />
         </LinearLayout>
 
@@ -39,8 +41,8 @@
             android:id="@+id/list_movie"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_movie"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_movie" />
 
     </LinearLayout>
 </layout>
