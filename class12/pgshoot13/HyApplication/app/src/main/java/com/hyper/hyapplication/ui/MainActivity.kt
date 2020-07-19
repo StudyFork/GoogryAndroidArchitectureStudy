@@ -5,18 +5,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.hyper.hyapplication.MovieAdapter
 import com.hyper.hyapplication.R
-import com.hyper.hyapplication.repository.NaverRepositoryImpl
-import com.hyper.hyapplication.source.remote.NaverRemoteDataSourceImpl
+import com.hyper.hyapplication.model.ResultGetSearchMovie
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.View {
 
     private lateinit var viewAdapter: MovieAdapter
-    private val moviList = NaverRepositoryImpl(NaverRemoteDataSourceImpl())
+    private val presenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         viewAdapter = MovieAdapter()
         recyclerView.apply {
@@ -26,17 +24,20 @@ class MainActivity : AppCompatActivity() {
 
         searchButton.setOnClickListener {
             val searchList = searchText.text.toString()
-            if (searchList.isNotEmpty()) {
-                moviList.movieSearch(
-                    searchList,
-                    success = { viewAdapter.resetData(it) },
-                    failure = {
-                        Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show()
-                    })
-            } else {
-                Toast.makeText(this, "fail", Toast.LENGTH_LONG).show()
-            }
+            presenter.movieSearch(searchList)
         }
+    }
+
+    override fun showMovie(item: List<ResultGetSearchMovie.Item>) {
+        viewAdapter.resetData(item)
+    }
+
+    override fun showFailure(it: Throwable) {
+        Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showEmptyMessage() {
+        Toast.makeText(this, "Empty", Toast.LENGTH_LONG).show()
     }
 }
 
