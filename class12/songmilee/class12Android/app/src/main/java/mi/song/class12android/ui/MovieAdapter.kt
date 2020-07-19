@@ -43,16 +43,15 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
 
     inner class MovieVh(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movieInfo: MovieInfo) {
-            binding.tvTitle.text = movieInfo.title
-            binding.tvDirector.text = movieInfo.director
-            binding.tvActor.text = movieInfo.actor
-
             movieInfo.image.let {
                 Glide.with(itemView.context)
                     .load(movieInfo.image)
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                     .into(binding.ivThumbnail)
             }
+
+            binding.movieInfo = movieInfo
+            binding.executePendingBindings()
         }
     }
 }

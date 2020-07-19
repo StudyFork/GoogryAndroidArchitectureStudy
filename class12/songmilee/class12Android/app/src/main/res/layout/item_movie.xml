@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+            name="movieInfo"
+            type="mi.song.class12android.data.model.MovieInfo" />
     </data>
 
     <LinearLayout
@@ -27,17 +29,20 @@
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@{movieInfo.title}"/>
 
             <TextView
                 android:id="@+id/tv_director"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@{movieInfo.director}"/>
 
             <TextView
                 android:id="@+id/tv_actor"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@{movieInfo.actor}"/>
 
         </LinearLayout>
     </LinearLayout>
