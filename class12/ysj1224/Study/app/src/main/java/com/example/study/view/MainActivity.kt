@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.example.study.R
 import com.example.study.RecyclerAdapter
 import com.example.study.data.model.NaverApiData
@@ -12,7 +11,6 @@ import com.example.study.data.repository.MovieListRepositoryImpl
 import com.example.study.databinding.ActivityMainBinding
 import com.example.study.presenter.MovieContract
 import com.example.study.presenter.MoviePresenter
-import kotlinx.android.synthetic.main.activity_main.*
 
 const val clientId = "hDyUQTbovi0BszAf5h87"
 const val clientSecret = "3FsmSYBKbJ"
@@ -20,7 +18,7 @@ const val baseUrl = "https://openapi.naver.com"
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
     private lateinit var viewAdapter: RecyclerAdapter
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private val moviePresenter: MovieContract.Presenter by lazy {
         MoviePresenter(
             this,
@@ -31,7 +29,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewAdapter = RecyclerAdapter()
         binding.rvMain.apply {
             setHasFixedSize(true)
