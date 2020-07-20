@@ -3,11 +3,13 @@ package com.example.study.view
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.study.R
 import com.example.study.RecyclerAdapter
 import com.example.study.data.model.NaverApiData
 import com.example.study.data.repository.MovieListRepositoryImpl
+import com.example.study.databinding.ActivityMainBinding
 import com.example.study.presenter.MovieContract
 import com.example.study.presenter.MoviePresenter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,8 +19,8 @@ const val clientSecret = "3FsmSYBKbJ"
 const val baseUrl = "https://openapi.naver.com"
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
-    private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerAdapter
+    private lateinit var binding : ActivityMainBinding
     private val moviePresenter: MovieContract.Presenter by lazy {
         MoviePresenter(
             this,
@@ -29,17 +31,16 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
         viewAdapter = RecyclerAdapter()
-        recyclerView = findViewById<RecyclerView>(R.id.rv_main).apply {
+        binding.rvMain.apply {
             setHasFixedSize(true)
             adapter = viewAdapter
         }
-
-        btn_check.setOnClickListener {
-            moviePresenter.requestMovieList(etv_search.text.toString())
+        binding.btnCheck.setOnClickListener {
+            moviePresenter.requestMovieList(binding.etvSearch.text.toString())
         }
+
     }
 
     override fun showMovieList(naverApiData: List<NaverApiData.Item>) {
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     override fun showQueryEmpty() {
         Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
     }
+
 }
 
 
