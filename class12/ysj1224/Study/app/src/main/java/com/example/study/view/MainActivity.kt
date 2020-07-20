@@ -11,6 +11,7 @@ import com.example.study.data.repository.MovieListRepositoryImpl
 import com.example.study.databinding.ActivityMainBinding
 import com.example.study.presenter.MovieContract
 import com.example.study.presenter.MoviePresenter
+import kotlinx.android.synthetic.main.activity_main.*
 
 const val clientId = "hDyUQTbovi0BszAf5h87"
 const val clientSecret = "3FsmSYBKbJ"
@@ -31,14 +32,15 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         viewAdapter = RecyclerAdapter()
-        binding.rvMain.apply {
-            setHasFixedSize(true)
-            adapter = viewAdapter
+        binding.run {
+            rvMain.apply {
+                setHasFixedSize(true)
+                adapter = viewAdapter
+            }
+            btnCheck.setOnClickListener {
+                moviePresenter.requestMovieList(binding.etvSearch.text.toString())
+            }
         }
-        binding.btnCheck.setOnClickListener {
-            moviePresenter.requestMovieList(binding.etvSearch.text.toString())
-        }
-
     }
 
     override fun showMovieList(naverApiData: List<NaverApiData.Item>) {
