@@ -41,7 +41,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
         holder.bind(movieList[position])
     }
 
-    inner class MovieVh(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieVh(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movieInfo: MovieInfo) {
             movieInfo.image.let {
                 Glide.with(itemView.context)
