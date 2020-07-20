@@ -1,47 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/movie_search_bar"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/movie_rv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
+        <variable
+            name="main"
+            type="m.woong.architecturestudy.ui.main.MainActivity" />
 
-        <EditText
-            android:id="@+id/movie_search_et"
+        <variable
+            name="query"
+            type="String" />
+
+        <variable
+            name="presenter"
+            type="m.woong.architecturestudy.MoviePresenter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.MainActivity">
+
+        <LinearLayout
+            android:id="@+id/movie_search_bar"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_weight="1"
-            android:hint="영화 키워드를 입력해주세요." />
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/movie_rv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/movie_search_btn"
+            <EditText
+                android:id="@+id/movie_search_et"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="@{query}"
+                android:hint="영화 키워드를 입력해주세요." />
+
+            <Button
+                android:id="@+id/movie_search_btn"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="0.4"
+                android:onClick="@{() -> main.searchMovie()}"
+                android:text="검색" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/movie_rv"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="0.4"
-            android:text="검색" />
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_search_bar"
+            tools:listitem="@layout/rvitem_movie" />
 
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/movie_rv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_search_bar"
-        tools:listitem="@layout/rvitem_movie" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

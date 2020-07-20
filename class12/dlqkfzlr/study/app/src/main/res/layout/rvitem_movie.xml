@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:orientation="horizontal">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/movie_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher_round" />
+    <data>
+        <variable
+            name="movie"
+            type="m.woong.architecturestudy.data.source.remote.model.MovieResponse.Item" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/movie_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="영화제목" />
+        <ImageView
+            android:id="@+id/movie_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            bind:glideImage="@{movie.image}" />
 
-        <TextView
-            android:id="@+id/movie_pubdate"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="출시일자" />
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/movie_director"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="감독이름" />
+            <TextView
+                android:id="@+id/movie_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                bind:htmlText="@{movie.title}" />
+
+            <TextView
+                android:id="@+id/movie_pubdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                bind:htmlText="@{movie.pubDate}" />
+
+
+            <TextView
+                android:id="@+id/movie_director"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                bind:htmlText="@{movie.director}" />
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</layout>
