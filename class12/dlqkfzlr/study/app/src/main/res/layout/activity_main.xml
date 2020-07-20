@@ -7,14 +7,6 @@
         <variable
             name="main"
             type="m.woong.architecturestudy.ui.main.MainActivity" />
-
-        <variable
-            name="query"
-            type="String" />
-
-        <variable
-            name="presenter"
-            type="m.woong.architecturestudy.MoviePresenter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +30,6 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:text="@{query}"
                 android:hint="영화 키워드를 입력해주세요." />
 
             <Button
