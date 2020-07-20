@@ -6,17 +6,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.study.R
 import com.example.study.RecyclerAdapter
+import com.example.study.data.model.NaverApiData
 import com.example.study.data.repository.MovieListRepositoryImpl
+import com.example.study.presenter.MovieContract
+import com.example.study.presenter.MoviePresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val clientId = "hDyUQTbovi0BszAf5h87"
 const val clientSecret = "3FsmSYBKbJ"
 const val baseUrl = "https://openapi.naver.com"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MovieContract.View {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerAdapter
-    private val movieListRepositoryImpl = MovieListRepositoryImpl()
+    private val moviePresenter: MovieContract.Presenter by lazy {
+        MoviePresenter(
+            this,
+            MovieListRepositoryImpl()
+        )
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,16 +38,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_check.setOnClickListener {
-            if (etv_search.text.isEmpty()) {
-                Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
-            } else {
-                movieListRepositoryImpl.doSearch(
-                    etv_search.text.toString(),
-                    response = { viewAdapter.setItem(it) },
-                    fail = { Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show() })
-
-            }
+            moviePresenter.requestMovieList(etv_search.text.toString())
         }
+    }
+
+    override fun showMovieList(naverApiData: List<NaverApiData.Item>) {
+        viewAdapter.setItem(naverApiData)
+    }
+
+    override fun showErrorResponse(t: Throwable) {
+        Toast.makeText(this@MainActivity, "$t", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showQueryEmpty() {
+        Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
     }
 }
 

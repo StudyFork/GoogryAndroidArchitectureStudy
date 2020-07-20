@@ -8,7 +8,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RemoteDataSourceImpl: RemoteDataSource {
+class RemoteDataSourceImpl : RemoteDataSource {
     override fun getSearch(
         query: String,
         response: (List<NaverApiData.Item>) -> Unit,
@@ -22,6 +22,7 @@ class RemoteDataSourceImpl: RemoteDataSource {
             override fun onFailure(call: Call<NaverApiData>, t: Throwable) {
                 fail(t)
             }
+
             override fun onResponse(call: Call<NaverApiData>, response: Response<NaverApiData>) {
                 if (response.isSuccessful) {
                     response.body()?.let {
