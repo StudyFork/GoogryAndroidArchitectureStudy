@@ -4,8 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import mi.song.class12android.R
 import mi.song.class12android.data.model.MovieInfo
 import mi.song.class12android.databinding.ItemMovieBinding
@@ -41,15 +39,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
         holder.bind(movieList[position])
     }
 
-    inner class MovieVh(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieVh(private val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(movieInfo: MovieInfo) {
-            movieInfo.image.let {
-                Glide.with(itemView.context)
-                    .load(movieInfo.image)
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                    .into(binding.ivThumbnail)
-            }
-
             binding.movieInfo = movieInfo
             binding.executePendingBindings()
         }
