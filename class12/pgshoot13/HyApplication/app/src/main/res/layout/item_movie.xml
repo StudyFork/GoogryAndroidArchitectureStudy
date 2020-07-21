@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="movieData"
+            type="com.hyper.hyapplication.model.ResultGetSearchMovie.Item" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,8 +18,8 @@
         <ImageView
             android:id="@+id/movieImg"
             android:layout_width="120dp"
-            android:layout_height="100dp" />
-
+            android:layout_height="100dp"
+            app:loadImage="@{movieData.image}" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -24,18 +30,21 @@
             <TextView
                 android:id="@+id/movieTitleTv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@{movieData.title}" />
 
             <TextView
                 android:id="@+id/movieDirectorTv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@{movieData.director}" />
 
             <TextView
                 android:id="@+id/movieActorTv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
+                android:layout_height="wrap_content"
+                android:text="@{movieData.actor}" />
         </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
+</layout>
