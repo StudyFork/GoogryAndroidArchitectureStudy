@@ -59,26 +59,22 @@ dependencies {
     androidTestImplementation deps.androidx.test.junit
     androidTestImplementation deps.androidx.test.espresso
 
-    //retrofit
-    implementation deps.library.squareup.retrofit
-    implementation deps.library.squareup.adapter_rxjava3
-    implementation deps.library.squareup.retrofit_gson_converter
-
-    //okhttp
-    implementation deps.library.squareup.okhttp
-    implementation deps.library.squareup.okhttp_logging_interceptor
-
     //glide
     implementation deps.library.glide
     implementation deps.library.glide_blur
-
-    //rx
-    implementation deps.library.rx.java
-    implementation deps.library.rx.android
 
     //lifecycle
     implementation deps.androidx.lifecycle
 
     //koin
     implementation deps.androidx.koin
+
+    //rx
+    implementation deps.library.rx.android
+
+    //multi-module
+    implementation project(':data')
+    implementation project(':domain')
+    implementation project(':remote')
+    implementation project(':presentation')
 }

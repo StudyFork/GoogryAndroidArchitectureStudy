@@ -13,7 +13,7 @@
 
         <variable
             name="viewModel"
-            type="com.tsdev.tsandroid.ui.viewmodel.MainViewModel" />
+            type="com.tsdev.presentation.MainViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

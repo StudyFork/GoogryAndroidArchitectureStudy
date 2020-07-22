@@ -1,2 +1,6 @@
 rootProject.name='My Application'
 include ':app'
+include ':domain'
+include ':remote'
+include ':presentation'
+include ':data'

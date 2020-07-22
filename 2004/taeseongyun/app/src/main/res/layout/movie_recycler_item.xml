@@ -7,7 +7,7 @@
 
         <variable
             name="movieItem"
-            type="com.tsdev.tsandroid.data.Item" />
+            type="com.tsdev.domain.model.DomainItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +55,7 @@
                     android:layout_marginTop="@dimen/spacing_large"
                     android:layout_toEndOf="@+id/movie_card"
                     tools:text="영화제목"
-                    android:text="@{movieItem.title}"/>
+                    fromHtmlText="@{movieItem.title}"/>
 
                 <TextView
                     android:id="@+id/movie_sub_title"
@@ -88,7 +88,7 @@
                     android:layout_marginTop="@dimen/spacing_mini"
                     android:layout_toEndOf="@+id/movie_card"
                     tools:text="director"
-                    android:text="@{movieItem.director}"/>
+                    fromHtmlText="@{movieItem.director}"/>
 
                 <TextView
                     android:id="@+id/movie_rating"
