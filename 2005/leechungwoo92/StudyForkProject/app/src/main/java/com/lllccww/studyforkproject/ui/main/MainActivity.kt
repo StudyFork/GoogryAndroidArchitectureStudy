@@ -8,12 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lllccww.studyforkproject.R
-import com.lllccww.studyforkproject.data.repository.NaverMovieRepositoryImpl
 import com.lllccww.studyforkproject.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
