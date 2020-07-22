@@ -26,16 +26,15 @@ class MainActivity : AppCompatActivity(), MovieContract.View, MovieAdapter.OnIte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         movieContainer = (application as CommonApplication).movieContainer
         presenter = MoviePresenterImpl( this, movieContainer.repository)
         adapter = MovieAdapter()
         adapter.setOnclickItemListener(this)
         recyclerView.adapter = adapter
 
-        btnSearch.setOnClickListener {
-            presenter.searchMovie(etUrl.text.toString())
-        }
+        binding.view = this
+        binding.presenter = presenter
     }
 
 
