@@ -20,10 +20,10 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.Vie
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(
-            this@MainActivity,
-            R.layout.activity_main
+            this@MainActivity, R.layout.activity_main
         )
-        binding.mainActivity = this@MainActivity
+        binding.view = this
+        binding.presenter = presenter
 
         viewAdapter = MovieAdapter()
         recyclerView.apply {
