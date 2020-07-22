@@ -1,7 +1,8 @@
 package com.hwaniiidev.architecture.data.source.local
 
 import android.content.Context
-import com.hwaniiidev.architecture.model.Item
+import com.hwaniiidev.data.model.Item
+import com.hwaniiidev.data.source.local.NaverMovieLocalDataSource
 
 class NaverMovieLocalDataSourceImpl(
     private val context: Context) : NaverMovieLocalDataSource {

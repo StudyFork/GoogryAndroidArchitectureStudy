@@ -1,8 +1,7 @@
-package com.hwaniiidev.architecture.data.repository
+package com.hwaniiidev.data.repository
 
-import android.content.Context
-import com.hwaniiidev.architecture.model.Item
-import com.hwaniiidev.architecture.model.ResponseMovieSearchData
+import com.hwaniiidev.data.model.Item
+import com.hwaniiidev.data.model.ResponseMovieSearchData
 
 interface NaverMovieRepository {
 

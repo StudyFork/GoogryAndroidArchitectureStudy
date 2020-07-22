@@ -4,16 +4,18 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.hwaniiidev.architecture.data.repository.NaverMovieRepository
-import com.hwaniiidev.architecture.model.Item
+import com.hwaniiidev.architecture.data.repository.Mapper
+import com.hwaniiidev.architecture.model.ItemApp
+import com.hwaniiidev.data.model.Item
+import com.hwaniiidev.data.repository.NaverMovieRepository
 
 class MainViewModel(
     val naverMovieRepositoryImpl: NaverMovieRepository
 ) : ViewModel() {
     val searchQuery = MutableLiveData<String>()
 
-    private val _movies = MutableLiveData<List<Item>>()
-    val movies: LiveData<List<Item>> = _movies
+    private val _movies = MutableLiveData<List<ItemApp>>()
+    val movies: LiveData<List<ItemApp>> = _movies
 
     private val _error = MutableLiveData<SearchError>()
     val error: LiveData<SearchError> = _error
@@ -40,7 +42,8 @@ class MainViewModel(
                         _movies.value = null
                         _error.value = SearchError.RESPONSE_IS_NONE
                     } else {
-                        _movies.value = response.items
+
+                        _movies.value = Mapper.changeMovies(response.items).toMutableList()
                         _error.value = SearchError.NONE_ERROR
                         _hideKeyboard.value = Unit
                     }
@@ -55,7 +58,7 @@ class MainViewModel(
                 },
                 onCached = { movies ->
                     if (!movies.isNullOrEmpty()) {
-                        _movies.postValue(movies)
+                        _movies.postValue(Mapper.changeMovies(movies as ArrayList<Item>))
                         _error.postValue(SearchError.NONE_ERROR)
                         _hideKeyboard.postValue(Unit)
                     }

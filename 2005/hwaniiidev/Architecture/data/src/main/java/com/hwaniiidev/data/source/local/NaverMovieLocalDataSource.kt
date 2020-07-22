@@ -1,7 +1,6 @@
-package com.hwaniiidev.architecture.data.source.local
+package com.hwaniiidev.data.source.local
 
-import android.content.Context
-import com.hwaniiidev.architecture.model.Item
+import com.hwaniiidev.data.model.Item
 
 interface NaverMovieLocalDataSource {
 

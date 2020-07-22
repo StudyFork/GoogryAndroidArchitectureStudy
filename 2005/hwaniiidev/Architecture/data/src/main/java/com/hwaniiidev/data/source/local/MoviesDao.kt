@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.hwaniiidev.architecture.model.Item
+import com.hwaniiidev.data.model.Item
 
 @Dao
 interface MoviesDao {
