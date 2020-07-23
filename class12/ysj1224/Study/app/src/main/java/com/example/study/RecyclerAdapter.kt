@@ -37,7 +37,8 @@ class RecyclerAdapter :
 
     class MyViewHolder(private val binding: RvItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: NaverApiData.Item) {
-            binding.vm = data
+            binding.item = data
+            binding.executePendingBindings()
         }
     }
 }
