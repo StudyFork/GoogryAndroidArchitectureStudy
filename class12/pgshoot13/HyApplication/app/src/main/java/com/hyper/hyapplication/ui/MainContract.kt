@@ -8,7 +8,6 @@ interface MainContract {
         fun showMovie(item: List<ResultGetSearchMovie.Item>)
         fun showFailure(it: Throwable)
         fun showEmptyMessage()
-        fun searchMovie(movieName: String)
     }
 
     interface Presenter {
