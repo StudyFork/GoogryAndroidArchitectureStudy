@@ -15,7 +15,7 @@ class MoviePresenter(
         }
     }
 
-    fun getRecentMovie(query: String) {
+    private fun getRecentMovie(query: String) {
         repository.getRecentMovie(query,
             success = {
                 view.showMovieList(it)
@@ -24,7 +24,7 @@ class MoviePresenter(
             })
     }
 
-    fun showErrorEmptyQuery() {
+    private fun showErrorEmptyQuery() {
         view.showErrorEmptyQuery()
     }
 }
