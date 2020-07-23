@@ -6,7 +6,7 @@
     <data>
         <import type="android.text.Html"/>
         <variable
-            name="VM"
+            name="item"
             type="com.example.study.data.model.NaverApiData.Item" />
     </data>
 
@@ -23,7 +23,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:loadImgUrl="@{VM.image}"
+            app:loadImgUrl="@{item.image}"
             app:srcCompat="@android:drawable/alert_dark_frame" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:fromHtml="@{VM.title}"
+            app:fromHtml="@{item.title}"
             app:layout_constraintBottom_toTopOf="@+id/tv_subtitle"
             app:layout_constraintStart_toEndOf="@+id/iv_image"
             app:layout_constraintTop_toTopOf="@+id/iv_image" />
@@ -40,7 +40,7 @@
             android:id="@+id/tv_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:fromHtml="@{VM.subtitle}"
+            app:fromHtml="@{item.subtitle}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_image"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
