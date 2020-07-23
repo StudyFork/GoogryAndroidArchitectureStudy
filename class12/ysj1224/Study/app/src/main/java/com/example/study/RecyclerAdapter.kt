@@ -1,15 +1,11 @@
 package com.example.study
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.text.HtmlCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.study.data.model.NaverApiData
-import kotlinx.android.synthetic.main.rv_item.view.*
+import com.example.study.databinding.RvItemBinding
 
 class RecyclerAdapter :
     RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
@@ -20,20 +16,12 @@ class RecyclerAdapter :
         parent: ViewGroup,
         viewType: Int
     ): MyViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.rv_item, parent, false)
-        return MyViewHolder(view)
+        val binding:RvItemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.rv_item, parent, false)
+        return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.title.text =
-            HtmlCompat.fromHtml(item[position].title, HtmlCompat.FROM_HTML_MODE_LEGACY)
-        holder.subtitle.text = item[position].subtitle
-        Glide.with(holder.image.context)
-            .load(item[position].image)
-            .centerCrop()
-            .placeholder(R.drawable.ic_launcher_foreground)
-            .into(holder.image)
+        holder.onBind(data = item[position])
     }
 
     override fun getItemCount(): Int {
@@ -47,10 +35,11 @@ class RecyclerAdapter :
 
     }
 
-    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title: TextView = view.tv_title
-        val subtitle: TextView = view.tv_subtitle
-        val image: ImageView = view.iv_image
+    class MyViewHolder(private val binding: RvItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun onBind(data: NaverApiData.Item) {
+            binding.item = data
+            binding.executePendingBindings()
+        }
     }
 }
 
