@@ -1,15 +1,12 @@
 package mi.song.class12android.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import mi.song.class12android.R
 import mi.song.class12android.data.model.MovieInfo
+import mi.song.class12android.databinding.ItemMovieBinding
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
     private val movieList = ArrayList<MovieInfo>()
@@ -25,13 +22,13 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieVh {
-        return MovieVh(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_movie,
-                parent,
-                false
-            )
+        val binding: ItemMovieBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_movie,
+            parent,
+            false
         )
+        return MovieVh(binding)
     }
 
     override fun getItemCount(): Int {
@@ -42,23 +39,11 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieVh>() {
         holder.bind(movieList[position])
     }
 
-    inner class MovieVh(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imgThumbnail: ImageView = itemView.findViewById(R.id.iv_thumbnail)
-        private val tvTitle: TextView = itemView.findViewById(R.id.tv_title)
-        private val tvDirector: TextView = itemView.findViewById(R.id.tv_director)
-        private val tvActor: TextView = itemView.findViewById(R.id.tv_actor)
-
+    inner class MovieVh(private val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(movieInfo: MovieInfo) {
-            tvTitle.text = movieInfo.title
-            tvDirector.text = movieInfo.director
-            tvActor.text = movieInfo.actor
-
-            movieInfo.image?.let {
-                Glide.with(itemView.context)
-                    .load(movieInfo.image)
-                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                    .into(imgThumbnail)
-            }
+            binding.movieInfo = movieInfo
+            binding.executePendingBindings()
         }
     }
 }
