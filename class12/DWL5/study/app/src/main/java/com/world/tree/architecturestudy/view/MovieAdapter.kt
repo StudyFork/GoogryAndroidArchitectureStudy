@@ -15,21 +15,6 @@ class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private val movies: ArrayList<Movie.Item> = ArrayList()
     private lateinit var onItemClickListener: OnItemClickListener
 
-    interface OnItemClickListener {
-        fun goToLink(link: String)
-    }
-
-    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = DataBindingUtil.bind<ItemMovieBinding>(itemView)!!
-        fun bind(data: Movie.Item) {
-            binding.movie = data
-            if (::onItemClickListener.isInitialized) binding.onItemClickListener =
-                onItemClickListener
-            binding.executePendingBindings()
-        }
-    }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val v: View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
@@ -55,5 +40,19 @@ class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     fun clearData() {
         movies.clear();
+    }
+
+    interface OnItemClickListener {
+        fun goToLink(link: String)
+    }
+
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val binding = DataBindingUtil.bind<ItemMovieBinding>(itemView)!!
+        fun bind(data: Movie.Item) {
+            binding.movie = data
+            if (::onItemClickListener.isInitialized) binding.onItemClickListener =
+                onItemClickListener
+            binding.executePendingBindings()
+        }
     }
 }
