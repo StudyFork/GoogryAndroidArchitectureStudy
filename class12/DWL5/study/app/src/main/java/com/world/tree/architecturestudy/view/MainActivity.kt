@@ -52,9 +52,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View, MovieAdapter.OnIte
 
     override fun goToLink(link: String) {
         Log.d("Main", "goToLink() called link : $link")
-        baseContext.startActivity(
-            Intent(Intent.ACTION_VIEW, Uri.parse(link))
-                .addFlags(FLAG_ACTIVITY_NEW_TASK)
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link))
         )
     }
 }
