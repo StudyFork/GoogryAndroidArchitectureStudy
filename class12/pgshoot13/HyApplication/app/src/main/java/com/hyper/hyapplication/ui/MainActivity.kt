@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.Vie
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this@MainActivity, R.layout.activity_main
         )
-        binding.view = this
         binding.presenter = presenter
 
         viewAdapter = MovieAdapter()
@@ -42,10 +41,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.Vie
 
     override fun showEmptyMessage() {
         Toast.makeText(this, "Empty", Toast.LENGTH_LONG).show()
-    }
-
-    override fun searchMovie(movieName: String) {
-        presenter.movieSearch(movieName)
     }
 }
 
