@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View, MovieAdapter.OnIte
         movieContainer = (application as CommonApplication).movieContainer
         presenter = MoviePresenterImpl( this, movieContainer.repository)
         adapter = MovieAdapter()
-        adapter.setOnclickItemListener(this)
+        adapter.setOnItemClickListener(this)
         recyclerView.adapter = adapter
 
         binding.view = this
