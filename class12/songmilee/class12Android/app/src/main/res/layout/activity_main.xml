@@ -8,6 +8,14 @@
         <variable
             name="mainView"
             type="mi.song.class12android.ui.MainActivity" />
+
+        <variable
+            name="mainVm"
+            type="mi.song.class12android.viewmodel.MovieViewModel" />
+
+        <variable
+            name="query"
+            type="String" />
     </data>
 
     <LinearLayout
@@ -27,13 +35,14 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:text="@={query}"
                 android:hint="@string/movie_hint" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:onClick="@{() -> mainView.queryMovie()}"
+                android:onClick="@{() -> mainVm.requestMovieData(query)}"
                 android:text="@string/search" />
         </LinearLayout>
 
