@@ -7,13 +7,13 @@ import com.example.architecturestudy.data.repository.MovieRespositoryImpl
 class MainViewModel {
     private val movieRepository = MovieRespositoryImpl()
 
-    var failMsgObservableField = ObservableField<Void>()
+    var failMsgObservableField = ObservableField<Throwable>()
     var movieListObservableField = ObservableField<List<MovieData>>()
 
     fun searchMovieOnRemote(title: String) {
         movieRepository.searchMovieOnRemote(
             title,
             success = { movieList -> movieListObservableField.set(movieList) },
-            fail = { t -> failMsgObservableField.set(null) })
+            fail = { t -> failMsgObservableField.set(t) })
     }
 }
