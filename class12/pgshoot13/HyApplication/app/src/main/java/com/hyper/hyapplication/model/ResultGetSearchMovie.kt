@@ -1,4 +1,4 @@
-package com.hyper.hyapplication
+package com.hyper.hyapplication.model
 
 data class ResultGetSearchMovie(
     var lastBuildDate: String,

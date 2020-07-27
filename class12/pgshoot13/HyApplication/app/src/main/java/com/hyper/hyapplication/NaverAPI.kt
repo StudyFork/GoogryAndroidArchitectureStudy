@@ -1,5 +1,6 @@
 package com.hyper.hyapplication
 
+import com.hyper.hyapplication.model.ResultGetSearchMovie
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
