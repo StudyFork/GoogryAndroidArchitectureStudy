@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="searchMoviePresenter"
-            type="com.example.architecturestudy.presenter.SearchMoviePresenter" />
+            name="viewModel"
+            type="com.example.architecturestudy.viewmodel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:text="@string/search"
-            android:onClick="@{() -> searchMoviePresenter.searchMovieOnRemote(searchEditText.getText().toString())}"
+            android:onClick="@{() -> viewModel.searchMovieOnRemote(searchEditText.getText().toString())}"
             app:layout_constraintStart_toEndOf="@id/searchEditText"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.2" />
