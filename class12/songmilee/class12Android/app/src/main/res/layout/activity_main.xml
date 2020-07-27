@@ -4,11 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="mainView"
-            type="mi.song.class12android.ui.MainActivity" />
-
         <variable
             name="mainVm"
             type="mi.song.class12android.viewmodel.MovieViewModel" />
