@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ArchitectureStudy</string>
+    <string name="search">검색</string>
+    <string name="search_hint">영화 제목을 입력하세요</string>
+</resources>
