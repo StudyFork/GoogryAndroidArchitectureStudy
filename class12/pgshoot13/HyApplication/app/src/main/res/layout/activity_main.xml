@@ -4,10 +4,6 @@
 
     <data>
         <variable
-            name="presenter"
-            type="com.hyper.hyapplication.ui.MainContract.Presenter" />
-
-        <variable
             name="movieName"
             type="String" />
     </data>
