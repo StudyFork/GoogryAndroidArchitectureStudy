@@ -10,6 +10,7 @@ import kotlin.collections.ArrayList
 class MainViewModel(private val repository: NaverRepository) {
 
     val movieList = ObservableArrayList<Movie.Item>()
+    val title = ObservableField<String>()
     val toastMsg = ObservableField<String>()
 
     fun searchMovie(q: String) {
