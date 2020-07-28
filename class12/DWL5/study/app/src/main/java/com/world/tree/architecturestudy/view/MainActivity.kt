@@ -18,10 +18,9 @@ import com.world.tree.architecturestudy.presenter.MoviePresenterImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), MovieContract.View, MovieAdapter.OnItemClickListener {
+class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
     private lateinit var movieContainer: MovieContainer
     private lateinit var adapter: MovieAdapter
-    private lateinit var presenter: MovieContract.Presenter
     private lateinit var binding:ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,19 +31,6 @@ class MainActivity : AppCompatActivity(), MovieContract.View, MovieAdapter.OnIte
         adapter.setOnItemClickListener(this)
         recyclerView.adapter = adapter
         binding.viewModel = MainViewModel(movieContainer.repository)
-    }
-
-
-    override fun showToast(m: String) {
-        Toast.makeText(this, m, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun setMovieData(list: List<Movie.Item>) {
-        adapter.addData(list)
-    }
-
-    override fun clearList() {
-        adapter.clearData()
     }
 
     override fun goToLink(link: String) {
