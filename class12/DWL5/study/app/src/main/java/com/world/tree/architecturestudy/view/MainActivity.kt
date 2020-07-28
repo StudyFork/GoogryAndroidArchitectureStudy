@@ -28,13 +28,10 @@ class MainActivity : AppCompatActivity(), MovieContract.View, MovieAdapter.OnIte
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         movieContainer = (application as CommonApplication).movieContainer
-        presenter = MoviePresenterImpl( this, movieContainer.repository)
         adapter = MovieAdapter()
         adapter.setOnItemClickListener(this)
         recyclerView.adapter = adapter
-
-        binding.view = this
-        binding.presenter = presenter
+        binding.viewModel = MainViewModel(movieContainer.repository)
     }
 
 
