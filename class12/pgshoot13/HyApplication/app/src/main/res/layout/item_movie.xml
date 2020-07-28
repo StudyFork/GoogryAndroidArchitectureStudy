@@ -44,6 +44,5 @@
                 android:layout_height="wrap_content"
                 android:text="@{movieData.actor}" />
         </LinearLayout>
-
     </LinearLayout>
 </layout>
