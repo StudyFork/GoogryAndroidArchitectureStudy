@@ -28,6 +28,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    //dataBinding
+    buildFeatures { //android 4.0
+        dataBinding true
+    }
+    dataBinding {   //android 3.0
+        enabled = true
+    }
 }
 
 dependencies {
