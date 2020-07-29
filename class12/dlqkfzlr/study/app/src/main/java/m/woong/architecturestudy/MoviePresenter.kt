@@ -2,6 +2,7 @@ package m.woong.architecturestudy
 
 import m.woong.architecturestudy.data.repository.MovieRepository
 
+@Deprecated("Change Architecture to MVVM")
 class MoviePresenter(
     private val view: MovieContract.View,
     private val repository: MovieRepository

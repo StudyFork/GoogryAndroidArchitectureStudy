@@ -2,6 +2,7 @@ package m.woong.architecturestudy
 
 import m.woong.architecturestudy.data.source.remote.model.MovieResponse
 
+@Deprecated("Change Architecture to MVVM")
 interface MovieContract {
 
     interface View {
