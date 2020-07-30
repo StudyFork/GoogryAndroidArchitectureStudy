@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import com.world.tree.architecturestudy.CommonApplication
 import com.world.tree.architecturestudy.MovieContainer
 import com.world.tree.architecturestudy.R
@@ -30,7 +31,16 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
         adapter = MovieAdapter()
         adapter.setOnItemClickListener(this)
         recyclerView.adapter = adapter
-        binding.viewModel = MainViewModel(movieContainer.repository)
+        val viewModel = MainViewModel(movieContainer.repository)
+        binding.viewModel = viewModel
+
+        viewModel.toastMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                if (viewModel.toastMsg.get()!!.isEmpty()) return
+                Toast.makeText(applicationContext, viewModel.toastMsg.get(), Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 
     override fun goToLink(link: String) {

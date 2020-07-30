@@ -14,6 +14,11 @@ class MainViewModel(private val repository: NaverRepository) {
     val toastMsg = ObservableField<String>()
 
     fun searchMovie(q: String) {
+        if (q.isBlank()) {
+            toastMsg.set("검색어를 입력 해 주세요")
+            toastMsg.set("")
+        }
+
         repository.getMovies(q, success = {
             movieList.clear()
             movieList.addAll(it)
