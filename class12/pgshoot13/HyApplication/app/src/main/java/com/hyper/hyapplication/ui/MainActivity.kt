@@ -10,10 +10,10 @@ import com.hyper.hyapplication.databinding.ActivityMainBinding
 import com.hyper.hyapplication.model.ResultGetSearchMovie
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.View {
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private lateinit var viewAdapter: MovieAdapter
-    private val presenter = MainPresenter(this)
+    private val mainViewModel = MainViewModel()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.Vie
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this@MainActivity, R.layout.activity_main
         )
-        binding.presenter = presenter
+        binding.viewModel = mainViewModel
 
         viewAdapter = MovieAdapter()
         recyclerView.apply {
