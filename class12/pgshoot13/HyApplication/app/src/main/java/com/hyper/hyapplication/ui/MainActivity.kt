@@ -35,11 +35,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         viewAdapter.resetData(item)
     }
 
-    override fun showFailure(it: Throwable) {
+    fun showFailure(it: Throwable) {
         Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show()
     }
 
-    override fun showEmptyMessage() {
+    fun showEmptyMessage() {
         Toast.makeText(this, "Empty", Toast.LENGTH_LONG).show()
     }
 }
