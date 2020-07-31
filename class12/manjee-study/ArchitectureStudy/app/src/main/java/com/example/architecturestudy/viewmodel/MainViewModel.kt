@@ -9,6 +9,7 @@ class MainViewModel {
 
     var failMsgObservableField = ObservableField<Throwable>()
     var movieListObservableField = ObservableField<List<MovieData>>()
+    var movieTitleObservableField = ObservableField<String>()
 
     fun searchMovieOnRemote(title: String) {
         movieRepository.searchMovieOnRemote(
