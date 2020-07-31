@@ -42,24 +42,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.successResult.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                updateMovieList(viewModel.successResult.get())
-            }
-        })
     }
 
     fun showMessage(msg: String?) {
         msg?.let {
             Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    fun updateMovieList(list: List<MovieInfo>?) {
-        list?.let {
-            movieAdapter.clearMovieList()
-            movieAdapter.addMovieInfo(list)
         }
     }
 
