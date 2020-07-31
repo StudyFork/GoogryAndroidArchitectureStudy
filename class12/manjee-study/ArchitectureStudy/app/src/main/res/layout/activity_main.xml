@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:text="@string/search"
-            android:onClick="@{() -> viewModel.searchMovieOnRemote(viewModel.movieTitleObservableField)}"
+            android:onClick="@{() -> viewModel.searchMovieOnRemote()}"
             app:layout_constraintStart_toEndOf="@id/searchEditText"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.2" />

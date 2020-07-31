@@ -11,9 +11,9 @@ class MainViewModel {
     var movieListObservableField = ObservableField<List<MovieData>>()
     var movieTitleObservableField = ObservableField<String>()
 
-    fun searchMovieOnRemote(title: String) {
+    fun searchMovieOnRemote() {
         movieRepository.searchMovieOnRemote(
-            title,
+            movieTitleObservableField.get().toString(),
             success = { movieList -> movieListObservableField.set(movieList) },
             fail = { t -> failMsgObservableField.set(t) })
     }
