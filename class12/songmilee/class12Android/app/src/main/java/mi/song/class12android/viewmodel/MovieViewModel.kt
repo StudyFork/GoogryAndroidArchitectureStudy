@@ -1,14 +1,10 @@
 package mi.song.class12android.viewmodel
 
-import android.content.Context
 import androidx.databinding.ObservableField
 import mi.song.class12android.data.model.MovieInfo
 import mi.song.class12android.data.repository.SearchMovieRepository
-import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
 
-class MovieViewModel(context: Context) {
-    private val searchMovieRepository: SearchMovieRepository = SearchMovieRepositoryImpl(context)
-
+class MovieViewModel(private val searchMovieRepository: SearchMovieRepository) {
     val message = ObservableField<String>()
     val successResult = ObservableField<List<MovieInfo>>()
 

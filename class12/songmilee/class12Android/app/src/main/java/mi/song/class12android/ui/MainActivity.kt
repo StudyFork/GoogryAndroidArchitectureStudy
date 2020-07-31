@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import mi.song.class12android.R
 import mi.song.class12android.data.model.MovieInfo
+import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
 import mi.song.class12android.databinding.ActivityMainBinding
 import mi.song.class12android.viewmodel.MovieViewModel
 
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        viewModel = MovieViewModel(this@MainActivity)
+        viewModel = MovieViewModel(SearchMovieRepositoryImpl(this@MainActivity))
 
         initUi()
     }
