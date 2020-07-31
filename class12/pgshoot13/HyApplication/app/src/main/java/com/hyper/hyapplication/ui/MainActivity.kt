@@ -8,7 +8,6 @@ import androidx.databinding.Observable
 import com.hyper.hyapplication.MovieAdapter
 import com.hyper.hyapplication.R
 import com.hyper.hyapplication.databinding.ActivityMainBinding
-import com.hyper.hyapplication.model.ResultGetSearchMovie
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
@@ -40,18 +39,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 mainViewModel.message.get()?.let { showFailure(it) }
             }
         })
-
-        mainViewModel.movieItem.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                mainViewModel.movieItem.get()?.let { showMovie(it) }
-            }
-        })
-    }
-
-
-    fun showMovie(item: List<ResultGetSearchMovie.Item>) {
-        viewAdapter.resetData(item)
     }
 
     fun showFailure(it: Throwable) {

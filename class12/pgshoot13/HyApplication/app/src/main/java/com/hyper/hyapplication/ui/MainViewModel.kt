@@ -1,5 +1,6 @@
 package com.hyper.hyapplication.ui
 
+import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import com.hyper.hyapplication.model.ResultGetSearchMovie
 import com.hyper.hyapplication.repository.NaverRepositoryImpl
@@ -10,7 +11,7 @@ class MainViewModel {
 
     val movieName = ObservableField<String>()
     val message = ObservableField<Throwable>()
-    val movieItem = ObservableField<List<ResultGetSearchMovie.Item>>()
+    val movieItem = ObservableArrayList<ResultGetSearchMovie.Item>()
 
     fun movieSearch(query: String) {
         if (query.isEmpty()) {
@@ -18,7 +19,10 @@ class MainViewModel {
         } else {
             movieList.movieSearch(
                 query,
-                success = { movieItem.set(it) },
+                success = {
+                    movieItem.clear()
+                    movieItem.addAll(it)
+                },
                 failure = { message.set(it) })
         }
     }
