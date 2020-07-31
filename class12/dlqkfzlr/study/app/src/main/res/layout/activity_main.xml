@@ -9,7 +9,7 @@
 <!--            name="main"-->
 <!--            type="m.woong.architecturestudy.ui.main.MainActivity" />-->
         <variable
-            name="ViewModel"
+            name="viewModel"
             type="m.woong.architecturestudy.MovieViewModel" />
     </data>
 
@@ -34,7 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
-                android:text="@={ViewModel.queryData}"
+                android:text="@={viewModel.queryData}"
                 android:hint="영화 키워드를 입력해주세요." />
 
             <Button
@@ -42,7 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="0.4"
-                android:onClick="@{() -> ViewModel.searchMovie()}"
+                android:onClick="@{() -> viewModel.searchMovie()}"
                 android:text="검색" />
 
         </LinearLayout>
@@ -56,7 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_search_bar"
-            bind:adapter="@{ViewModel.movieAdapter}"
+            bind:adapter="@{viewModel.movieAdapter}"
             tools:listitem="@layout/rvitem_movie" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
