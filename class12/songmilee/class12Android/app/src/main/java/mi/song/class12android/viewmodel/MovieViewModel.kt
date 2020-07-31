@@ -7,6 +7,7 @@ import mi.song.class12android.data.repository.SearchMovieRepository
 class MovieViewModel(private val searchMovieRepository: SearchMovieRepository) {
     val message = ObservableField<String>()
     val successResult = ObservableField<List<MovieInfo>>()
+    val query = ObservableField<String>()
 
     fun requestMovieData(query: String) {
         if (query.isEmpty()) return
