@@ -26,5 +26,6 @@ class MovieViewModel {
             query = query,
             response = {movieList.set(it)},
             fail = {fail.set(it)})
+
     }
 }
