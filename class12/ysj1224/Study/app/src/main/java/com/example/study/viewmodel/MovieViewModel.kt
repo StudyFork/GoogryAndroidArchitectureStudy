@@ -10,7 +10,7 @@ class MovieViewModel {
     val movieList = ObservableField<List<NaverApiData.Item>>()
     val fail = ObservableField<Throwable>()
     val noQuery = ObservableField(0)
-    val adapter = RecyclerAdapter()
+
 
     fun requestMovieList(query: String) {
         if (query.isEmpty()) {

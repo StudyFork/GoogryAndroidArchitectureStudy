@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import com.example.study.R
+import com.example.study.RecyclerAdapter
 import com.example.study.data.model.NaverApiData
 import com.example.study.databinding.ActivityMainBinding
 import com.example.study.viewmodel.MovieViewModel
@@ -16,17 +17,19 @@ const val baseUrl = "https://openapi.naver.com"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewAdapter: RecyclerAdapter
     private val viewModel = MovieViewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        viewAdapter = RecyclerAdapter()
         init()
         binding.run {
             rvMain.apply {
                 setHasFixedSize(true)
-                adapter = viewModel.adapter
+                adapter = viewAdapter
             }
             btnCheck.setOnClickListener {
                 viewModel.requestMovieList(binding.etvSearch.text.toString())
@@ -36,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showMovieList(naverApiData: List<NaverApiData.Item>) {
-        viewModel.adapter.setItem(naverApiData)
+        viewAdapter.setItem(naverApiData)
     }
 
     fun showErrorResponse(t: Throwable) {
