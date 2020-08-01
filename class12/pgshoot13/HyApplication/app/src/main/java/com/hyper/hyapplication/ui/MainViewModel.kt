@@ -1,27 +1,25 @@
 package com.hyper.hyapplication.ui
 
-import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import com.hyper.hyapplication.model.ResultGetSearchMovie
 import com.hyper.hyapplication.repository.NaverRepositoryImpl
 import com.hyper.hyapplication.source.remote.NaverRemoteDataSourceImpl
 
 class MainViewModel {
-    private val movieList = NaverRepositoryImpl(NaverRemoteDataSourceImpl())
+    private val movieRepository = NaverRepositoryImpl(NaverRemoteDataSourceImpl())
 
     val movieName = ObservableField<String>()
     val message = ObservableField<Throwable>()
-    val movieItem = ObservableArrayList<ResultGetSearchMovie.Item>()
+    val movieList = ObservableField<List<ResultGetSearchMovie.Item>>()
 
-    fun movieSearch(query: String) {
-        if (query.isEmpty()) {
+    fun movieSearch() {
+        if (movieName.get().toString().isEmpty()) {
             MainActivity().showEmptyMessage()
         } else {
-            movieList.movieSearch(
-                query,
+            movieRepository.movieSearch(
+                movieName.get().toString(),
                 success = {
-                    movieItem.clear()
-                    movieItem.addAll(it)
+                    movieList.set(it)
                 },
                 failure = { message.set(it) })
         }
