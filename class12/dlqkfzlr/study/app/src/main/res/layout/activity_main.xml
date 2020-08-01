@@ -56,7 +56,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/movie_search_bar"
-            bind:adapter="@{viewModel.movieAdapter}"
             tools:listitem="@layout/rvitem_movie" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

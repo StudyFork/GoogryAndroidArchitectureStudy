@@ -4,18 +4,19 @@ import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import m.woong.architecturestudy.data.repository.MovieRepository
-import m.woong.architecturestudy.ui.adapter.MovieAdapter
+import m.woong.architecturestudy.data.source.remote.model.MovieResponse
 
 class MovieViewModel(
-    private val adapter: MovieAdapter,
     private val repository: MovieRepository
 ) : ViewModel() {
     val queryData = ObservableField<String>()
-    val movieAdapter = adapter
+    val successResponse = ObservableField<List<MovieResponse.Item>>()
+    val toastMsg = ObservableField<String>()
 
     fun searchMovie() {
         if (queryData.get() == null) {
-            Log.v("MovieViewModel", "searchMovie 에러 empty Search")      // TODO: Toast메세지로 교체
+            Log.v("MovieViewModel", "searchMovie 에러 empty Search")
+            queryData.notifyChange()
         } else {
             getRecentMovie(queryData.get().toString())
         }
@@ -26,12 +27,12 @@ class MovieViewModel(
         repository.getRecentMovie(query,
             success = {
                 Log.v("MovieViewModel", "getRecentMovie success : $it")
-                adapter.resetData(it.items)
+                successResponse.set(it.items)
             }, failure = {
                 Log.v(
                     "MovieViewModel", "응답을 받아오지 못했습니다.\n" +
                             " 에러코드:$it"
-                )   // TODO: Toast메세지로 교체
+                )
             })
     }
 }
