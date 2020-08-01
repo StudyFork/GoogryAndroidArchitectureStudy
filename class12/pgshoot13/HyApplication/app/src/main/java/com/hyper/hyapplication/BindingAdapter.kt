@@ -16,6 +16,6 @@ fun ImageUrl(imageView: ImageView, imageUrl: String) {
 
 @BindingAdapter("bindData")
 fun bindData(recyclerView: RecyclerView, data: ArrayList<ResultGetSearchMovie.Item>) {
-    val viewAdapter = recyclerView.adapter as MovieAdapter
-    viewAdapter.resetData(data)
+    val viewAdapter = recyclerView.adapter as? MovieAdapter
+    viewAdapter?.resetData(data)
 }
