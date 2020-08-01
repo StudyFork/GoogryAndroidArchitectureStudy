@@ -1,6 +1,7 @@
 package com.example.study.viewmodel
 
 import androidx.databinding.ObservableField
+import com.example.study.RecyclerAdapter
 import com.example.study.data.model.NaverApiData
 import com.example.study.data.repository.MovieListRepositoryImpl
 
@@ -9,6 +10,7 @@ class MovieViewModel {
     val movieList = ObservableField<List<NaverApiData.Item>>()
     val fail = ObservableField<Throwable>()
     val noQuery = ObservableField(0)
+    val adapter = RecyclerAdapter()
 
     fun requestMovieList(query: String) {
         if (query.isEmpty()) {
