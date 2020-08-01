@@ -23,6 +23,7 @@ class MovieViewModel {
     }
     private fun doSearch(query: String) {
         repository.doSearch(
+
             query = query,
             response = {movieList.set(it)},
             fail = {fail.set(it)})
