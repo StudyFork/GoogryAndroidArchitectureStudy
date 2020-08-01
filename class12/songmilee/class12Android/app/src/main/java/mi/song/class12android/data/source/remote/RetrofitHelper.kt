@@ -5,7 +5,6 @@ import mi.song.class12android.R
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
@@ -19,7 +18,7 @@ object RetrofitHelper {
 
     fun getService(context: Context): MovieService {
         if (retrofitService == null) {
-            val okHttpClient = initSsl(OkHttpClient.Builder().addInterceptor { chain ->
+            val okHttpClient = OkHttpClient.Builder().addInterceptor { chain ->
                 val newRequest = chain.request().newBuilder()
                     .addHeader("X-Naver-Client-Id", context.getString(R.string.naver_client_id))
                     .addHeader(
@@ -28,7 +27,9 @@ object RetrofitHelper {
                     )
                     .build()
                 chain.proceed(newRequest)
-            }).build()
+            }
+                .initSsl()
+                .build()
 
             retrofitService = Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -40,18 +41,20 @@ object RetrofitHelper {
         return retrofitService!!.create(MovieService::class.java)
     }
 
-    private fun initSsl(builder: OkHttpClient.Builder): OkHttpClient.Builder {
+    private fun OkHttpClient.Builder.initSsl(): OkHttpClient.Builder {
         try {
-            val trustAllcerts = arrayOf<TrustManager>(object: X509TrustManager{
+            val trustAllcerts = arrayOf<TrustManager>(object : X509TrustManager {
                 override fun checkClientTrusted(
                     chain: Array<out X509Certificate>?,
                     authType: String?
-                ) {         }
+                ) {
+                }
 
                 override fun checkServerTrusted(
                     chain: Array<out X509Certificate>?,
                     authType: String?
-                ) {         }
+                ) {
+                }
 
                 override fun getAcceptedIssuers(): Array<X509Certificate> {
                     return arrayOf()
@@ -61,12 +64,12 @@ object RetrofitHelper {
             val sslContext = SSLContext.getInstance("SSL")
             sslContext.init(null, trustAllcerts, SecureRandom())
 
-            builder.sslSocketFactory(sslContext.socketFactory, trustAllcerts[0] as X509TrustManager)
+            this.sslSocketFactory(sslContext.socketFactory, trustAllcerts[0] as X509TrustManager)
 
-            return builder
+            return this
         } catch (e: Exception) {
             e.printStackTrace()
-            return builder
+            return this
         }
     }
 
