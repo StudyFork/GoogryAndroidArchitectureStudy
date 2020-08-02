@@ -16,6 +16,10 @@ fun loadImage(imageView: ImageView, url:String) {
 
 @BindingAdapter("bindData")
 fun bindData(recyclerView: RecyclerView, data : List<Movie.Item>) {
-    val adapter = recyclerView.adapter as MovieAdapter
-    adapter.addData(data)
+    val adapter = recyclerView.adapter as? MovieAdapter
+    adapter?.let {
+        it.clearData()
+        it.addData(data)
+    }
+
 }
