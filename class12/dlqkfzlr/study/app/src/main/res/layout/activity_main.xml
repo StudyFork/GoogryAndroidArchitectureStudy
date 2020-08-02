@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+<!--        <variable-->
+<!--            name="main"-->
+<!--            type="m.woong.architecturestudy.ui.main.MainActivity" />-->
         <variable
-            name="main"
-            type="m.woong.architecturestudy.ui.main.MainActivity" />
+            name="viewModel"
+            type="m.woong.architecturestudy.MovieViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
+                android:text="@={viewModel.queryData}"
                 android:hint="영화 키워드를 입력해주세요." />
 
             <Button
@@ -37,7 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="0.4"
-                android:onClick="@{() -> main.searchMovie()}"
+                android:onClick="@{() -> viewModel.searchMovie()}"
                 android:text="검색" />
 
         </LinearLayout>

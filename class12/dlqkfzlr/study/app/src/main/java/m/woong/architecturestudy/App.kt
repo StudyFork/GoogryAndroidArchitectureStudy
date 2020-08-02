@@ -3,6 +3,7 @@ package m.woong.architecturestudy
 import android.app.Application
 import android.content.Context
 
+@Deprecated("Not Using Anymore")
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
