@@ -4,12 +4,8 @@
 
     <data>
         <variable
-            name="presenter"
-            type="com.hyper.hyapplication.ui.MainContract.Presenter" />
-
-        <variable
-            name="movieName"
-            type="String" />
+            name="viewModel"
+            type="com.hyper.hyapplication.ui.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -29,14 +25,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="9"
                 android:hint="영화 이름"
-                android:text="@={movieName}" />
+                android:text="@={viewModel.movieName}" />
 
             <Button
                 android:id="@+id/searchButton"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:onClick="@{() -> presenter.movieSearch(movieName)}"
+                android:onClick="@{() -> viewModel.movieSearch()}"
                 android:text="검 색" />
         </LinearLayout>
 
@@ -50,6 +46,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:bindData="@{viewModel.movieList}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>
     </LinearLayout>
