@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
 
         viewModel.toastMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                if (viewModel.toastMsg.get()!!.isEmpty()) return
+                if (viewModel.toastMsg.get().isNullOrEmpty()) return
                 Toast.makeText(applicationContext, viewModel.toastMsg.get(), Toast.LENGTH_SHORT).show()
             }
 
