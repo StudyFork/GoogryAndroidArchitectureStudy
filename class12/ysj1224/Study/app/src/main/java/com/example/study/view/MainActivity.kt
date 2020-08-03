@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import com.example.study.R
 import com.example.study.RecyclerAdapter
-import com.example.study.data.model.NaverApiData
 import com.example.study.databinding.ActivityMainBinding
 import com.example.study.viewmodel.MovieViewModel
 
@@ -35,9 +34,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun showMovieList(naverApiData: List<NaverApiData.Item>) {
-        viewAdapter.setItem(naverApiData)
-    }
 
     fun showErrorResponse(t: Throwable) {
         Toast.makeText(this@MainActivity, "$t", Toast.LENGTH_SHORT).show()
@@ -45,12 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         with(viewModel) {
-            movieList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    movieList.get()?.let { showMovieList(it) }
-                }
-            })
-
             fail.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                     fail.get()?.let { showErrorResponse(it) }
