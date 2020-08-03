@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.vm = viewModel
         viewAdapter = RecyclerAdapter()
         init()
         binding.run {
@@ -31,11 +32,7 @@ class MainActivity : AppCompatActivity() {
                 setHasFixedSize(true)
                 adapter = viewAdapter
             }
-            btnCheck.setOnClickListener {
-                viewModel.requestMovieList(binding.etvSearch.text.toString())
-            }
         }
-
     }
 
     fun showMovieList(naverApiData: List<NaverApiData.Item>) {
