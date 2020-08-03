@@ -14,16 +14,15 @@ class MovieViewModel : ViewModel() {
 
 
     fun requestMovieList() {
-        if (searchString.get().toString().isEmpty()) {
+        if (searchString.get().toString().isNullOrEmpty()) {
             showQueryEmpty()
         } else {
             searchString.get()?.let { doSearch(it) }
         }
-
     }
 
     private fun showQueryEmpty() {
-        noQuery.set(noQuery.get()?.plus(1))
+        noQuery.notifyChange()
     }
 
     private fun doSearch(query: String) {
