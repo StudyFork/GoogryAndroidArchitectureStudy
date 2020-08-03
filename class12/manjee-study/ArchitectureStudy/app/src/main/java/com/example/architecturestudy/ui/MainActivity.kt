@@ -36,12 +36,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun subscribeInit() {
         with(mainViewModel) {
-            movieListObservableField.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    movieListObservableField.get()?.let { showMovieList(it) }
-                }
-            })
+//            movieListObservableField.addOnPropertyChangedCallback(object :
+//                Observable.OnPropertyChangedCallback() {
+//                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+//                    movieListObservableField.get()?.let { showMovieList(it) }
+//                }
+//            })
             failMsgObservableField.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
