@@ -32,7 +32,7 @@
             android:layout_width="0dp"
             app:layout_constraintHorizontal_weight="1"
             android:layout_height="wrap_content"
-            android:onClick="@{()-> viewModel.searchMovie(viewModel.title)}"
+            android:onClick="@{()-> viewModel.searchMovie()}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/etUrl"
             app:layout_constraintEnd_toEndOf="parent"/>
