@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
+import androidx.lifecycle.Observer
 import com.world.tree.architecturestudy.CommonApplication
 import com.world.tree.architecturestudy.MovieContainer
 import com.world.tree.architecturestudy.R
@@ -34,12 +35,8 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
         val viewModel = MainViewModel(movieContainer.repository)
         binding.viewModel = viewModel
 
-        viewModel.toastMsg.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                if (viewModel.toastMsg.get().isNullOrEmpty()) return
-                Toast.makeText(applicationContext, viewModel.toastMsg.get(), Toast.LENGTH_SHORT).show()
-            }
-
+        viewModel.toastMsg.observe(this, Observer {
+            Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
         })
     }
 
