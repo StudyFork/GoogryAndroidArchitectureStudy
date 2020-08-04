@@ -2,9 +2,10 @@ package com.example.study.view
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
 import com.example.study.R
 import com.example.study.RecyclerAdapter
 import com.example.study.databinding.ActivityMainBinding
@@ -17,13 +18,13 @@ const val baseUrl = "https://openapi.naver.com"
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewAdapter: RecyclerAdapter
-    private val viewModel = MovieViewModel()
-
+    private val viewModel by viewModels<MovieViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.vm = viewModel
+        binding.lifecycleOwner = this
         viewAdapter = RecyclerAdapter()
         init()
         binding.run {
@@ -34,27 +35,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    fun showErrorResponse(t: Throwable) {
-        Toast.makeText(this@MainActivity, "$t", Toast.LENGTH_SHORT).show()
-    }
-
     private fun init() {
-        with(viewModel) {
-            fail.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    fail.get()?.let { showErrorResponse(it) }
-                }
+        viewModel.run {
+            fail.observe(this@MainActivity, Observer {
+                Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show()
             })
-            noQuery.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
-                }
+            noQuery.observe(this@MainActivity, Observer {
+                Toast.makeText(this@MainActivity, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
             })
         }
     }
-
 }
+
+
 
 
 
