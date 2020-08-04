@@ -14,9 +14,6 @@ import com.world.tree.architecturestudy.CommonApplication
 import com.world.tree.architecturestudy.MovieContainer
 import com.world.tree.architecturestudy.R
 import com.world.tree.architecturestudy.databinding.ActivityMainBinding
-import com.world.tree.architecturestudy.model.Movie
-import com.world.tree.architecturestudy.presenter.MovieContract
-import com.world.tree.architecturestudy.presenter.MoviePresenterImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -34,6 +31,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
         recyclerView.adapter = adapter
         val viewModel = MainViewModel(movieContainer.repository)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         viewModel.toastMsg.observe(this, Observer {
             Toast.makeText(applicationContext, it, Toast.LENGTH_SHORT).show()
