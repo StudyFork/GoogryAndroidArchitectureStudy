@@ -15,11 +15,9 @@ class MainViewModel(private val repository: NaverRepository) {
         it.value = ArrayList()
     }
     val movieList = _movieList
-    private val _title = MutableLiveData<String>()
-    val title = _title
     private val _toastMsg = MutableLiveData<String>()
     val toastMsg = _toastMsg
-
+    val title = MutableLiveData<String>()
 
 
 
