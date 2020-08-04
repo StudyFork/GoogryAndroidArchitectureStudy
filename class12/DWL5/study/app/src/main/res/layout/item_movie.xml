@@ -46,7 +46,7 @@
                 android:text="@{movie.title}"
                 app:layout_constraintBottom_toTopOf="@+id/txtDirector"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/txtDirector"
@@ -56,7 +56,7 @@
                 android:text="@{movie.director}"
                 app:layout_constraintBottom_toTopOf="@+id/txtActor"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtTitle"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/txtTitle"/>
 
             <TextView
                 android:id="@+id/txtActor"
@@ -66,7 +66,7 @@
                 android:text="@{movie.actor}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDirector"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/txtDirector"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

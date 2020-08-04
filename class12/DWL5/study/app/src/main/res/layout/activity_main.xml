@@ -5,17 +5,9 @@
 
     <data>
         <variable
-            name="view"
-            type="com.world.tree.architecturestudy.presenter.MovieContract.View" />
+            name="viewModel"
+            type="com.world.tree.architecturestudy.view.MainViewModel" />
 
-
-        <variable
-            name="presenter"
-            type="com.world.tree.architecturestudy.presenter.MovieContract.Presenter" />
-
-        <variable
-            name="title"
-            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:text="@={title}"
+            android:text="@={viewModel.title}"
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +32,7 @@
             android:layout_width="0dp"
             app:layout_constraintHorizontal_weight="1"
             android:layout_height="wrap_content"
-            android:onClick="@{()-> presenter.searchMovie(title)}"
+            android:onClick="@{()-> viewModel.searchMovie()}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@+id/etUrl"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -49,6 +41,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:bindData="@{viewModel.movieList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/etUrl"
             app:layout_constraintBottom_toBottomOf="parent"/>
