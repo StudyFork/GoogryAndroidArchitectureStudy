@@ -37,10 +37,14 @@ android {
     //dataBinding
     buildFeatures { //android 4.0
         dataBinding true
+        viewBinding = true
     }
-    dataBinding {   //android 3.0
-        enabled = true
-    }
+//    dataBinding {   //android 3.0
+//        enabled = true
+//    }
+//    viewBinding {   //android 3.0
+//        enabled = true
+//    }
 }
 
 dependencies {
@@ -65,7 +69,6 @@ dependencies {
 
     //liveData ktx
     implementation "androidx.activity:activity-ktx:1.1.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-
+    implementation 'androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
 }
