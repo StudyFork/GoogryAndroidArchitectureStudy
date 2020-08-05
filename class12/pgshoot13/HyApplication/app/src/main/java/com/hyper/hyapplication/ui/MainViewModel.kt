@@ -10,20 +10,22 @@ import com.hyper.hyapplication.source.remote.NaverRemoteDataSourceImpl
 class MainViewModel : ViewModel() {
     private val movieRepository = NaverRepositoryImpl(NaverRemoteDataSourceImpl())
 
-    val movieName = ObservableField<String>()
-    val message = ObservableField<Throwable>()
-    val movieList = ObservableField<List<ResultGetSearchMovie.Item>>()
+    val movieName = MutableLiveData<String>()
+    private val _message = MutableLiveData<Throwable>()
+    private val _movieList = MutableLiveData<List<ResultGetSearchMovie.Item>>()
+
+    val message: LiveData<Throwable> = _message
+    val movieList: LiveData<List<ResultGetSearchMovie.Item>> = _movieList
 
     fun movieSearch() {
-        if (movieName.get().toString().isEmpty()) {
+        val movieTitle = movieName.value.toString()
+        if (movieTitle.isEmpty()) {
             MainActivity().showEmptyMessage()
         } else {
             movieRepository.movieSearch(
-                movieName.get().toString(),
-                success = {
-                    movieList.set(it)
-                },
-                failure = { message.set(it) })
+                movieTitle,
+                success = { _movieList.value = it },
+                failure = { _message.value = it })
         }
     }
 }

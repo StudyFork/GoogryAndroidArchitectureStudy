@@ -33,15 +33,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             setHasFixedSize(true)
             adapter = viewAdapter
         }
-        viewModelCallBack()
+        observeViewModel()
     }
 
-    private fun viewModelCallBack() {
-        mainViewModel.message.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                mainViewModel.message.get()?.let { showFailure(it) }
-            }
+    private fun observeViewModel() {
+        mainViewModel.message.observe(this, Observer {
+            showFailure(it)
         })
     }
 
