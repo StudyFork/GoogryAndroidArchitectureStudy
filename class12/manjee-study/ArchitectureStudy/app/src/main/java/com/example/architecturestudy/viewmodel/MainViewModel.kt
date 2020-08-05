@@ -1,20 +1,21 @@
 package com.example.architecturestudy.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.architecturestudy.data.model.MovieData
 import com.example.architecturestudy.data.repository.MovieRespositoryImpl
 
-class MainViewModel {
+class MainViewModel : ViewModel() {
     private val movieRepository = MovieRespositoryImpl()
 
-    var failMsgObservableField = ObservableField<Throwable>()
-    var movieListObservableField = ObservableField<List<MovieData>>()
-    var movieTitleObservableField = ObservableField<String>()
+    var failMsgLiveData = MutableLiveData<Throwable>()
+    var movieListLiveData = MutableLiveData<List<MovieData>>()
+    var movieTitleLiveData = MutableLiveData<String>()
 
     fun searchMovieOnRemote() {
         movieRepository.searchMovieOnRemote(
-            movieTitleObservableField.get().toString(),
-            success = { movieList -> movieListObservableField.set(movieList) },
-            fail = { t -> failMsgObservableField.set(t) })
+            movieTitleLiveData.value.toString(),
+            success = { movieList -> movieListLiveData.postValue(movieList) },
+            fail = { t -> failMsgLiveData.postValue(t) })
     }
 }
