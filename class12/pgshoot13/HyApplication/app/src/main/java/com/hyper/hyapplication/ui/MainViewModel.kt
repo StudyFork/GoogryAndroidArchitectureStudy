@@ -1,11 +1,13 @@
 package com.hyper.hyapplication.ui
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.hyper.hyapplication.model.ResultGetSearchMovie
 import com.hyper.hyapplication.repository.NaverRepositoryImpl
 import com.hyper.hyapplication.source.remote.NaverRemoteDataSourceImpl
 
-class MainViewModel {
+class MainViewModel : ViewModel() {
     private val movieRepository = NaverRepositoryImpl(NaverRemoteDataSourceImpl())
 
     val movieName = ObservableField<String>()
