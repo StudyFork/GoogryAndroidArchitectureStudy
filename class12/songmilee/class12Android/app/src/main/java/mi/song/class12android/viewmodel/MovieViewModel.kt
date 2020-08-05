@@ -1,10 +1,11 @@
 package mi.song.class12android.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import mi.song.class12android.data.model.MovieInfo
 import mi.song.class12android.data.repository.SearchMovieRepository
 
-class MovieViewModel(private val searchMovieRepository: SearchMovieRepository) {
+class MovieViewModel(private val searchMovieRepository: SearchMovieRepository) : ViewModel() {
     val message = MutableLiveData<String>()
     val successResult = MutableLiveData<List<MovieInfo>>()
     val query = MutableLiveData<String>()
