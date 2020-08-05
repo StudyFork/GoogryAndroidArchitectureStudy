@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="searchMoviePresenter"
-            type="com.example.architecturestudy.presenter.SearchMoviePresenter" />
+            name="viewModel"
+            type="com.example.architecturestudy.viewmodel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:hint="@string/search_hint"
+            android:text="@={viewModel.movieTitleObservableField}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.8" />
@@ -28,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:text="@string/search"
-            android:onClick="@{() -> searchMoviePresenter.searchMovieOnRemote(searchEditText.getText().toString())}"
+            android:onClick="@{() -> viewModel.searchMovieOnRemote()}"
             app:layout_constraintStart_toEndOf="@id/searchEditText"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.2" />
@@ -38,6 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:showMovieList="@{viewModel.movieListObservableField}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
