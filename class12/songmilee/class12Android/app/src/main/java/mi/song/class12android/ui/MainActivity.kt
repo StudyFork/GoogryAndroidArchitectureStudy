@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
 import mi.song.class12android.R
-import mi.song.class12android.data.model.MovieInfo
 import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
 import mi.song.class12android.databinding.ActivityMainBinding
 import mi.song.class12android.viewmodel.MovieViewModel
@@ -19,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
+        binding.lifecycleOwner = this
 
         init()
     }
@@ -35,13 +35,9 @@ class MainActivity : AppCompatActivity() {
         movieAdapter = MovieAdapter()
         binding.listMovie.adapter = movieAdapter
 
-        viewModel.message.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showMessage(viewModel.message.get())
-            }
+        viewModel.message.observe(this, Observer {
+            showMessage(it)
         })
-
     }
 
     fun showMessage(msg: String?) {
