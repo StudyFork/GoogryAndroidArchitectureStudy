@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     fun showEmptyMessage() {
-        Toast.makeText(this, "Empty", Toast.LENGTH_LONG).show()
+        Toast.makeText(this@MainActivity, "Empty", Toast.LENGTH_LONG).show()
     }
 }
 
