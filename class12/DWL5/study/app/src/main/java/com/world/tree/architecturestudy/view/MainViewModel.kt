@@ -4,12 +4,13 @@ import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.world.tree.architecturestudy.model.Movie
 import com.world.tree.architecturestudy.model.repository.remote.NaverRepository
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainViewModel(private val repository: NaverRepository) {
+class MainViewModel(private val repository: NaverRepository) : ViewModel() {
 
     private val _movieList = MutableLiveData<List<Movie.Item>>().also {
         it.value = ArrayList()

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.world.tree.architecturestudy.CommonApplication
 import com.world.tree.architecturestudy.MovieContainer
 import com.world.tree.architecturestudy.R
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
         adapter = MovieAdapter()
         adapter.setOnItemClickListener(this)
         recyclerView.adapter = adapter
-        val viewModel = MainViewModel(movieContainer.repository)
+        val viewModel = MainViewModelProvider(movieContainer.repository).create(MainViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
