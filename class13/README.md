@@ -15,5 +15,5 @@
 - 황준홍 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/)
 
-- 이정태 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/)
+- 이정태 [CmplxN](https://github.com/CmplxN/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/CmplxN)
