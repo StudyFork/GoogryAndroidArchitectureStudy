@@ -15,7 +15,7 @@ class MainViewModel : ViewModel() {
     fun searchMovieOnRemote() {
         movieRepository.searchMovieOnRemote(
             movieTitleLiveData.value.toString(),
-            success = { movieList -> movieListLiveData.postValue(movieList) },
-            fail = { t -> failMsgLiveData.postValue(t) })
+            success = { movieList -> movieListLiveData.value = movieList },
+            fail = { t -> failMsgLiveData.value = t })
     }
 }
