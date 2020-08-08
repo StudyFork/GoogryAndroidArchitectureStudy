@@ -5,7 +5,7 @@ import m.woong.architecturestudy.data.source.remote.model.MovieResponse
 
 class MovieRepositoryImpl(
     //private val localDataSource: NaverLocalDataSource,
-    private val remoteDataSource: MovieRemoteDataSource
+    val remoteDataSource: MovieRemoteDataSource
 ) : MovieRepository {
     
     override fun getRecentMovie(

@@ -21,7 +21,7 @@ interface MovieApi {
     ): Call<MovieResponse>
 
     object MovieRetrofit {
-        private val retrofit: Retrofit = Retrofit.Builder()
+        val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://openapi.naver.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
