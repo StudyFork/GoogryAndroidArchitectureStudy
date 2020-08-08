@@ -2,7 +2,6 @@ package mi.song.class12android.util
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -22,9 +21,8 @@ fun loadImage(imgView: ImageView, imgUrl: String?) {
 }
 
 @BindingAdapter("bind:updateMovieList")
-fun updateMovieList(recyclerView: RecyclerView, movieInfoList: LiveData<List<MovieInfo>>?) {
-    android.util.Log.d("binding", "${movieInfoList?.value}")
-    movieInfoList?.value?.let {
+fun updateMovieList(recyclerView: RecyclerView, movieInfoList: List<MovieInfo>?) {
+    movieInfoList?.let {
         val adapter = recyclerView.adapter as MovieAdapter
 
         adapter.clearMovieList()
