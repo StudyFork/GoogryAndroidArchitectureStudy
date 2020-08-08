@@ -9,8 +9,8 @@
 - 김도균 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/)
 
-- 한혜정 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/)
+- 한혜정 [HyeJeongHan](https://github.com/HyeJeongHan)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/HyeJeongHan)
 
 - 황준홍 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/)
