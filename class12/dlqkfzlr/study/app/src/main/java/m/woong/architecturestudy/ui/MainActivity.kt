@@ -1,4 +1,4 @@
-package m.woong.architecturestudy.ui.main
+package m.woong.architecturestudy.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -10,17 +10,17 @@ import m.woong.architecturestudy.MovieViewModel
 import m.woong.architecturestudy.R
 import m.woong.architecturestudy.databinding.ActivityMainBinding
 import m.woong.architecturestudy.ui.adapter.MovieAdapter
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
-    private lateinit var viewAdapter: MovieAdapter
     private lateinit var activityMainBinding: ActivityMainBinding
-    val movieViewModel: MovieViewModel by viewModel()       //viewModel은 Koin, viewModels는 viewModel ktx임
+    private val viewAdapter: MovieAdapter by inject()
+    private val movieViewModel: MovieViewModel by viewModel()       //viewModel은 Koin, viewModels는 viewModel ktx임
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewAdapter = MovieAdapter()
         activityMainBinding =
             DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
         activityMainBinding.viewModel = movieViewModel
