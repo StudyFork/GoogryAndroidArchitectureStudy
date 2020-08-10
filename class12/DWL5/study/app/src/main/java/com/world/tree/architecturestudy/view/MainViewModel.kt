@@ -12,27 +12,25 @@ import kotlin.collections.ArrayList
 
 class MainViewModel(private val repository: NaverRepository) : ViewModel() {
 
-    private val _movieList = MutableLiveData<List<Movie.Item>>().also {
-        it.value = ArrayList()
-    }
-    val movieList = _movieList
+    private val _movieList = MutableLiveData<List<Movie.Item>>(mutableListOf())
+    val movieList : LiveData<List<Movie.Item>> = _movieList
     private val _toastMsg = MutableLiveData<String>()
-    val toastMsg = _toastMsg
-    val title = MutableLiveData<String>()
-
+    val toastMsg : LiveData<String> = _toastMsg
+    private val _title = MutableLiveData<String>()
+    val title : LiveData<String> = _title
 
 
     fun searchMovie() {
         title.value?.let { it ->
             if (it.isBlank()) {
-                toastMsg.value = "검색어를 입력 해 주세요"
+                _toastMsg.value = "검색어를 입력 해 주세요"
             }
 
             repository.getMovies(it, success = {
-                movieList.value = it
+                _movieList.value = it
             }, error = {
                 it.message?.let { message ->
-                    toastMsg.value = message
+                    _toastMsg.value = message
                 }
             })
         }
