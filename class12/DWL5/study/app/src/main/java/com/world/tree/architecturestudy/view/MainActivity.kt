@@ -30,7 +30,11 @@ class MainActivity : AppCompatActivity(), MovieAdapter.OnItemClickListener {
         adapter = MovieAdapter()
         adapter.setOnItemClickListener(this)
         recyclerView.adapter = adapter
-        val viewModel = MainViewModelProvider(movieContainer.repository).create(MainViewModel::class.java)
+
+
+        val viewModel = ViewModelProvider(this, MainViewModelProvider(movieContainer.repository))
+            .get(MainViewModel::class.java)
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
