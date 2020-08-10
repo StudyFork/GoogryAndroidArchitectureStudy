@@ -16,8 +16,7 @@ class MainViewModel(private val repository: NaverRepository) : ViewModel() {
     val movieList : LiveData<List<Movie.Item>> = _movieList
     private val _toastMsg = MutableLiveData<String>()
     val toastMsg : LiveData<String> = _toastMsg
-    private val _title = MutableLiveData<String>()
-    val title : LiveData<String> = _title
+    val title = MutableLiveData<String>()
 
 
     fun searchMovie() {
