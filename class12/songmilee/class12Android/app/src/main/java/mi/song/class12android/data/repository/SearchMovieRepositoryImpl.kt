@@ -1,16 +1,13 @@
 package mi.song.class12android.data.repository
 
-import android.content.Context
 import mi.song.class12android.data.model.MovieInfo
 import mi.song.class12android.data.model.MovieResponse
-import mi.song.class12android.data.source.remote.RetrofitHelper
+import mi.song.class12android.data.source.remote.MovieService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchMovieRepositoryImpl(context: Context) : SearchMovieRepository {
-    private val movieService = RetrofitHelper.getService(context)
-
+class SearchMovieRepositoryImpl(val movieService: MovieService) : SearchMovieRepository {
     override fun getRemoteMovieData(
         query: String,
         success: (List<MovieInfo>) -> Unit,
