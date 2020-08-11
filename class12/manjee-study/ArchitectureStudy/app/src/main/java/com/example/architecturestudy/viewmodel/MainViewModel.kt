@@ -3,10 +3,9 @@ package com.example.architecturestudy.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.architecturestudy.data.model.MovieData
-import com.example.architecturestudy.data.repository.MovieRespositoryImpl
+import com.example.architecturestudy.data.repository.MovieRepository
 
-class MainViewModel : ViewModel() {
-    private val movieRepository = MovieRespositoryImpl()
+class MainViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
     var failMsgLiveData = MutableLiveData<Throwable>()
     var movieListLiveData = MutableLiveData<List<MovieData>>()
