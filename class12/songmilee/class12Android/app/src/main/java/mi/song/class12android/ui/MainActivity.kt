@@ -2,22 +2,18 @@ package mi.song.class12android.ui
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import mi.song.class12android.R
-import mi.song.class12android.data.repository.SearchMovieRepositoryImpl
 import mi.song.class12android.databinding.ActivityMainBinding
 import mi.song.class12android.viewmodel.MovieViewModel
-import mi.song.class12android.viewmodel.MovieViewModelFactory
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MovieViewModel by viewModels {
-        MovieViewModelFactory(SearchMovieRepositoryImpl(this@MainActivity))
-    }
+    private val viewModel: MovieViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
