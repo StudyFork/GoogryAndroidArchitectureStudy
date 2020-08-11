@@ -7,20 +7,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
 
-    factory { provideMovieApi(get()) }
-    single { provideMovieRetrofit() }
-
+    single { provideMovieApi() }
 }
 
-fun provideMovieRetrofit(): Retrofit {
 
+fun provideMovieApi(): MovieApi {
     return Retrofit.Builder()
         .baseUrl("https://openapi.naver.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-}
-
-fun provideMovieApi(retrofit: Retrofit): MovieApi {
-    return retrofit.create(MovieApi::class.java)
-
+        .create(MovieApi::class.java)
 }
