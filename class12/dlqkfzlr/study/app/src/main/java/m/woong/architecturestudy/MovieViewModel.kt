@@ -9,7 +9,7 @@ import m.woong.architecturestudy.data.repository.MovieRepository
 import m.woong.architecturestudy.data.source.remote.model.MovieResponse
 
 class MovieViewModel(
-    val repository: MovieRepository
+    private val repository: MovieRepository
 ) : ViewModel() {
 
     // two-way databinding
