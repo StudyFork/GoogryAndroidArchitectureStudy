@@ -12,15 +12,17 @@ class MainViewModel : ViewModel() {
 
     val movieName = MutableLiveData<String>()
     private val _message = MutableLiveData<Throwable>()
+    private val _emptyData = MutableLiveData<String>()
     private val _movieList = MutableLiveData<List<ResultGetSearchMovie.Item>>()
 
     val message: LiveData<Throwable> = _message
+    val emptyData: LiveData<String> = _emptyData
     val movieList: LiveData<List<ResultGetSearchMovie.Item>> = _movieList
 
     fun movieSearch() {
         val movieTitle = movieName.value.toString()
-        if (movieTitle.isEmpty()) {
-            MainActivity().showEmptyMessage()
+        if (movieTitle.isNullOrEmpty()) {
+            _emptyData.value = emptyData.value
         } else {
             movieRepository.movieSearch(
                 movieTitle,

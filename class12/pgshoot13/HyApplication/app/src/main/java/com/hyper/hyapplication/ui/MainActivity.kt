@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         binding.viewModel = mainViewModel
         binding.lifecycleOwner = this
 
-
         viewAdapter = MovieAdapter()
         recyclerView.apply {
             setHasFixedSize(true)
@@ -40,14 +39,17 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         mainViewModel.message.observe(this, Observer {
             showFailure(it)
         })
+        mainViewModel.emptyData.observe(this, Observer {
+            showEmptyMessage("Empty")
+        })
     }
 
-    fun showFailure(it: Throwable) {
+    private fun showFailure(it: Throwable) {
         Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show()
     }
 
-    fun showEmptyMessage() {
-        Toast.makeText(this@MainActivity, "Empty", Toast.LENGTH_LONG).show()
+    private fun showEmptyMessage(msg: String) {
+        Toast.makeText(this@MainActivity, msg, Toast.LENGTH_LONG).show()
     }
 }
 
