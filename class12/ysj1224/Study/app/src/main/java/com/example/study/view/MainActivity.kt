@@ -2,7 +2,6 @@ package com.example.study.view
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -10,6 +9,7 @@ import com.example.study.R
 import com.example.study.RecyclerAdapter
 import com.example.study.databinding.ActivityMainBinding
 import com.example.study.viewmodel.MovieViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 const val clientId = "hDyUQTbovi0BszAf5h87"
 const val clientSecret = "3FsmSYBKbJ"
@@ -18,7 +18,7 @@ const val baseUrl = "https://openapi.naver.com"
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewAdapter: RecyclerAdapter
-    private val viewModel by viewModels<MovieViewModel>()
+    private val viewModel by viewModel<MovieViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
