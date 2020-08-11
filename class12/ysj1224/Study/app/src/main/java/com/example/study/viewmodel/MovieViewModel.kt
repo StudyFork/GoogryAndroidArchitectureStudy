@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.study.data.model.NaverApiData
+import com.example.study.data.repository.MovieListRepository
 import com.example.study.data.repository.MovieListRepositoryImpl
 
-class MovieViewModel : ViewModel() {
-    val repository = MovieListRepositoryImpl()
+class MovieViewModel(val repository: MovieListRepository) : ViewModel() {
 
     private val _movieList = MutableLiveData<List<NaverApiData.Item>>()
     val movieList: LiveData<List<NaverApiData.Item>> get() = _movieList
