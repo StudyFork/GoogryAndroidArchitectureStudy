@@ -3,8 +3,8 @@
 - 이중근 [camai](https://github.com/camai/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/camai)
 
-- 김상민 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/)
+- 김상민 [Sangmeebee](https://github.com/Sangmeebee/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/Sangmeebee)
 
 - 김도균 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/)
