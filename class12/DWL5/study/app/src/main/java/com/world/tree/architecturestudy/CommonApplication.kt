@@ -6,5 +6,4 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class CommonApplication:Application() {
-    val movieContainer = MovieContainer()
 }
