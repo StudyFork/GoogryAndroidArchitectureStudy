@@ -9,9 +9,8 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    // single instance of HelloRepository
     single<MovieListRepository> { MovieListRepositoryImpl(get()) }
-    single<RemoteDataSource> { RemoteDataSourceImpl() }
-    // MyViewModel ViewModel
+    single<RemoteDataSource> { RemoteDataSourceImpl( ) }
+
     viewModel { MovieViewModel(get() ) }
 }
