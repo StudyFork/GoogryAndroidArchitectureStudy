@@ -2,6 +2,7 @@ package com.world.tree.architecturestudy.view
 
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +11,8 @@ import com.world.tree.architecturestudy.model.repository.remote.NaverRepository
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainViewModel(private val repository: NaverRepository) : ViewModel() {
+class MainViewModel @ViewModelInject constructor(private val repository: NaverRepository)
+    : ViewModel() {
 
     private val _movieList = MutableLiveData<List<Movie.Item>>(mutableListOf())
     val movieList : LiveData<List<Movie.Item>> = _movieList
