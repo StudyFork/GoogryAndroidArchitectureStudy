@@ -3,12 +3,12 @@ package com.example.architecturestudy.data.repository
 import com.example.architecturestudy.data.model.MovieData
 import com.example.architecturestudy.data.model.MovieMeta
 import com.example.architecturestudy.data.source.remote.MovieRemoteDataSource
-import com.example.architecturestudy.data.source.remote.MovieRemoteService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieRespositoryImpl(private val movieRemoteDataSource: MovieRemoteDataSource) : MovieRepository {
+class MovieRespositoryImpl(private val movieRemoteDataSource: MovieRemoteDataSource) :
+    MovieRepository {
 
     override fun searchMovieOnRemote(
         movieTitle: String,

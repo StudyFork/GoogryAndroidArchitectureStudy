@@ -47,11 +47,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun showMovieList(movieList: List<MovieData>) {
+    private fun showMovieList(movieList: List<MovieData>) {
         movieAdapter.setData(movieList)
     }
 
-    fun showSearchFailToast(throwable: Throwable) {
+    private fun showSearchFailToast(throwable: Throwable) {
         Toast.makeText(applicationContext, throwable.message, Toast.LENGTH_SHORT).show()
     }
 }
