@@ -25,11 +25,11 @@ class MovieViewModel(val repository: MovieListRepository) : ViewModel() {
         }
     }
 
-    private fun showQueryEmpty(): Unit {
+     fun showQueryEmpty(): Unit {
 
     }
 
-    private fun doSearch(query: String) {
+     fun doSearch(query: String) {
         repository.doSearch(
             query = query,
             response = { _movieList.value = it },
