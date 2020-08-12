@@ -7,7 +7,7 @@ class MovieRepositoryImpl(
     //private val localDataSource: NaverLocalDataSource,
     private val remoteDataSource: MovieRemoteDataSource
 ) : MovieRepository {
-    
+
     override fun getRecentMovie(
         query: String,
         success: (MovieResponse) -> Unit,

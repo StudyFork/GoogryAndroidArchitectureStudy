@@ -3,6 +3,7 @@ package m.woong.architecturestudy
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import m.woong.architecturestudy.data.repository.MovieRepository
 import m.woong.architecturestudy.data.source.remote.model.MovieResponse
@@ -16,6 +17,10 @@ class MovieViewModel(
         MutableLiveData<String>()
     }
 
+    val queryNullorEmpty: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+
     private val _successResponse: MutableLiveData<List<MovieResponse.Item>> by lazy {
         MutableLiveData<List<MovieResponse.Item>>()
     }
@@ -27,6 +32,8 @@ class MovieViewModel(
 
         if (!queryData.value.isNullOrEmpty()) {
             getRecentMovie(queryData.value.toString())
+        } else {
+            queryNullorEmpty.value = true
         }
     }
 
