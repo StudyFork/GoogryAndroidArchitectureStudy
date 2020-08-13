@@ -19,7 +19,7 @@ class MovieApplication : Application() {
             }
 
             androidContext(this@MovieApplication)
-            modules(listOf(movieSearchModule, networkModule))
+            modules(movieSearchModule, networkModule)
         }
     }
 }
