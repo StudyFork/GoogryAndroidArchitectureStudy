@@ -8,13 +8,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RemoteDataSourceImpl : RemoteDataSource {
+class RemoteDataSourceImpl(val NaverApi: NaverApi) : RemoteDataSource {
     override fun getSearch(
         query: String,
         response: (List<NaverApiData.Item>) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        NaverApi.NaverRetrofit.SERVICE.getSearch(
+
+        NaverApi.getSearch(
             clientId = clientId,
             clientPw = clientSecret,
             query = query
