@@ -9,14 +9,14 @@ import com.hyper.hyapplication.MovieAdapter
 import com.hyper.hyapplication.R
 import com.hyper.hyapplication.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private lateinit var viewAdapter: MovieAdapter
     private lateinit var binding: ActivityMainBinding
 
-    private val mainViewModel: MainViewModel by inject()
+    private val mainViewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private fun showFailure(it: Throwable) {
         Toast.makeText(this@MainActivity, "$it", Toast.LENGTH_SHORT).show()
     }
-
     private fun showEmptyMessage(msg: String) {
         Toast.makeText(this@MainActivity, msg, Toast.LENGTH_LONG).show()
     }
