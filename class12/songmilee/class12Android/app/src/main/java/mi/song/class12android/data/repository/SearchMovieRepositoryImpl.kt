@@ -7,7 +7,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchMovieRepositoryImpl(val movieService: MovieService) : SearchMovieRepository {
+class SearchMovieRepositoryImpl(private val movieService: MovieService) : SearchMovieRepository {
     override fun getRemoteMovieData(
         query: String,
         success: (List<MovieInfo>) -> Unit,
