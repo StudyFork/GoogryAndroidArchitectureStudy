@@ -43,6 +43,7 @@ ext {
     recyclerview_version = "1.1.0"
     retrofit_version = "2.9.0"
     glide_version = "4.11.0"
+    koin_version = "2.1.6"
 }
 
 dependencies {
@@ -68,4 +69,9 @@ dependencies {
 
     //fragment ktx
     implementation "androidx.fragment:fragment-ktx:1.2.0"
+
+    // Koin for Kotlin
+    implementation "org.koin:koin-core:$koin_version"
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
 }
