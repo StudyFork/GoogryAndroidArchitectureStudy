@@ -4,7 +4,7 @@ import com.example.study.data.model.NaverApiData
 import com.example.study.data.remote.RemoteDataSource
 import com.example.study.data.remote.RemoteDataSourceImpl
 
-class MovieListRepositoryImpl(val remoteInterface: RemoteDataSource) : MovieListRepository {
+class MovieListRepositoryImpl(private val remoteInterface: RemoteDataSource) : MovieListRepository {
     override fun doSearch(
         query: String,
         response: (List<NaverApiData.Item>) -> Unit,

@@ -7,7 +7,7 @@ import com.example.study.data.model.NaverApiData
 import com.example.study.data.repository.MovieListRepository
 import com.example.study.data.repository.MovieListRepositoryImpl
 
-class MovieViewModel(val repository: MovieListRepository) : ViewModel() {
+class MovieViewModel(private val repository: MovieListRepository) : ViewModel() {
 
     private val _movieList = MutableLiveData<List<NaverApiData.Item>>()
     val movieList: LiveData<List<NaverApiData.Item>> get() = _movieList
