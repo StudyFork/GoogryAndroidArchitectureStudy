@@ -1,1 +1,1 @@
-김도균 레파지토리
+kim do kyun repository
