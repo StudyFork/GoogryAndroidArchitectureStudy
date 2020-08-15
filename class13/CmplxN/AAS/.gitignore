@@ -1,3 +1,4 @@
+
 # Created by https://www.toptal.com/developers/gitignore/api/android
 # Edit at https://www.toptal.com/developers/gitignore?templates=android
 
@@ -95,4 +96,4 @@ output.json
 # Replacement of .externalNativeBuild directories introduced
 # with Android Studio 3.5.
 
-# End of https://www.toptal.com/developers/gitignore/api/android              
+# End of https://www.toptal.com/developers/gitignore/api/android
