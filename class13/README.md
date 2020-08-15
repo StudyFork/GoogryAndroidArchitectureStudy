@@ -6,8 +6,8 @@
 - 김상민 [Sangmeebee](https://github.com/Sangmeebee/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/Sangmeebee)
 
-- 김도균 [](https://github.com/)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/)
+- 김도균 [ddochi93](https://github.com/ddochi93/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/ddochi93)
 
 - 한혜정 [HyeJeongHan](https://github.com/HyeJeongHan)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class13/HyeJeongHan)
