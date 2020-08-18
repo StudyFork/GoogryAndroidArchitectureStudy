@@ -13,9 +13,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
-    single{NaverRetrofit()}
+    single{getNaverRetrofit()}
 }
-fun NaverRetrofit() : NaverApi{
+fun getNaverRetrofit() : NaverApi{
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
