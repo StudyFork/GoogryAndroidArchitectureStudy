@@ -12,7 +12,7 @@ class App : Application() {
         super.onCreate()
 
         startKoin {
-            androidLogger()
+            if(BuildConfig.DEBUG) androidLogger()
             androidContext(this@App)
             modules(appModule, networkModule)
         }
