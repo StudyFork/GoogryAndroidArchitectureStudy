@@ -13,8 +13,8 @@ class MovieViewModel(private val repository: MovieListRepository) : ViewModel() 
     val movieList: LiveData<List<NaverApiData.Item>> get() = _movieList
     private val _fail = MutableLiveData<Throwable>()
     val fail: LiveData<Throwable> get() = _fail
-    val noQuery = MutableLiveData<Unit>()
     val searchString = MutableLiveData<String>()
+    val noQuery = MutableLiveData<Unit>()
 
 
     fun requestMovieList() {
@@ -25,8 +25,8 @@ class MovieViewModel(private val repository: MovieListRepository) : ViewModel() 
         }
     }
 
-     fun showQueryEmpty(): Unit {
-
+     fun showQueryEmpty() {
+         noQuery.value = Unit
     }
 
      fun doSearch(query: String) {
