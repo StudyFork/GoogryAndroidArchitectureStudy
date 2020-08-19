@@ -1,7 +1,7 @@
-package com.world.tree.architecturestudy.model.repository.remote
+package com.dwl.study_library.repository
 
-import com.world.tree.architecturestudy.model.Movie
-import com.world.tree.architecturestudy.model.source.remote.NaverRemoteDataSource
+import com.dwl.study_library.model.Movie
+import com.dwl.study_library.source.NaverRemoteDataSource
 import javax.inject.Inject
 
 class NaverRepositoryImpl @Inject constructor(private val remoteDataSource: NaverRemoteDataSource) :

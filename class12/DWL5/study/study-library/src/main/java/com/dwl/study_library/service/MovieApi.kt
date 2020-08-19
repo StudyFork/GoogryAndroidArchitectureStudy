@@ -1,5 +1,6 @@
-package com.world.tree.architecturestudy.model
+package com.dwl.study_library.service
 
+import com.dwl.study_library.model.Movie
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -16,6 +17,6 @@ interface MovieApi {
         @Query("query") query:String,
         @Query("display") display:Int = 10,
         @Query("start") start: Int = 1
-    ) : Call<Movie>
+    ) : retrofit2.Call<Movie>
 
 }

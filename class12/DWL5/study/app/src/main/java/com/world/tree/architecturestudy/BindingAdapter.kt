@@ -4,7 +4,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.world.tree.architecturestudy.model.Movie
+import com.dwl.study_library.model.Movie
 import com.world.tree.architecturestudy.view.MovieAdapter
 
 @BindingAdapter("loadImage")

@@ -5,11 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.dwl.study_library.model.Movie
 import com.world.tree.architecturestudy.R
 import com.world.tree.architecturestudy.databinding.ItemMovieBinding
-import com.world.tree.architecturestudy.model.Movie
-import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private val movies: ArrayList<Movie.Item> = ArrayList()

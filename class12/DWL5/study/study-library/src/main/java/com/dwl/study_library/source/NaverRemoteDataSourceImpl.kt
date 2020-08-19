@@ -1,7 +1,7 @@
-package com.world.tree.architecturestudy.model.source.remote
+package com.dwl.study_library.source
 
-import com.world.tree.architecturestudy.model.MovieApi
-import com.world.tree.architecturestudy.model.Movie
+import com.dwl.study_library.model.Movie
+import com.dwl.study_library.service.MovieApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
