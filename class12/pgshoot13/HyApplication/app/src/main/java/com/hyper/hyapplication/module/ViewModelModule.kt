@@ -5,13 +5,13 @@ import com.hyper.hyapplication.repository.NaverRepositoryImpl
 import com.hyper.hyapplication.source.remote.NaverRemoteDataSource
 import com.hyper.hyapplication.source.remote.NaverRemoteDataSourceImpl
 import com.hyper.hyapplication.ui.MainViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
 
     single<NaverRepository> { NaverRepositoryImpl(get()) }
-    single<NaverRemoteDataSource> { NaverRemoteDataSourceImpl() }
+    single<NaverRemoteDataSource> { NaverRemoteDataSourceImpl(get()) }
 
-    viewModel { MainViewModel() }
+    viewModel { MainViewModel(get()) }
 }
