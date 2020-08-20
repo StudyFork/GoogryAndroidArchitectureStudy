@@ -5,8 +5,9 @@ import com.world.tree.architecturestudy.model.Movie
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class NaverRemoteDataSourceImpl(private val remoteService: MovieApi) :
+class NaverRemoteDataSourceImpl @Inject constructor(private val remoteService: MovieApi) :
     NaverRemoteDataSource {
 
 
