@@ -1,9 +1,10 @@
-package com.hyper.hyapplication
+package com.hyper.hyapplication.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.hyper.hyapplication.R
 import com.hyper.hyapplication.databinding.ItemMovieBinding
 import com.hyper.hyapplication.model.ResultGetSearchMovie
 
