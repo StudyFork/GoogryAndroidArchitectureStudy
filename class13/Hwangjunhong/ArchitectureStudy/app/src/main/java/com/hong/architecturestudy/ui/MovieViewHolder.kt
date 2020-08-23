@@ -26,7 +26,7 @@ class MovieViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 
             setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieData.link))
-                this.context.startActivity(intent)
+                context.startActivity(intent)
             }
 
         }
