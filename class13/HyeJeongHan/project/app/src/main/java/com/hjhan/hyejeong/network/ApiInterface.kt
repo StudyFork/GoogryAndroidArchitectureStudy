@@ -1,6 +1,6 @@
 package com.hjhan.hyejeong.network
 
-import com.hjhan.hyejeong.MovieData
+import com.hjhan.hyejeong.network.data.MovieData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
