@@ -5,18 +5,17 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-	private val movieImage = view.findViewById<ImageView>(R.id.img_movie)
-	private val movieTitle = view.findViewById<TextView>(R.id.tv_title)
-	private val movieSubTitle = view.findViewById<TextView>(R.id.tv_subtitle)
-	private val movieActor = view.findViewById<TextView>(R.id.tv_actor)
-	private val movieRating = view.findViewById<TextView>(R.id.tv_rating)
+	private val movieImage = view.img_movie
+	private val movieTitle = view.tv_title
+	private val movieSubTitle = view.tv_subtitle
+	private val movieActor = view.tv_actor
+	private val movieRating = view.tv_rating
 
 	fun bind(movie: ApiResult.Movie) {
 		Glide.with(movieImage.context)
