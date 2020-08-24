@@ -7,7 +7,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-const val BASE_URL = "https://openapi.naver.com/v1/search"
+const val BASE_URL = "https://openapi.naver.com/v1/search/"
+const val NAVER_CLIENT_ID = "Vj0ECzhoRz4wU9nrDWFB"
+const val NAVER_CLIENT_SECRET = "wsAeAd6dHV"
 
 object RetrofitClient {
     private val intercepter =
