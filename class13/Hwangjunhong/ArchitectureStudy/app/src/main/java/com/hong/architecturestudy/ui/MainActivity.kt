@@ -1,13 +1,11 @@
 package com.hong.architecturestudy.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.hong.architecturestudy.BuildConfig
-import com.hong.architecturestudy.Constants.BASE_URL
+import androidx.appcompat.app.AppCompatActivity
 import com.hong.architecturestudy.R
 import com.hong.architecturestudy.data.MovieResultData
-import com.hong.architecturestudy.network.NaverMovieApi
+import com.hong.architecturestudy.ext.hideKeyboard
 import com.hong.architecturestudy.network.RetrofitCreator
 import com.hong.architecturestudy.utils.log
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,6 +25,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "영화 제목을 입력해 주세요", Toast.LENGTH_LONG).show()
             } else {
                 getMovieList(edit_search.text.toString())
+                hideKeyboard(this, edit_search)
             }
         }
     }

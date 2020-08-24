@@ -1,8 +1,8 @@
 package com.hong.architecturestudy.network
 
 import com.hong.architecturestudy.BuildConfig
-import com.hong.architecturestudy.Constants.BASE_URL
-import com.hong.architecturestudy.Constants.DEFAULT_TIME_OUT
+import com.hong.architecturestudy.components.Constants.BASE_URL
+import com.hong.architecturestudy.components.Constants.DEFAULT_TIME_OUT
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
