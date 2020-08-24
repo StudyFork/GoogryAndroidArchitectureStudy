@@ -1,6 +1,5 @@
 package com.example.myproject
 
-import android.content.ClipData.Item
 import android.content.Context
 import android.os.Build
 import android.text.Html
@@ -56,7 +55,18 @@ class MovieAdapter(val context: Context, val movieArrayList: ArrayList<Items>) :
         }
     }
 
-    fun interpretHtml(str: String): Spanned {
+    fun clearItems() {
+        movieArrayList.clear()
+        notifyDataSetChanged()
+    }
+
+    fun clearAndAddItems(items: ArrayList<Items>) {
+        movieArrayList.clear()
+        movieArrayList.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    private fun interpretHtml(str: String): Spanned {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             Html.fromHtml(str, Html.FROM_HTML_MODE_LEGACY)
         else
