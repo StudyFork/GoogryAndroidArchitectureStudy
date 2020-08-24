@@ -7,7 +7,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
 	private val movieList = mutableListOf<ApiResult.Movie>()
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
-		MovieViewHolder.createViewHolder(parent)
+		MovieViewHolder(parent)
 
 	override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
 		holder.bind(movieList[position])
