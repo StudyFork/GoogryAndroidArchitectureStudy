@@ -5,20 +5,20 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-private const val BASE_URL = "https://openapi.naver.com/"
+object RetrofitCreator{
+    fun <T> createRetrofit(service: Class<T>, baseUrl : String): T {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(createOkHttpClient())
+            .build()
+            .create(service)
+    }
 
-fun createRetrofit(): NaverMovieApi {
-    return Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(createOkHttpClient())
-        .build()
-        .create(NaverMovieApi::class.java)
-}
-
-private fun createOkHttpClient(): OkHttpClient {
-    val builder: OkHttpClient.Builder = OkHttpClient.Builder()
-    val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    builder.addInterceptor(interceptor)
-    return builder.build()
+    private fun createOkHttpClient(): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        return OkHttpClient.Builder()
+            .addNetworkInterceptor(interceptor)
+            .build()
+    }
 }
