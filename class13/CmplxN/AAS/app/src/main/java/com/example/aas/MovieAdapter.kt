@@ -12,8 +12,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
 	override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
 		holder.bind(movieList[position])
 
-	override fun getItemCount(): Int =
-		movieList.size
+	override fun getItemCount() = movieList.size
 
 	fun setList(newMovieList: List<ApiResult.Movie>) {
 		movieList.clear()
