@@ -18,7 +18,7 @@ class MovieViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 	private val movieActor = itemView.tv_actor
 	private val movieRating = itemView.tv_rating
 
-	fun bind(movie: ApiResult.Movie) {
+	fun bind(movie: Movie) {
 		Glide.with(movieImage.context)
 			.load(movie.image)
 			.centerCrop()

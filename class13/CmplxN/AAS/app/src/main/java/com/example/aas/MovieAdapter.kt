@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
-	private val movieList = mutableListOf<ApiResult.Movie>()
+	private val movieList = mutableListOf<Movie>()
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
 		MovieViewHolder(parent)
@@ -14,7 +14,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
 
 	override fun getItemCount() = movieList.size
 
-	fun setList(newMovieList: List<ApiResult.Movie>) {
+	fun setList(newMovieList: List<Movie>) {
 		movieList.clear()
 		movieList.addAll(newMovieList)
 		notifyDataSetChanged()
