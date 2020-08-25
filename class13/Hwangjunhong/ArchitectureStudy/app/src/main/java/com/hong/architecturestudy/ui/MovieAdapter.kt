@@ -15,12 +15,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
         holder.onBind(items[position])
     }
 
-    fun addItem(item: List<MovieData>){
+    fun addItem(item: List<MovieData>) {
         items.clear()
         items.addAll(item)
         notifyDataSetChanged()
     }
-
-
-
 }
