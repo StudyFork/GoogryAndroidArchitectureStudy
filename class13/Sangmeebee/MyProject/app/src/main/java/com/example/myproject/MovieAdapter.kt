@@ -1,6 +1,8 @@
 package com.example.myproject
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
@@ -8,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -38,11 +41,18 @@ class MovieAdapter(val context: Context, val movieArrayList: ArrayList<Items>) :
             .load(item.image)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(holder.getImage()!!)
+
+        holder.llMovie!!.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(item.link)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount() = movieArrayList.size
 
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
+        val llMovie = itemView?.findViewById<LinearLayout>(R.id.movie_item)
         val ivPoster = itemView?.findViewById<ImageView>(R.id.iv_poster)
         val tvTitle = itemView?.findViewById<TextView>(R.id.tv_title)
         val rbGradeRating = itemView?.findViewById<RatingBar>(R.id.rb_grade_rating)
