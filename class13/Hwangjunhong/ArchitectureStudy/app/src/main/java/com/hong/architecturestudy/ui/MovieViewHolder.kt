@@ -1,14 +1,12 @@
 package com.hong.architecturestudy.ui
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.R
 import com.hong.architecturestudy.data.MovieData
-import com.hong.architecturestudy.ext.htmlToText
-import com.hong.architecturestudy.ext.loadGlideImageView
+import com.hong.architecturestudy.ext.loadImageView
+import com.hong.architecturestudy.ext.toHtml
 import kotlinx.android.synthetic.main.item_movie_list.view.*
 
 class MovieViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
@@ -23,16 +21,12 @@ class MovieViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     private val movieOpenDate = itemView.tv_opening_date
 
     fun onBind(movieData: MovieData) {
-        moviePoster.loadGlideImageView(movieData.image)
-        movieActor.text = htmlToText(movieData.actor)
-        movieTitle.text = htmlToText(movieData.title)
-        movieDirector.text = htmlToText(movieData.director)
+        movieTitle.text = movieData.title.toHtml()
+        movieActor.text = movieData.actor.toHtml()
+        movieDirector.text = movieData.director.toHtml()
+        movieOpenDate.text = movieData.pubDate.toHtml()
+        moviePoster.loadImageView(movieData.image)
         movieRating.rating = (movieData.userRating.toFloatOrNull() ?: 0f) / 2
-        movieOpenDate.text = htmlToText(movieData.pubDate)
 
-        itemView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieData.link))
-            itemView.context.startActivity(intent)
-        }
     }
 }
