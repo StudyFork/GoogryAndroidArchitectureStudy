@@ -18,8 +18,7 @@ import retrofit2.Call
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    //  Movie Search Service Create Init
-    private val api = MovieApiService.create()
+
     private val TAG = "MovieSearch"
     private lateinit var movieSearchAdapter: MovieSearchAdapter
 
@@ -91,9 +90,8 @@ class MainActivity : AppCompatActivity() {
 
     //  Naver Moive Search Api Call
     private fun getMoiveSearchCall(movietitle: String) {
-        var size: Int = 0
 
-        api.getMovieSearch(movietitle, 100, 1).enqueue(object :
+        MovieApiService.create().getMovieSearch(movietitle, 100, 1).enqueue(object :
             retrofit2.Callback<MovieResponseModel> {
 
             override fun onResponse(
