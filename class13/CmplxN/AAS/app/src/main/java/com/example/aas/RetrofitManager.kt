@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import java.util.concurrent.TimeUnit
 
 object RetrofitManager {
 	private val httpLoggingInterceptor by lazy {
@@ -16,9 +17,10 @@ object RetrofitManager {
 	}
 
 	private val okHttpClient by lazy {
-		OkHttpClient.Builder()
-			.addInterceptor(httpLoggingInterceptor)
-			.addInterceptor { chain ->
+		OkHttpClient.Builder().apply {
+			if (BuildConfig.DEBUG)
+				addInterceptor(httpLoggingInterceptor)
+			addInterceptor { chain ->
 				chain.request()
 					.newBuilder()
 					.addHeader("X-Naver-Client-Id", BuildConfig.NAVER_CLIENT_ID)
@@ -28,6 +30,7 @@ object RetrofitManager {
 						chain.proceed(it)
 					}
 			}
+		}
 			.build()
 	}
 
