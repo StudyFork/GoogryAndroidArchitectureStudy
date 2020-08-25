@@ -1,6 +1,5 @@
 package com.example.myproject.retrofit.model
 
-import com.example.myproject.retrofit.model.Items
 import com.google.gson.annotations.SerializedName
 
 data class Movie(
@@ -15,4 +14,24 @@ data class Movie(
     val display: Int,
     @SerializedName("items")
     val items: List<Items>
+)
+
+data class Items(
+
+    @SerializedName("title")
+    val title: String,
+    @SerializedName("link")
+    val link: String,
+    @SerializedName("image")
+    val image: String,
+    @SerializedName("subtitle")
+    val subtitle: String,
+    @SerializedName("pubDate")
+    val pubDate: Int,
+    @SerializedName("director")
+    val director: String,
+    @SerializedName("actor")
+    val actor: String,
+    @SerializedName("userRating")
+    val userRating: Double
 )
