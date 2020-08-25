@@ -21,8 +21,8 @@ object RetrofitManager {
 			.addInterceptor { chain ->
 				chain.request()
 					.newBuilder()
-					.addHeader("X-Naver-Client-Id", "AzUPF2FnW5u8lGgbr61C")
-					.addHeader("X-Naver-Client-Secret", "sggbgPBFjF")
+					.addHeader("X-Naver-Client-Id", BuildConfig.NAVER_CLIENT_ID)
+					.addHeader("X-Naver-Client-Secret", BuildConfig.NAVER_CLIENT_SECRET)
 					.build()
 					.let {
 						chain.proceed(it)
