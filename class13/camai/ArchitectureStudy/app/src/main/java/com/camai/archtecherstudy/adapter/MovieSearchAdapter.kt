@@ -26,18 +26,15 @@ class MovieSearchAdapter(
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return movieInfoArrayList.count()
-    }
+    override fun getItemCount() = movieInfoArrayList.count()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(movieInfoArrayList.get(position), context)
-
     }
 
     //  Update Movie List Data
     fun setClearAndAddList(movielist: ArrayList<Items>) {
-        with(this.movieInfoArrayList) {
+        with(movieInfoArrayList) {
             clear()
             addAll(movielist)
         }
