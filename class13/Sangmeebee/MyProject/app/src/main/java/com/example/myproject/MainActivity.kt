@@ -24,25 +24,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerview.setHasFixedSize(true)
-        val layoutManager = LinearLayoutManager(this)
-        recyclerview.layoutManager = layoutManager
-
-        recyclerview.setAdapter(movieAdapter)
-
-        val dividerItemDecoration =
-            DividerItemDecoration(this, LinearLayoutManager(this).orientation)
-        recyclerview.addItemDecoration(dividerItemDecoration)
-
+        setRecyclerView()
 
         btn_search.setOnClickListener {
             val title = edit_title.text.toString()
             if (title.isEmpty()) {
                 Toast.makeText(this, "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
             } else {
-                layoutManager.scrollToPosition(0);
+                recyclerview.layoutManager?.scrollToPosition(0);
                 getMovie(title);
             }
+        }
+    }
+
+    fun setRecyclerView() {
+        recyclerview.apply {
+            recyclerview.setHasFixedSize(true)
+            recyclerview.layoutManager = LinearLayoutManager(context)
+            recyclerview.setAdapter(movieAdapter)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager(context).orientation))
         }
     }
 
