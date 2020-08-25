@@ -1,5 +1,7 @@
 package com.hong.architecturestudy.ui
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +16,22 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private val adapter = MovieAdapter()
+    private val movieCallBack = object : retrofit2.Callback<MovieResultData> {
+        override fun onFailure(call: Call<MovieResultData>, t: Throwable) {
+            log("[MainActivity] : 통신 실패")
+        }
+
+        override fun onResponse(call: Call<MovieResultData>, response: Response<MovieResultData>) {
+            with(response) {
+                val body = body()
+                if (isSuccessful && body != null) {
+                    adapter.addItems(body.items)
+                } else {
+                    log("[MainActivity] : 데이터 불러오기 실패")
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,28 +51,13 @@ class MainActivity : AppCompatActivity() {
     private fun setRecyclerView() {
         rv_movies_list.adapter = adapter
         rv_movies_list.setHasFixedSize(true)
-        rv_movies_list.setItemViewCacheSize(adapter.itemCount)
+        adapter.onClick = { movieData ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieData.link))
+            startActivity(intent)
+        }
     }
 
     private fun getMovieList(query: String) {
         RetrofitCreator.service.getMovies(query).enqueue(movieCallBack)
-    }
-
-    private val movieCallBack = object : retrofit2.Callback<MovieResultData> {
-        override fun onFailure(call: Call<MovieResultData>, t: Throwable) {
-            log("[MainActivity] : 통신 실패")
-        }
-
-        override fun onResponse(call: Call<MovieResultData>, response: Response<MovieResultData>) {
-            with(response) {
-                val body = body()
-                if (isSuccessful && body != null) {
-                    adapter.addItem(body.items)
-                } else {
-                    log("[MainActivity] : 데이터 불러오기 실패")
-                }
-            }
-        }
-
     }
 }

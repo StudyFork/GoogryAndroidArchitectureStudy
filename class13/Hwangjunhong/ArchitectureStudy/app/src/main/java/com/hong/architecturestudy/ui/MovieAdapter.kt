@@ -3,11 +3,19 @@ package com.hong.architecturestudy.ui
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.data.MovieData
+import com.hong.architecturestudy.data.MovieResultData
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     private val items = mutableListOf<MovieData>()
+    lateinit var onClick: ((MovieData) -> Unit)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MovieViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        MovieViewHolder(parent).apply {
+            itemView.setOnClickListener {
+                val item = items[absoluteAdapterPosition]
+                onClick.invoke(item)
+            }
+        }
 
     override fun getItemCount() = items.size
 
@@ -15,7 +23,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
         holder.onBind(items[position])
     }
 
-    fun addItem(item: List<MovieData>) {
+    fun addItems(item: List<MovieData>) {
         items.clear()
         items.addAll(item)
         notifyDataSetChanged()
