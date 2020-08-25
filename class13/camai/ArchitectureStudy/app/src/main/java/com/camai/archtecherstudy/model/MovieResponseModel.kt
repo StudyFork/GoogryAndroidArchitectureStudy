@@ -4,33 +4,33 @@ import com.google.gson.annotations.SerializedName
 
 data class MovieResponseModel(
     @SerializedName("lastBuildDate")
-    var lastBuildDate : String,
+    var lastBuildDate: String,
     @SerializedName("total")
-    var total : Int,
+    var total: Int,
     @SerializedName("start")
-    var start : Int,
+    var start: Int,
     @SerializedName("display")
-    var display : Int,
+    var display: Int,
     @SerializedName("items")
-    var items : ArrayList<Items>
+    var items: ArrayList<Items>
 )
 
 data class Items(
     @SerializedName("title")
-    val title : String,
+    val title: String,
     @SerializedName("link")
-    val link : String,
+    val link: String,
     @SerializedName("image")
-    val image : String,
+    val image: String,
     @SerializedName("subtitle")
-    val subtitle : String,
+    val subtitle: String,
     @SerializedName("pubdate")
-    val pubDate : String,
+    val pubDate: String,
     @SerializedName("director")
-    val director : String,
+    val director: String,
     @SerializedName("actor")
-    val actor : String,
+    val actor: String,
     @SerializedName("userRating")
-    val userRating : Float
+    val userRating: Float
 )
 

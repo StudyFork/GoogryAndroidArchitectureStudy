@@ -1,12 +1,12 @@
 package com.camai.archtecherstudy
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.adapter.MovieSearchAdapter
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     //  RecyclerView Adapter Set
     private fun setAdapterAndRecyclerViewInit() {
         movieSearchAdapter = MovieSearchAdapter(this)
-        recycler_view.apply{
+        recycler_view.apply {
             adapter = movieSearchAdapter
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(false)
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //  Keyword Error Toast
-    private fun showNotFoundMessage( keyword : String) {
+    private fun showNotFoundMessage(keyword: String) {
         Toast.makeText(applicationContext, keyword + " 를 찾을 수 없습니다.", Toast.LENGTH_LONG).show()
     }
 
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //  Update Movie Search Result Data List
-    private fun setListData( infoList : ArrayList<Items> ) {
+    private fun setListData(infoList: ArrayList<Items>) {
         movieSearchAdapter.setClearAndAddList(infoList)
 
         progressbar.visibility = View.GONE
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //  Naver Moive Search Api Call
-    private fun getMoiveSearchCall( movietitle : String ) {
+    private fun getMoiveSearchCall(movietitle: String) {
         var size: Int = 0
 
         api.getMovieSearch(movietitle, 100, 1).enqueue(object :
@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call : Call<MovieResponseModel>, t : Throwable ) {
+            override fun onFailure(call: Call<MovieResponseModel>, t: Throwable) {
                 // Failed
                 showNotFoundMessage(movietitle)
                 Log.e(TAG, t.message.toString())

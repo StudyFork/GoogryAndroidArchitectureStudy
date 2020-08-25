@@ -21,7 +21,7 @@ class MovieSearchAdapter(
 
     private val movieInfoArrayList = mutableListOf<Items>()
 
-    override fun onCreateViewHolder(parent : ViewGroup, viewType : Int ) : ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
         return ViewHolder(view)
     }
@@ -34,9 +34,10 @@ class MovieSearchAdapter(
         holder.bind(movieInfoArrayList.get(position), context)
 
     }
+
     //  Update Movie List Data
-    fun setClearAndAddList( movielist : ArrayList<Items>){
-        with(this.movieInfoArrayList){
+    fun setClearAndAddList(movielist: ArrayList<Items>) {
+        with(this.movieInfoArrayList) {
             clear()
             addAll(movielist)
         }
@@ -44,7 +45,7 @@ class MovieSearchAdapter(
         notifyDataSetChanged()
     }
 
-    class ViewHolder( itemView : View? ) : RecyclerView.ViewHolder(itemView!!) {
+    class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
 
         val poster = itemView?.findViewById<ImageView>(R.id.img_poster)
         val title = itemView?.findViewById<TextView>(R.id.txt_title)
@@ -53,7 +54,7 @@ class MovieSearchAdapter(
         val director = itemView?.findViewById<TextView>(R.id.txt_director)
         val actor = itemView?.findViewById<TextView>(R.id.txt_actor)
 
-        fun bind( itemInfo : Items, context : Context) {
+        fun bind(itemInfo: Items, context: Context) {
 
             title?.text = itemInfo.title
             pub_data?.text = itemInfo.pubDate

@@ -33,10 +33,12 @@ interface MovieApiService {
             val headerInterceptor = Interceptor {
                 val request = it.request()
                     .newBuilder()
-                    .addHeader("X-Naver-Client-Id",
+                    .addHeader(
+                        "X-Naver-Client-Id",
                         CLIENT_ID
                     )
-                    .addHeader("X-Naver-Client-Secret",
+                    .addHeader(
+                        "X-Naver-Client-Secret",
                         CLIENT_SECRET
                     )
                     .build()
