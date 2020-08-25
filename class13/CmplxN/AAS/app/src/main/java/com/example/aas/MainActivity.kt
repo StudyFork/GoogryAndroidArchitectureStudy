@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 			hideKeyboard(this, et_movie_name)
 
 			RetrofitManager.naverMoviesApi.getMovies(keyword.toString())
-				.timeout(5000L, TimeUnit.MILLISECONDS)
 				.observeOn(AndroidSchedulers.mainThread())
 				.subscribe(
 					{

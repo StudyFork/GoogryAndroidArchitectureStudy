@@ -10,6 +10,8 @@ import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 object RetrofitManager {
+	private val TIME_OUT = 5000L
+
 	private val httpLoggingInterceptor by lazy {
 		HttpLoggingInterceptor().apply {
 			level = HttpLoggingInterceptor.Level.BODY
@@ -18,6 +20,9 @@ object RetrofitManager {
 
 	private val okHttpClient by lazy {
 		OkHttpClient.Builder().apply {
+			connectTimeout(TIME_OUT, TimeUnit.SECONDS)
+			readTimeout(TIME_OUT, TimeUnit.SECONDS)
+			writeTimeout(TIME_OUT, TimeUnit.SECONDS)
 			if (BuildConfig.DEBUG)
 				addInterceptor(httpLoggingInterceptor)
 			addInterceptor { chain ->
