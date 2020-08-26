@@ -10,7 +10,7 @@ import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 object RetrofitManager {
-	private val TIME_OUT = 5000L
+	private const val TIME_OUT = 5000L
 
 	private val httpLoggingInterceptor by lazy {
 		HttpLoggingInterceptor().apply {
