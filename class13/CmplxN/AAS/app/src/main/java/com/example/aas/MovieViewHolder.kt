@@ -1,7 +1,5 @@
 package com.example.aas
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -28,10 +26,5 @@ class MovieViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 		movieSubTitle.text = movie.subtitle.toHtml()
 		movieActor.text = movie.actor.toHtml()
 		movieRating.text = movie.userRating.toHtml()
-
-		itemView.setOnClickListener {
-			val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))
-			it.context.startActivity(intent)
-		}
 	}
 }
