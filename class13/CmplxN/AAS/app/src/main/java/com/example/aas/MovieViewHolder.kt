@@ -24,10 +24,10 @@ class MovieViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
 			.centerCrop()
 			.into(movieImage)
 
-		movieTitle.text = interpretHtml(movie.title)
-		movieSubTitle.text = interpretHtml(movie.subtitle)
-		movieActor.text = interpretHtml(movie.actor)
-		movieRating.text = interpretHtml(movie.userRating)
+		movieTitle.text = movie.title.toHtml()
+		movieSubTitle.text = movie.subtitle.toHtml()
+		movieActor.text = movie.actor.toHtml()
+		movieRating.text = movie.userRating.toHtml()
 
 		itemView.setOnClickListener {
 			val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movie.link))

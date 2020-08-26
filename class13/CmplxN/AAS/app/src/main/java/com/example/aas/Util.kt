@@ -7,11 +7,11 @@ import android.text.Spanned
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 
-fun interpretHtml(str: String): Spanned {
+fun String.toHtml(): Spanned {
 	return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-		Html.fromHtml(str, Html.FROM_HTML_MODE_LEGACY)
+		Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
 	else
-		Html.fromHtml(str)
+		Html.fromHtml(this)
 }
 
 fun hideKeyboard(context: Context, view: View) {
