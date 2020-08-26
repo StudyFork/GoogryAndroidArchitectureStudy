@@ -4,13 +4,13 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="150dp"
-	android:paddingVertical="10dp">
+	android:paddingVertical="8dp">
 
 	<ImageView
 		android:id="@+id/img_movie"
 		android:layout_width="0dp"
 		android:layout_height="0dp"
-		android:layout_margin="7dp"
+		android:layout_margin="8dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toStartOf="@+id/guideline_item"
 		app:layout_constraintStart_toStartOf="parent"
