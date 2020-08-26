@@ -14,7 +14,11 @@ object RetrofitManager {
 
 	private val httpLoggingInterceptor by lazy {
 		HttpLoggingInterceptor().apply {
-			level = HttpLoggingInterceptor.Level.BODY
+			level =
+				if (BuildConfig.DEBUG)
+					HttpLoggingInterceptor.Level.BODY
+				else
+					HttpLoggingInterceptor.Level.NONE
 		}
 	}
 
@@ -23,8 +27,7 @@ object RetrofitManager {
 			connectTimeout(TIME_OUT, TimeUnit.SECONDS)
 			readTimeout(TIME_OUT, TimeUnit.SECONDS)
 			writeTimeout(TIME_OUT, TimeUnit.SECONDS)
-			if (BuildConfig.DEBUG)
-				addInterceptor(httpLoggingInterceptor)
+			addInterceptor(httpLoggingInterceptor)
 			addInterceptor { chain ->
 				chain.request()
 					.newBuilder()
