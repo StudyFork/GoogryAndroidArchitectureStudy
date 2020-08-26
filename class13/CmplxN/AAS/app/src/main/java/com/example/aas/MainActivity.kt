@@ -8,7 +8,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 	private val compositeDisposable = CompositeDisposable()
@@ -31,16 +30,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
 			RetrofitManager.naverMoviesApi.getMovies(keyword.toString())
 				.observeOn(AndroidSchedulers.mainThread())
-				.subscribe(
-					{
-						Toast.makeText(this, "Search Completed", Toast.LENGTH_SHORT).show()
-						movieAdapter.setList(it.movies)
-					},
-					{
-						Toast.makeText(this, "Network Error", Toast.LENGTH_LONG).show()
-						it.printStackTrace()
-					}
-				)
+				.subscribe({
+					Toast.makeText(this, "Search Completed", Toast.LENGTH_SHORT).show()
+					movieAdapter.setList(it.movies)
+				}, {
+					Toast.makeText(this, "Network Error", Toast.LENGTH_LONG).show()
+					it.printStackTrace()
+				})
 				.addTo(compositeDisposable)
 		}
 	}
