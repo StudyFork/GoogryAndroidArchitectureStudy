@@ -29,35 +29,35 @@
 		android:id="@+id/tv_title"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="title"
 		app:layout_constraintBottom_toTopOf="@id/tv_subtitle"
 		app:layout_constraintStart_toStartOf="@+id/guideline_item"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintTop_toTopOf="parent"
+		tools:text="title" />
 
 	<TextView
 		android:id="@+id/tv_subtitle"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="subtitle"
 		app:layout_constraintBottom_toTopOf="@id/tv_actor"
 		app:layout_constraintStart_toStartOf="@+id/guideline_item"
-		app:layout_constraintTop_toBottomOf="@id/tv_title" />
+		app:layout_constraintTop_toBottomOf="@id/tv_title"
+		tools:text="subtitle" />
 
 	<TextView
 		android:id="@+id/tv_actor"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="actor"
 		app:layout_constraintBottom_toBottomOf="@id/tv_rating"
 		app:layout_constraintStart_toStartOf="@+id/guideline_item"
-		app:layout_constraintTop_toBottomOf="@id/tv_subtitle" />
+		app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+		tools:text="actor" />
 
 	<TextView
 		android:id="@+id/tv_rating"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="rating"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintStart_toStartOf="@+id/guideline_item"
-		app:layout_constraintTop_toBottomOf="@id/tv_actor" />
+		app:layout_constraintTop_toBottomOf="@id/tv_actor"
+		tools:text="rating" />
 </androidx.constraintlayout.widget.ConstraintLayout>
