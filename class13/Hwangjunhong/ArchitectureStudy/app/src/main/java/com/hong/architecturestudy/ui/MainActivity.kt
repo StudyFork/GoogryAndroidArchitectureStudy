@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             with(response) {
                 val body = body()
                 if (isSuccessful && body != null) {
-                    adapter.addItems(body.items)
+                    adapter.setData(body.items)
                 } else {
                     log("[MainActivity] : 데이터 불러오기 실패")
                 }

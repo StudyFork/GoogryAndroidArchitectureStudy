@@ -3,7 +3,6 @@ package com.hong.architecturestudy.ui
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.data.MovieData
-import com.hong.architecturestudy.data.MovieResultData
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     private val items = mutableListOf<MovieData>()
@@ -23,7 +22,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
         holder.onBind(items[position])
     }
 
-    fun addItems(item: List<MovieData>) {
+    fun setData(item: List<MovieData>) {
         items.clear()
         items.addAll(item)
         notifyDataSetChanged()
