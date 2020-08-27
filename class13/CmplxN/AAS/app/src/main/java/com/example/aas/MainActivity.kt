@@ -24,11 +24,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 			.addTo(compositeDisposable)
 
 		RxView.clicks(btn_request)
-			.flatMap {
+			.flatMapSingle {
 				val keyword = et_movie_name.text.also { et_movie_name.setText("") }
 				et_movie_name.clearFocus()
 				hideKeyboard(this, et_movie_name)
-				RetrofitManager.naverMoviesApi.getMovies(keyword.toString()).toObservable()
+				RetrofitManager.naverMoviesApi.getMovies(keyword.toString())
 			}
 			.observeOn(AndroidSchedulers.mainThread())
 			.subscribe({
