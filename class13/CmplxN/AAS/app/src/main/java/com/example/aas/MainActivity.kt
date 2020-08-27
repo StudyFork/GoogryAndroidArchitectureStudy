@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 	private val compositeDisposable = CompositeDisposable()
-	private val movieAdapter = MovieAdapter(compositeDisposable)
+	private val movieAdapter = MovieAdapter()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
