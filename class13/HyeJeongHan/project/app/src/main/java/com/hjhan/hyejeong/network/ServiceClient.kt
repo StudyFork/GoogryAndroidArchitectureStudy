@@ -7,7 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class ServiceClient {
+object ServiceClient {
 
     private val baseUrl = Constants.BASE_URL
     private var mRetrofit: Retrofit? = null

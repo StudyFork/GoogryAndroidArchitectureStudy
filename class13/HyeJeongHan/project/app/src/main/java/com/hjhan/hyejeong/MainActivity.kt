@@ -49,8 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestMovieList(title: String) {
-        val serviceClient = ServiceClient()
-        val api = serviceClient.createService(ApiInterface::class.java)
+        val api = ServiceClient.createService(ApiInterface::class.java)
         api.getMovies(title, 10, 100).enqueue(object : Callback<MovieData> {
             override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
                 if (response.isSuccessful) {
