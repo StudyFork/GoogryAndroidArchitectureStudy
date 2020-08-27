@@ -31,10 +31,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.movie_recycler_view)
 
         movieAdapter = MovieAdapter(this)
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = movieAdapter
-        }
+        recyclerView.adapter = movieAdapter
 
 
         button.setOnClickListener {
