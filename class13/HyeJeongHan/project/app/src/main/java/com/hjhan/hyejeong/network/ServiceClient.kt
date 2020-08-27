@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ServiceClient {
 
     private val baseUrl = Constants.BASE_URL
-    private var mRetrofit: Retrofit? = null
+    private var retrofit: Retrofit? = null
     private val gson = GsonBuilder().create()
 
     private val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -21,13 +21,13 @@ object ServiceClient {
     private val okHttpClient = okHttpClientBuilder.build()
 
     fun <T> createService(serviceClass: Class<T>): T {
-        if (mRetrofit == null) {
-            mRetrofit = Retrofit.Builder()
+        if (retrofit == null) {
+            retrofit = Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         }
-        return mRetrofit!!.create(serviceClass)
+        return retrofit!!.create(serviceClass)
     }
 }
