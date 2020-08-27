@@ -15,10 +15,11 @@ object RetrofitManager {
 	private val httpLoggingInterceptor by lazy {
 		HttpLoggingInterceptor().apply {
 			level =
-				if (BuildConfig.DEBUG)
+				if (BuildConfig.DEBUG) {
 					HttpLoggingInterceptor.Level.BODY
-				else
+				} else {
 					HttpLoggingInterceptor.Level.NONE
+				}
 		}
 	}
 
