@@ -5,7 +5,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hjhan.hyejeong.network.ApiInterface
 import com.hjhan.hyejeong.network.ServiceClient
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         button = findViewById(R.id.search_button)
         recyclerView = findViewById(R.id.movie_recycler_view)
 
-        movieAdapter = MovieAdapter(this)
+        movieAdapter = MovieAdapter()
         recyclerView.adapter = movieAdapter
 
 

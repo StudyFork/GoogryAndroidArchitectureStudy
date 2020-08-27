@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.hjhan.hyejeong.network.data.Item
 
-class MovieAdapter(private val context: Context) :
+class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val list = mutableListOf<Item>()
@@ -22,7 +22,7 @@ class MovieAdapter(private val context: Context) :
             false
         )
 
-        return MovieViewHolder(view, context)
+        return MovieViewHolder(view, parent.context)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
