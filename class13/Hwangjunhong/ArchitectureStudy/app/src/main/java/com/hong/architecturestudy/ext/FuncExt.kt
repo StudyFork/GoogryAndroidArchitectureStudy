@@ -7,13 +7,6 @@ import android.text.Spanned
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 
-fun htmlToText(str: String): Spanned {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-        Html.fromHtml(str, Html.FROM_HTML_MODE_LEGACY)
-    else
-        Html.fromHtml(str)
-}
-
 fun String.toHtml(): Spanned {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
