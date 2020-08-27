@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="150dp"
-	android:paddingVertical="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:paddingVertical="8dp">
 
-	<ImageView
-		android:id="@+id/img_movie"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:layout_margin="8dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toStartOf="@+id/guideline_item"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		tools:srcCompat="@tools:sample/avatars" />
+    <ImageView
+        android:id="@+id/img_movie"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
-	<androidx.constraintlayout.widget.Guideline
-		android:id="@+id/guideline_item"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		android:orientation="vertical"
-		app:layout_constraintGuide_begin="130dp" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_item"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="130dp" />
 
 
-	<TextView
-		android:id="@+id/tv_title"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_constraintBottom_toTopOf="@id/tv_subtitle"
-		app:layout_constraintStart_toStartOf="@+id/guideline_item"
-		app:layout_constraintTop_toTopOf="parent"
-		tools:text="title" />
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_subtitle"
+        app:layout_constraintStart_toStartOf="@+id/guideline_item"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="title" />
 
-	<TextView
-		android:id="@+id/tv_subtitle"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_constraintBottom_toTopOf="@id/tv_actor"
-		app:layout_constraintStart_toStartOf="@+id/guideline_item"
-		app:layout_constraintTop_toBottomOf="@id/tv_title"
-		tools:text="subtitle" />
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_actor"
+        app:layout_constraintStart_toStartOf="@+id/guideline_item"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="subtitle" />
 
-	<TextView
-		android:id="@+id/tv_actor"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_constraintBottom_toBottomOf="@id/tv_rating"
-		app:layout_constraintStart_toStartOf="@+id/guideline_item"
-		app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
-		tools:text="actor" />
+    <TextView
+        android:id="@+id/tv_actor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/tv_rating"
+        app:layout_constraintStart_toStartOf="@+id/guideline_item"
+        app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+        tools:text="actor" />
 
-	<TextView
-		android:id="@+id/tv_rating"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toStartOf="@+id/guideline_item"
-		app:layout_constraintTop_toBottomOf="@id/tv_actor"
-		tools:text="rating" />
+    <TextView
+        android:id="@+id/tv_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_item"
+        app:layout_constraintTop_toBottomOf="@id/tv_actor"
+        tools:text="rating" />
 </androidx.constraintlayout.widget.ConstraintLayout>
