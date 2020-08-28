@@ -22,7 +22,21 @@ class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-        return ViewHolder(view)
+
+        return ViewHolder(view).click{position ->
+            //  Movie Content WebView Call
+            val webpage = Uri.parse(movieInfoArrayList.get(position).link)
+            val webIntent = Intent(Intent.ACTION_VIEW, webpage)
+            parent.context.startActivity(webIntent)
+        }
+    }
+
+    //  itemView setOnClickListener Extension
+    fun <T : RecyclerView.ViewHolder> T.click(event: (position: Int) -> Unit) : T {
+        itemView.setOnClickListener{
+            event.invoke(adapterPosition)
+        }
+        return this
     }
 
     override fun getItemCount() = movieInfoArrayList.count()
@@ -33,6 +47,7 @@ class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>()
 
     //  Update Movie List Data
     fun setClearAndAddList(movielist: ArrayList<Items>) {
+        //  adaper clear and movielist data add 
         with(movieInfoArrayList) {
             clear()
             addAll(movielist)
@@ -66,15 +81,6 @@ class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(poster)
             }
-
-            //  Movie Content WebView Call
-            itemView.setOnClickListener {
-                val webpage = Uri.parse(itemInfo.link)
-                val webIntent = Intent(Intent.ACTION_VIEW, webpage)
-                itemView.context.startActivity(webIntent)
-            }
-
         }
-
     }
 }
