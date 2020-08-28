@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ArchtecherStudy</string>
+    <string name="btn_search">검색</string>
+    <string name="edit_name">검색할 영화 제목을 입력하세요</string>
+    <string name="movie_date">출시 연도 :&#160;</string>
+    <string name="movie_director">감독 :&#160;</string>
+    <string name="movie_actor">출연자 :&#160;</string>
 </resources>

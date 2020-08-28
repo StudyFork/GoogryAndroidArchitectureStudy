@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -33,4 +34,23 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    // Recycler View
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    //  Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //  Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+
+    //  http logging
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+
+    //  glide
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation('com.github.bumptech.glide:okhttp3-integration:4.9.0') {
+        exclude group: 'glide-parent'
+    }
 }
