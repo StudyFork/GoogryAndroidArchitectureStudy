@@ -22,7 +22,7 @@ class MovieAdapter :
             false
         )
 
-        return MovieViewHolder(view, parent.context)
+        return MovieViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -44,7 +44,7 @@ class MovieAdapter :
         notifyDataSetChanged()
     }
 
-    class MovieViewHolder(itemView: View, private val context: Context) :
+    class MovieViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
         var title = itemView.findViewById(R.id.title_text_view) as TextView
@@ -58,7 +58,7 @@ class MovieAdapter :
             subTitle.text = data.subtitle
             director.text = data.director
 
-            Glide.with(context)
+            Glide.with(image.context)
                 .load(data.image)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(image)
