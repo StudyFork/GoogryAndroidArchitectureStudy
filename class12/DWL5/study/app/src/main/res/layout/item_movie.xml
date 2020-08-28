@@ -6,7 +6,7 @@
 
         <variable
             name="movie"
-            type="com.world.tree.architecturestudy.model.Movie.Item" />
+            type="com.dwl.study_library.model.Movie.Item" />
 
         <variable
             name="onItemClickListener"

@@ -6,8 +6,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.world.tree.architecturestudy.model.Movie
-import com.world.tree.architecturestudy.model.repository.remote.NaverRepository
+import com.dwl.study_library.model.Movie
+import com.dwl.study_library.repository.NaverRepository
 import java.util.*
 import kotlin.collections.ArrayList
 
