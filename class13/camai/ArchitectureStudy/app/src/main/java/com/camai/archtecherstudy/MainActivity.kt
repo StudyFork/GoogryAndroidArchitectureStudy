@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         movieSearchAdapter = MovieSearchAdapter(this)
         recycler_view.run {
             adapter = movieSearchAdapter
-            layoutManager = LinearLayoutManager(context)
             setHasFixedSize(false)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
 
