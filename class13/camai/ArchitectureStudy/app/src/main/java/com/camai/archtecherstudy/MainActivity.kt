@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.adapter.MovieSearchAdapter
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         //  Search Button Click Event
         btn_search.setOnClickListener(View.OnClickListener {
             hideKeyboard(this)
-            progressbar.visibility = View.VISIBLE
+            progressbar.isVisible = true
             searchStart()
         })
 
@@ -83,7 +84,7 @@ class MainActivity : AppCompatActivity() {
     private fun setListData(infoList: ArrayList<Items>) {
         movieSearchAdapter.setClearAndAddList(infoList)
 
-        progressbar.visibility = View.GONE
+        progressbar.isVisible = false
         edit_name.text.clear()
 
     }
