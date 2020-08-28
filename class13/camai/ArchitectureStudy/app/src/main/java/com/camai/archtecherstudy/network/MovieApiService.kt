@@ -1,5 +1,6 @@
 package com.camai.archtecherstudy.network
 
+import com.bumptech.glide.BuildConfig
 import com.camai.archtecherstudy.model.MovieResponseModel
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -28,7 +29,6 @@ interface MovieApiService {
 
         fun create(): MovieApiService {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             val headerInterceptor = Interceptor {
                 val request = it.request()
@@ -45,6 +45,9 @@ interface MovieApiService {
                 return@Interceptor it.proceed(request)
 
             }
+
+            if (BuildConfig.DEBUG)
+                httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(headerInterceptor)
