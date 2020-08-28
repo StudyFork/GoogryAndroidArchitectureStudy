@@ -103,9 +103,7 @@ class MainActivity : AppCompatActivity() {
 
                     val body = response.body()
                     body?.let {
-                        runOnUiThread {
-                            setListData(it.items)
-                        }
+                        setListData(it.items)
                     }
 
                 } else {
