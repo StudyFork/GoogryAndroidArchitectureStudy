@@ -1,6 +1,5 @@
 package com.camai.archtecherstudy.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -15,9 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.model.Items
 
-class MovieSearchAdapter(
-    private val context: Context
-) : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>() {
+class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>() {
 
     private val movieInfoArrayList = mutableListOf<Items>()
 
@@ -29,7 +26,7 @@ class MovieSearchAdapter(
     override fun getItemCount() = movieInfoArrayList.count()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(movieInfoArrayList.get(position), context)
+        holder.bind(movieInfoArrayList.get(position))
     }
 
     //  Update Movie List Data
@@ -51,7 +48,7 @@ class MovieSearchAdapter(
         private val director = itemView?.findViewById<TextView>(R.id.txt_director)
         private val actor = itemView?.findViewById<TextView>(R.id.txt_actor)
 
-        fun bind(itemInfo: Items, context: Context) {
+        fun bind(itemInfo: Items) {
 
             title?.text = itemInfo.title
             pub_data?.text = itemInfo.pubDate
@@ -60,7 +57,7 @@ class MovieSearchAdapter(
             user_rating?.rating = itemInfo.userRating
 
             if (poster != null) {
-                Glide.with(context)
+                Glide.with(itemView.context)
                     .load(itemInfo.image)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(poster)

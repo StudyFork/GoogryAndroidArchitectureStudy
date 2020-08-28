@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     //  RecyclerView Adapter Set
     private fun setAdapterAndRecyclerViewInit() {
-        movieSearchAdapter = MovieSearchAdapter(this)
+        movieSearchAdapter = MovieSearchAdapter()
         recycler_view.run {
             adapter = movieSearchAdapter
             setHasFixedSize(false)
