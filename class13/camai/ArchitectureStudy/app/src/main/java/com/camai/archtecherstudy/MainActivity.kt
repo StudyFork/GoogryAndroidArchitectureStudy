@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         val moviename: String = edit_name.text.toString()
 
         //  Movie Name Value Check
-        if (moviename.isBlank() && moviename.isNullOrEmpty()) {
+        if (moviename.isNullOrBlank()) {
             showEmptyFieldText()
         } else {
             recycler_view.layoutManager?.scrollToPosition(0)
