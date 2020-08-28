@@ -1,5 +1,6 @@
 package com.camai.archtecherstudy.adapter
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.camai.archtecherstudy.R
+import com.camai.archtecherstudy.R.string.*
 import com.camai.archtecherstudy.model.Items
 
 class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>() {
@@ -48,17 +50,19 @@ class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>()
         private val director = itemView?.findViewById<TextView>(R.id.txt_director)
         private val actor = itemView?.findViewById<TextView>(R.id.txt_actor)
 
+        @SuppressLint("SetTextI18n")
         fun bind(itemInfo: Items) {
 
             title?.text = itemInfo.title
-            pub_data?.text = itemInfo.pubDate
-            director?.text = itemInfo.director
-            actor?.text = itemInfo.actor
+            pub_data?.text = itemView.context.getString(movie_date) + itemInfo.pubDate
+            director?.text = itemView.context.getString(movie_director) + itemInfo.director
+            actor?.text = itemView.context.getString(movie_actor) +itemInfo.actor
             user_rating?.rating = itemInfo.userRating
 
             if (poster != null) {
                 Glide.with(itemView.context)
                     .load(itemInfo.image)
+                    .error(R.drawable.ic_input_trail_error)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(poster)
             }
