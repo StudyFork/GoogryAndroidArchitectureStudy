@@ -5,7 +5,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myproject.retrofit.RetrofitClient
 import com.example.myproject.retrofit.model.Items
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                 if (response.isSuccessful) {
                     val movies = ArrayList<Items>(response.body()!!.items)
-                    if (movies.size == 0) {
+                    if (movies.isEmpty()) {
                         movieAdapter.clearItems()
                         Toast.makeText(applicationContext, "$title 를 찾을 수 없습니다", Toast.LENGTH_SHORT)
                             .show()
