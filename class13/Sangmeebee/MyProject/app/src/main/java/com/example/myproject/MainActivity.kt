@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
     fun setRecyclerView() {
         recyclerview.apply {
             recyclerview.setHasFixedSize(true)
-            recyclerview.layoutManager = LinearLayoutManager(context)
             recyclerview.setAdapter(movieAdapter)
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         }
