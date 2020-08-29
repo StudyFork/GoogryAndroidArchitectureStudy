@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myproject.retrofit.RetrofitClient
 import com.example.myproject.retrofit.model.Items
 import com.example.myproject.retrofit.model.Movie
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             recyclerview.setHasFixedSize(true)
             recyclerview.layoutManager = LinearLayoutManager(context)
             recyclerview.setAdapter(movieAdapter)
-            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager(context).orientation))
+            addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         }
     }
 
