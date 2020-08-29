@@ -17,7 +17,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private val movies: ArrayList<Items> = ArrayList()
+    private var movies: ArrayList<Items> = ArrayList()
     private val movieAdapter = MovieAdapter(this, movies)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,13 +53,20 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                 if (response.isSuccessful) {
-                    val movies = ArrayList<Items>(response.body()!!.items)
-                    if (movies.isEmpty()) {
-                        movieAdapter.clearItems()
-                        Toast.makeText(applicationContext, "$title 를 찾을 수 없습니다", Toast.LENGTH_SHORT)
-                            .show()
-                    } else {
-                        movieAdapter.clearAndAddItems(movies)
+                    val body = response.body()
+                    body?.let {
+                        movies = ArrayList<Items>(it.items)
+                        if (movies.isEmpty()) {
+                            movieAdapter.clearItems()
+                            Toast.makeText(
+                                applicationContext,
+                                "$title 를 찾을 수 없습니다",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                        } else {
+                            movieAdapter.clearAndAddItems(movies)
+                        }
                     }
                 } else {
                     Log.e("sangmin_error", response.message())
