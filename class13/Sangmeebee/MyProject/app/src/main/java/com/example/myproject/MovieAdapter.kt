@@ -30,17 +30,7 @@ class MovieAdapter(val context: Context, val movieArrayList: ArrayList<Items>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = movieArrayList[position]
-        holder.tvTitle!!.text = interpretHtml(item.title)
-        holder.rbGradeRating!!.rating = item.userRating.toFloat() / 2
-        holder.tvDate!!.text = item.pubDate.toString()
-        holder.tvDirector!!.text = interpretHtml(item.director)
-        holder.tvActor!!.text = interpretHtml(item.actor)
-
-        Glide.with(context)
-            .load(item.image)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(holder.getImage()!!)
+        holder.bind(movieArrayList[position])
 
         holder.llMovie!!.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
@@ -52,16 +42,26 @@ class MovieAdapter(val context: Context, val movieArrayList: ArrayList<Items>) :
     override fun getItemCount() = movieArrayList.size
 
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-        val llMovie = itemView?.findViewById<LinearLayout>(R.id.movie_item)
-        val ivPoster = itemView?.findViewById<ImageView>(R.id.iv_poster)
-        val tvTitle = itemView?.findViewById<TextView>(R.id.tv_title)
-        val rbGradeRating = itemView?.findViewById<RatingBar>(R.id.rb_grade_rating)
-        val tvDate = itemView?.findViewById<TextView>(R.id.tv_date)
-        val tvDirector = itemView?.findViewById<TextView>(R.id.tv_director)
-        val tvActor = itemView?.findViewById<TextView>(R.id.tv_actor)
+        private val llMovie = itemView?.findViewById<LinearLayout>(R.id.movie_item)
+        private val ivPoster = itemView?.findViewById<ImageView>(R.id.iv_poster)
+        private val tvTitle = itemView?.findViewById<TextView>(R.id.tv_title)
+        private val rbGradeRating = itemView?.findViewById<RatingBar>(R.id.rb_grade_rating)
+        private val tvDate = itemView?.findViewById<TextView>(R.id.tv_date)
+        private val tvDirector = itemView?.findViewById<TextView>(R.id.tv_director)
+        private val tvActor = itemView?.findViewById<TextView>(R.id.tv_actor)
 
-        fun getImage(): ImageView? {
-            return ivPoster
+        fun bind(item: Items) {
+
+            tvTitle!!.text = interpretHtml(item.title)
+            rbGradeRating!!.rating = item.userRating.toFloat() / 2
+            tvDate!!.text = item.pubDate.toString()
+            tvDirector!!.text = interpretHtml(item.director)
+            tvActor!!.text = interpretHtml(item.actor)
+
+            Glide.with(context)
+                .load(item.image)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(ivPoster!!)
         }
     }
 
