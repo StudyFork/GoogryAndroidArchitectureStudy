@@ -17,8 +17,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    val movies: ArrayList<Items> = ArrayList()
-    val movieAdapter = MovieAdapter(this, movies)
+    private val movies: ArrayList<Items> = ArrayList()
+    private val movieAdapter = MovieAdapter(this, movies)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
