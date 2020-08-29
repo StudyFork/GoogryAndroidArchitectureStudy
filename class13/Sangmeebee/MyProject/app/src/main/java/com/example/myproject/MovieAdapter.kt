@@ -41,6 +41,24 @@ class MovieAdapter(val context: Context, val movieArrayList: ArrayList<Items>) :
 
     override fun getItemCount() = movieArrayList.size
 
+    fun clearItems() {
+        movieArrayList.clear()
+        notifyDataSetChanged()
+    }
+
+    fun clearAndAddItems(items: ArrayList<Items>) {
+        movieArrayList.clear()
+        movieArrayList.addAll(items)
+        notifyDataSetChanged()
+    }
+
+    private fun interpretHtml(str: String): Spanned {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            Html.fromHtml(str, Html.FROM_HTML_MODE_LEGACY)
+        else
+            Html.fromHtml(str)
+    }
+
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         private val llMovie = itemView?.findViewById<LinearLayout>(R.id.movie_item)
         private val ivPoster = itemView?.findViewById<ImageView>(R.id.iv_poster)
@@ -63,23 +81,5 @@ class MovieAdapter(val context: Context, val movieArrayList: ArrayList<Items>) :
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(ivPoster!!)
         }
-    }
-
-    fun clearItems() {
-        movieArrayList.clear()
-        notifyDataSetChanged()
-    }
-
-    fun clearAndAddItems(items: ArrayList<Items>) {
-        movieArrayList.clear()
-        movieArrayList.addAll(items)
-        notifyDataSetChanged()
-    }
-
-    private fun interpretHtml(str: String): Spanned {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            Html.fromHtml(str, Html.FROM_HTML_MODE_LEGACY)
-        else
-            Html.fromHtml(str)
     }
 }
