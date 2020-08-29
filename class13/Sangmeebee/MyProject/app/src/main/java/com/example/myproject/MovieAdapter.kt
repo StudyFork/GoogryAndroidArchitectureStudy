@@ -26,17 +26,17 @@ class MovieAdapter(val context: Context, val movieArrayList: ArrayList<Items>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView = LayoutInflater.from(parent.context)
             .inflate(R.layout.movie_item, parent, false)
-        return ViewHolder(inflatedView)
+        val result = ViewHolder(inflatedView)
+        inflatedView.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(movieArrayList[result.bindingAdapterPosition].link)
+            context.startActivity(intent)
+        }
+        return result
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(movieArrayList[position])
-
-        holder.llMovie!!.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(item.link)
-            context.startActivity(intent)
-        }
     }
 
     override fun getItemCount() = movieArrayList.size
