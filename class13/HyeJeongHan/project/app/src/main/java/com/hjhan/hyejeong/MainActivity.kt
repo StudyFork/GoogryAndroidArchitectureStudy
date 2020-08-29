@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<MovieData>, t: Throwable) {
-
+                Toast.makeText(this@MainActivity, "에러 발생!", Toast.LENGTH_SHORT).show()
             }
         })
     }
