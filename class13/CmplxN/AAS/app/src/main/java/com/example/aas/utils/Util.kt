@@ -1,4 +1,4 @@
-package com.example.aas
+package com.example.aas.utils
 
 import android.content.Context
 import android.os.Build

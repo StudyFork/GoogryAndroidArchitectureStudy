@@ -1,9 +1,10 @@
-package com.example.aas
+package com.example.aas.ui
 
 import android.content.Intent
 import android.net.Uri
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.aas.data.model.Movie
 import com.jakewharton.rxbinding2.view.RxView
 import java.util.concurrent.TimeUnit
 

@@ -1,9 +1,12 @@
-package com.example.aas
+package com.example.aas.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.aas.data.model.Movie
+import com.example.aas.R
+import com.example.aas.utils.toHtml
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(

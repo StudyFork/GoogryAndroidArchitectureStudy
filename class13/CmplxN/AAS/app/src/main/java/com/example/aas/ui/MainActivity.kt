@@ -1,8 +1,11 @@
-package com.example.aas
+package com.example.aas.ui
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.aas.R
+import com.example.aas.data.network.RetrofitManager
+import com.example.aas.utils.hideKeyboard
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,12 +35,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-				Toast.makeText(this, "Search Completed", Toast.LENGTH_SHORT).show()
-				movieAdapter.setList(it.movies)
-			}, {
-				Toast.makeText(this, "Network Error", Toast.LENGTH_LONG).show()
-				it.printStackTrace()
-			}).addTo(compositeDisposable)
+                Toast.makeText(this, "Search Completed", Toast.LENGTH_SHORT).show()
+                movieAdapter.setList(it.movies)
+            }, {
+                Toast.makeText(this, "Network Error", Toast.LENGTH_LONG).show()
+                it.printStackTrace()
+            }).addTo(compositeDisposable)
     }
 
     override fun onDestroy() {

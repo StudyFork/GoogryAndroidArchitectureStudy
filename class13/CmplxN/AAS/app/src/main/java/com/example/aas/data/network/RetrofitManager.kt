@@ -1,5 +1,6 @@
-package com.example.aas
+package com.example.aas.data.network
 
+import com.example.aas.BuildConfig
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
