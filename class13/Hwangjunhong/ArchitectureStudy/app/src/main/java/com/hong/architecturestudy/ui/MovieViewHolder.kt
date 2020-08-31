@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.R
-import com.hong.architecturestudy.data.MovieData
+import com.hong.architecturestudy.data.model.MovieData
 import com.hong.architecturestudy.ext.loadImageView
 import com.hong.architecturestudy.ext.toHtml
 import kotlinx.android.synthetic.main.item_movie_list.view.*
