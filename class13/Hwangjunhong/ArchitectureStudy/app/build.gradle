@@ -45,6 +45,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
 
+    //Room
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
     //RecyclerView
     implementation "androidx.recyclerview:recyclerview:1.2.0-alpha05"
 
