@@ -11,10 +11,10 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
-import com.camai.archtecherstudy.ui.adapter.MovieSearchAdapter
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.model.MovieResponseModel
-import com.camai.archtecherstudy.data.network.MovieApiService
+import com.camai.archtecherstudy.data.network.MovieApiServiceImpl
+import com.camai.archtecherstudy.ui.adapter.MovieSearchAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Response
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     //  Naver Moive Search Api Call
     private fun getMoiveSearchCall(movietitle: String) {
 
-        MovieApiService.create().getMovieSearch(movietitle, 100, 1).enqueue(object :
+        MovieApiServiceImpl.create().getMovieSearch(movietitle, 100, 1).enqueue(object :
             retrofit2.Callback<MovieResponseModel> {
 
             override fun onResponse(
