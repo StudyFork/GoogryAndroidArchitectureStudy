@@ -7,6 +7,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.R
+import com.hong.architecturestudy.data.repository.RepositoryDataSource
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
 import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
 import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
@@ -15,14 +16,10 @@ class MovieListDialogFragment : DialogFragment() {
 
     private val movieSearchListAdapter = MovieSearchListAdapter()
 
-    private val repositoryDataSourceImpl: RepositoryDataSourceImpl by lazy {
+    private val repositoryDataSourceImpl: RepositoryDataSource by lazy {
         val remoteDataSourceImpl = RemoteDataSourceImpl()
         val localDataSourceImpl = LocalDataSourceImpl()
         RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl)
-    }
-
-    fun newInstance(): MovieListDialogFragment {
-        return MovieListDialogFragment()
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -47,5 +44,11 @@ class MovieListDialogFragment : DialogFragment() {
 
         return dialog.create()
 
+    }
+
+    companion object {
+        fun newInstance(): MovieListDialogFragment {
+            return MovieListDialogFragment()
+        }
     }
 }
