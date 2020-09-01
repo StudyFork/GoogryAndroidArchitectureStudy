@@ -1,7 +1,7 @@
-package com.camai.archtecherstudy.network
+package com.camai.archtecherstudy.data.network
 
 import com.bumptech.glide.BuildConfig
-import com.camai.archtecherstudy.model.MovieResponseModel
+import com.camai.archtecherstudy.data.model.MovieResponseModel
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

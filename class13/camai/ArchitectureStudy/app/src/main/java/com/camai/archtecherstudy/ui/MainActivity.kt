@@ -1,4 +1,4 @@
-package com.camai.archtecherstudy
+package com.camai.archtecherstudy.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -10,10 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.camai.archtecherstudy.adapter.MovieSearchAdapter
-import com.camai.archtecherstudy.model.Items
-import com.camai.archtecherstudy.model.MovieResponseModel
-import com.camai.archtecherstudy.network.MovieApiService
+import com.camai.archtecherstudy.R
+import com.camai.archtecherstudy.ui.adapter.MovieSearchAdapter
+import com.camai.archtecherstudy.data.model.Items
+import com.camai.archtecherstudy.data.model.MovieResponseModel
+import com.camai.archtecherstudy.data.network.MovieApiService
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Response
@@ -41,7 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     //  RecyclerView Adapter Set
     private fun setAdapterAndRecyclerViewInit() {
-        movieSearchAdapter = MovieSearchAdapter()
+        movieSearchAdapter =
+            MovieSearchAdapter()
         recycler_view.run {
             adapter = movieSearchAdapter
             setHasFixedSize(false)

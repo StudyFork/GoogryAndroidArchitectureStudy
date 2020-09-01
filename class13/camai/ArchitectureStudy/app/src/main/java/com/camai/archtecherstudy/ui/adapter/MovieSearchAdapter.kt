@@ -1,4 +1,4 @@
-package com.camai.archtecherstudy.adapter
+package com.camai.archtecherstudy.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.R.string.*
-import com.camai.archtecherstudy.model.Items
+import com.camai.archtecherstudy.data.model.Items
 
 class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>() {
 
@@ -23,7 +23,9 @@ class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
 
-        return ViewHolder(view).click{position ->
+        return ViewHolder(
+            view
+        ).click{ position ->
             //  Movie Content WebView Call
             val webpage = Uri.parse(movieInfoArrayList.get(position).link)
             val webIntent = Intent(Intent.ACTION_VIEW, webpage)

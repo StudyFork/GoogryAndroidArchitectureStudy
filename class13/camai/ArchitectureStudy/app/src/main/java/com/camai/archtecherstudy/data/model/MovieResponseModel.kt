@@ -1,4 +1,4 @@
-package com.camai.archtecherstudy.model
+package com.camai.archtecherstudy.data.model
 
 import com.google.gson.annotations.SerializedName
 
