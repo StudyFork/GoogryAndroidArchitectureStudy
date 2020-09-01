@@ -67,10 +67,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        titleListener = {
-            repositoryDataSourceImpl.getMovieList(it,
-                {
-                    adapter.setData(it)
+        titleListener = { movieTitle ->
+            repositoryDataSourceImpl.getMovieList(movieTitle,
+                { movieData ->
+                    adapter.setData(movieData)
                     hideKeyboard(this, edit_search)
                 }, {
                     Toast.makeText(this, "검색 실패", Toast.LENGTH_LONG).show()
