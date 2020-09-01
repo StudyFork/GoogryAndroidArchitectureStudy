@@ -11,7 +11,7 @@ class MovieSearchListViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     LayoutInflater.from(parent.context).inflate(R.layout.item_movie_search_list, parent, false)
 ) {
 
-    private var movieTitle = itemView.tv_movie_title
+    private val movieTitle = itemView.tv_movie_title
 
     fun bind(movieInfo: MovieInfo) {
         movieTitle.text = movieInfo.movieTitle
