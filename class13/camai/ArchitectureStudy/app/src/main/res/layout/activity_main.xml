@@ -26,6 +26,12 @@
             android:layout_weight="1"
             android:text="@string/btn_search"/>
 
+        <Button
+            android:id="@+id/btn_recent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_recent_search"/>
     </LinearLayout>
 
     <FrameLayout
