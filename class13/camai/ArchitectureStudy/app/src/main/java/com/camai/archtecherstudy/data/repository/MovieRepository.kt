@@ -21,7 +21,9 @@ interface MovieRepository {
     //  local data save source
     fun setMovieNameInsert(keyword: String, context: Context)
 
+    //  delete data all
     fun deteleDb(context: Context)
-    //
+
+    // db close
     fun dbclose()
 }
