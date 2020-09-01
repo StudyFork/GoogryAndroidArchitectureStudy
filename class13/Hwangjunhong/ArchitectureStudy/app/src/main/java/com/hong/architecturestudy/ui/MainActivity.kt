@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.hong.architecturestudy.R
 import com.hong.architecturestudy.data.repository.RepositoryDataSource
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
@@ -27,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val adapter = MovieAdapter()
-    private val movieSearchListAdapter = MovieSearchListAdapter()
     private val movieListDialogFragment = MovieListDialogFragment.newInstance()
     lateinit var titleListener: ((String) -> Unit)
 
@@ -57,9 +55,6 @@ class MainActivity : AppCompatActivity() {
 
         btn_search_list.setOnClickListener {
             movieListDialogFragment.show(supportFragmentManager, "dialog")
-            repositoryDataSourceImpl.loadData(this, Observer {
-                movieSearchListAdapter.setList(it)
-            }, this)
 
         }
     }
