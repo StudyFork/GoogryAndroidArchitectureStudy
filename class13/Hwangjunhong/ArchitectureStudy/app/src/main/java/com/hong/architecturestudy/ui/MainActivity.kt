@@ -14,7 +14,9 @@ import com.hong.architecturestudy.data.source.local.MovieDatabase
 import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
 import com.hong.architecturestudy.ext.hideKeyboard
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
 
     private val adapter = MovieAdapter()
     private val movieSearchListAdapter = MovieSearchListAdapter()
+    private val movieListDialogFragment = MovieListDialogFragment().newInstance()
+    lateinit var titleListener: ((String) -> Unit)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +38,6 @@ class MainActivity : AppCompatActivity() {
         setRecyclerView()
 
         btn_search.setOnClickListener {
-            rv_movies_list.isVisible = true
-            rv_search_list.isVisible = false
             val keyword = edit_search.text.toString()
             if (keyword.isBlank()) {
                 Toast.makeText(this, "영화 제목을 입력해 주세요", Toast.LENGTH_LONG).show()
@@ -54,9 +56,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_search_list.setOnClickListener {
-            rv_movies_list.isVisible = false
-            rv_search_list.isVisible = true
-
+            movieListDialogFragment.show(supportFragmentManager, "dialog")
             repositoryDataSourceImpl.loadData(this, Observer {
                 movieSearchListAdapter.setList(it)
             }, this)
@@ -72,13 +72,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        rv_search_list.adapter = movieSearchListAdapter
-        rv_search_list.setHasFixedSize(true)
-
-        movieSearchListAdapter.onClick = { title ->
-            rv_search_list.isVisible = false
-            edit_search.text.clear()
-            repositoryDataSourceImpl.getMovieList(title,
+        titleListener = {
+            repositoryDataSourceImpl.getMovieList(it,
                 {
                     rv_movies_list.isVisible = true
                     adapter.setData(it)
@@ -86,6 +81,8 @@ class MainActivity : AppCompatActivity() {
                 }, {
                     Toast.makeText(this, "검색 실패", Toast.LENGTH_LONG).show()
                 })
+
+            movieListDialogFragment.dismiss()
         }
     }
 
