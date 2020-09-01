@@ -8,21 +8,22 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.model.Items
-import com.camai.archtecherstudy.data.model.MovieResponseModel
-import com.camai.archtecherstudy.data.network.MovieApiServiceImpl
+import com.camai.archtecherstudy.data.model.RecentMovieNameViewModel
+import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.ui.adapter.MovieSearchAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
     private val TAG = "MovieSearch"
     private lateinit var movieSearchAdapter: MovieSearchAdapter
+    private lateinit var viewModel: RecentMovieNameViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +32,23 @@ class MainActivity : AppCompatActivity() {
         //  Recycler View And Adapter Init
         setAdapterAndRecyclerViewInit()
 
+        //  Dialog Fragment ViewModel Event receive
+        viewModel = ViewModelProvider(this).get(RecentMovieNameViewModel::class.java)
+        viewModel.name.observe(this, Observer {
+            //  remote data source search movie name
+            getMoiveSearchCall(it)
+        })
+
         //  Search Button Click Event
         btn_search.setOnClickListener(View.OnClickListener {
             hideKeyboard(this)
             progressbar.isVisible = true
             searchStart()
+        })
+
+        //  Recent Search Movie Name list Dialog Show Click Event
+        btn_recent.setOnClickListener(View.OnClickListener {
+            RecentMovieListDialog().show(supportFragmentManager, RecentMovieListDialog.TAG)
         })
 
     }
@@ -44,6 +57,8 @@ class MainActivity : AppCompatActivity() {
     private fun setAdapterAndRecyclerViewInit() {
         movieSearchAdapter =
             MovieSearchAdapter()
+
+        //  recycler view init and adapter connect
         recycler_view.run {
             adapter = movieSearchAdapter
             setHasFixedSize(false)
@@ -81,43 +96,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //  Naver Moive Search Api Call
+    private fun getMoiveSearchCall(movietitle: String) {
+        MovieRepositoryImpl.getMovieNameSearch(movietitle, 100, 1,
+            success = { movieList ->
+                //  Data Insert
+                insertMovieNameInDb(movietitle)
+                //  movie list data to recycler View
+                setListData(movieList)
+            },
+            failed = { error ->
+                showNotFoundMessage(movietitle)
+                error.let { Log.e(TAG, it) }
+            })
+    }
+
+    //  Data Insert
+    private fun insertMovieNameInDb(name: String) {
+        MovieRepositoryImpl.setMovieNameInsert(name, this)
+    }
+
     //  Update Movie Search Result Data List
     private fun setListData(infoList: ArrayList<Items>) {
         movieSearchAdapter.setClearAndAddList(infoList)
 
         progressbar.isVisible = false
         edit_name.text.clear()
-
-    }
-
-    //  Naver Moive Search Api Call
-    private fun getMoiveSearchCall(movietitle: String) {
-
-        MovieApiServiceImpl.create().getMovieSearch(movietitle, 100, 1).enqueue(object :
-            retrofit2.Callback<MovieResponseModel> {
-
-            override fun onResponse(
-                call: Call<MovieResponseModel>,
-                response: Response<MovieResponseModel>
-            ) {
-                // Success
-                if (response.isSuccessful) {
-
-                    val body = response.body()
-                    body?.let {
-                        setListData(it.items)
-                    }
-
-                } else {
-                    Log.e(TAG, response.message())
-                }
-            }
-
-            override fun onFailure(call: Call<MovieResponseModel>, t: Throwable) {
-                // Failed
-                showNotFoundMessage(movietitle)
-                Log.e(TAG, t.message.toString())
-            }
-        })
     }
 }

@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.moviesearch.R
-import com.example.moviesearch.data.source.local.RecentSearchNameList
+import com.camai.archtecherstudy.R
+import com.camai.archtecherstudy.source.local.room.RecentSearchNameList
+
 
 class RecentMovieAdapter(
     val recentlist: List<RecentSearchNameList>,
