@@ -25,7 +25,7 @@ class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>()
 
         return ViewHolder(
             view
-        ).click{ position ->
+        ).click { position ->
             //  Movie Content WebView Call
             val webpage = Uri.parse(movieInfoArrayList.get(position).link)
             val webIntent = Intent(Intent.ACTION_VIEW, webpage)
@@ -34,8 +34,8 @@ class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>()
     }
 
     //  itemView setOnClickListener Extension
-    fun <T : RecyclerView.ViewHolder> T.click(event: (position: Int) -> Unit) : T {
-        itemView.setOnClickListener{
+    fun <T : RecyclerView.ViewHolder> T.click(event: (position: Int) -> Unit): T {
+        itemView.setOnClickListener {
             event.invoke(adapterPosition)
         }
         return this
@@ -73,7 +73,7 @@ class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>()
             title?.text = itemInfo.title
             pub_data?.text = itemView.context.getString(movie_date) + itemInfo.pubDate
             director?.text = itemView.context.getString(movie_director) + itemInfo.director
-            actor?.text = itemView.context.getString(movie_actor) +itemInfo.actor
+            actor?.text = itemView.context.getString(movie_actor) + itemInfo.actor
             user_rating?.rating = itemInfo.userRating
 
             if (poster != null) {
