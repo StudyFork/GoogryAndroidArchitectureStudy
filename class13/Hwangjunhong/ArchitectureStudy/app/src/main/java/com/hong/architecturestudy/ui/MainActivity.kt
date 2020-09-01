@@ -5,9 +5,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.hong.architecturestudy.R
+import com.hong.architecturestudy.data.repository.RepositoryDataSource
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
 import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
 import com.hong.architecturestudy.data.source.local.MovieDatabase
@@ -20,7 +20,7 @@ import kotlinx.coroutines.cancel
 
 class MainActivity : AppCompatActivity() {
 
-    private val repositoryDataSourceImpl: RepositoryDataSourceImpl by lazy {
+    private val repositoryDataSourceImpl: RepositoryDataSource by lazy {
         val remoteDataSourceImpl = RemoteDataSourceImpl()
         val localDataSourceImpl = LocalDataSourceImpl()
         RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl)
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private val adapter = MovieAdapter()
     private val movieSearchListAdapter = MovieSearchListAdapter()
-    private val movieListDialogFragment = MovieListDialogFragment().newInstance()
+    private val movieListDialogFragment = MovieListDialogFragment.newInstance()
     lateinit var titleListener: ((String) -> Unit)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +75,6 @@ class MainActivity : AppCompatActivity() {
         titleListener = {
             repositoryDataSourceImpl.getMovieList(it,
                 {
-                    rv_movies_list.isVisible = true
                     adapter.setData(it)
                     hideKeyboard(this, edit_search)
                 }, {
