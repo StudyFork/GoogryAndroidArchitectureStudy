@@ -1,4 +1,4 @@
-package com.hjhan.hyejeong
+package com.hjhan.hyejeong.ui
 
 import android.os.Bundle
 import android.widget.Button
@@ -6,9 +6,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.hjhan.hyejeong.network.ApiInterface
-import com.hjhan.hyejeong.network.ServiceClient
-import com.hjhan.hyejeong.network.data.MovieData
+import com.hjhan.hyejeong.R
+import com.hjhan.hyejeong.data.network.NaverApi
+import com.hjhan.hyejeong.data.network.ServiceClient
+import com.hjhan.hyejeong.data.model.MovieData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestMovieList(title: String) {
-        val api = ServiceClient.createService(ApiInterface::class.java)
+        val api = ServiceClient.createService(NaverApi::class.java)
         api.getMovies(title, 10, 100).enqueue(object : Callback<MovieData> {
             override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
                 if (response.isSuccessful) {

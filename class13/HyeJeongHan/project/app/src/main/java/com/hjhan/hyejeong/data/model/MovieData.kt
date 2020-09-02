@@ -1,4 +1,4 @@
-package com.hjhan.hyejeong.network.data
+package com.hjhan.hyejeong.data.model
 
 data class MovieData(
     val lastBuildDate: String,

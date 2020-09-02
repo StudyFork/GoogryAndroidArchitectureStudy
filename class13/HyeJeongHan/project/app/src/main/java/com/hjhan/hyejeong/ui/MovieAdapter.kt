@@ -1,6 +1,5 @@
-package com.hjhan.hyejeong
+package com.hjhan.hyejeong.ui
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.hjhan.hyejeong.network.data.Item
+import com.hjhan.hyejeong.R
+import com.hjhan.hyejeong.data.model.Item
 
 class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
