@@ -17,6 +17,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 
+typealias STU = (String) -> Unit
+
 class MainActivity : AppCompatActivity() {
 
     private val repositoryDataSourceImpl: RepositoryDataSource by lazy {
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private val adapter = MovieAdapter()
     private val movieListDialogFragment = MovieListDialogFragment.newInstance()
-    lateinit var titleListener: ((String) -> Unit)
+    lateinit var titleListener: STU
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
