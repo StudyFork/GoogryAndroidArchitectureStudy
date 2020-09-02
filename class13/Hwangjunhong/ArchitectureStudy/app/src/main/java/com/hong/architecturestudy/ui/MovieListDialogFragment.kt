@@ -14,8 +14,6 @@ import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
 
 class MovieListDialogFragment : DialogFragment() {
 
-    private val movieSearchListAdapter = MovieSearchListAdapter()
-
     private val repositoryDataSourceImpl: RepositoryDataSource by lazy {
         val remoteDataSourceImpl = RemoteDataSourceImpl()
         val localDataSourceImpl = LocalDataSourceImpl()
@@ -26,6 +24,7 @@ class MovieListDialogFragment : DialogFragment() {
         val inflater = activity?.layoutInflater
         val view = inflater?.inflate(R.layout.dialog_fragment_movie_list, null)
         val rvSearchItem = view?.findViewById<RecyclerView>(R.id.rv_search_list)
+        val movieSearchListAdapter = MovieSearchListAdapter {}
 
         rvSearchItem?.adapter = movieSearchListAdapter
         rvSearchItem?.setHasFixedSize(true)
@@ -34,9 +33,9 @@ class MovieListDialogFragment : DialogFragment() {
             .observe(this, Observer {
                 movieSearchListAdapter.setList(it)
             })
-        
+
         movieSearchListAdapter.onClick = {
-            (requireActivity() as MainActivity).titleListener.invoke(it)
+            (requireActivity() as MainActivity).titleListener.invoke(it.movieTitle)
         }
 
         val dialog = AlertDialog.Builder(requireActivity())
