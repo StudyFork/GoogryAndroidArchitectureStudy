@@ -1,8 +1,7 @@
 package com.hong.architecturestudy.data.source.local
 
 import android.content.Context
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import androidx.lifecycle.LiveData
 import com.hong.architecturestudy.data.source.local.entity.MovieInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,12 +20,10 @@ class LocalDataSourceImpl : LocalDataSource {
     }
 
     override fun loadData(
-        lifecycleOwner: LifecycleOwner,
-        observer: Observer<List<MovieInfo>>,
         context: Context
-    ) {
+    ): LiveData<List<MovieInfo>> {
         movieDB = MovieDatabase.getInstance(context)
-        movieDB?.movieDao()?.getAll()?.observe(lifecycleOwner, observer)
+        return movieDB?.movieDao()?.getAll()!!
     }
 
 }

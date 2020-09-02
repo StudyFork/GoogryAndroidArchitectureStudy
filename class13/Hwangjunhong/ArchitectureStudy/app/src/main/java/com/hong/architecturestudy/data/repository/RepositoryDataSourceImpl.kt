@@ -1,8 +1,7 @@
 package com.hong.architecturestudy.data.repository
 
 import android.content.Context
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import androidx.lifecycle.LiveData
 import com.hong.architecturestudy.data.model.MovieData
 import com.hong.architecturestudy.data.source.local.LocalDataSource
 import com.hong.architecturestudy.data.source.local.entity.MovieInfo
@@ -26,11 +25,9 @@ class RepositoryDataSourceImpl(
     }
 
     override fun loadData(
-        lifecycleOwner: LifecycleOwner,
-        observer: Observer<List<MovieInfo>>,
         context: Context
-    ) {
-        localDataSource.loadData(lifecycleOwner, observer, context)
+    ): LiveData<List<MovieInfo>> {
+        return localDataSource.loadData(context)
     }
 
 

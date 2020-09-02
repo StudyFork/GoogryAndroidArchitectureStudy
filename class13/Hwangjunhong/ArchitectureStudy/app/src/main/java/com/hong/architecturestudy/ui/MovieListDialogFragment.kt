@@ -30,10 +30,11 @@ class MovieListDialogFragment : DialogFragment() {
         rvSearchItem?.adapter = movieSearchListAdapter
         rvSearchItem?.setHasFixedSize(true)
 
-        repositoryDataSourceImpl.loadData(this, Observer {
-            movieSearchListAdapter.setList(it)
-        }, requireContext())
-
+        repositoryDataSourceImpl.loadData(requireContext())
+            .observe(this, Observer {
+                movieSearchListAdapter.setList(it)
+            })
+        
         movieSearchListAdapter.onClick = {
             (requireActivity() as MainActivity).titleListener.invoke(it)
         }
