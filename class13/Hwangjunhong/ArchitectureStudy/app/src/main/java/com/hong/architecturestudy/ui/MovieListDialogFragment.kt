@@ -30,7 +30,7 @@ class MovieListDialogFragment : DialogFragment() {
         rvSearchItem?.setHasFixedSize(true)
 
         repositoryDataSourceImpl.loadData(requireContext())
-            .observe(this, Observer {
+            .observe(viewLifecycleOwner, Observer {
                 movieSearchListAdapter.setList(it)
             })
 
