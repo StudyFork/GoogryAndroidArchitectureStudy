@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aas.R
+import com.example.aas.data.model.ApiResult
 import com.example.aas.data.repository.MovieSearchRepository
 import com.example.aas.data.repository.MovieSearchRepositoryImpl
 import com.example.aas.utils.hideKeyboard
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -37,14 +39,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), HistorySelection
                 hideKeyboard(this, et_movie_name)
                 movieSearchRepository.getMovies(keyword.toString(), applicationContext)
             }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Toast.makeText(this, "Search Completed", Toast.LENGTH_SHORT).show()
-                movieAdapter.setList(it.movies)
-            }, {
-                Toast.makeText(this, "Network Error", Toast.LENGTH_LONG).show()
-                it.printStackTrace()
-            }).addTo(compositeDisposable)
+            .observeGetMovies()
 
         btn_history.isEnabled = movieSearchRepository.getSavedQueries(this).isNotEmpty()
 
@@ -61,12 +56,17 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), HistorySelection
 
     override fun onHistorySelection(query: String) {
         movieSearchRepository.getMovies(query, this)
-            .observeOn(AndroidSchedulers.mainThread())
+            .toObservable()
+            .observeGetMovies()
+    }
+
+    private fun Observable<ApiResult>.observeGetMovies() {
+        this.observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Toast.makeText(this, "Search Completed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "Search Completed", Toast.LENGTH_SHORT).show()
                 movieAdapter.setList(it.movies)
             }, {
-                Toast.makeText(this, "Network Error", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MainActivity, "Network Error", Toast.LENGTH_LONG).show()
                 it.printStackTrace()
             }).addTo(compositeDisposable)
     }
