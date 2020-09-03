@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), HistorySelection
     private val compositeDisposable = CompositeDisposable()
     private val movieSearchRepository: MovieSearchRepository = MovieSearchRepositoryImpl
     private val movieAdapter = MovieAdapter()
-    private val savedQueryDialogFragment by lazy { SavedQueryDialogFragment.getInstance(this) }
+    private val savedQueryDialogFragment by lazy { SavedQueryDialogFragment.create(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

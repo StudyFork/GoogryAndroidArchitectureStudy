@@ -17,17 +17,17 @@ class SavedQueryDialogFragment(private val historySelectionListener: HistorySele
         searchHistory =
             movieSearchRepository.getSavedQueries(requireContext()).reversed()
         return requireActivity().let {
-            val builder = AlertDialog.Builder(it)
-            builder.setTitle("최근 5개 검색어")
+            AlertDialog.Builder(it)
+                .setTitle("최근 5개 검색어")
                 .setItems(searchHistory.toTypedArray()) { _, idx ->
                     historySelectionListener.onHistorySelection(searchHistory[idx])
                 }
-            builder.create()
+                .create()
         }
     }
 
     companion object {
-        fun getInstance(historySelectionListener: HistorySelectionListener): SavedQueryDialogFragment {
+        fun create(historySelectionListener: HistorySelectionListener): SavedQueryDialogFragment {
             return SavedQueryDialogFragment(historySelectionListener)
         }
     }
