@@ -1,4 +1,4 @@
-package com.example.myproject
+package com.example.myproject.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -6,9 +6,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myproject.retrofit.RetrofitClient
-import com.example.myproject.retrofit.model.Items
-import com.example.myproject.retrofit.model.Movie
+import com.example.myproject.MovieAdapter
+import com.example.myproject.R
+import com.example.myproject.data.service.RetrofitClient
+import com.example.myproject.data.model.Items
+import com.example.myproject.data.model.Movie
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback

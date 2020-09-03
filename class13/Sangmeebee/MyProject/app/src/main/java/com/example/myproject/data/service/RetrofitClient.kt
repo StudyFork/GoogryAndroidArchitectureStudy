@@ -1,6 +1,5 @@
-package com.example.myproject.retrofit
+package com.example.myproject.data.service
 
-import com.example.myproject.retrofit.service.MovieService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
