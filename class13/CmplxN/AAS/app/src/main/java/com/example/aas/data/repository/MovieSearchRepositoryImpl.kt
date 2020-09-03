@@ -17,7 +17,7 @@ object MovieSearchRepositoryImpl : MovieSearchRepository {
         return remoteDataSource.getMovies(query)
     }
 
-    override fun getSavedQueries(context: Context): List<String> {
-        return localDataSource.getSavedQuery(context)
-    }
+    override fun getSavedQueries(context: Context): List<String> =
+        localDataSource.getSavedQuery(context)
+
 }
