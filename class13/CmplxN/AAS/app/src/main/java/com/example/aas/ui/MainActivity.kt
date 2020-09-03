@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), HistorySelection
             }).addTo(compositeDisposable)
 
         btn_history.isEnabled =
-            movieSearchRepository.getSavedQueries(applicationContext).isNotEmpty()
+            movieSearchRepository.getSavedQueries(this).isNotEmpty()
 
         RxView.clicks(btn_history)
             .throttleFirst(1000L, TimeUnit.MILLISECONDS)
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), HistorySelection
     }
 
     override fun onHistorySelection(query: String) {
-        movieSearchRepository.getMovies(query, applicationContext)
+        movieSearchRepository.getMovies(query, this)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 Toast.makeText(this, "Search Completed", Toast.LENGTH_SHORT).show()
