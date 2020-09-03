@@ -46,8 +46,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), HistorySelection
                 it.printStackTrace()
             }).addTo(compositeDisposable)
 
-        btn_history.isEnabled =
-            movieSearchRepository.getSavedQueries(this).isNotEmpty()
+        btn_history.isEnabled = movieSearchRepository.getSavedQueries(this).isNotEmpty()
 
         RxView.clicks(btn_history)
             .throttleFirst(1000L, TimeUnit.MILLISECONDS)

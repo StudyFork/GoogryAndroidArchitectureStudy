@@ -18,9 +18,7 @@ class LocalDataSourceImpl : LocalDataSource {
 
         val editor = queryHistorySharedPreferences.edit()
         val editArray = JSONArray()
-        currentState.forEach {
-            editArray.put(it)
-        }
+        currentState.forEach { editArray.put(it) }
         editor.putString(sharedPreferencesName, editArray.toString())
         editor.apply()
     }
