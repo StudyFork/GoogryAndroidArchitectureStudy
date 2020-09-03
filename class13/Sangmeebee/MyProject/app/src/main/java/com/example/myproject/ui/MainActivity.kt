@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myproject.MovieAdapter
 import com.example.myproject.R
-import com.example.myproject.data.service.RetrofitClient
 import com.example.myproject.data.model.Items
 import com.example.myproject.data.model.Movie
+import com.example.myproject.data.service.RetrofitClient
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
             if (title.isEmpty()) {
                 Toast.makeText(this, "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
             } else {
-                recyclerview.layoutManager?.scrollToPosition(0);
-                getMovie(title);
+                recyclerview.layoutManager?.scrollToPosition(0)
+                getMovie(title)
             }
         }
     }
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     fun setRecyclerView() {
         recyclerview.apply {
             recyclerview.setHasFixedSize(true)
-            recyclerview.setAdapter(movieAdapter)
+            recyclerview.adapter = movieAdapter
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         }
     }
