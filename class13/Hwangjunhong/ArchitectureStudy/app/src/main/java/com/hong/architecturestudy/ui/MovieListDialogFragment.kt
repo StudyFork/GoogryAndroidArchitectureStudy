@@ -30,7 +30,7 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
         rvSearchItem?.adapter = movieSearchListAdapter
         rvSearchItem?.setHasFixedSize(true)
 
-        repositoryDataSourceImpl.loadData(requireContext())
+        repositoryDataSourceImpl.loadData(requireActivity())
             .observe(requireActivity(), Observer {
                 movieSearchListAdapter.setList(it)
             })
