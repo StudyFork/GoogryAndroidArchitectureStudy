@@ -11,7 +11,7 @@ class MovieSearchListAdapter(var onClick: GetMovieTitle) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         MovieSearchListViewHolder(parent).apply {
             itemView.setOnClickListener {
-                onClick.invoke(movieListItems[absoluteAdapterPosition].movieTitle)
+                onClick(movieListItems[absoluteAdapterPosition].movieTitle)
             }
         }
 
