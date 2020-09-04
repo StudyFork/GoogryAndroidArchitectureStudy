@@ -28,8 +28,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val adapter = MovieAdapter()
-    private val movieListDialogFragment = MovieListDialogFragment.newInstance()
-    lateinit var titleListener: GetMovieTitle
+
+    private val movieListDialogFragment = MovieListDialogFragment.newInstance { movieTitle ->
+        repositoryDataSourceImpl.getMovieList(movieTitle, { movieData ->
+            adapter.setData(movieData)
+            hideKeyboard(this, edit_search)
+        }, {
+            Toast.makeText(this, "검색 실패", Toast.LENGTH_LONG).show()
+        })
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,17 +77,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        titleListener = { movieTitle ->
-            repositoryDataSourceImpl.getMovieList(movieTitle,
-                { movieData ->
-                    adapter.setData(movieData)
-                    hideKeyboard(this, edit_search)
-                }, {
-                    Toast.makeText(this, "검색 실패", Toast.LENGTH_LONG).show()
-                })
-
-            movieListDialogFragment.dismiss()
-        }
     }
 
     override fun onDestroy() {

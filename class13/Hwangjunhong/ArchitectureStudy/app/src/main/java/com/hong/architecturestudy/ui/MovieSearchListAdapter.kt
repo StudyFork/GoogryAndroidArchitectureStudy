@@ -4,14 +4,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.data.source.local.entity.MovieInfo
 
-class MovieSearchListAdapter(var onClick: ((MovieInfo) -> Unit)) :
+class MovieSearchListAdapter(var onClick: GetMovieTitle) :
     RecyclerView.Adapter<MovieSearchListViewHolder>() {
     private val movieListItems = mutableListOf<MovieInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         MovieSearchListViewHolder(parent).apply {
             itemView.setOnClickListener {
-                onClick.invoke(movieListItems[absoluteAdapterPosition])
+                onClick.invoke(movieListItems[absoluteAdapterPosition].movieTitle)
             }
         }
 

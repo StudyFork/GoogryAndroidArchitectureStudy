@@ -11,8 +11,9 @@ import com.hong.architecturestudy.data.repository.RepositoryDataSource
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
 import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
 import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
+import com.hong.architecturestudy.ui.GetMovieTitle as GetMovieTitle
 
-class MovieListDialogFragment : DialogFragment() {
+class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : DialogFragment() {
 
     private val repositoryDataSourceImpl: RepositoryDataSource by lazy {
         val remoteDataSourceImpl = RemoteDataSourceImpl()
@@ -30,12 +31,13 @@ class MovieListDialogFragment : DialogFragment() {
         rvSearchItem?.setHasFixedSize(true)
 
         repositoryDataSourceImpl.loadData(requireContext())
-            .observe(viewLifecycleOwner, Observer {
+            .observe(requireActivity(), Observer {
                 movieSearchListAdapter.setList(it)
             })
 
         movieSearchListAdapter.onClick = {
-            (requireActivity() as MainActivity).titleListener.invoke(it.movieTitle)
+            getMovieTitle.invoke(it)
+            dismiss()
         }
 
         val dialog = AlertDialog.Builder(requireActivity())
@@ -47,8 +49,8 @@ class MovieListDialogFragment : DialogFragment() {
     }
 
     companion object {
-        fun newInstance(): MovieListDialogFragment {
-            return MovieListDialogFragment()
+        fun newInstance(param: (String) -> Unit): MovieListDialogFragment {
+            return MovieListDialogFragment(getMovieTitle = param)
         }
     }
 }
