@@ -1,6 +1,7 @@
 package com.example.aas.data.source.local
 
 import android.content.Context
+import androidx.core.content.edit
 import org.json.JSONArray
 import org.json.JSONException
 
@@ -16,11 +17,11 @@ class LocalDataSourceImpl : LocalDataSource {
         }
         currentState.add(query)
 
-        val editor = queryHistorySharedPreferences.edit()
-        val editArray = JSONArray()
-        currentState.forEach { editArray.put(it) }
-        editor.putString(sharedPreferencesName, editArray.toString())
-        editor.apply()
+        queryHistorySharedPreferences.edit {
+            val editArray = JSONArray()
+            currentState.forEach { editArray.put(it) }
+            putString(sharedPreferencesName, editArray.toString())
+        }
     }
 
     override fun getSavedQuery(context: Context): List<String> {
