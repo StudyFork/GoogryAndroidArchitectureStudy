@@ -25,7 +25,11 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
         val inflater = activity?.layoutInflater
         val view = inflater?.inflate(R.layout.dialog_fragment_movie_list, null)
         val rvSearchItem = view?.findViewById<RecyclerView>(R.id.rv_search_list)
-        val movieSearchListAdapter = MovieSearchListAdapter {}
+
+        val movieSearchListAdapter = MovieSearchListAdapter {
+            getMovieTitle(it)
+            dismiss()
+        }
 
         rvSearchItem?.adapter = movieSearchListAdapter
         rvSearchItem?.setHasFixedSize(true)
@@ -34,11 +38,6 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
             .observe(requireActivity(), Observer {
                 movieSearchListAdapter.setList(it)
             })
-
-        movieSearchListAdapter.onClick = {
-            getMovieTitle.invoke(it)
-            dismiss()
-        }
 
         val dialog = AlertDialog.Builder(requireActivity())
         dialog.setView(view)
