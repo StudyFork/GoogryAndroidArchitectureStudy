@@ -4,12 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hyper.hyapplication.model.ResultGetSearchMovie
-import com.hyper.hyapplication.repository.NaverRepositoryImpl
-import com.hyper.hyapplication.source.remote.NaverRemoteDataSourceImpl
+import com.hyper.hyapplication.repository.NaverRepository
 
-class MainViewModel : ViewModel() {
-    private val movieRepository = NaverRepositoryImpl(NaverRemoteDataSourceImpl())
-
+class MainViewModel(private val movieRepository: NaverRepository) : ViewModel() {
     val movieName = MutableLiveData<String>()
     private val _message = MutableLiveData<Throwable>()
     private val _emptyData = MutableLiveData<Unit>()
