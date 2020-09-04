@@ -17,7 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 
-typealias getMovieTitle = (String) -> Unit
+typealias GetMovieTitle = (String) -> Unit
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private val adapter = MovieAdapter()
     private val movieListDialogFragment = MovieListDialogFragment.newInstance()
-    lateinit var titleListener: getMovieTitle
+    lateinit var titleListener: GetMovieTitle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
