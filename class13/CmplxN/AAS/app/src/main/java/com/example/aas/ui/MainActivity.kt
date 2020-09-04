@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), HistorySelection
             .subscribe({
                 Toast.makeText(this@MainActivity, "Search Completed", Toast.LENGTH_SHORT).show()
                 movieAdapter.setList(it.movies)
+                btn_history.isEnabled = true
             }, {
                 Toast.makeText(this@MainActivity, "Network Error", Toast.LENGTH_LONG).show()
                 it.printStackTrace()
