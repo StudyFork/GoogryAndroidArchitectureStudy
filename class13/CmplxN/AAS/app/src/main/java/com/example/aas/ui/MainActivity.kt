@@ -3,6 +3,8 @@ package com.example.aas.ui
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import com.example.aas.R
 import com.example.aas.data.model.ApiResult
 import com.example.aas.data.repository.MovieSearchRepository
@@ -17,13 +19,16 @@ import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.TimeUnit
 
-class MainActivity : AppCompatActivity(R.layout.activity_main), HistorySelectionListener {
+class MainActivity : AppCompatActivity(R.layout.activity_main),
+    SavedQueryDialogFragment.HistorySelectionListener {
     private val compositeDisposable = CompositeDisposable()
     private val movieSearchRepository: MovieSearchRepository = MovieSearchRepositoryImpl
     private val movieAdapter = MovieAdapter()
-    private val savedQueryDialogFragment by lazy { SavedQueryDialogFragment.create(this) }
+    private val fragmentFactory: FragmentFactory = FragmentFactoryImpl(this)
+    private val savedQueryDialogFragment by lazy { SavedQueryDialogFragment.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportFragmentManager.fragmentFactory = fragmentFactory
         super.onCreate(savedInstanceState)
 
         rcv_movie.adapter = movieAdapter
@@ -70,5 +75,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), HistorySelection
                 Toast.makeText(this@MainActivity, "Network Error", Toast.LENGTH_LONG).show()
                 it.printStackTrace()
             }).addTo(compositeDisposable)
+    }
+
+    private class FragmentFactoryImpl(private val historySelectionListener: SavedQueryDialogFragment.HistorySelectionListener) :
+        FragmentFactory() {
+
+        override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
+            return when (className) {
+                SavedQueryDialogFragment::class.java.name -> SavedQueryDialogFragment.getInstance(
+                    historySelectionListener
+                )
+                else -> super.instantiate(classLoader, className)
+            }
+        }
     }
 }

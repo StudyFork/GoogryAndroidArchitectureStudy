@@ -26,9 +26,17 @@ class SavedQueryDialogFragment(private val historySelectionListener: HistorySele
         }
     }
 
+    interface HistorySelectionListener {
+        fun onHistorySelection(query: String)
+    }
+
     companion object {
-        fun create(historySelectionListener: HistorySelectionListener): SavedQueryDialogFragment {
-            return SavedQueryDialogFragment(historySelectionListener)
-        }
+        @Volatile
+        private var INSTANCE: SavedQueryDialogFragment? = null
+
+        fun getInstance(historySelectionListener: HistorySelectionListener): SavedQueryDialogFragment =
+            INSTANCE ?: synchronized(this) {
+                SavedQueryDialogFragment(historySelectionListener).also { INSTANCE = it }
+            }
     }
 }
