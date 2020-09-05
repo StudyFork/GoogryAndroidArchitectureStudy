@@ -11,7 +11,6 @@ import com.hong.architecturestudy.data.repository.RepositoryDataSource
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
 import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
 import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
-import com.hong.architecturestudy.ui.GetMovieTitle as GetMovieTitle
 
 class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : DialogFragment() {
 
