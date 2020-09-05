@@ -46,8 +46,14 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
     }
 
     companion object {
-        fun newInstance(param: (String) -> Unit): MovieListDialogFragment {
-            return MovieListDialogFragment(getMovieTitle = param)
-        }
+        @Volatile
+        private var INSTANCE: MovieListDialogFragment? = null
+
+        fun getInstance(param: (String) -> Unit): MovieListDialogFragment =
+            INSTANCE ?: synchronized(this) {
+                MovieListDialogFragment(param).also { INSTANCE = it }
+            }
     }
+
+
 }

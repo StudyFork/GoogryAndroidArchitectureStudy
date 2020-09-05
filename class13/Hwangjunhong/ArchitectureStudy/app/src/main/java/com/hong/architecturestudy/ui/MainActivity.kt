@@ -5,6 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import com.hong.architecturestudy.R
 import com.hong.architecturestudy.data.repository.RepositoryDataSource
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
@@ -27,9 +29,7 @@ class MainActivity : AppCompatActivity() {
         RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl)
     }
 
-    private val adapter = MovieAdapter()
-
-    private val movieListDialogFragment = MovieListDialogFragment.newInstance { movieTitle ->
+    private val getMovieData: GetMovieTitle = { movieTitle ->
         repositoryDataSourceImpl.getMovieList(movieTitle, { movieData ->
             adapter.setData(movieData)
             hideKeyboard(this, edit_search)
@@ -38,8 +38,14 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private val adapter = MovieAdapter()
+    private val fragmentFactory = FragmentFactoryImpl { getMovieData(it) }
+    private val movieListDialogFragment = MovieListDialogFragment.getInstance {
+        getMovieData(it)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportFragmentManager.fragmentFactory = fragmentFactory
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -76,12 +82,22 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieData.link))
             startActivity(intent)
         }
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         CoroutineScope(Dispatchers.IO).cancel()
         MovieDatabase.destroyInstance()
+    }
+
+    class FragmentFactoryImpl(private val getMovieTitle: (String) -> Unit) : FragmentFactory() {
+        override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
+            return when (className) {
+                MovieListDialogFragment::class.java.name -> MovieListDialogFragment.getInstance(
+                    getMovieTitle
+                )
+                else -> super.instantiate(classLoader, className)
+            }
+        }
     }
 }
