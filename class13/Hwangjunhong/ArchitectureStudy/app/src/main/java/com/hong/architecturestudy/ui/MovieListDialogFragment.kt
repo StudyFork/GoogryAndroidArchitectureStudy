@@ -39,11 +39,10 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
                 movieSearchListAdapter.setList(it)
             })
 
-        val dialog = AlertDialog.Builder(requireActivity())
-        dialog.setView(view)
-        dialog.setTitle("최근 검색")
-
-        return dialog.create()
+        return AlertDialog.Builder(requireActivity())
+            .setView(view)
+            .setTitle("최근 검색")
+            .create()
 
     }
 
