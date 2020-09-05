@@ -1,4 +1,4 @@
-package com.camai.archtecherstudy.source.local.room
+package com.camai.archtecherstudy.data.source.local.room
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

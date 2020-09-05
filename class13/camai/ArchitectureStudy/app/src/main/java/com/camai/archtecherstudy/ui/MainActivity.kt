@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG = "MovieSearch"
     private lateinit var movieSearchAdapter: MovieSearchAdapter
-    private lateinit var viewModel: RecentMovieNameViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +32,7 @@ class MainActivity : AppCompatActivity() {
         setAdapterAndRecyclerViewInit()
 
         //  Dialog Fragment ViewModel Event receive
-        viewModel = ViewModelProvider(this).get(RecentMovieNameViewModel::class.java)
-        viewModel.name.observe(this, Observer {
-            //  remote data source search movie name
-            getMoiveSearchCall(it)
-        })
+        dialogEventReceiver()
 
         //  Search Button Click Event
         btn_search.setOnClickListener(View.OnClickListener {
@@ -51,6 +46,13 @@ class MainActivity : AppCompatActivity() {
             RecentMovieListDialog().show(supportFragmentManager, RecentMovieListDialog.TAG)
         })
 
+    }
+    private fun dialogEventReceiver(){
+        val viewModel = ViewModelProvider(this).get(RecentMovieNameViewModel::class.java)
+        viewModel.name.observe(this, Observer {
+            //  remote data source search movie name
+            getMoiveSearchCall(it)
+        })
     }
 
     //  RecyclerView Adapter Set

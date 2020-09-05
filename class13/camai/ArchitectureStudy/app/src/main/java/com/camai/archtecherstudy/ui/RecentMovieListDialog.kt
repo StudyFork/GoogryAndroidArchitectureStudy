@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.model.RecentMovieNameViewModel
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
-import com.camai.archtecherstudy.source.local.room.RecentSearchNameList
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchNameList
 import com.camai.archtecherstudy.ui.adapter.RecentMovieAdapter
 import kotlinx.android.synthetic.main.recent_movie_list_popup.*
 

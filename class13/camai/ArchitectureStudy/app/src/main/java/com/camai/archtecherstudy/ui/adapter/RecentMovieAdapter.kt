@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.camai.archtecherstudy.R
-import com.camai.archtecherstudy.source.local.room.RecentSearchNameList
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchNameList
 
 
 class RecentMovieAdapter(

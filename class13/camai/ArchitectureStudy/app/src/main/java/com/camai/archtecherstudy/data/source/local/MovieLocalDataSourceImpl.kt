@@ -1,10 +1,11 @@
-package com.camai.archtecherstudy.source.local
+package com.camai.archtecherstudy.data.source.local
 
 import android.content.Context
-import com.camai.archtecherstudy.source.local.room.RecentSearchListDatabase
-import com.camai.archtecherstudy.source.local.room.RecentSearchNameList
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchListDatabase
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchNameList
 
-object MovieLocalDataSourceImpl : MovieLocalDataSource {
+object MovieLocalDataSourceImpl :
+    MovieLocalDataSource {
 
     var recentSearchListDatabase: RecentSearchListDatabase? = null
 
@@ -25,7 +26,8 @@ object MovieLocalDataSourceImpl : MovieLocalDataSource {
         recentSearchListDatabase = RecentSearchListDatabase.getInstance(context)
 
         val insert = Runnable {
-            var movieName = RecentSearchNameList()
+            var movieName =
+                RecentSearchNameList()
 
             movieName.movieName = keyword
             //  movie name insert db

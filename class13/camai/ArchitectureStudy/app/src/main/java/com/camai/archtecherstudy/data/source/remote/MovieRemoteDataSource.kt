@@ -1,4 +1,4 @@
-package com.camai.archtecherstudy.source.remote
+package com.camai.archtecherstudy.data.source.remote
 
 import com.camai.archtecherstudy.data.model.Items
 

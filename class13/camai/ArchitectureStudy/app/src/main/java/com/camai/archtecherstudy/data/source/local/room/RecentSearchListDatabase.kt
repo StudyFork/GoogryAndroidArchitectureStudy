@@ -1,4 +1,4 @@
-package com.camai.archtecherstudy.source.local.room
+package com.camai.archtecherstudy.data.source.local.room
 
 import android.content.Context
 import androidx.room.Database
@@ -13,7 +13,8 @@ abstract class RecentSearchListDatabase : RoomDatabase() {
         private var INSTANCE: RecentSearchListDatabase? = null
 
         fun getInstance(context: Context): RecentSearchListDatabase? {
-            val tempInstance = INSTANCE
+            val tempInstance =
+                INSTANCE
 
             if (tempInstance != null) {
                 return tempInstance

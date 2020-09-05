@@ -1,7 +1,7 @@
-package com.camai.archtecherstudy.source.local
+package com.camai.archtecherstudy.data.source.local
 
 import android.content.Context
-import com.camai.archtecherstudy.source.local.room.RecentSearchNameList
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchNameList
 
 interface MovieLocalDataSource {
     //  저장된 모든 데이터 불러오기

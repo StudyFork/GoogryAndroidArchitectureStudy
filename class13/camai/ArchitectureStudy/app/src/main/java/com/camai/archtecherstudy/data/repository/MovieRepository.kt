@@ -2,7 +2,7 @@ package com.camai.archtecherstudy.data.repository
 
 import android.content.Context
 import com.camai.archtecherstudy.data.model.Items
-import com.camai.archtecherstudy.source.local.room.RecentSearchNameList
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchNameList
 
 interface MovieRepository {
 
