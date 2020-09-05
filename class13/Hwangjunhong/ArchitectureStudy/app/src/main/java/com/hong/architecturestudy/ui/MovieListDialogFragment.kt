@@ -22,8 +22,8 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val inflater = activity?.layoutInflater
-        val view = inflater?.inflate(R.layout.dialog_fragment_movie_list, null)
+        val inflater = requireActivity().layoutInflater
+        val view = inflater.inflate(R.layout.dialog_fragment_movie_list, null)
         val rvSearchItem = view?.findViewById<RecyclerView>(R.id.rv_search_list)
 
         val movieSearchListAdapter = MovieSearchListAdapter {
