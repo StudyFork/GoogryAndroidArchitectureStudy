@@ -31,7 +31,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
                     if (isSuccessful && body != null) {
                         onSuccess.invoke(body.items)
                     } else {
-                        log("[MainActivity] : 데이터 불러오기 실패")
+                        onFailure.invoke(Throwable())
                     }
                 }
             }
