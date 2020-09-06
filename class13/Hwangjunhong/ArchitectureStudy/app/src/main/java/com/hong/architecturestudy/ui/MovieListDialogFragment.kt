@@ -4,13 +4,15 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.R
 import com.hong.architecturestudy.data.repository.RepositoryDataSource
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
 import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
 import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : DialogFragment() {
 
@@ -33,16 +35,14 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
         rvSearchItem?.adapter = movieSearchListAdapter
         rvSearchItem?.setHasFixedSize(true)
 
-        repositoryDataSourceImpl.loadData(requireActivity())
-            .observe(requireActivity(), Observer {
-                movieSearchListAdapter.setList(it)
-            })
+        CoroutineScope(Dispatchers.IO).launch {
+            movieSearchListAdapter.setList(repositoryDataSourceImpl.loadData())
+        }
 
         return AlertDialog.Builder(requireActivity())
             .setView(view)
             .setTitle("최근 검색")
             .create()
-
     }
 
     companion object {

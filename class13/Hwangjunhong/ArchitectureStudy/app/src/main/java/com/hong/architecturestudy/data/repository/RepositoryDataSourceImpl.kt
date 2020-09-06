@@ -1,7 +1,5 @@
 package com.hong.architecturestudy.data.repository
 
-import android.content.Context
-import androidx.lifecycle.LiveData
 import com.hong.architecturestudy.data.model.MovieData
 import com.hong.architecturestudy.data.source.local.LocalDataSource
 import com.hong.architecturestudy.data.source.local.entity.MovieInfo
@@ -26,15 +24,12 @@ class RepositoryDataSourceImpl(
         )
     }
 
-    override fun saveData(keyword: String) {
+    override fun saveData(keyword: String) =
         localDataSource.saveData(keyword)
-    }
 
-    override fun loadData(
-        context: Context
-    ): LiveData<List<MovieInfo>> {
-        return localDataSource.loadData(context)
-    }
+
+    override fun loadData(): List<MovieInfo> =
+        localDataSource.loadData()
 
 
 }

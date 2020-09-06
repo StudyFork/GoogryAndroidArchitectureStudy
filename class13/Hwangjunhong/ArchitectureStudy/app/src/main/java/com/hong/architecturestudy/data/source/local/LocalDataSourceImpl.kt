@@ -1,7 +1,6 @@
 package com.hong.architecturestudy.data.source.local
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import com.hong.architecturestudy.data.source.local.entity.MovieInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,10 +17,7 @@ class LocalDataSourceImpl(context: Context) : LocalDataSource {
         }
     }
 
-    override fun loadData(
-        context: Context
-    ): LiveData<List<MovieInfo>> {
-        movieDB = MovieDatabase.getInstance(context)
+    override fun loadData(): List<MovieInfo> {
         return movieDB?.movieDao()?.getAll()!!
     }
 

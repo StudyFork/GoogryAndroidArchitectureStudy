@@ -1,6 +1,5 @@
 package com.hong.architecturestudy.data.source.local.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
@@ -11,7 +10,7 @@ import com.hong.architecturestudy.data.source.local.entity.MovieInfo
 interface MovieDao {
 
     @Query("SELECT * FROM movie order by id DESC limit 5")
-    fun getAll(): LiveData<List<MovieInfo>>
+    fun getAll(): List<MovieInfo>
 
     @Insert(onConflict = REPLACE)
     suspend fun insert(movie: MovieInfo)
