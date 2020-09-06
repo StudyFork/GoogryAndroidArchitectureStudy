@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private val repositoryDataSourceImpl: RepositoryDataSource by lazy {
         val remoteDataSourceImpl = RemoteDataSourceImpl()
-        val localDataSourceImpl = LocalDataSourceImpl()
+        val localDataSourceImpl = LocalDataSourceImpl(this)
         RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl)
     }
 
@@ -61,8 +61,6 @@ class MainActivity : AppCompatActivity() {
                         edit_search.text.clear()
                         adapter.setData(it)
                         hideKeyboard(this, edit_search)
-                        repositoryDataSourceImpl.saveData(keyword, this)
-
                     }, {
                         Toast.makeText(this, "검색 실패", Toast.LENGTH_LONG).show()
                     })

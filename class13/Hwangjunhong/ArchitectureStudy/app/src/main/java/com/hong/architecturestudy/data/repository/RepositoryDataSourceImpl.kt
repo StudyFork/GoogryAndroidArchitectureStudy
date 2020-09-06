@@ -17,11 +17,17 @@ class RepositoryDataSourceImpl(
         onSuccess: (List<MovieData>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        remoteDataSource.getMovieList(query, onSuccess, onFailure)
+        remoteDataSource.getMovieList(
+            query,
+            {
+                onSuccess(it)
+                saveData(query)
+            }, onFailure
+        )
     }
 
-    override fun saveData(keyword: String, context: Context) {
-        localDataSource.saveData(keyword, context)
+    override fun saveData(keyword: String) {
+        localDataSource.saveData(keyword)
     }
 
     override fun loadData(

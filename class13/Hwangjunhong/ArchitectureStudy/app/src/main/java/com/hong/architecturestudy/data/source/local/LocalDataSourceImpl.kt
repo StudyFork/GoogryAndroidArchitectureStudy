@@ -7,11 +7,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LocalDataSourceImpl : LocalDataSource {
-    private var movieDB: MovieDatabase? = null
+class LocalDataSourceImpl(context: Context) : LocalDataSource {
+    private var movieDB: MovieDatabase? = MovieDatabase.getInstance(context)
 
-    override fun saveData(keyword: String, context: Context) {
-        movieDB = MovieDatabase.getInstance(context)
+    override fun saveData(keyword: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val movieInfo = MovieInfo()
             movieInfo.movieTitle = keyword

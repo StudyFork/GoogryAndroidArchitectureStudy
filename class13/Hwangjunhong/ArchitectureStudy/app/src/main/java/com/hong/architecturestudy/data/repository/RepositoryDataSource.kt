@@ -13,6 +13,6 @@ interface RepositoryDataSource {
         onFailure: (Throwable) -> Unit
     )
 
-    fun saveData(keyword: String, context: Context)
+    fun saveData(keyword: String)
     fun loadData(context: Context): LiveData<List<MovieInfo>>
 }
