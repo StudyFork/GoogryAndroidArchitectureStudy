@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.data.source.local.entity.MovieInfo
 
-class MovieSearchListAdapter(var onClick: GetMovieTitle) :
+class MovieSearchListAdapter(val onClick: GetMovieTitle) :
     RecyclerView.Adapter<MovieSearchListViewHolder>() {
     private val movieListItems = mutableListOf<MovieInfo>()
 
