@@ -14,14 +14,15 @@ class NaverRepositoryImpl(
         success: (MovieData) -> Unit,
         failed: (String) -> Unit
     ) {
+        saveQuery(query)
         naverRemoteDataSourceImpl.getSearchMovies(query, success = success, failed = failed)
     }
 
     override fun saveQuery(query: String) {
-
+        naverLocalDataSourceImpl.saveQuery(query)
     }
 
     override fun getQueryList(): List<String> {
-        return emptyList()
+        return naverLocalDataSourceImpl.getQueryList()
     }
 }
