@@ -6,24 +6,24 @@ import com.hong.architecturestudy.data.source.local.entity.MovieInfo
 
 class MovieSearchListAdapter(val onClick: GetMovieTitle) :
     RecyclerView.Adapter<MovieSearchListViewHolder>() {
-    private val movieListItems = mutableListOf<MovieInfo>()
+    private val movieItems = mutableListOf<MovieInfo>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         MovieSearchListViewHolder(parent).apply {
             itemView.setOnClickListener {
-                onClick(movieListItems[absoluteAdapterPosition].movieTitle)
+                onClick(movieItems[absoluteAdapterPosition].movieTitle)
             }
         }
 
-    override fun getItemCount() = movieListItems.size
+    override fun getItemCount() = movieItems.size
 
     override fun onBindViewHolder(holder: MovieSearchListViewHolder, position: Int) {
-        holder.bind(movieListItems[position])
+        holder.bind(movieItems[position])
     }
 
     fun setList(movieInfo: List<MovieInfo>) {
-        movieListItems.clear()
-        movieListItems.addAll(movieInfo)
+        movieItems.clear()
+        movieItems.addAll(movieInfo)
         notifyDataSetChanged()
     }
 
