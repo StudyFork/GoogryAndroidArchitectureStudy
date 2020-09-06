@@ -24,6 +24,12 @@
             android:layout_height="wrap_content"
             android:text="search" />
 
+        <Button
+            android:id="@+id/history_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="history" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

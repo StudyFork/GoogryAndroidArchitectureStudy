@@ -7,34 +7,40 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.hjhan.hyejeong.R
-import com.hjhan.hyejeong.data.network.NaverApi
-import com.hjhan.hyejeong.data.network.ServiceClient
-import com.hjhan.hyejeong.data.model.MovieData
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.hjhan.hyejeong.data.repository.NaverRepositoryImpl
+import com.hjhan.hyejeong.data.source.local.NaverLocalDataSourceImpl
+import com.hjhan.hyejeong.data.source.remote.NaverRemoteDataSourceImpl
+import com.hjhan.hyejeong.ui.QueryHistoryDialog.Companion.HISTORY_DIALOG_TAG
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var editText: EditText
     private lateinit var recyclerView: RecyclerView
-    private lateinit var button: Button
+    private lateinit var searchButton: Button
+    private lateinit var historyButton: Button
 
     private lateinit var movieAdapter: MovieAdapter
+
+    private val repositoryImpl: NaverRepositoryImpl by lazy {
+        val remoteDataSourceImpl = NaverRemoteDataSourceImpl()
+        val localDataSourceImpl = NaverLocalDataSourceImpl()
+        NaverRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         editText = findViewById(R.id.search_edit_text)
-        button = findViewById(R.id.search_button)
+        searchButton = findViewById(R.id.search_button)
+        historyButton = findViewById(R.id.history_button)
         recyclerView = findViewById(R.id.movie_recycler_view)
 
         movieAdapter = MovieAdapter()
         recyclerView.adapter = movieAdapter
 
 
-        button.setOnClickListener {
+        searchButton.setOnClickListener {
 
             val title = editText.text.toString()
 
@@ -46,26 +52,28 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        historyButton.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putStringArrayList("list", ArrayList(repositoryImpl.getQueryList()))
+            QueryHistoryDialog().apply {
+                arguments = bundle
+                show(supportFragmentManager, HISTORY_DIALOG_TAG)
+            }
+        }
+
 
     }
 
-    private fun requestMovieList(title: String) {
-        val api = ServiceClient.createService(NaverApi::class.java)
-        api.getMovies(title, 10, 100).enqueue(object : Callback<MovieData> {
-            override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
-                if (response.isSuccessful) {
+    private fun requestMovieList(query: String) {
 
-                    response.body()?.let {
+        repositoryImpl.getSearchMovies(
+            query = query,
+            success = {
+                movieAdapter.setMovieList(it.items)
+            },
+            failed = {
+                Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show()
+            })
 
-                        movieAdapter.setMovieList(it.items)
-                    }
-
-                }
-            }
-
-            override fun onFailure(call: Call<MovieData>, t: Throwable) {
-                Toast.makeText(this@MainActivity, "에러 발생!", Toast.LENGTH_SHORT).show()
-            }
-        })
     }
 }
