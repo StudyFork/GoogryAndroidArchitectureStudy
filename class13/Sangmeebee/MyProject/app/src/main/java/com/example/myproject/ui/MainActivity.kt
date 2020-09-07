@@ -57,6 +57,11 @@ class MainActivity : AppCompatActivity() {
                 })
             }
         }
+
+        btn_history.setOnClickListener {
+            val dialog = TitleFragmentDialog().newInstance(repositoryDataSourceImpl.readData())
+            dialog.show(supportFragmentManager, "title_history_dialog")
+        }
     }
 
     private fun setRecyclerView() {

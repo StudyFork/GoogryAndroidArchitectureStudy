@@ -1,0 +1,62 @@
+package com.example.myproject.ui
+
+import android.content.Context
+import android.graphics.Point
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Button
+import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myproject.R
+
+class TitleFragmentDialog : DialogFragment() {
+
+    private var titleList: ArrayList<String> = arrayListOf()
+
+    fun newInstance(titleList: ArrayList<String>): TitleFragmentDialog {
+        val fragment = TitleFragmentDialog()
+        var args = Bundle()
+        args.putStringArrayList("title_list", titleList)
+        fragment.arguments = args
+        return fragment
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.dialog_fragment_title, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_search_list)
+        val cancelBtn = view.findViewById<Button>(R.id.btn_close)
+        val args = arguments
+
+        args?.let { titleList = it.getStringArrayList("title_list") as ArrayList<String> }
+
+        recyclerView.adapter = TitleAdapter(titleList)
+        recyclerView.setOnClickListener {
+        }
+
+        cancelBtn.setOnClickListener {
+            dismiss()
+        }
+
+        return view
+    }
+
+    //다이얼로그 크기 지정
+    override fun onResume() {
+        super.onResume()
+        val windowManager = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        val params: ViewGroup.LayoutParams? = dialog?.window?.attributes
+        val deviceWidth = size.x
+        params?.width = (deviceWidth * 0.9).toInt()
+        dialog?.window?.attributes = params as WindowManager.LayoutParams
+    }
+}
