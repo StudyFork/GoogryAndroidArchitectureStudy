@@ -44,28 +44,7 @@ class RecentMovieListDialog : DialogFragment() {
     ): View? {
         return inflater.inflate(R.layout.recent_movie_list_popup, container, false)
     }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        context?.let {
-            MovieRepositoryImpl.getRecentSearchList(namelist = { namelist ->
-                recentnameList = namelist
-                if (namelist.isEmpty()) {
-                    showEmptyFieldList(it)
-                } else {
-                    setAdapterAndRecyclerViewInit()
-                }
-
-            }, context = it)
-        }
-
-        //  Popup close
-        popup_close.setOnClickListener(View.OnClickListener {
-            dismiss()
-        })
-    }
-
+    
     private fun showEmptyFieldList(context: Context) {
         Toast.makeText(context, "최근 검색된 항목이 없습니다.", Toast.LENGTH_LONG).show()
     }
@@ -93,6 +72,24 @@ class RecentMovieListDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        context?.let {
+            MovieRepositoryImpl.getRecentSearchList(namelist = { namelist ->
+                recentnameList = namelist
+                if (namelist.isEmpty()) {
+                    showEmptyFieldList(it)
+                } else {
+                    setAdapterAndRecyclerViewInit()
+                }
+
+            }, context = it)
+        }
+
+        //  Popup close
+        popup_close.setOnClickListener(View.OnClickListener {
+            dismiss()
+        })
+
         viewModel = ViewModelProvider(requireActivity()).get(RecentMovieNameViewModel::class.java)
 
     }
