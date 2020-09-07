@@ -7,6 +7,7 @@ import android.text.Spanned
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 
 fun String.toHtml(): Spanned {
@@ -26,4 +27,8 @@ fun ImageView.glideCenterCrop(uri: String) {
         .load(uri)
         .centerCrop()
         .into(this)
+}
+
+fun Context.showToast(message: String, duration: Int) {
+    Toast.makeText(this, message, duration).show()
 }
