@@ -2,16 +2,19 @@ package com.example.aas.data.source.local
 
 import android.content.Context
 import androidx.core.content.edit
+import com.example.aas.MyApplication
 import org.json.JSONArray
 import org.json.JSONException
 
 class LocalDataSourceImpl : LocalDataSource {
 
-    override fun saveQuery(query: String, context: Context) {
-        val queryHistorySharedPreferences =
-            context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
+    override fun saveQuery(query: String) {
+        val appContext = MyApplication.appContext
 
-        val currentState = getSavedQuery(context).toMutableList()
+        val queryHistorySharedPreferences =
+            appContext.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
+
+        val currentState = getSavedQuery().toMutableList()
         if (!currentState.remove(query) && currentState.size > 4) {
             currentState.removeFirstOrNull()
         }
@@ -24,9 +27,11 @@ class LocalDataSourceImpl : LocalDataSource {
         }
     }
 
-    override fun getSavedQuery(context: Context): List<String> {
+    override fun getSavedQuery(): List<String> {
+        val appContext = MyApplication.appContext
+
         val queryHistorySharedPreferences =
-            context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
+            appContext.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
 
         val result = mutableListOf<String>()
 

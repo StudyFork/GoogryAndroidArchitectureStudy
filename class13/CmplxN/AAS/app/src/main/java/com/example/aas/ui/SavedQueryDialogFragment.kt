@@ -14,7 +14,7 @@ class SavedQueryDialogFragment(private val historySelectionListener: HistorySele
     private lateinit var searchHistory: List<String>
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        searchHistory = movieSearchRepository.getSavedQueries(requireContext()).reversed()
+        searchHistory = movieSearchRepository.getSavedQueries().reversed()
 
         return requireActivity().let {
             AlertDialog.Builder(it)

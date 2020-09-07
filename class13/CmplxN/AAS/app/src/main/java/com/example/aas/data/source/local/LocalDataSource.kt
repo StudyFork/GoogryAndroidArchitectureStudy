@@ -1,9 +1,7 @@
 package com.example.aas.data.source.local
 
-import android.content.Context
-
 interface LocalDataSource {
-    fun saveQuery(query: String, context: Context)
+    fun saveQuery(query: String)
 
-    fun getSavedQuery(context: Context): List<String>
+    fun getSavedQuery(): List<String>
 }

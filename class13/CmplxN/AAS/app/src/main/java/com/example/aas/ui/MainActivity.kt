@@ -42,11 +42,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
                 val keyword = et_movie_name.text.also { et_movie_name.setText("") }
                 et_movie_name.clearFocus()
                 hideKeyboard(this, et_movie_name)
-                movieSearchRepository.getMovies(keyword.toString(), applicationContext)
+                movieSearchRepository.getMovies(keyword.toString())
             }
             .observeGetMovies()
 
-        btn_history.isEnabled = movieSearchRepository.getSavedQueries(this).isNotEmpty()
+        btn_history.isEnabled = movieSearchRepository.getSavedQueries().isNotEmpty()
 
         RxView.clicks(btn_history)
             .throttleFirst(1000L, TimeUnit.MILLISECONDS)
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     }
 
     override fun onHistorySelection(query: String) {
-        movieSearchRepository.getMovies(query, this)
+        movieSearchRepository.getMovies(query)
             .toObservable()
             .observeGetMovies()
     }
