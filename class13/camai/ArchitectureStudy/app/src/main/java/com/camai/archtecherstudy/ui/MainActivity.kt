@@ -91,8 +91,6 @@ class MainActivity : AppCompatActivity() {
     private fun getMoiveSearchCall(movietitle: String) {
         MovieRepositoryImpl.getMovieNameSearch(movietitle, 100, 1,
             success = {
-                //  Data Insert
-                insertMovieNameInDb(movietitle)
                 //  movie list data to recycler View
                 setListData(it)
             },
@@ -102,10 +100,7 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    //  Data Insert
-    private fun insertMovieNameInDb(name: String) {
-        MovieRepositoryImpl.setMovieNameInsert(name)
-    }
+
 
     //  Update Movie Search Result Data List
     private fun setListData(infoList: ArrayList<Items>) {

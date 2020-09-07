@@ -4,6 +4,7 @@ import android.util.Log
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.model.MovieResponseModel
 import com.camai.archtecherstudy.data.network.MovieApiServiceImpl
+import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import retrofit2.Call
 import retrofit2.Response
 
@@ -28,6 +29,8 @@ object MovieRemoteDataSourceImpl :
             ) {
                 // Success
                 if (response.isSuccessful) {
+                    //  Data Insert
+                    MovieRepositoryImpl.setMovieNameInsert(keyword)
 
                     val body = response.body()
                     body?.let {
@@ -49,6 +52,4 @@ object MovieRemoteDataSourceImpl :
             }
         })
     }
-
-
 }
