@@ -4,12 +4,12 @@ import android.app.Application
 
 class App : Application() {
 
-    companion object {
-        lateinit var prefs: Preferences
-    }
-
     override fun onCreate() {
         prefs = Preferences(applicationContext)
         super.onCreate()
+    }
+
+    companion object {
+        lateinit var prefs: Preferences
     }
 }

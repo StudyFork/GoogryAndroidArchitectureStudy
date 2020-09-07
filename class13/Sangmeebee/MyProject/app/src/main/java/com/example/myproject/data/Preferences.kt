@@ -26,7 +26,7 @@ class Preferences(context: Context) {
 
         if (json != "EMPTY") {
             val jsonArray = JSONArray(json)
-            for (i in 0 until jsonArray.length()) {
+            for (i in jsonArray.length() - 1 downTo 0) {
                 dataList.add(jsonArray[i].toString())
             }
         }
