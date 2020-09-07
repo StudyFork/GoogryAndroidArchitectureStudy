@@ -38,7 +38,10 @@ class MainActivity : AppCompatActivity() {
 
         //  Recent Search Movie Name list Dialog Show Click Event
         btn_recent.setOnClickListener(View.OnClickListener {
-            RecentMovieListDialog().show(supportFragmentManager, RecentMovieListDialog.TAG)
+            RecentMovieListDialog(keywork = {
+                //  Click movie name
+                getMoiveSearchCall(it)
+            }).show(supportFragmentManager, RecentMovieListDialog.TAG)
         })
 
     }

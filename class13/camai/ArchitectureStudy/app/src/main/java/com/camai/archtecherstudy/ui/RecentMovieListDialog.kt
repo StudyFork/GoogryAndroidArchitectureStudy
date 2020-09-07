@@ -16,7 +16,7 @@ import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.ui.adapter.RecentMovieAdapter
 import kotlinx.android.synthetic.main.recent_movie_list_popup.*
 
-class RecentMovieListDialog() : DialogFragment() {
+class RecentMovieListDialog(var keywork: (String) -> Unit) : DialogFragment() {
 
     private lateinit var recentMovieAdapter: RecentMovieAdapter
 
@@ -50,6 +50,8 @@ class RecentMovieListDialog() : DialogFragment() {
         recentMovieAdapter =
             RecentMovieAdapter {
                 Log.d(TAG, it)
+                //  recycler View item click movie name to Activity
+                keywork.invoke(it)
 
                 dismiss()
             }
