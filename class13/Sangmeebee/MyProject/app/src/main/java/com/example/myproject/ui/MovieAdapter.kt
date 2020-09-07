@@ -1,4 +1,4 @@
-package com.example.myproject
+package com.example.myproject.ui
 
 import android.content.Context
 import android.content.Intent
@@ -15,8 +15,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.myproject.MovieAdapter.ViewHolder
+import com.example.myproject.R
 import com.example.myproject.data.model.Items
+import com.example.myproject.ui.MovieAdapter.ViewHolder
 
 
 class MovieAdapter(val context: Context, val movieArrayList: ArrayList<Items>) :

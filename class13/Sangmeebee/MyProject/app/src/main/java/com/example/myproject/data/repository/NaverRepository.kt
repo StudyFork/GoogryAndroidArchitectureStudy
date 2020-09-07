@@ -11,5 +11,5 @@ interface NaverRepository {
 
     fun saveData(title: String)
 
-    fun readData() : ArrayList<String>
+    fun readData(): ArrayList<String>
 }

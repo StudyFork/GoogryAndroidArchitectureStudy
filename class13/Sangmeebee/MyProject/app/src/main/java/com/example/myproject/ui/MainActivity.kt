@@ -1,11 +1,11 @@
 package com.example.myproject.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myproject.MovieAdapter
 import com.example.myproject.R
 import com.example.myproject.data.model.Items
 import com.example.myproject.data.repository.NaverRepository
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
                         ).show()
                     } else {
                         repositoryDataSourceImpl.saveData(title)
+                        Log.d("sangmee", repositoryDataSourceImpl.readData().toString())
                         movieAdapter.clearAndAddItems(it)
                     }
 
