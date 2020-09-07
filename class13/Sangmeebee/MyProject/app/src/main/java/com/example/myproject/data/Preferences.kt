@@ -26,12 +26,18 @@ class Preferences(context: Context) {
 
         if (json != "EMPTY") {
             val jsonArray = JSONArray(json)
-            for (i in jsonArray.length() - 1 downTo 0) {
+            for (i in 0 until jsonArray.length()) {
                 dataList.add(jsonArray[i].toString())
             }
         }
 
         return dataList
     }
+
+    fun setTitle(title: String) {
+        preferences.edit().putString("Title", title).apply()
+    }
+
+    fun loadTitle() = preferences.getString("Title", "") ?: ""
 
 }

@@ -7,5 +7,18 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
         App.prefs.saveData(title)
     }
 
-    override fun readData() = App.prefs.readData()
+    override fun readData() : ArrayList<String> {
+        var temp = arrayListOf<String>()
+        val dataList = App.prefs.readData()
+        for (i in dataList.size-1 downTo 0){
+            temp.add(dataList[i])
+        }
+        return temp
+    }
+
+    override fun setTitle(title: String) {
+        App.prefs.setTitle(title)
+    }
+
+    override fun loadTitle() = App.prefs.loadTitle()
 }
