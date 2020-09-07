@@ -13,12 +13,7 @@ abstract class RecentSearchListDatabase : RoomDatabase() {
         private var INSTANCE: RecentSearchListDatabase? = null
 
         fun getInstance(context: Context): RecentSearchListDatabase? {
-            val tempInstance =
-                INSTANCE
-
-            if (tempInstance != null) {
-                return tempInstance
-            }
+            
             synchronized(this) {
                 INSTANCE = Room.databaseBuilder(
                     context.applicationContext,
