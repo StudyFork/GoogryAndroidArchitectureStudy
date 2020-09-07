@@ -58,14 +58,14 @@ class MovieSearchAdapter : RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>()
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val poster = itemView?.findViewById<ImageView>(R.id.img_poster)
-        private val title = itemView?.findViewById<TextView>(R.id.txt_title)
-        private val user_rating = itemView?.findViewById<RatingBar>(R.id.rb_user_rating)
-        private val pub_data = itemView?.findViewById<TextView>(R.id.txt_pub_data)
-        private val director = itemView?.findViewById<TextView>(R.id.txt_director)
-        private val actor = itemView?.findViewById<TextView>(R.id.txt_actor)
+        private val poster = itemView.findViewById<ImageView>(R.id.img_poster)
+        private val title = itemView.findViewById<TextView>(R.id.txt_title)
+        private val user_rating = itemView.findViewById<RatingBar>(R.id.rb_user_rating)
+        private val pub_data = itemView.findViewById<TextView>(R.id.txt_pub_data)
+        private val director = itemView.findViewById<TextView>(R.id.txt_director)
+        private val actor = itemView.findViewById<TextView>(R.id.txt_actor)
 
         @SuppressLint("SetTextI18n")
         fun bind(itemInfo: Items) {
