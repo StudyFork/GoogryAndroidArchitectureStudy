@@ -3,7 +3,7 @@ package com.camai.archtecherstudy.data.repository
 import android.content.Context
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.source.local.MovieLocalDataSourceImpl
-import com.camai.archtecherstudy.data.source.local.room.RecentSearchNameList
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import com.camai.archtecherstudy.data.source.remote.MovieRemoteDataSourceImpl
 
 
@@ -20,7 +20,7 @@ object MovieRepositoryImpl: MovieRepository {
     }
 
     override fun getRecentSearchList(
-        namelist: (List<RecentSearchNameList>) -> Unit,
+        namelist: (List<RecentSearchName>) -> Unit,
         context: Context
     ) {
         MovieLocalDataSourceImpl.getRecentMovieNameList(namelist, context)

@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "RMNT")
-class RecentSearchNameList(
+class RecentSearchName(
     @PrimaryKey(autoGenerate = true) var id: Long?,
     @ColumnInfo(name = "moviename") var movieName: String?
 ) {

@@ -9,10 +9,10 @@ import androidx.room.Query
 interface RecentSearchListDao {
 
     @Query("SELECT DISTINCT moviename FROM RMNT ORDER BY id DESC LIMIT 5")
-    fun getListItems(): List<RecentSearchNameList>
+    fun getListItems(): List<RecentSearchName>
 
     @Insert(onConflict = REPLACE)
-    fun insert(RMNT: RecentSearchNameList)
+    fun insert(RMNT: RecentSearchName)
 
     @Query("DELETE FROM RMNT")
     fun deleteAll()

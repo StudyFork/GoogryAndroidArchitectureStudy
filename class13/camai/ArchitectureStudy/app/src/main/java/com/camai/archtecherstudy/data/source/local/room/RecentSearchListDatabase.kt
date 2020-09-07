@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [RecentSearchNameList::class], version = 2)
+@Database(entities = [RecentSearchName::class], version = 2)
 abstract class RecentSearchListDatabase : RoomDatabase() {
     abstract fun recentSearchListDao(): RecentSearchListDao
 
@@ -13,7 +13,7 @@ abstract class RecentSearchListDatabase : RoomDatabase() {
         private var INSTANCE: RecentSearchListDatabase? = null
 
         fun getInstance(context: Context): RecentSearchListDatabase? {
-            
+
             synchronized(this) {
                 INSTANCE = Room.databaseBuilder(
                     context.applicationContext,

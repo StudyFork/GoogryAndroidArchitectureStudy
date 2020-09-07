@@ -2,7 +2,7 @@ package com.camai.archtecherstudy.data.source.local
 
 import android.content.Context
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchListDatabase
-import com.camai.archtecherstudy.data.source.local.room.RecentSearchNameList
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 
 object MovieLocalDataSourceImpl :
     MovieLocalDataSource {
@@ -10,7 +10,7 @@ object MovieLocalDataSourceImpl :
     var recentSearchListDatabase: RecentSearchListDatabase? = null
 
     override fun getRecentMovieNameList(
-        namelist: (List<RecentSearchNameList>) -> Unit,
+        namelist: (List<RecentSearchName>) -> Unit,
         context: Context
     ) {
         recentSearchListDatabase = RecentSearchListDatabase.getInstance(context)
@@ -27,7 +27,7 @@ object MovieLocalDataSourceImpl :
 
         val insert = Runnable {
             var movieName =
-                RecentSearchNameList()
+                RecentSearchName()
 
             movieName.movieName = keyword
             //  movie name insert db

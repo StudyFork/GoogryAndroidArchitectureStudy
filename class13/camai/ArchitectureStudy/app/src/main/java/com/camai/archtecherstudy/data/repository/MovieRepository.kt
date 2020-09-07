@@ -2,7 +2,7 @@ package com.camai.archtecherstudy.data.repository
 
 import android.content.Context
 import com.camai.archtecherstudy.data.model.Items
-import com.camai.archtecherstudy.data.source.local.room.RecentSearchNameList
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 
 interface MovieRepository {
 
@@ -16,7 +16,7 @@ interface MovieRepository {
     )
 
     //  local data select list source
-    fun getRecentSearchList(namelist: (List<RecentSearchNameList>) -> Unit, context: Context)
+    fun getRecentSearchList(namelist: (List<RecentSearchName>) -> Unit, context: Context)
 
     //  local data save source
     fun setMovieNameInsert(keyword: String, context: Context)

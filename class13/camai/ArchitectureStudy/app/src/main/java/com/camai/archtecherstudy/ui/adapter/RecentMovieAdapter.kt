@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.camai.archtecherstudy.R
-import com.camai.archtecherstudy.data.source.local.room.RecentSearchNameList
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 
 
 class RecentMovieAdapter(
-    val recentlist: List<RecentSearchNameList>,
+    val recentlist: List<RecentSearchName>,
     val itemClick: (String) -> Unit
 ) :
     RecyclerView.Adapter<RecentMovieAdapter.ViewHolder>() {
@@ -41,7 +41,7 @@ class RecentMovieAdapter(
     class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         private val name = itemView?.findViewById<TextView>(R.id.txt_name)
 
-        fun bind(nameInfo: RecentSearchNameList) {
+        fun bind(nameInfo: RecentSearchName) {
             name?.text = nameInfo.movieName
         }
     }
