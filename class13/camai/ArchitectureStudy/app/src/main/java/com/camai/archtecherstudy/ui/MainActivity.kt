@@ -8,13 +8,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.model.Items
-import com.camai.archtecherstudy.data.model.RecentMovieNameViewModel
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.ui.adapter.MovieSearchAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,8 +28,6 @@ class MainActivity : AppCompatActivity() {
         //  Recycler View And Adapter Init
         setAdapterAndRecyclerViewInit()
 
-        //  Dialog Fragment ViewModel Event receive
-        dialogEventReceiver()
 
         //  Search Button Click Event
         btn_search.setOnClickListener(View.OnClickListener {
@@ -47,13 +42,7 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
-    private fun dialogEventReceiver(){
-        val viewModel = ViewModelProvider(this).get(RecentMovieNameViewModel::class.java)
-        viewModel.name.observe(this, Observer {
-            //  remote data source search movie name
-            getMoiveSearchCall(it)
-        })
-    }
+
 
     //  RecyclerView Adapter Set
     private fun setAdapterAndRecyclerViewInit() {

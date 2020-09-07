@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
-import com.camai.archtecherstudy.data.model.RecentMovieNameViewModel
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import com.camai.archtecherstudy.ui.adapter.RecentMovieAdapter
@@ -23,7 +21,6 @@ class RecentMovieListDialog : DialogFragment() {
 
     private lateinit var recentMovieAdapter: RecentMovieAdapter
     private var recentnameList = listOf<RecentSearchName>()
-    private lateinit var viewModel: RecentMovieNameViewModel
 
     companion object {
         const val TAG = "MovieSearchDialog"
@@ -44,7 +41,7 @@ class RecentMovieListDialog : DialogFragment() {
     ): View? {
         return inflater.inflate(R.layout.recent_movie_list_popup, container, false)
     }
-    
+
     private fun showEmptyFieldList(context: Context) {
         Toast.makeText(context, "최근 검색된 항목이 없습니다.", Toast.LENGTH_LONG).show()
     }
@@ -56,7 +53,7 @@ class RecentMovieListDialog : DialogFragment() {
             RecentMovieAdapter(recentnameList) { movieName ->
                 Log.d(TAG, movieName)
                 //  recycler View item click movie name to Activity
-                viewModel.sendMovieName(movieName)
+
                 dismiss()
             }
         recentMovieAdapter.notifyDataSetChanged()
@@ -90,7 +87,6 @@ class RecentMovieListDialog : DialogFragment() {
             dismiss()
         })
 
-        viewModel = ViewModelProvider(requireActivity()).get(RecentMovieNameViewModel::class.java)
 
     }
 
