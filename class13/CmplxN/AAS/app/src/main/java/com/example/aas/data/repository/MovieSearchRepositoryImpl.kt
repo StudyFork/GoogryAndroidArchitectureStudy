@@ -12,11 +12,11 @@ object MovieSearchRepositoryImpl : MovieSearchRepository {
     private val remoteDataSource: RemoteDataSource = RemoteDataSourceImpl()
 
     override fun getMovies(query: String): Single<ApiResult> {
-        localDataSource.saveQuery(query)
         return remoteDataSource.getMovies(query)
+            .doOnSuccess {
+                localDataSource.saveQuery(query)
+            }
     }
 
-    override fun getSavedQueries(): List<String> =
-        localDataSource.getSavedQuery()
-
+    override fun getSavedQueries(): List<String> = localDataSource.getSavedQuery()
 }
