@@ -16,10 +16,9 @@ object MovieApiServiceImpl {
     private const val CLIENT_SECRET = "KKfBdZH0ZC"
     private const val CONNECT_TIMEOUT: Long = 15
 
-
-    private val httpLoggingInterceptor = HttpLoggingInterceptor();
-
     fun create(): MovieApiService {
+        val httpLoggingInterceptor = HttpLoggingInterceptor();
+
         val headerInterceptor = Interceptor {
             val request = it.request()
                 .newBuilder()
