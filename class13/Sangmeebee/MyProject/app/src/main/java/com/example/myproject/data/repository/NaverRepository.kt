@@ -8,4 +8,8 @@ interface NaverRepository {
         success: (ArrayList<Items>) -> Unit,
         failed: (String) -> Unit
     )
+
+    fun saveData(title: String)
+
+    fun readData() : ArrayList<String>
 }

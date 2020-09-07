@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
+                        repositoryDataSourceImpl.saveData(title)
                         movieAdapter.clearAndAddItems(it)
                     }
 

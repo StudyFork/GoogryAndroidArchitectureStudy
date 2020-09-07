@@ -15,4 +15,10 @@ class NaverRepositoryImpl(
     ) {
         naverRemoteDataSource.getMovieList(title, success, failed)
     }
+
+    override fun saveData(title: String) {
+        naverLocalDataSource.saveData(title)
+    }
+
+    override fun readData() = naverLocalDataSource.readData()
 }
