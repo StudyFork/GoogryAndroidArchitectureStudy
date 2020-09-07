@@ -70,17 +70,15 @@ class RecentMovieListDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        context?.let {
-            MovieRepositoryImpl.getRecentSearchList(namelist = { namelist ->
-                recentnameList = namelist
-                if (namelist.isEmpty()) {
-                    showEmptyFieldList(it)
-                } else {
-                    setAdapterAndRecyclerViewInit()
-                }
+        MovieRepositoryImpl.getRecentSearchList(namelist = { namelist ->
+            recentnameList = namelist
+            if (namelist.isEmpty()) {
+                showEmptyFieldList(requireContext())
+            } else {
+                setAdapterAndRecyclerViewInit()
+            }
 
-            }, context = it)
-        }
+        })
 
         //  Popup close
         popup_close.setOnClickListener(View.OnClickListener {
