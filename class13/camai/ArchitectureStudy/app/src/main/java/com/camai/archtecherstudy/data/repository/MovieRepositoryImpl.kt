@@ -19,20 +19,23 @@ object MovieRepositoryImpl: MovieRepository {
         MovieRemoteDataSourceImpl.getSearchMovie(keyword, display, start, success, failed)
     }
 
+    override fun getInsatance(context: Context) {
+        MovieLocalDataSourceImpl.getInstance(context)
+    }
+
     override fun getRecentSearchList(
-        namelist: (List<RecentSearchName>) -> Unit,
-        context: Context
+        namelist: (List<RecentSearchName>) -> Unit
     ) {
-        MovieLocalDataSourceImpl.getRecentMovieNameList(namelist, context)
+        MovieLocalDataSourceImpl.getRecentMovieNameList(namelist)
     }
 
 
-    override fun setMovieNameInsert(keyword: String, context: Context) {
-        MovieLocalDataSourceImpl.saveMovieName(keyword, context)
+    override fun setMovieNameInsert(keyword: String) {
+        MovieLocalDataSourceImpl.saveMovieName(keyword)
     }
 
-    override fun deteleDb(context: Context) {
-        MovieLocalDataSourceImpl.deleteDb(context)
+    override fun deteleDb() {
+        MovieLocalDataSourceImpl.deleteDb()
     }
 
     override fun dbclose() {

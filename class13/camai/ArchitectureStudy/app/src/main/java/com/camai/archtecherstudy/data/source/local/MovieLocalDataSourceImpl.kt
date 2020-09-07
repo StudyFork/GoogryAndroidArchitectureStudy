@@ -7,13 +7,19 @@ import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 object MovieLocalDataSourceImpl :
     MovieLocalDataSource {
 
-    var recentSearchListDatabase: RecentSearchListDatabase? = null
+    private var recentSearchListDatabase: RecentSearchListDatabase? = null
+
+    override fun getInstance(context: Context): RecentSearchListDatabase{
+        if( recentSearchListDatabase == null){
+            recentSearchListDatabase = RecentSearchListDatabase.getInstance(context)
+        }
+        return recentSearchListDatabase!!
+    }
+
 
     override fun getRecentMovieNameList(
-        namelist: (List<RecentSearchName>) -> Unit,
-        context: Context
+        namelist: (List<RecentSearchName>) -> Unit
     ) {
-        recentSearchListDatabase = RecentSearchListDatabase.getInstance(context)
 
         var run = Runnable {
             namelist(recentSearchListDatabase?.recentSearchListDao()?.getListItems()!!)
@@ -22,8 +28,7 @@ object MovieLocalDataSourceImpl :
         addThread.run()
     }
 
-    override fun saveMovieName(keyword: String, context: Context) {
-        recentSearchListDatabase = RecentSearchListDatabase.getInstance(context)
+    override fun saveMovieName(keyword: String) {
 
         val insert = Runnable {
             var movieName =
@@ -39,8 +44,7 @@ object MovieLocalDataSourceImpl :
         addThread.run()
     }
 
-    override fun deleteDb(context: Context) {
-        recentSearchListDatabase = RecentSearchListDatabase.getInstance(context)
+    override fun deleteDb() {
 
         val insert = Runnable {
             //  data all delete

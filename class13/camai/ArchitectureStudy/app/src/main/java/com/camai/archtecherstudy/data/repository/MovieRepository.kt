@@ -15,14 +15,17 @@ interface MovieRepository {
         failed: (String) -> Unit
     )
 
+    //  Database Instance Init
+    fun getInsatance(context: Context)
+
     //  local data select list source
-    fun getRecentSearchList(namelist: (List<RecentSearchName>) -> Unit, context: Context)
+    fun getRecentSearchList(namelist: (List<RecentSearchName>) -> Unit)
 
     //  local data save source
-    fun setMovieNameInsert(keyword: String, context: Context)
+    fun setMovieNameInsert(keyword: String)
 
     //  delete data all
-    fun deteleDb(context: Context)
+    fun deteleDb()
 
     // db close
     fun dbclose()

@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
     //  Data Insert
     private fun insertMovieNameInDb(name: String) {
-        MovieRepositoryImpl.setMovieNameInsert(name, this)
+        MovieRepositoryImpl.setMovieNameInsert(name)
     }
 
     //  Update Movie Search Result Data List
@@ -113,5 +113,11 @@ class MainActivity : AppCompatActivity() {
 
         progressbar.isVisible = false
         edit_name.text.clear()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        MovieRepositoryImpl.dbclose()
     }
 }
