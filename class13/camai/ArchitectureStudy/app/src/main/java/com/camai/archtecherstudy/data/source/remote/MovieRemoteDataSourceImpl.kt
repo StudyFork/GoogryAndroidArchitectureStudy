@@ -36,6 +36,7 @@ object MovieRemoteDataSourceImpl :
 
                 } else {
                     Log.e(TAG, response.message())
+                    failed(response.message())
                 }
 
             }
@@ -43,7 +44,6 @@ object MovieRemoteDataSourceImpl :
             override fun onFailure(call: Call<MovieResponseModel>, t: Throwable) {
                 // Failed
                 Log.e(TAG, t.message.toString())
-
                 failed(t.message.toString())
 
             }

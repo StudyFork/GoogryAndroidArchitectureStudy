@@ -90,15 +90,15 @@ class MainActivity : AppCompatActivity() {
     //  Naver Moive Search Api Call
     private fun getMoiveSearchCall(movietitle: String) {
         MovieRepositoryImpl.getMovieNameSearch(movietitle, 100, 1,
-            success = { movieList ->
+            success = {
                 //  Data Insert
                 insertMovieNameInDb(movietitle)
                 //  movie list data to recycler View
-                setListData(movieList)
+                setListData(it)
             },
-            failed = { error ->
+            failed = {
                 showNotFoundMessage(movietitle)
-                error.let { Log.e(TAG, it) }
+                Log.e(TAG, it)
             })
     }
 
