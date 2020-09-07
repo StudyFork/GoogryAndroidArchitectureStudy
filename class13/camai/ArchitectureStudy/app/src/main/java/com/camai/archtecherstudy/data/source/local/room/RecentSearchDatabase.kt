@@ -6,18 +6,18 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [RecentSearchName::class], version = 2)
-abstract class RecentSearchListDatabase : RoomDatabase() {
-    abstract fun recentSearchListDao(): RecentSearchListDao
+abstract class RecentSearchDatabase : RoomDatabase() {
+    abstract fun recentSearchListDao(): RecentSearchDao
 
     companion object {
-        private var INSTANCE: RecentSearchListDatabase? = null
+        private var INSTANCE: RecentSearchDatabase? = null
 
-        fun getInstance(context: Context): RecentSearchListDatabase? {
+        fun getInstance(context: Context): RecentSearchDatabase? {
 
             synchronized(this) {
                 INSTANCE = Room.databaseBuilder(
                     context.applicationContext,
-                    RecentSearchListDatabase::class.java, "rcentmovie.db"
+                    RecentSearchDatabase::class.java, "rcentmovie.db"
                 )
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()

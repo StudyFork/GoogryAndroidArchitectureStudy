@@ -13,14 +13,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
-import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import com.camai.archtecherstudy.ui.adapter.RecentMovieAdapter
 import kotlinx.android.synthetic.main.recent_movie_list_popup.*
 
-class RecentMovieListDialog : DialogFragment() {
+class RecentMovieListDialog() : DialogFragment() {
 
     private lateinit var recentMovieAdapter: RecentMovieAdapter
-    private var recentnameList = listOf<RecentSearchName>()
 
     companion object {
         const val TAG = "MovieSearchDialog"
@@ -50,9 +48,8 @@ class RecentMovieListDialog : DialogFragment() {
     private fun setAdapterAndRecyclerViewInit() {
 
         recentMovieAdapter =
-            RecentMovieAdapter(recentnameList) { movieName ->
-                Log.d(TAG, movieName)
-                //  recycler View item click movie name to Activity
+            RecentMovieAdapter {
+                Log.d(TAG, it)
 
                 dismiss()
             }
@@ -70,14 +67,14 @@ class RecentMovieListDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setAdapterAndRecyclerViewInit()
+
         MovieRepositoryImpl.getRecentSearchList(namelist = { namelist ->
-            recentnameList = namelist
             if (namelist.isEmpty()) {
                 showEmptyFieldList(requireContext())
             } else {
-                setAdapterAndRecyclerViewInit()
+                recentMovieAdapter.setClearAndAddList(namelist)
             }
-
         })
 
         //  Popup close

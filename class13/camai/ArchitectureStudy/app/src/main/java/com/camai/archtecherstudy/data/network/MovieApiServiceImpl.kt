@@ -17,7 +17,7 @@ object MovieApiServiceImpl {
     private const val CONNECT_TIMEOUT: Long = 15
 
     fun create(): MovieApiService {
-        val httpLoggingInterceptor = HttpLoggingInterceptor();
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
 
         val headerInterceptor = Interceptor {
             val request = it.request()
@@ -29,11 +29,10 @@ object MovieApiServiceImpl {
 
         }
 
-        if(BuildConfig.DEBUG){
+        if (BuildConfig.DEBUG) {
             Log.d("Movie", "true")
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        }
-        else{
+        } else {
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.NONE
         }
 

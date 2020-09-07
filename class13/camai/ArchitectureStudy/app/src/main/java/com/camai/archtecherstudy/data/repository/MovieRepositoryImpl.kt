@@ -7,7 +7,7 @@ import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import com.camai.archtecherstudy.data.source.remote.MovieRemoteDataSourceImpl
 
 
-object MovieRepositoryImpl: MovieRepository {
+object MovieRepositoryImpl : MovieRepository {
 
     override fun getMovieNameSearch(
         keyword: String,

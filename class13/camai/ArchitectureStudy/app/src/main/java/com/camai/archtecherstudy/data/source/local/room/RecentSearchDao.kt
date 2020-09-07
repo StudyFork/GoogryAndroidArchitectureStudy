@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 
 @Dao
-interface RecentSearchListDao {
+interface RecentSearchDao {
 
     @Query("SELECT DISTINCT moviename FROM RMNT ORDER BY id DESC LIMIT 5")
     fun getListItems(): List<RecentSearchName>

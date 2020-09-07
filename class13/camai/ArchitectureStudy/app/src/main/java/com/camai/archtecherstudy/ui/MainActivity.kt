@@ -101,7 +101,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     //  Update Movie Search Result Data List
     private fun setListData(infoList: ArrayList<Items>) {
         movieSearchAdapter.setClearAndAddList(infoList)

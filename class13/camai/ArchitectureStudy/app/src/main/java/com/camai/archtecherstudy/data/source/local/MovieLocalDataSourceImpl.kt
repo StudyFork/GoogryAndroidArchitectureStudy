@@ -1,19 +1,19 @@
 package com.camai.archtecherstudy.data.source.local
 
 import android.content.Context
-import com.camai.archtecherstudy.data.source.local.room.RecentSearchListDatabase
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchDatabase
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 
 object MovieLocalDataSourceImpl :
     MovieLocalDataSource {
 
-    private var recentSearchListDatabase: RecentSearchListDatabase? = null
+    private var recentSearchDatabase: RecentSearchDatabase? = null
 
-    override fun getInstance(context: Context): RecentSearchListDatabase{
-        if( recentSearchListDatabase == null){
-            recentSearchListDatabase = RecentSearchListDatabase.getInstance(context)
+    override fun getInstance(context: Context): RecentSearchDatabase {
+        if (recentSearchDatabase == null) {
+            recentSearchDatabase = RecentSearchDatabase.getInstance(context)
         }
-        return recentSearchListDatabase!!
+        return recentSearchDatabase!!
     }
 
 
@@ -22,7 +22,7 @@ object MovieLocalDataSourceImpl :
     ) {
 
         var run = Runnable {
-            namelist(recentSearchListDatabase?.recentSearchListDao()?.getListItems()!!)
+            namelist(recentSearchDatabase?.recentSearchListDao()?.getListItems()!!)
         }
         val addThread = Thread(run)
         addThread.run()
@@ -36,7 +36,7 @@ object MovieLocalDataSourceImpl :
 
             movieName.movieName = keyword
             //  movie name insert db
-            recentSearchListDatabase?.recentSearchListDao()?.insert(movieName)
+            recentSearchDatabase?.recentSearchListDao()?.insert(movieName)
 
         }
 
@@ -48,7 +48,7 @@ object MovieLocalDataSourceImpl :
 
         val insert = Runnable {
             //  data all delete
-            recentSearchListDatabase?.recentSearchListDao()?.deleteAll()
+            recentSearchDatabase?.recentSearchListDao()?.deleteAll()
         }
 
         val addThread = Thread(insert)
@@ -58,7 +58,7 @@ object MovieLocalDataSourceImpl :
 
     override fun dbclose() {
         //  db close
-        RecentSearchListDatabase.destroyInstance()
+        RecentSearchDatabase.destroyInstance()
     }
 
 

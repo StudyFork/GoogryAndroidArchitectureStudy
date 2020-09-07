@@ -9,6 +9,7 @@ interface MovieRemoteDataSource {
         display: Int,
         start: Int,
         success: (ArrayList<Items>) -> Unit,
-        failed: (String) -> Unit)
+        failed: (String) -> Unit
+    )
 
 }

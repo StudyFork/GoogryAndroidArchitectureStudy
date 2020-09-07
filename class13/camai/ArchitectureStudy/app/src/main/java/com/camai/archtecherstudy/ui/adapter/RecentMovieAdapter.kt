@@ -10,11 +10,10 @@ import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 
 
-class RecentMovieAdapter(
-    val recentlist: List<RecentSearchName>,
-    val itemClick: (String) -> Unit
-) :
+class RecentMovieAdapter(val itemClick: (String) -> Unit) :
     RecyclerView.Adapter<RecentMovieAdapter.ViewHolder>() {
+
+    private val recentlist = mutableListOf<RecentSearchName>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recent_item, parent, false)
@@ -36,6 +35,17 @@ class RecentMovieAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(recentlist[position])
+    }
+
+    //  Update Movie Name Data
+    fun setClearAndAddList(recentList: List<RecentSearchName>) {
+        //  adaper clear and data add
+        with(recentlist) {
+            clear()
+            addAll(recentList)
+        }
+        //  recyclerview set Data Change
+        notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
