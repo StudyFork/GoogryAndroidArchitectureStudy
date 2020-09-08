@@ -1,7 +1,5 @@
 package com.example.myproject.data.source.remote
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import com.example.myproject.data.model.Items
 import com.example.myproject.data.model.Movie
 import com.example.myproject.data.service.RetrofitClient
