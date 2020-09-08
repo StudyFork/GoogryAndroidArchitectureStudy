@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="orgBright">#FEF0EA</color>
+    <color name="orgLight1">#FBCFB9</color>
+    <color name="orgLight2">#F9AD88</color>
+    <color name="orgHover1">#F89C70</color>
+    <color name="orgHover2">#f57b40</color>
+    <color name="orgDefault">#f3590f</color>
+    <color name="orgPressed1">#dd4f0b</color>
+    <color name="orgPressed2">#C5470A</color>
+    <color name="orgDark1">#AD3E09</color>
+    <color name="orgDark2">#7C2D06</color>
+
+    <color name="subLight1">#C8ECF2</color>
+    <color name="subLight2">#9FDEE8</color>
+    <color name="subLight3">#F6F6FF</color>
+    <color name="subLight4">#fbfbff</color>
+    <color name="subHover1">#76D0DF</color>
+    <color name="subHover2">#61c9da</color>
+    <color name="subDefault">#38BBD0</color>
+    <color name="subPressed1">#299aac</color>
+    <color name="subPressed2">#248898</color>
+    <color name="subDark1">#1F7583</color>
+    <color name="subDark2">#15505A</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="grey1">#F5F5F5</color>
+    <color name="grey2">#EAEAEA</color>
+    <color name="grey3">#E0E0E0</color>
+    <color name="grey4">#BDBDBD</color>
+    <color name="grey5">#757575</color>
+    <color name="grey6">#424242</color>
+    <color name="grey7">#333333</color>
+    <color name="grey8">#191919</color>
+    <color name="grey9">#787878</color>
+    <color name="grey10">#494949</color>
+
+
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlack2">#191919</color>
+
+    <color name="colorError">#D32F2F</color>
+    <color name="colorWarning">#F9A825</color>
+    <color name="colorSafe">#4CAF50</color>
+    <color name="colorActive">#0091EA</color>
+
+
+    <!-- KB colors -->
+    <color name="kbYellow">#F2BF41</color>
+    <color name="kbLogo">#796D61</color>
+    <color name="kbTextColor">#1F1F20</color>
+    <color name="kbDeactivate">#B6B6B6</color>
+    <color name="kbLine">#DDDDDD</color>
+    <color name="kbRed">#EB5757</color>
+    <color name="kbGreen">#6FCF97</color>
+    <color name="kbWaiting">#C2C7CF</color>
+    <color name="background">#F9F9F9</color>
+    <color name="text">#1F1F20</color>
+
 </resources>
