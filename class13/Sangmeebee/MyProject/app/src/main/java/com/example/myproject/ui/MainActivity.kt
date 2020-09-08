@@ -1,6 +1,7 @@
 package com.example.myproject.ui
 
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,7 @@ import com.example.myproject.data.source.remote.NaverRemoteDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnListItemSelectedInterface {
 
     private var movies: ArrayList<Items> = ArrayList()
     private val movieAdapter = MovieAdapter(this, movies)
@@ -70,5 +71,9 @@ class MainActivity : AppCompatActivity() {
             adapter = movieAdapter
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         }
+    }
+
+    override fun onItemSelected(title: String) {
+        edit_title.text = Editable.Factory.getInstance().newEditable(title)
     }
 }

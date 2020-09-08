@@ -3,6 +3,7 @@ package com.example.myproject.ui
 import android.content.Context
 import android.graphics.Point
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myproject.R
 
-class TitleFragmentDialog : DialogFragment() {
+class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
 
     private var titleList: ArrayList<String> = arrayListOf()
+    private lateinit var onListItemSelectedInterface: OnListItemSelectedInterface
 
     fun newInstance(titleList: ArrayList<String>): TitleFragmentDialog {
         val fragment = TitleFragmentDialog()
@@ -36,15 +38,27 @@ class TitleFragmentDialog : DialogFragment() {
 
         args?.let { titleList = it.getStringArrayList("title_list") as ArrayList<String> }
 
-        recyclerView.adapter = TitleAdapter(titleList)
-        recyclerView.setOnClickListener {
-        }
-
+        val adapter = TitleAdapter(this, titleList)
+        recyclerView.adapter = adapter
         cancelBtn.setOnClickListener {
             dismiss()
         }
 
         return view
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        try {
+            onListItemSelectedInterface = activity as OnListItemSelectedInterface
+        } catch (e: ClassCastException) {
+            Log.e("sangmee", "onAttach: " + e.message)
+        }
+    }
+
+    override fun onItemSelected(title: String) {
+        onListItemSelectedInterface.onItemSelected(title)
+        dismiss()
     }
 
     //다이얼로그 크기 지정
