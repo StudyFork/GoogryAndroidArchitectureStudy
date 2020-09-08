@@ -5,13 +5,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
+import androidx.fragment.app.commit
 import com.example.aas.R
 import com.example.aas.data.model.ApiResult
 import com.example.aas.data.repository.MovieSearchRepository
 import com.example.aas.data.repository.MovieSearchRepositoryImpl
 import com.example.aas.utils.hideKeyboard
+import com.example.aas.utils.showToast
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,7 +28,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     private val movieSearchRepository: MovieSearchRepository = MovieSearchRepositoryImpl
     private val movieAdapter = MovieAdapter()
     private val fragmentFactory: FragmentFactory = FragmentFactoryImpl(this)
-    private val savedQueryDialogFragment by lazy { SavedQueryDialogFragment.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportFragmentManager.fragmentFactory = fragmentFactory
@@ -46,12 +48,22 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             }
             .observeGetMovies()
 
-        btn_history.isEnabled = movieSearchRepository.getSavedQueries().isNotEmpty()
-
         RxView.clicks(btn_history)
             .throttleFirst(1000L, TimeUnit.MILLISECONDS)
-            .subscribe { savedQueryDialogFragment.show(supportFragmentManager, "history") }
-            .addTo(compositeDisposable)
+            .flatMapSingle {
+                movieSearchRepository.getSavedQueries()
+            }
+            .subscribe({
+                supportFragmentManager.commit {
+                    val bundle = Bundle().apply {
+                        putStringArray(SavedQueryDialogFragment.HISTORY_LIST, it.toTypedArray())
+                    }
+                    add(SavedQueryDialogFragment::class.java, bundle, SavedQueryDialogFragment.TAG)
+                }
+            }, {
+                this.showToast("Local Data Loading Error", Toast.LENGTH_LONG)
+                it.printStackTrace()
+            }).addTo(compositeDisposable)
     }
 
     override fun onDestroy() {
@@ -65,14 +77,24 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             .observeGetMovies()
     }
 
-    private fun Observable<ApiResult>.observeGetMovies() {
+    private fun Observable<Pair<ApiResult, Completable>>.observeGetMovies() {
         this.observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Toast.makeText(this@MainActivity, "Search Completed", Toast.LENGTH_SHORT).show()
-                movieAdapter.setList(it.movies)
-                btn_history.isEnabled = true
+                this@MainActivity.showToast("Search Completed", Toast.LENGTH_SHORT)
+                movieAdapter.setList(it.first.movies)
+                saveQuery(it.second)
             }, {
-                Toast.makeText(this@MainActivity, "Network Error", Toast.LENGTH_LONG).show()
+                this@MainActivity.showToast("Network Error", Toast.LENGTH_LONG)
+                it.printStackTrace()
+            }).addTo(compositeDisposable)
+    }
+
+    private fun saveQuery(completable: Completable) {
+        completable
+            .subscribe({
+                this.showToast("save query Completed", Toast.LENGTH_SHORT)
+            }, {
+                this.showToast("save query Failed", Toast.LENGTH_LONG)
                 it.printStackTrace()
             }).addTo(compositeDisposable)
     }

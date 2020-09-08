@@ -4,17 +4,14 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import com.example.aas.data.repository.MovieSearchRepository
-import com.example.aas.data.repository.MovieSearchRepositoryImpl
 
 class SavedQueryDialogFragment(private val historySelectionListener: HistorySelectionListener) :
     DialogFragment() {
 
-    private val movieSearchRepository: MovieSearchRepository = MovieSearchRepositoryImpl
     private lateinit var searchHistory: List<String>
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        searchHistory = movieSearchRepository.getSavedQueries().reversed()
+        searchHistory = arguments?.getStringArray(HISTORY_LIST)?.reversed() ?: listOf()
 
         return requireActivity().let {
             AlertDialog.Builder(it)
@@ -33,6 +30,9 @@ class SavedQueryDialogFragment(private val historySelectionListener: HistorySele
     companion object {
         @Volatile
         private var INSTANCE: SavedQueryDialogFragment? = null
+
+        const val HISTORY_LIST = "historyList"
+        const val TAG = "history"
 
         fun getInstance(historySelectionListener: HistorySelectionListener): SavedQueryDialogFragment =
             INSTANCE ?: synchronized(this) {
