@@ -21,11 +21,11 @@ class Preferences(context: Context) {
     }
 
     fun readData(): ArrayList<String> {
-        val json = preferences.getString("SearchList", "EMPTY")
+        val json = preferences.getString("SearchList", null)
         val dataList = arrayListOf<String>()
 
-        if (json != "EMPTY") {
-            val jsonArray = JSONArray(json)
+        json?.let {
+            val jsonArray = JSONArray(it)
             for (i in 0 until jsonArray.length()) {
                 dataList.add(jsonArray[i].toString())
             }
@@ -33,11 +33,4 @@ class Preferences(context: Context) {
 
         return dataList
     }
-
-    fun setTitle(title: String) {
-        preferences.edit().putString("Title", title).apply()
-    }
-
-    fun loadTitle() = preferences.getString("Title", "") ?: ""
-
 }
