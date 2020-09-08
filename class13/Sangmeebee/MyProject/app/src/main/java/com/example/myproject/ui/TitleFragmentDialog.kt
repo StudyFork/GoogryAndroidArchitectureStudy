@@ -38,8 +38,10 @@ class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
 
         args?.let { titleList = it.getStringArrayList("title_list") as ArrayList<String> }
 
-        val adapter = TitleAdapter(this, titleList)
+        val adapter = TitleAdapter(this)
+        adapter.setTitleList(titleList)
         recyclerView.adapter = adapter
+
         cancelBtn.setOnClickListener {
             dismiss()
         }

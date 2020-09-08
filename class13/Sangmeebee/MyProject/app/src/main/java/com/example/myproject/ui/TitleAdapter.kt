@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myproject.R
 
 class TitleAdapter(
-    private val onListItemSelectedInterface: OnListItemSelectedInterface,
-    private val titleArrayList: ArrayList<String>
+    private val onListItemSelectedInterface: OnListItemSelectedInterface
 ) :
     RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
+
+    private val titleList = arrayListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(
@@ -21,7 +22,7 @@ class TitleAdapter(
         val result = TitleViewHolder(view)
 
         view.setOnClickListener {
-            val title = titleArrayList[result.absoluteAdapterPosition]
+            val title = titleList[result.absoluteAdapterPosition]
             onListItemSelectedInterface.onItemSelected(title)
         }
 
@@ -30,10 +31,18 @@ class TitleAdapter(
 
     override fun onBindViewHolder(holder: TitleViewHolder, position: Int) {
 
-        holder.bind(titleArrayList[position])
+        holder.bind(titleList[position])
     }
 
-    override fun getItemCount() = titleArrayList.size
+    override fun getItemCount() = titleList.size
+
+    fun setTitleList(titleList: ArrayList<String>) {
+        with(this.titleList) {
+            clear()
+            addAll(titleList)
+        }
+        notifyDataSetChanged()
+    }
 
     class TitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
