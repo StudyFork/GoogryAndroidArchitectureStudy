@@ -27,7 +27,7 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
                         success(it.items)
                     }
                 } else {
-                    Log.e(TAG, response.message())
+                    failed(response.message())
                 }
             }
         })
