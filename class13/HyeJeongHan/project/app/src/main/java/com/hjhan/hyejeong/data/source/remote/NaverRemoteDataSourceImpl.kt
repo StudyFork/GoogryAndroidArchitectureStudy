@@ -19,14 +19,11 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
             override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
 
                 if (response.isSuccessful) {
-
                     response.body()?.let {
                         success(it)
                     }
-
                 } else {
                     failed("네트워크 통신 실패")
-
                 }
 
             }

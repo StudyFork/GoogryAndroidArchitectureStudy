@@ -39,14 +39,10 @@ class MainActivity : AppCompatActivity() {
         movieAdapter = MovieAdapter()
         recyclerView.adapter = movieAdapter
 
-
         searchButton.setOnClickListener {
-
             val title = editText.text.toString()
-
             if (title.isBlank()) {
                 Toast.makeText(this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
-
             } else {
                 requestMovieList(title)
             }
