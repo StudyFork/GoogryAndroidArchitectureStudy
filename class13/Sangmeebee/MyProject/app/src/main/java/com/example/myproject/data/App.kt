@@ -5,8 +5,8 @@ import android.app.Application
 class App : Application() {
 
     override fun onCreate() {
-        prefs = Preferences(applicationContext)
         super.onCreate()
+        prefs = Preferences(applicationContext)
     }
 
     companion object {
