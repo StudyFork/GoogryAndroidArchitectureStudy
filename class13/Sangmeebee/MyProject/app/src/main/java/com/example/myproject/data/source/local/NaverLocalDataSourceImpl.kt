@@ -3,13 +3,13 @@ package com.example.myproject.data.source.local
 import com.example.myproject.data.App
 
 class NaverLocalDataSourceImpl : NaverLocalDataSource {
-    override fun saveData(title: String) {
-        App.prefs.saveData(title)
+    override fun saveRecentSearchTitle(title: String) {
+        App.prefs.saveRecentSearchTitle(title)
     }
 
-    override fun readData(): ArrayList<String> {
+    override fun readRecentSearchTitle(): ArrayList<String> {
         var temp = arrayListOf<String>()
-        val dataList = App.prefs.readData()
+        val dataList = App.prefs.readRecentSearchTitle()
         for (i in dataList.size - 1 downTo 0) {
             temp.add(dataList[i])
         }

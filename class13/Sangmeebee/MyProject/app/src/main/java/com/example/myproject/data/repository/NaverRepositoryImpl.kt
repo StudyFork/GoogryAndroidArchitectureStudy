@@ -16,9 +16,9 @@ class NaverRepositoryImpl(
         naverRemoteDataSource.getMovieList(title, success, failed)
     }
 
-    override fun saveData(title: String) {
-        naverLocalDataSource.saveData(title)
+    override fun saveRecentSearchTitle(title: String) {
+        naverLocalDataSource.saveRecentSearchTitle(title)
     }
 
-    override fun readData() = naverLocalDataSource.readData()
+    override fun readRecentSearchTitle() = naverLocalDataSource.readRecentSearchTitle()
 }

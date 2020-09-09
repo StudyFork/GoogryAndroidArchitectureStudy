@@ -9,7 +9,7 @@ interface NaverRepository {
         failed: (String) -> Unit
     )
 
-    fun saveData(title: String)
+    fun saveRecentSearchTitle(title: String)
 
-    fun readData(): ArrayList<String>
+    fun readRecentSearchTitle(): ArrayList<String>
 }

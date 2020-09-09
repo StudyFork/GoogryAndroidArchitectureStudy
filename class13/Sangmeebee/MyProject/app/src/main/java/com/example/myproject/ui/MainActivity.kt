@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity(), OnListItemSelectedInterface {
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        repositoryDataSourceImpl.saveData(title)
-                        Log.d("sangmee", repositoryDataSourceImpl.readData().toString())
+                        repositoryDataSourceImpl.saveRecentSearchTitle(title)
+                        Log.d("sangmee", repositoryDataSourceImpl.readRecentSearchTitle().toString())
                         movieAdapter.clearAndAddItems(it)
                     }
 
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), OnListItemSelectedInterface {
         }
 
         btn_history.setOnClickListener {
-            val dialog = TitleFragmentDialog().newInstance(repositoryDataSourceImpl.readData())
+            val dialog = TitleFragmentDialog().newInstance(repositoryDataSourceImpl.readRecentSearchTitle())
             dialog.show(supportFragmentManager, "title_history_dialog")
         }
     }
