@@ -19,11 +19,10 @@ class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
     private lateinit var onListItemSelectedInterface: OnListItemSelectedInterface
 
     fun newInstance(titleList: ArrayList<String>): TitleFragmentDialog {
-        val fragment = TitleFragmentDialog()
-        var args = Bundle()
+        val args = Bundle()
         args.putStringArrayList("title_list", titleList)
-        fragment.arguments = args
-        return fragment
+        arguments = args
+        return this
     }
 
     override fun onCreateView(
@@ -36,7 +35,7 @@ class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_search_list)
         val cancelBtn = view.findViewById<Button>(R.id.btn_close)
         val args = arguments
