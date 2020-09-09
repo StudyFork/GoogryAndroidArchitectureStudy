@@ -82,12 +82,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        CoroutineScope(Dispatchers.IO).cancel()
-        MovieDatabase.destroyInstance()
-        super.onDestroy()
-    }
-
     class FragmentFactoryImpl(private val getMovieTitle: (String) -> Unit) : FragmentFactory() {
         override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
             return when (className) {
