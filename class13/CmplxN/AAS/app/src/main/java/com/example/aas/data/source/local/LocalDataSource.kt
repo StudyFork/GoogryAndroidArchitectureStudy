@@ -1,10 +1,9 @@
 package com.example.aas.data.source.local
 
-import io.reactivex.Completable
 import io.reactivex.Single
 
 interface LocalDataSource {
-    fun saveQuery(query: String): Completable
+    fun saveQuery(query: String)
 
     fun getSavedQuery(): Single<List<String>>
 }

@@ -14,7 +14,6 @@ import com.example.aas.utils.hideKeyboard
 import com.example.aas.utils.showToast
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -77,24 +76,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
             .observeGetMovies()
     }
 
-    private fun Observable<Pair<ApiResult, Completable>>.observeGetMovies() {
+    private fun Observable<ApiResult>.observeGetMovies() {
         this.observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 this@MainActivity.showToast("Search Completed", Toast.LENGTH_SHORT)
-                movieAdapter.setList(it.first.movies)
-                saveQuery(it.second)
+                movieAdapter.setList(it.movies)
             }, {
                 this@MainActivity.showToast("Network Error", Toast.LENGTH_LONG)
-                it.printStackTrace()
-            }).addTo(compositeDisposable)
-    }
-
-    private fun saveQuery(completable: Completable) {
-        completable
-            .subscribe({
-                this.showToast("save query Completed", Toast.LENGTH_SHORT)
-            }, {
-                this.showToast("save query Failed", Toast.LENGTH_LONG)
                 it.printStackTrace()
             }).addTo(compositeDisposable)
     }

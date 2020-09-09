@@ -3,21 +3,22 @@ package com.example.aas.data.source.local
 import android.content.Context
 import androidx.core.content.edit
 import com.example.aas.MyApplication
-import io.reactivex.Completable
 import io.reactivex.Single
 import org.json.JSONArray
 import org.json.JSONException
+import java.util.concurrent.TimeUnit
 
 class LocalDataSourceImpl : LocalDataSource {
 
-    override fun saveQuery(query: String): Completable {
+    override fun saveQuery(query: String) {
         val appContext = MyApplication.appContext
 
         val queryHistorySharedPreferences =
             appContext.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
 
-        return getSavedQuery()
-            .flatMapCompletable {
+        getSavedQuery()
+            .timeout(5000L, TimeUnit.MILLISECONDS)
+            .subscribe({
                 val list = it.toMutableList()
                 if (!list.remove(query) && it.size > 4) {
                     list.removeFirstOrNull()
@@ -29,8 +30,9 @@ class LocalDataSourceImpl : LocalDataSource {
                     list.forEach { query -> editArray.put(query) }
                     putString(sharedPreferencesName, editArray.toString())
                 }
-                Completable.complete()
-            }
+            }, {
+                it.printStackTrace()
+            })
     }
 
     override fun getSavedQuery(): Single<List<String>> {
