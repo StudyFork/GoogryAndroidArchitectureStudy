@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.R
 import com.hong.architecturestudy.data.repository.RepositoryDataSource
@@ -35,8 +36,8 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
         rvSearchItem?.adapter = movieSearchListAdapter
         rvSearchItem?.setHasFixedSize(true)
 
-        CoroutineScope(Dispatchers.IO).launch {
-            movieSearchListAdapter.setList(repositoryDataSourceImpl.loadData())
+        lifecycleScope.launch(Dispatchers.Default) {
+            movieSearchListAdapter.setList(repositoryDataSourceImpl.loadResentSearchQuery())
         }
 
         return AlertDialog.Builder(requireActivity())
@@ -54,6 +55,4 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
                 MovieListDialogFragment(param).also { INSTANCE = it }
             }
     }
-
-
 }
