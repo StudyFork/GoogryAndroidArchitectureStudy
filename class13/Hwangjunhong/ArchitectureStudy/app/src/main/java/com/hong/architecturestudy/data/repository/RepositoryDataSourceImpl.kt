@@ -19,17 +19,17 @@ class RepositoryDataSourceImpl(
             query,
             {
                 onSuccess(it)
-                saveData(query)
+                saveResentSearchQuery(query)
             }, onFailure
         )
     }
 
-    override fun saveData(keyword: String) =
-        localDataSource.saveData(keyword)
+    override fun saveResentSearchQuery(keyword: String) =
+        localDataSource.saveResentSearchQuery(keyword)
 
 
-    override fun loadData(): List<MovieInfo> =
-        localDataSource.loadData()
+    override fun loadResentSearchQuery(): List<MovieInfo> =
+        localDataSource.loadResentSearchQuery()
 
 
 }

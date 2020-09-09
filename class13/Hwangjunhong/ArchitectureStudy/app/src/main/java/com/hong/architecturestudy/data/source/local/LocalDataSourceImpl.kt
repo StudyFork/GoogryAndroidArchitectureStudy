@@ -10,7 +10,7 @@ class LocalDataSourceImpl : LocalDataSource {
     private var movieDB: MovieDatabase? =
         MovieDatabase.getInstance(MyApplication.applicationContext())
 
-    override fun saveData(keyword: String) {
+    override fun saveResentSearchQuery(keyword: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val movieInfo = MovieInfo()
             movieInfo.movieTitle = keyword
@@ -18,7 +18,7 @@ class LocalDataSourceImpl : LocalDataSource {
         }
     }
 
-    override fun loadData(): List<MovieInfo> {
+    override fun loadResentSearchQuery(): List<MovieInfo> {
         return movieDB?.movieDao()?.getAll()!!
     }
 

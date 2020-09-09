@@ -11,6 +11,6 @@ interface RepositoryDataSource {
         onFailure: (Throwable) -> Unit
     )
 
-    fun saveData(keyword: String)
-    fun loadData(): List<MovieInfo>
+    fun saveResentSearchQuery(keyword: String)
+    fun loadResentSearchQuery(): List<MovieInfo>
 }
