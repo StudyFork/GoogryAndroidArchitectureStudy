@@ -31,7 +31,12 @@ class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.dialog_fragment_title, container, false)
+        return inflater.inflate(R.layout.dialog_fragment_title, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_search_list)
         val cancelBtn = view.findViewById<Button>(R.id.btn_close)
         val args = arguments
@@ -45,8 +50,6 @@ class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
         cancelBtn.setOnClickListener {
             dismiss()
         }
-
-        return view
     }
 
     override fun onAttach(context: Context) {
