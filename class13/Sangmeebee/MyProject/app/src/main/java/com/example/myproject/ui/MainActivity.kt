@@ -2,7 +2,6 @@ package com.example.myproject.ui
 
 import android.os.Bundle
 import android.text.Editable
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -48,8 +47,6 @@ class MainActivity : AppCompatActivity(), OnListItemSelectedInterface {
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        repositoryDataSourceImpl.saveRecentSearchTitle(title)
-                        Log.d("sangmee", repositoryDataSourceImpl.readRecentSearchTitle().toString())
                         movieAdapter.clearAndAddItems(it)
                     }
 
@@ -60,7 +57,8 @@ class MainActivity : AppCompatActivity(), OnListItemSelectedInterface {
         }
 
         btn_history.setOnClickListener {
-            val dialog = TitleFragmentDialog().newInstance(repositoryDataSourceImpl.readRecentSearchTitle())
+            val dialog =
+                TitleFragmentDialog().newInstance(repositoryDataSourceImpl.readRecentSearchTitle())
             dialog.show(supportFragmentManager, "title_history_dialog")
         }
     }

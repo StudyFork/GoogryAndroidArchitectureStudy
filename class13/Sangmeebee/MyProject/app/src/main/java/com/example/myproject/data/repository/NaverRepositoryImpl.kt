@@ -13,7 +13,10 @@ class NaverRepositoryImpl(
         success: (ArrayList<Items>) -> Unit,
         failed: (String) -> Unit
     ) {
-        naverRemoteDataSource.getMovieList(title, success, failed)
+        naverRemoteDataSource.getMovieList(title, {
+            success(it)
+            saveRecentSearchTitle(title)
+        }, failed)
     }
 
     override fun saveRecentSearchTitle(title: String) {
