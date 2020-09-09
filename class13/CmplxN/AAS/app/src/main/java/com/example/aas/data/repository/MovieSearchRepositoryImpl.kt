@@ -17,4 +17,8 @@ object MovieSearchRepositoryImpl : MovieSearchRepository {
     }
 
     override fun getSavedQueries(): Single<List<String>> = localDataSource.getSavedQuery()
+
+    override fun onDestroy() {
+        localDataSource.onDestroy()
+    }
 }

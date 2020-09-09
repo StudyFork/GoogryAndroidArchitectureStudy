@@ -4,11 +4,15 @@ import android.content.Context
 import androidx.core.content.edit
 import com.example.aas.MyApplication
 import io.reactivex.Single
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.concurrent.TimeUnit
 
 class LocalDataSourceImpl : LocalDataSource {
+
+    private val compositeDisposable = CompositeDisposable()
 
     override fun saveQuery(query: String) {
         val appContext = MyApplication.appContext
@@ -32,7 +36,7 @@ class LocalDataSourceImpl : LocalDataSource {
                 }
             }, {
                 it.printStackTrace()
-            })
+            }).addTo(compositeDisposable)
     }
 
     override fun getSavedQuery(): Single<List<String>> {
@@ -54,6 +58,10 @@ class LocalDataSourceImpl : LocalDataSource {
             }
         }
         return Single.just(result)
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
     }
 
     companion object {

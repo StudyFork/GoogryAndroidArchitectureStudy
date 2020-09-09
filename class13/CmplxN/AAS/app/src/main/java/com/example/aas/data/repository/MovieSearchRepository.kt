@@ -8,4 +8,6 @@ interface MovieSearchRepository {
     fun getMovies(query: String): Single<ApiResult>
 
     fun getSavedQueries(): Single<List<String>>
+
+    fun onDestroy()
 }

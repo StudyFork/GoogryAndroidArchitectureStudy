@@ -6,4 +6,6 @@ interface LocalDataSource {
     fun saveQuery(query: String)
 
     fun getSavedQuery(): Single<List<String>>
+
+    fun onDestroy()
 }

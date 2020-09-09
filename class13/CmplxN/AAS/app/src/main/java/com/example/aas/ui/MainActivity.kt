@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main),
     }
 
     override fun onDestroy() {
+        movieSearchRepository.onDestroy()
         compositeDisposable.clear()
         super.onDestroy()
     }
