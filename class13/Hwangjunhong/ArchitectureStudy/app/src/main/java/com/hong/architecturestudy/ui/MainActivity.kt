@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private val repositoryDataSourceImpl: RepositoryDataSource by lazy {
         val remoteDataSourceImpl = RemoteDataSourceImpl()
-        val localDataSourceImpl = LocalDataSourceImpl(this)
+        val localDataSourceImpl = LocalDataSourceImpl()
         RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl)
     }
 

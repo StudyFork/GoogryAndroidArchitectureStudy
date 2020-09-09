@@ -18,7 +18,7 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
 
     private val repositoryDataSourceImpl: RepositoryDataSource by lazy {
         val remoteDataSourceImpl = RemoteDataSourceImpl()
-        val localDataSourceImpl = LocalDataSourceImpl(requireActivity())
+        val localDataSourceImpl = LocalDataSourceImpl()
         RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl)
     }
 
