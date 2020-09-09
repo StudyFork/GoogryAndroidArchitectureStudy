@@ -27,9 +27,5 @@ abstract class MovieDatabase : RoomDatabase() {
             return INSTANCE
         }
 
-        fun destroyInstance() {
-            INSTANCE = null
-        }
     }
-
 }
