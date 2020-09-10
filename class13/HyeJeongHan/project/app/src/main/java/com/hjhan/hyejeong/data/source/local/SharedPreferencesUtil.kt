@@ -30,7 +30,7 @@ object SharedPreferencesUtil {
     }
 
     //새로운 쿼리 저장
-    fun setQueryList(query: String) {
+    fun setQuery(query: String) {
         val list = getQueryList().toMutableList()
 
         if (query.isNotBlank()) {
