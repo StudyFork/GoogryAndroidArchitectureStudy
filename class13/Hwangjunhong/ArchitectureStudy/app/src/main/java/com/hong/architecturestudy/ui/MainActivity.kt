@@ -5,46 +5,71 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import com.hong.architecturestudy.R
-import com.hong.architecturestudy.data.MovieResultData
+import com.hong.architecturestudy.data.repository.RepositoryDataSource
+import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
+import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
+import com.hong.architecturestudy.data.source.local.MovieDatabase
+import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
 import com.hong.architecturestudy.ext.hideKeyboard
-import com.hong.architecturestudy.network.RetrofitCreator
-import com.hong.architecturestudy.utils.log
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+
+typealias GetMovieTitle = (String) -> Unit
 
 class MainActivity : AppCompatActivity() {
-    private val adapter = MovieAdapter()
-    private val movieCallBack = object : retrofit2.Callback<MovieResultData> {
-        override fun onFailure(call: Call<MovieResultData>, t: Throwable) {
-            log("[MainActivity] : 통신 실패")
-        }
 
-        override fun onResponse(call: Call<MovieResultData>, response: Response<MovieResultData>) {
-            with(response) {
-                val body = body()
-                if (isSuccessful && body != null) {
-                    adapter.setData(body.items)
-                } else {
-                    log("[MainActivity] : 데이터 불러오기 실패")
-                }
-            }
-        }
+    private val repositoryDataSourceImpl: RepositoryDataSource by lazy {
+        val remoteDataSourceImpl = RemoteDataSourceImpl()
+        val localDataSourceImpl = LocalDataSourceImpl()
+        RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl)
+    }
+
+    private val getMovieData: GetMovieTitle = { movieTitle ->
+        repositoryDataSourceImpl.getMovieList(movieTitle, { movieData ->
+            adapter.setData(movieData)
+            hideKeyboard(this, edit_search)
+        }, {
+            Toast.makeText(this, "검색 실패", Toast.LENGTH_LONG).show()
+        })
+    }
+
+    private val adapter = MovieAdapter()
+    private val fragmentFactory = FragmentFactoryImpl { getMovieData(it) }
+    private val movieListDialogFragment = MovieListDialogFragment.getInstance {
+        getMovieData(it)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportFragmentManager.fragmentFactory = fragmentFactory
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setRecyclerView()
+
         btn_search.setOnClickListener {
-            if (edit_search.text.toString().isBlank()) {
+            val keyword = edit_search.text.toString()
+            if (keyword.isBlank()) {
                 Toast.makeText(this, "영화 제목을 입력해 주세요", Toast.LENGTH_LONG).show()
             } else {
-                getMovieList(edit_search.text.toString())
-                hideKeyboard(this, edit_search)
+                repositoryDataSourceImpl.getMovieList(keyword,
+                    {
+                        edit_search.text.clear()
+                        adapter.setData(it)
+                        hideKeyboard(this, edit_search)
+                    }, {
+                        Toast.makeText(this, "검색 실패", Toast.LENGTH_LONG).show()
+                    })
             }
+        }
+
+        btn_search_list.setOnClickListener {
+            movieListDialogFragment.show(supportFragmentManager, "dialog")
+
         }
     }
 
@@ -57,7 +82,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getMovieList(query: String) {
-        RetrofitCreator.service.getMovies(query).enqueue(movieCallBack)
+    class FragmentFactoryImpl(private val getMovieTitle: (String) -> Unit) : FragmentFactory() {
+        override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
+            return when (className) {
+                MovieListDialogFragment::class.java.name -> MovieListDialogFragment.getInstance(
+                    getMovieTitle
+                )
+                else -> super.instantiate(classLoader, className)
+            }
+        }
     }
 }

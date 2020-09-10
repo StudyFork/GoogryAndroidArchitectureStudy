@@ -1,4 +1,4 @@
-package com.hong.architecturestudy.network
+package com.hong.architecturestudy.data.network
 
 import com.hong.architecturestudy.BuildConfig
 import com.hong.architecturestudy.components.Constants.BASE_URL

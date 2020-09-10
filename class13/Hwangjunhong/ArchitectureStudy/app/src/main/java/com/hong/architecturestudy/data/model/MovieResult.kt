@@ -1,4 +1,4 @@
-package com.hong.architecturestudy.data
+package com.hong.architecturestudy.data.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

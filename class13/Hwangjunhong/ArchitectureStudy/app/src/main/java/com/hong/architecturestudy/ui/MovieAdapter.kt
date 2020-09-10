@@ -2,7 +2,7 @@ package com.hong.architecturestudy.ui
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.hong.architecturestudy.data.MovieData
+import com.hong.architecturestudy.data.model.MovieData
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     private val items = mutableListOf<MovieData>()
