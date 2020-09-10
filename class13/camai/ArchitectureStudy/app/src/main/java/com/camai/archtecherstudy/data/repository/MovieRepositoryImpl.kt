@@ -16,6 +16,9 @@ object MovieRepositoryImpl : MovieRepository {
         success: (ArrayList<Items>) -> Unit,
         failed: (String) -> Unit
     ) {
+        //  Data Insert
+        setMovieNameInsert(keyword)
+        //  retrofit call
         MovieRemoteDataSourceImpl.getSearchMovie(keyword, display, start, success, failed)
     }
 

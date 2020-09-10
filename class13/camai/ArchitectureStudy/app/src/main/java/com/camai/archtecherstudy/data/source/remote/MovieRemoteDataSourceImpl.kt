@@ -29,8 +29,6 @@ object MovieRemoteDataSourceImpl :
             ) {
                 // Success
                 if (response.isSuccessful) {
-                    //  Data Insert
-                    MovieRepositoryImpl.setMovieNameInsert(keyword)
 
                     val body = response.body()
                     body?.let {
