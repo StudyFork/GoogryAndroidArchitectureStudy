@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), OnListItemSelectedInterface {
 
         btn_history.setOnClickListener {
             val dialog =
-                TitleFragmentDialog().newInstance(repositoryDataSourceImpl.readRecentSearchTitle())
+                TitleFragmentDialog.newInstance(repositoryDataSourceImpl.readRecentSearchTitle())
             dialog.show(supportFragmentManager, "title_history_dialog")
         }
     }

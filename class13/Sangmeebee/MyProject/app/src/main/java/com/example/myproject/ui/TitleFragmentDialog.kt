@@ -18,13 +18,6 @@ class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
     private var titleList: ArrayList<String> = arrayListOf()
     private lateinit var onListItemSelectedInterface: OnListItemSelectedInterface
 
-    fun newInstance(titleList: ArrayList<String>): TitleFragmentDialog {
-        val args = Bundle()
-        args.putStringArrayList("title_list", titleList)
-        arguments = args
-        return this
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -76,5 +69,15 @@ class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
         val deviceWidth = size.x
         params?.width = (deviceWidth * 0.9).toInt()
         dialog?.window?.attributes = params as WindowManager.LayoutParams
+    }
+
+    companion object{
+        fun newInstance(titleList: ArrayList<String>): TitleFragmentDialog {
+            val fragment = TitleFragmentDialog()
+            val args = Bundle()
+            args.putStringArrayList("title_list", titleList)
+            fragment.arguments = args
+            return fragment
+        }
     }
 }
