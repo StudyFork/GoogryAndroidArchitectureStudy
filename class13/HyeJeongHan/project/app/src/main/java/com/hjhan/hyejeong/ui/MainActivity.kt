@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.hjhan.hyejeong.R
+import com.hjhan.hyejeong.data.repository.NaverRepository
 import com.hjhan.hyejeong.data.repository.NaverRepositoryImpl
 import com.hjhan.hyejeong.data.source.local.NaverLocalDataSourceImpl
 import com.hjhan.hyejeong.data.source.remote.NaverRemoteDataSourceImpl
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var movieAdapter: MovieAdapter
 
-    private val repositoryImpl: NaverRepositoryImpl by lazy {
+    private val repositoryImpl: NaverRepository by lazy {
         val remoteDataSourceImpl = NaverRemoteDataSourceImpl()
         val localDataSourceImpl = NaverLocalDataSourceImpl()
         NaverRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl)
