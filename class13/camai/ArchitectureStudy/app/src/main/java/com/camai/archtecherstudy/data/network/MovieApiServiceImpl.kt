@@ -5,6 +5,8 @@ import com.camai.archtecherstudy.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import okhttp3.logging.HttpLoggingInterceptor.*
+import okhttp3.logging.HttpLoggingInterceptor.Level.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -15,9 +17,16 @@ object MovieApiServiceImpl {
     private const val CLIENT_ID = "IgChPWP2oMYZzitYv0rW"
     private const val CLIENT_SECRET = "KKfBdZH0ZC"
     private const val CONNECT_TIMEOUT: Long = 15
+    private lateinit var movieApiService: MovieApiService
 
-    fun create(): MovieApiService {
+    init {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
+        if(BuildConfig.DEBUG){
+            httpLoggingInterceptor.level = BODY
+        }
+        else{
+            httpLoggingInterceptor.level = NONE
+        }
 
         val headerInterceptor = Interceptor {
             val request = it.request()
@@ -26,16 +35,7 @@ object MovieApiServiceImpl {
                 .addHeader("X-Naver-Client-Secret", CLIENT_SECRET)
                 .build()
             return@Interceptor it.proceed(request)
-
         }
-
-        if (BuildConfig.DEBUG) {
-            Log.d("Movie", "true")
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-        } else {
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.NONE
-        }
-
 
         val client = OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
@@ -43,14 +43,19 @@ object MovieApiServiceImpl {
             .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .build()
 
-
-        return Retrofit.Builder()
+        val create =  Retrofit.Builder()
             .baseUrl(BASE_URL_NAVER_API)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(MovieApiService::class.java)
 
+        movieApiService = create.create(MovieApiService::class.java)
     }
+
+    fun buildService (): MovieApiService {
+        return movieApiService
+    }
+
+
 
 }
