@@ -1,12 +1,12 @@
 package com.hjhan.hyejeong.data.repository
 
 import com.hjhan.hyejeong.data.model.MovieData
-import com.hjhan.hyejeong.data.source.local.NaverLocalDataSourceImpl
-import com.hjhan.hyejeong.data.source.remote.NaverRemoteDataSourceImpl
+import com.hjhan.hyejeong.data.source.local.NaverLocalDataSource
+import com.hjhan.hyejeong.data.source.remote.NaverRemoteDataSource
 
 class NaverRepositoryImpl(
-    private val naverRemoteDataSourceImpl: NaverRemoteDataSourceImpl,
-    private val naverLocalDataSourceImpl: NaverLocalDataSourceImpl
+    private val naverRemoteDataSourceImpl: NaverRemoteDataSource,
+    private val naverLocalDataSourceImpl: NaverLocalDataSource
 ) : NaverRepository {
 
     override fun getSearchMovies(
