@@ -27,6 +27,4 @@ interface MovieRepository {
     //  delete data all
     fun deteleDb()
 
-    // db close
-    fun dbclose()
 }

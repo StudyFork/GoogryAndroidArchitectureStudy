@@ -40,9 +40,4 @@ object MovieRepositoryImpl : MovieRepository {
     override fun deteleDb() {
         MovieLocalDataSourceImpl.deleteDb()
     }
-
-    override fun dbclose() {
-        MovieLocalDataSourceImpl.dbclose()
-    }
-
 }
