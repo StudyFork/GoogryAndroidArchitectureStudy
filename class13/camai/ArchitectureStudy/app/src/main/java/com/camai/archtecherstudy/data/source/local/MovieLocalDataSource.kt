@@ -17,6 +17,4 @@ interface MovieLocalDataSource {
     //  모든 데이터 삭제
     fun deleteDb()
 
-    //  디비 close
-    fun dbclose()
 }

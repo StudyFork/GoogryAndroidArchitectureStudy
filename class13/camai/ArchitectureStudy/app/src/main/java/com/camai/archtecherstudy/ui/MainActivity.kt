@@ -111,10 +111,4 @@ class MainActivity : AppCompatActivity() {
         progressbar.isVisible = false
         edit_name.text.clear()
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        MovieRepositoryImpl.dbclose()
-    }
 }

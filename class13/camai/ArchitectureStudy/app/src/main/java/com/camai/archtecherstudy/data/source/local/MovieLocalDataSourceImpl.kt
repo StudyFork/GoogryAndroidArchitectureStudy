@@ -55,11 +55,4 @@ object MovieLocalDataSourceImpl :
         addThread.run()
 
     }
-
-    override fun dbclose() {
-        //  db close
-        RecentSearchDatabase.destroyInstance()
-    }
-
-
 }

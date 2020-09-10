@@ -86,9 +86,4 @@ class RecentMovieListDialog(var keywork: (String) -> Unit) : DialogFragment() {
 
 
     }
-
-    override fun onDestroy() {
-        MovieRepositoryImpl.dbclose()
-        super.onDestroy()
-    }
 }
