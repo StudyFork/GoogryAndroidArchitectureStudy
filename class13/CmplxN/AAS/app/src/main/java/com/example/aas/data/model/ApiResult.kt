@@ -1,4 +1,4 @@
-package com.example.aas
+package com.example.aas.data.model
 
 import com.google.gson.annotations.SerializedName
 

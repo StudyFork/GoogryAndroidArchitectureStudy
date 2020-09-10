@@ -1,13 +1,16 @@
-package com.example.aas
+package com.example.aas.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.example.aas.R
+import com.example.aas.data.model.Movie
+import com.example.aas.utils.glideCenterCrop
+import com.example.aas.utils.toHtml
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-	LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+    LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
 ) {
 
     private val movieImage = itemView.img_movie
@@ -17,11 +20,7 @@ class MovieViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
     private val movieRating = itemView.tv_rating
 
     fun bind(movie: Movie) {
-        Glide.with(movieImage.context)
-            .load(movie.image)
-            .centerCrop()
-            .into(movieImage)
-
+        movieImage.glideCenterCrop(movie.image)
         movieTitle.text = movie.title.toHtml()
         movieSubTitle.text = movie.subtitle.toHtml()
         movieActor.text = movie.actor.toHtml()

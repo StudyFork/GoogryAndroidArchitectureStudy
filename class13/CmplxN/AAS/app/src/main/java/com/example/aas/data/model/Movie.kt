@@ -1,4 +1,4 @@
-package com.example.aas
+package com.example.aas.data.model
 
 data class Movie(
 	val actor: String,
