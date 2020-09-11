@@ -3,7 +3,6 @@ package com.camai.archtecherstudy.data.source.remote
 import android.util.Log
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.model.MovieResponseModel
-import com.camai.archtecherstudy.data.network.MovieApiService
 import com.camai.archtecherstudy.data.network.MovieApiServiceImpl
 import retrofit2.Call
 import retrofit2.Response
