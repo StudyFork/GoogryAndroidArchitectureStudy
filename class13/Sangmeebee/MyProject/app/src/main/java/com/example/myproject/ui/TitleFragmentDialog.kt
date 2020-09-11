@@ -18,6 +18,11 @@ class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
     private var titleList: ArrayList<String> = arrayListOf()
     private lateinit var onListItemSelectedInterface: OnListItemSelectedInterface
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let { titleList = it.getStringArrayList("title_list") as ArrayList<String> }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,10 +36,6 @@ class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.rv_search_list)
         val cancelBtn = view.findViewById<Button>(R.id.btn_close)
-        val args = arguments
-
-        args?.let { titleList = it.getStringArrayList("title_list") as ArrayList<String> }
-
         val adapter = TitleAdapter(this)
         adapter.setTitleList(titleList)
         recyclerView.adapter = adapter
@@ -71,13 +72,12 @@ class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
         dialog?.window?.attributes = params as WindowManager.LayoutParams
     }
 
-    companion object{
-        fun newInstance(titleList: ArrayList<String>): TitleFragmentDialog {
-            val fragment = TitleFragmentDialog()
-            val args = Bundle()
-            args.putStringArrayList("title_list", titleList)
-            fragment.arguments = args
-            return fragment
-        }
+    companion object {
+        fun newInstance(titleList: ArrayList<String>): TitleFragmentDialog =
+            TitleFragmentDialog().apply {
+                arguments = Bundle().apply {
+                    putStringArrayList("title_list", titleList)
+                }
+            }
     }
 }
