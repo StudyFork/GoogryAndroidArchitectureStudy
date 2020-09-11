@@ -1,8 +1,6 @@
-package com.example.myproject.retrofit.service
+package com.example.myproject.data.service
 
-import com.example.myproject.retrofit.NAVER_CLIENT_ID
-import com.example.myproject.retrofit.NAVER_CLIENT_SECRET
-import com.example.myproject.retrofit.model.Movie
+import com.example.myproject.data.model.Movie
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers

@@ -1,4 +1,4 @@
-package com.example.myproject
+package com.example.myproject.ui
 
 import android.content.Context
 import android.content.Intent
@@ -10,14 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.myproject.MovieAdapter.ViewHolder
-import com.example.myproject.retrofit.model.Items
+import com.example.myproject.R
+import com.example.myproject.data.model.Items
+import com.example.myproject.ui.MovieAdapter.ViewHolder
 
 
 class MovieAdapter(val context: Context, val movieArrayList: ArrayList<Items>) :
@@ -60,7 +60,6 @@ class MovieAdapter(val context: Context, val movieArrayList: ArrayList<Items>) :
     }
 
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
-        private val llMovie = itemView?.findViewById<LinearLayout>(R.id.movie_item)
         private val ivPoster = itemView?.findViewById<ImageView>(R.id.iv_poster)
         private val tvTitle = itemView?.findViewById<TextView>(R.id.tv_title)
         private val rbGradeRating = itemView?.findViewById<RatingBar>(R.id.rb_grade_rating)
