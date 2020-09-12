@@ -14,6 +14,9 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField "String", "NAVER_CLIENT_ID", '\"A8V9ajFvnA28Y8imKAF7\"'
+        buildConfigField "String", "NAVER_CLIENT_SECRET", '\"c1_pJZocup\"'
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -94,6 +97,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
     implementation "com.jakewharton.rxbinding2:rxbinding:2.2.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.9.0"
 
     // retrofit, okhttp
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
