@@ -1,13 +1,16 @@
 package com.example.dkarch.presentation
 
+import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dkarch.R
 import com.example.dkarch.data.entity.Movie
+import com.example.dkarch.domain.util.loadUri
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_movie.view.*
 
@@ -38,12 +41,14 @@ class MovieAdapter(
     class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
         LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
     ) {
+        private val movieImage: ImageView = itemView.movie_img
         private val titleTextView: TextView = itemView.tv_title
         private val subtitleTextView: TextView = itemView.tv_sub_title
         private val actorTextView: TextView = itemView.tv_actor
         private val ratingsTextView: TextView = itemView.tv_rating
 
         fun bind(item: Movie, isClicked: (String) -> Unit) {
+            movieImage.loadUri(Uri.parse(item.image))
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 titleTextView.text = Html.fromHtml(item.title, Html.FROM_HTML_MODE_LEGACY)
             } else {
