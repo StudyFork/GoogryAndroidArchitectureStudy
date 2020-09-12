@@ -1,4 +1,4 @@
-package com.camai.archtecherstudy
+package com.camai.archtecherstudy.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -10,13 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.camai.archtecherstudy.adapter.MovieSearchAdapter
-import com.camai.archtecherstudy.model.Items
-import com.camai.archtecherstudy.model.MovieResponseModel
-import com.camai.archtecherstudy.network.MovieApiService
+import com.camai.archtecherstudy.R
+import com.camai.archtecherstudy.data.model.Items
+import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
+import com.camai.archtecherstudy.ui.adapter.MovieSearchAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         //  Recycler View And Adapter Init
         setAdapterAndRecyclerViewInit()
 
+
         //  Search Button Click Event
         btn_search.setOnClickListener(View.OnClickListener {
             hideKeyboard(this)
@@ -37,11 +36,23 @@ class MainActivity : AppCompatActivity() {
             searchStart()
         })
 
+        //  Recent Search Movie Name list Dialog Show Click Event
+        btn_recent.setOnClickListener(View.OnClickListener {
+            RecentMovieListDialog(keywork = {
+                //  Click movie name
+                getMoiveSearchCall(it)
+            }).show(supportFragmentManager, RecentMovieListDialog.TAG)
+        })
+
     }
+
 
     //  RecyclerView Adapter Set
     private fun setAdapterAndRecyclerViewInit() {
-        movieSearchAdapter = MovieSearchAdapter()
+        movieSearchAdapter =
+            MovieSearchAdapter()
+
+        //  recycler view init and adapter connect
         recycler_view.run {
             adapter = movieSearchAdapter
             setHasFixedSize(false)
@@ -79,43 +90,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //  Naver Moive Search Api Call
+    private fun getMoiveSearchCall(movietitle: String) {
+        MovieRepositoryImpl.getMovieNameSearch(movietitle, 100, 1,
+            success = {
+                //  movie list data to recycler View
+                setListData(it)
+            },
+            failed = {
+                showNotFoundMessage(movietitle)
+                Log.e(TAG, it)
+            })
+    }
+
+
     //  Update Movie Search Result Data List
     private fun setListData(infoList: ArrayList<Items>) {
         movieSearchAdapter.setClearAndAddList(infoList)
 
         progressbar.isVisible = false
         edit_name.text.clear()
-
-    }
-
-    //  Naver Moive Search Api Call
-    private fun getMoiveSearchCall(movietitle: String) {
-
-        MovieApiService.create().getMovieSearch(movietitle, 100, 1).enqueue(object :
-            retrofit2.Callback<MovieResponseModel> {
-
-            override fun onResponse(
-                call: Call<MovieResponseModel>,
-                response: Response<MovieResponseModel>
-            ) {
-                // Success
-                if (response.isSuccessful) {
-
-                    val body = response.body()
-                    body?.let {
-                        setListData(it.items)
-                    }
-
-                } else {
-                    Log.e(TAG, response.message())
-                }
-            }
-
-            override fun onFailure(call: Call<MovieResponseModel>, t: Throwable) {
-                // Failed
-                showNotFoundMessage(movietitle)
-                Log.e(TAG, t.message.toString())
-            }
-        })
     }
 }
