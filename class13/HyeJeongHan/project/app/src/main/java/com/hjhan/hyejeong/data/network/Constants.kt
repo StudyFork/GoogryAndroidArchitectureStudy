@@ -1,4 +1,4 @@
-package com.hjhan.hyejeong.network
+package com.hjhan.hyejeong.data.network
 
 object Constants {
 

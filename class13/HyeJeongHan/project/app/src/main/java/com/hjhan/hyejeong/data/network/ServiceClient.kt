@@ -1,4 +1,4 @@
-package com.hjhan.hyejeong.network
+package com.hjhan.hyejeong.data.network
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

@@ -1,13 +1,13 @@
-package com.hjhan.hyejeong.network
+package com.hjhan.hyejeong.data.network
 
-import com.hjhan.hyejeong.network.data.MovieData
+import com.hjhan.hyejeong.data.model.MovieData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
 
-interface ApiInterface {
+interface NaverApi {
     @Headers(
         "X-Naver-Client-Id: ${Constants.NAVER_CLIENT_ID}",
         "X-Naver-Client-Secret: ${Constants.NAVER_CLIENT_SECRET}"
