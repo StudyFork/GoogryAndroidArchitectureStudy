@@ -11,7 +11,7 @@ import com.hong.architecturestudy.data.repository.RepositoryDataSource
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
 import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
 import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
-import kotlinx.coroutines.CoroutineScope
+import com.hong.architecturestudy.ui.main.GetMovieTitle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
