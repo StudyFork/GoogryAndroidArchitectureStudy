@@ -1,9 +1,10 @@
-package com.hong.architecturestudy.ui
+package com.hong.architecturestudy.ui.moviedialog.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.data.source.local.entity.MovieInfo
 import com.hong.architecturestudy.ui.main.GetMovieTitle
+import com.hong.architecturestudy.ui.moviedialog.holder.MovieSearchListViewHolder
 
 class MovieSearchListAdapter(val onClick: GetMovieTitle) :
     RecyclerView.Adapter<MovieSearchListViewHolder>() {
