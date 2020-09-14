@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
-import com.camai.archtecherstudy.ui.RecentMovieDialog
+import com.camai.archtecherstudy.ui.rencentdialog.RecentMovieDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -47,7 +47,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             RecentMovieDialog(keywork = {
                 //  Click movie name
                 mainPresenter.setSearchKeywordCheck(it)
-            }).show(supportFragmentManager, RecentMovieDialog.TAG)
+            })
+                .show(supportFragmentManager, RecentMovieDialog.TAG)
         })
 
     }

@@ -6,7 +6,7 @@ class RecentMoviePresenter(
     private val viewDialog: RecentMovieContract.View,
     private val MovieRepositoryImpl: MovieRepositoryImpl
 ): RecentMovieContract.Presenter{
-    
+
     override fun setRecentData() {
 
     }

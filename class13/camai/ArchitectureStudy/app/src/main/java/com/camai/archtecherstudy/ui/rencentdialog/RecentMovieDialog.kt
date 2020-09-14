@@ -1,4 +1,4 @@
-package com.camai.archtecherstudy.ui
+package com.camai.archtecherstudy.ui.rencentdialog
 
 import android.content.Context
 import android.os.Bundle
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
-import com.camai.archtecherstudy.ui.adapter.RecentMovieAdapter
 import kotlinx.android.synthetic.main.recent_movie_list_popup.*
 
 class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
