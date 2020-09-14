@@ -1,4 +1,4 @@
-package com.camai.archtecherstudy.ui
+package com.camai.archtecherstudy.ui.main
 
 import android.content.Context
 import android.os.Bundle
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
-import com.camai.archtecherstudy.ui.adapter.MovieSearchAdapter
+import com.camai.archtecherstudy.ui.RecentMovieListDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -41,7 +41,9 @@ class MainActivity : AppCompatActivity() {
             RecentMovieListDialog(keywork = {
                 //  Click movie name
                 getMoiveSearchCall(it)
-            }).show(supportFragmentManager, RecentMovieListDialog.TAG)
+            }).show(supportFragmentManager,
+                RecentMovieListDialog.TAG
+            )
         })
 
     }

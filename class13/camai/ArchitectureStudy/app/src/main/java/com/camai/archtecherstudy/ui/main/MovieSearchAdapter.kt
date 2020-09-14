@@ -1,4 +1,4 @@
-package com.camai.archtecherstudy.ui.adapter
+package com.camai.archtecherstudy.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
