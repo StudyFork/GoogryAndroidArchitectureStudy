@@ -16,7 +16,7 @@ import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.ui.adapter.RecentMovieAdapter
 import kotlinx.android.synthetic.main.recent_movie_list_popup.*
 
-class RecentMovieListDialog(var keywork: (String) -> Unit) : DialogFragment() {
+class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
 
     private lateinit var recentMovieAdapter: RecentMovieAdapter
 

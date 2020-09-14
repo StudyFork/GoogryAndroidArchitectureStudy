@@ -2,7 +2,6 @@ package com.camai.archtecherstudy.ui.main
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -13,13 +12,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
-import com.camai.archtecherstudy.ui.RecentMovieListDialog
+import com.camai.archtecherstudy.ui.RecentMovieDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val TAG = "MovieSearch"
-    private lateinit var movieSearchAdapter: MovieSearchAdapter
+
+    private val movieSearchAdapter: MovieSearchAdapter by lazy {
+        MovieSearchAdapter()
+    }
+
+    private val mainPresenter: MainContract.Presenter by lazy {
+        MainPresenter(this, MovieRepositoryImpl)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,89 +34,77 @@ class MainActivity : AppCompatActivity() {
         //  Recycler View And Adapter Init
         setAdapterAndRecyclerViewInit()
 
-
         //  Search Button Click Event
         btn_search.setOnClickListener(View.OnClickListener {
             hideKeyboard(this)
-            progressbar.isVisible = true
-            searchStart()
+            val moviename: String = edit_name.text.toString()
+            mainPresenter.setSearchKeywordCheck(moviename)
+
         })
 
         //  Recent Search Movie Name list Dialog Show Click Event
         btn_recent.setOnClickListener(View.OnClickListener {
-            RecentMovieListDialog(keywork = {
+            RecentMovieDialog(keywork = {
                 //  Click movie name
-                getMoiveSearchCall(it)
-            }).show(supportFragmentManager,
-                RecentMovieListDialog.TAG
-            )
+                mainPresenter.setSearchKeywordCheck(it)
+            }).show(supportFragmentManager, RecentMovieDialog.TAG)
         })
 
     }
 
-
     //  RecyclerView Adapter Set
     private fun setAdapterAndRecyclerViewInit() {
-        movieSearchAdapter =
-            MovieSearchAdapter()
+        //  Adapter init
+        movieSearchAdapter
 
-        //  recycler view init and adapter connect
+        //  recyclerView init
         recycler_view.run {
             adapter = movieSearchAdapter
             setHasFixedSize(false)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-
         }
+
     }
 
     //  Hardware Keyboard hide
-    private fun hideKeyboard(context: Context) {
+    fun hideKeyboard(context: Context) {
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(edit_name.windowToken, 0)
     }
 
-    //  Keyword Empty Toast
-    private fun showEmptyFieldText() {
+    override fun progressView() {
+        progressbar.isVisible = true
+    }
+
+    override fun progressGone() {
+        progressbar.isVisible = false
+    }
+
+    override fun textClear() {
+        edit_name.text.clear()
+    }
+
+    override fun showEmptyFieldText() {
         Toast.makeText(applicationContext, "검색어를 입력해주세요.", Toast.LENGTH_LONG).show()
     }
 
-    //  Keyword Error Toast
-    private fun showNotFoundMessage(keyword: String) {
+    override fun showNotFoundMessage(keyword: String) {
         Toast.makeText(applicationContext, keyword + " 를 찾을 수 없습니다.", Toast.LENGTH_LONG).show()
     }
 
-    //  Movie Name Search
-    private fun searchStart() {
-        val moviename: String = edit_name.text.toString()
-
-        //  Movie Name Value Check
-        if (moviename.isNullOrBlank()) {
-            showEmptyFieldText()
-        } else {
-            recycler_view.layoutManager?.scrollToPosition(0)
-            getMoiveSearchCall(moviename)
-        }
+    override fun setRecyclerViewScollorPositionInit(keyword: String) {
+        recycler_view.layoutManager?.scrollToPosition(0)
+        //  Movie Name Search
+        mainPresenter.setSearchMovie(keyword)
     }
 
-    //  Naver Moive Search Api Call
-    private fun getMoiveSearchCall(movietitle: String) {
-        MovieRepositoryImpl.getMovieNameSearch(movietitle, 100, 1,
-            success = {
-                //  movie list data to recycler View
-                setListData(it)
-            },
-            failed = {
-                showNotFoundMessage(movietitle)
-                Log.e(TAG, it)
-            })
+    //  Data input to Adapter
+    override fun setDataInsertToAdapter(data: ArrayList<Items>) {
+        setListData(data)
     }
-
 
     //  Update Movie Search Result Data List
     private fun setListData(infoList: ArrayList<Items>) {
         movieSearchAdapter.setClearAndAddList(infoList)
-
-        progressbar.isVisible = false
-        edit_name.text.clear()
     }
 }
