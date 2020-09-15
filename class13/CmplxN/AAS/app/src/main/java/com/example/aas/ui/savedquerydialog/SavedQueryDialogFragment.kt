@@ -3,15 +3,16 @@ package com.example.aas.ui.savedquerydialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.DialogFragment
+import com.example.aas.base.BaseDialogFragment
 
 class SavedQueryDialogFragment(private val historySelectionListener: HistorySelectionListener) :
-    DialogFragment() {
+    BaseDialogFragment<SavedQueryContract.Presenter>(), SavedQueryContract.View {
 
+    override val presenter: SavedQueryContract.Presenter by lazy { SavedQueryPresenter(this) }
     private lateinit var searchHistory: List<String>
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        searchHistory = arguments?.getStringArray(HISTORY_LIST)?.reversed() ?: listOf()
+        searchHistory = presenter.getSavedQuery(arguments?.getStringArray(HISTORY_LIST))
 
         return requireActivity().let {
             AlertDialog.Builder(it)
