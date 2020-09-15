@@ -5,8 +5,7 @@ import com.hong.architecturestudy.ui.main.adapter.MovieAdapter
 
 class MainPresenter(
     private val view: MainContract.View,
-    private val repositoryDataSource: RepositoryDataSource,
-    private val movieAdapter: MovieAdapter
+    private val repositoryDataSource: RepositoryDataSource
 ) : MainContract.Presenter {
 
     override fun getMovieList(query: String) {
@@ -15,7 +14,7 @@ class MainPresenter(
         } else {
             repositoryDataSource.getMovieList(query,
                 {
-                    movieAdapter.setData(it)
+                    view.showMovieList(it)
                 }, {
                     view.showError(it)
                 })

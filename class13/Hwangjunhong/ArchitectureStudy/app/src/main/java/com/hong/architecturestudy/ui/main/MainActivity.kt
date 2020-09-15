@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.hong.architecturestudy.R
+import com.hong.architecturestudy.data.model.MovieData
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
 import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
 import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
@@ -24,7 +25,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private val mainPresenter: MainContract.Presenter by lazy {
         val remoteDataSourceImpl = RemoteDataSourceImpl()
         val localDataSourceImpl = LocalDataSourceImpl()
-        MainPresenter(this, RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl), movieAdapter)
+        MainPresenter(this, RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl))
     }
 
     private val movieAdapter: MovieAdapter by lazy {
@@ -88,4 +89,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun showError(throwable: Throwable) {
         log(throwable.toString())
     }
+
+    override fun showMovieList(movieData: List<MovieData>) {
+        movieAdapter.setData(movieData)
+    }
+
 }
