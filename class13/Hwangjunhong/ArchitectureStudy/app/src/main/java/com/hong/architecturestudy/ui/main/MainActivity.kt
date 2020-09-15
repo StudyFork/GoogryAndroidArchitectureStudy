@@ -21,7 +21,7 @@ typealias GetMovieTitle = (String) -> Unit
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private val mainPresenter: MainPresenter by lazy {
+    private val mainPresenter: MainContract.Presenter by lazy {
         val remoteDataSourceImpl = RemoteDataSourceImpl()
         val localDataSourceImpl = LocalDataSourceImpl()
         MainPresenter(this, RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl), movieAdapter)
