@@ -1,4 +1,4 @@
-package com.example.myproject.ui
+package com.example.myproject.ui.main
 
 import com.example.myproject.data.model.Items
 import com.example.myproject.ui.base.BaseContract

@@ -1,4 +1,4 @@
-package com.example.myproject.ui
+package com.example.myproject.ui.main
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,6 +11,9 @@ import com.example.myproject.data.repository.NaverRepository
 import com.example.myproject.data.repository.NaverRepositoryImpl
 import com.example.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.example.myproject.data.source.remote.NaverRemoteDataSourceImpl
+import com.example.myproject.ui.MovieAdapter
+import com.example.myproject.ui.OnListItemSelectedInterface
+import com.example.myproject.ui.TitleFragmentDialog
 import com.example.myproject.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
