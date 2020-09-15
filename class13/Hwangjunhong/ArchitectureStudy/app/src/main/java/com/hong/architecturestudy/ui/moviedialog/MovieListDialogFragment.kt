@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.R
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
 import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
+import com.hong.architecturestudy.data.source.local.entity.MovieInfo
 import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
 import com.hong.architecturestudy.ui.main.GetMovieTitle
 import com.hong.architecturestudy.ui.moviedialog.adapter.MovieSearchListAdapter
@@ -22,7 +23,7 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
         val remoteDataSourceImpl = RemoteDataSourceImpl()
         val localDataSourceImpl = LocalDataSourceImpl()
         MovieListDialogPresenter(
-            this, RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl), movieSearchListAdapter
+            this, RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl)
         )
     }
 
@@ -59,5 +60,9 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
             INSTANCE ?: synchronized(this) {
                 MovieListDialogFragment(param).also { INSTANCE = it }
             }
+    }
+
+    override fun loadResentQuery(movieInfo: List<MovieInfo>) {
+        movieSearchListAdapter.setList(movieInfo)
     }
 }
