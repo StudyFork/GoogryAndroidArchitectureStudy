@@ -1,24 +1,29 @@
 package com.hjhan.hyejeong.ui
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.hjhan.hyejeong.R
+import com.hjhan.hyejeong.data.model.Item
 import com.hjhan.hyejeong.data.repository.NaverRepository
 import com.hjhan.hyejeong.data.repository.NaverRepositoryImpl
 import com.hjhan.hyejeong.data.source.local.NaverLocalDataSourceImpl
 import com.hjhan.hyejeong.data.source.remote.NaverRemoteDataSourceImpl
 import com.hjhan.hyejeong.ui.QueryHistoryDialog.Companion.HISTORY_DIALOG_TAG
+import com.hjhan.hyejeong.ui.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
+    MainContract.View {
 
     private lateinit var editText: EditText
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchButton: Button
     private lateinit var historyButton: Button
+    private lateinit var emptyListText: TextView
 
     private lateinit var movieAdapter: MovieAdapter
 
@@ -26,6 +31,10 @@ class MainActivity : AppCompatActivity() {
         val remoteDataSourceImpl = NaverRemoteDataSourceImpl()
         val localDataSourceImpl = NaverLocalDataSourceImpl()
         NaverRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl)
+    }
+
+    override val presenter: MainContract.Presenter by lazy {
+        MainPresenter(this@MainActivity, repositoryImpl)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,17 +45,13 @@ class MainActivity : AppCompatActivity() {
         searchButton = findViewById(R.id.search_button)
         historyButton = findViewById(R.id.history_button)
         recyclerView = findViewById(R.id.movie_recycler_view)
+        emptyListText = findViewById(R.id.empty_list_text)
 
         movieAdapter = MovieAdapter()
         recyclerView.adapter = movieAdapter
 
         searchButton.setOnClickListener {
-            val title = editText.text.toString()
-            if (title.isBlank()) {
-                Toast.makeText(this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
-            } else {
-                requestMovieList(title)
-            }
+            presenter.getMovieList(editText.text.toString())
         }
 
         historyButton.setOnClickListener {
@@ -61,16 +66,19 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun requestMovieList(query: String) {
-
-        repositoryImpl.getSearchMovies(
-            query = query,
-            success = {
-                movieAdapter.setMovieList(it.items)
-            },
-            failed = {
-                Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show()
-            })
-
+    override fun emptyQuery() {
+        Toast.makeText(this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
     }
+
+    override fun emptyMovieList() {
+        emptyListText.visibility = View.VISIBLE
+        recyclerView.visibility = View.GONE
+    }
+
+    override fun setMovieList(list: List<Item>) {
+        emptyListText.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
+        movieAdapter.setMovieList(list)
+    }
+
 }
