@@ -1,4 +1,4 @@
-package com.example.aas.ui
+package com.example.aas.ui.savedquerydialog
 
 import android.app.Dialog
 import android.os.Bundle

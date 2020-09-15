@@ -1,4 +1,4 @@
-package com.example.aas.ui
+package com.example.aas.ui.main
 
 import android.content.Intent
 import android.net.Uri

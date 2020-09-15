@@ -1,4 +1,4 @@
-package com.example.aas.ui
+package com.example.aas.ui.main
 
 import android.os.Bundle
 import android.widget.Toast
@@ -10,6 +10,7 @@ import com.example.aas.R
 import com.example.aas.data.model.ApiResult
 import com.example.aas.data.repository.MovieSearchRepository
 import com.example.aas.data.repository.MovieSearchRepositoryImpl
+import com.example.aas.ui.savedquerydialog.SavedQueryDialogFragment
 import com.example.aas.utils.hideKeyboard
 import com.example.aas.utils.showToast
 import com.jakewharton.rxbinding2.view.RxView
