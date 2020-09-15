@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : DialogFragment(),
     MovieListDialogContract.View {
 
-    private val movieListDialogPresenter: MovieListDialogPresenter by lazy {
+    private val movieListDialogPresenter: MovieListDialogContract.Presenter by lazy {
         val remoteDataSourceImpl = RemoteDataSourceImpl()
         val localDataSourceImpl = LocalDataSourceImpl()
         MovieListDialogPresenter(
