@@ -1,11 +1,11 @@
 package com.camai.archtecherstudy.ui.main
 
-import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
+import com.camai.archtecherstudy.data.repository.MovieRepository
 
 
 class MainPresenter(
     private val viewMain: MainContract.View,
-    private val movieRepositoryImpl: MovieRepositoryImpl
+    private val movieRepositoryImpl: MovieRepository
 ) : MainContract.Presenter {
 
     //  Keyword Empty Check
