@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         //  Search Button Click Event
         btn_search.setOnClickListener(View.OnClickListener {
-            hideKeyboard(this)
+            hideKeyboard()
             val moviename: String = edit_name.text.toString()
             mainPresenter.setSearchKeywordCheck(moviename)
 
@@ -68,8 +68,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     //  Hardware Keyboard hide
-    fun hideKeyboard(context: Context) {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    private fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(edit_name.windowToken, 0)
     }
 
