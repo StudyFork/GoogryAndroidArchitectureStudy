@@ -67,7 +67,7 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
                 //  recycler View item click movie name to Activity
                 keywork.invoke(it)
 
-                dismiss()
+                recentPresenter.closeDialog()
             }
 
         recentMovieAdapter.notifyDataSetChanged()
