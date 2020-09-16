@@ -55,8 +55,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     //  RecyclerView Adapter Set
     private fun setAdapterAndRecyclerViewInit() {
-        //  Adapter init
-        movieSearchAdapter
 
         //  recyclerView init
         recycler_view.run {
