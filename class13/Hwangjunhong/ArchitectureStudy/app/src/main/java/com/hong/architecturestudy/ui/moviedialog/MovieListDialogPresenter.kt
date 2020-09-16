@@ -7,7 +7,7 @@ class MovieListDialogPresenter(
     private val repositoryDataSource: RepositoryDataSource
 ) : MovieListDialogContract.Presenter {
 
-    override fun loadResentSearchMovieList() {
-        view.loadResentQuery(repositoryDataSource.loadResentSearchQuery())
+    override fun loadRecentSearchMovieList() {
+        view.loadRecentQuery(repositoryDataSource.loadRecentSearchQuery())
     }
 }

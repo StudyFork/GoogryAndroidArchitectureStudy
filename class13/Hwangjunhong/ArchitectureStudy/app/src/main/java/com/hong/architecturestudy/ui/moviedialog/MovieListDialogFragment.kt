@@ -43,7 +43,7 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
         rvSearchItem?.setHasFixedSize(true)
 
         lifecycleScope.launch(Dispatchers.Default) {
-            movieListDialogPresenter.loadResentSearchMovieList()
+            movieListDialogPresenter.loadRecentSearchMovieList()
         }
 
         return AlertDialog.Builder(requireActivity())
@@ -62,7 +62,7 @@ class MovieListDialogFragment(private val getMovieTitle: GetMovieTitle) : Dialog
             }
     }
 
-    override fun loadResentQuery(movieInfo: List<MovieInfo>) {
+    override fun loadRecentQuery(movieInfo: List<MovieInfo>) {
         movieSearchListAdapter.setList(movieInfo)
     }
 }
