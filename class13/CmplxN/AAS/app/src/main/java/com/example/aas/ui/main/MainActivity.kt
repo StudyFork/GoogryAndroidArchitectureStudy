@@ -65,7 +65,7 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
     }
 
     override fun onHistorySelection(query: String) {
-        presenter.getMovies(query) // Presenter
+        presenter.getMovies(query)
             .toObservable()
             .observeGetMovies()
     }
