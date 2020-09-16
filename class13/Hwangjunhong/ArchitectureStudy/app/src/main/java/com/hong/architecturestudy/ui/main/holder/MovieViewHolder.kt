@@ -1,4 +1,4 @@
-package com.hong.architecturestudy.ui
+package com.hong.architecturestudy.ui.main.holder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

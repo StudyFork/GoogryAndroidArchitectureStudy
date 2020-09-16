@@ -1,4 +1,4 @@
-package com.hong.architecturestudy.ui
+package com.hong.architecturestudy.ui.moviedialog.holder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

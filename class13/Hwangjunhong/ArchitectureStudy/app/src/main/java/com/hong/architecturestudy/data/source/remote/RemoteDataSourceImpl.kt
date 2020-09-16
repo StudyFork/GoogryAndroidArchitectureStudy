@@ -3,7 +3,6 @@ package com.hong.architecturestudy.data.source.remote
 import com.hong.architecturestudy.data.model.MovieData
 import com.hong.architecturestudy.data.model.MovieResultData
 import com.hong.architecturestudy.data.network.RetrofitCreator.service
-import com.hong.architecturestudy.utils.log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,7 +14,6 @@ class RemoteDataSourceImpl : RemoteDataSource {
         onSuccess: (List<MovieData>) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-
         val naverMovieApi = service
         naverMovieApi.getMovies(query).enqueue(object : Callback<MovieResultData> {
             override fun onFailure(call: Call<MovieResultData>, t: Throwable) {

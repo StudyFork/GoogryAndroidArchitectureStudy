@@ -1,4 +1,4 @@
-package com.hong.architecturestudy.ui
+package com.hong.architecturestudy.ui.main
 
 import android.content.Intent
 import android.net.Uri
@@ -8,37 +8,35 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.hong.architecturestudy.R
-import com.hong.architecturestudy.data.repository.RepositoryDataSource
+import com.hong.architecturestudy.data.model.MovieData
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
 import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
-import com.hong.architecturestudy.data.source.local.MovieDatabase
 import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
 import com.hong.architecturestudy.ext.hideKeyboard
+import com.hong.architecturestudy.ui.main.adapter.MovieAdapter
+import com.hong.architecturestudy.ui.moviedialog.MovieListDialogFragment
+import com.hong.architecturestudy.utils.log
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 
 typealias GetMovieTitle = (String) -> Unit
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
-    private val repositoryDataSourceImpl: RepositoryDataSource by lazy {
+    private val mainPresenter: MainContract.Presenter by lazy {
         val remoteDataSourceImpl = RemoteDataSourceImpl()
         val localDataSourceImpl = LocalDataSourceImpl()
-        RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl)
+        MainPresenter(this, RepositoryDataSourceImpl(localDataSourceImpl, remoteDataSourceImpl))
+    }
+
+    private val movieAdapter: MovieAdapter by lazy {
+        MovieAdapter()
     }
 
     private val getMovieData: GetMovieTitle = { movieTitle ->
-        repositoryDataSourceImpl.getMovieList(movieTitle, { movieData ->
-            adapter.setData(movieData)
-            hideKeyboard(this, edit_search)
-        }, {
-            Toast.makeText(this, "검색 실패", Toast.LENGTH_LONG).show()
-        })
+        mainPresenter.getMovieList(movieTitle)
+        hideKeyboard(this, edit_search)
     }
 
-    private val adapter = MovieAdapter()
     private val fragmentFactory = FragmentFactoryImpl { getMovieData(it) }
     private val movieListDialogFragment = MovieListDialogFragment.getInstance {
         getMovieData(it)
@@ -53,30 +51,20 @@ class MainActivity : AppCompatActivity() {
 
         btn_search.setOnClickListener {
             val keyword = edit_search.text.toString()
-            if (keyword.isBlank()) {
-                Toast.makeText(this, "영화 제목을 입력해 주세요", Toast.LENGTH_LONG).show()
-            } else {
-                repositoryDataSourceImpl.getMovieList(keyword,
-                    {
-                        edit_search.text.clear()
-                        adapter.setData(it)
-                        hideKeyboard(this, edit_search)
-                    }, {
-                        Toast.makeText(this, "검색 실패", Toast.LENGTH_LONG).show()
-                    })
-            }
+            mainPresenter.getMovieList(keyword)
+            edit_search.text.clear()
+            hideKeyboard(this, edit_search)
         }
 
         btn_search_list.setOnClickListener {
             movieListDialogFragment.show(supportFragmentManager, "dialog")
-
         }
     }
 
     private fun setRecyclerView() {
-        rv_movies_list.adapter = adapter
+        rv_movies_list.adapter = movieAdapter
         rv_movies_list.setHasFixedSize(true)
-        adapter.onClick = { movieData ->
+        movieAdapter.onClick = { movieData ->
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(movieData.link))
             startActivity(intent)
         }
@@ -92,4 +80,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun showQueryEmpty() {
+        Toast.makeText(this, "영화 제목을 입력해 주세요", Toast.LENGTH_LONG).show()
+    }
+
+
+    override fun showError(throwable: Throwable) {
+        log(throwable.toString())
+    }
+
+    override fun showMovieList(movieData: List<MovieData>) {
+        movieAdapter.setData(movieData)
+    }
+
 }
