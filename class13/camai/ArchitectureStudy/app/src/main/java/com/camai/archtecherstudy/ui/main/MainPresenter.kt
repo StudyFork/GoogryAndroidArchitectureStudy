@@ -5,7 +5,7 @@ import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 
 class MainPresenter(
     private val viewMain: MainContract.View,
-    private val MovieRepositoryImpl: MovieRepositoryImpl
+    private val movieRepositoryImpl: MovieRepositoryImpl
 ) : MainContract.Presenter {
 
     //  Keyword Empty Check
@@ -27,7 +27,7 @@ class MainPresenter(
 
     //  Retrofit Call
     override fun setSearchMovie(keyword: String) {
-        MovieRepositoryImpl.getMovieNameSearch(keyword, 100, 1,
+        movieRepositoryImpl.getMovieNameSearch(keyword, 100, 1,
             success = {
                 //  Progress Gone
                 viewMain.progressGone()
