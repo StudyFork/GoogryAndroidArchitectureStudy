@@ -9,16 +9,16 @@ class SavedQueryDialogFragment(private val historySelectionListener: HistorySele
     BaseDialogFragment<SavedQueryContract.Presenter>(), SavedQueryContract.View {
 
     override val presenter: SavedQueryContract.Presenter by lazy { SavedQueryPresenter(this) }
-    private lateinit var searchHistory: List<String>
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        searchHistory = presenter.getSavedQuery(arguments?.getStringArray(HISTORY_LIST))
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+        presenter.getSavedQuery(arguments?.getStringArray(HISTORY_LIST))
 
+    override fun buildDialog(savedQuery: Array<String>): Dialog {
         return requireActivity().let {
             AlertDialog.Builder(it)
                 .setTitle("최근 5개 검색어")
-                .setItems(searchHistory.toTypedArray()) { _, idx ->
-                    historySelectionListener.onHistorySelection(searchHistory[idx])
+                .setItems(savedQuery) { _, idx ->
+                    historySelectionListener.onHistorySelection(savedQuery[idx])
                 }
                 .create()
         }
