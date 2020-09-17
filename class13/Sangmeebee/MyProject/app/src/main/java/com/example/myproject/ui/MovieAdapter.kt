@@ -20,7 +20,7 @@ import com.example.myproject.data.model.Items
 import com.example.myproject.ui.MovieAdapter.ViewHolder
 
 
-class MovieAdapter(val context: Context, val movieArrayList: ArrayList<Items>) :
+class MovieAdapter(val context: Context, private val movieArrayList: ArrayList<Items>) :
     RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
