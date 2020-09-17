@@ -26,7 +26,7 @@ class MainPresenter(
                     }
                 },
                 failed = {
-                    view.showError()
+                    view.showError(it)
                 })
         }
     }
