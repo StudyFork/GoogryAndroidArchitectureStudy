@@ -1,6 +1,5 @@
-package com.camai.archtecherstudy.ui
+package com.camai.archtecherstudy.ui.rencentdialog
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,12 +12,17 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
-import com.camai.archtecherstudy.ui.adapter.RecentMovieAdapter
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import kotlinx.android.synthetic.main.recent_movie_list_popup.*
 
-class RecentMovieListDialog(var keywork: (String) -> Unit) : DialogFragment() {
+class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
+    RecentMovieContract.View {
 
     private lateinit var recentMovieAdapter: RecentMovieAdapter
+
+    private val recentPresenter: RecentMovieContract.Presenter by lazy {
+        RecentMoviePresenter(this, MovieRepositoryImpl)
+    }
 
     companion object {
         const val TAG = "MovieSearchDialog"
@@ -40,21 +44,32 @@ class RecentMovieListDialog(var keywork: (String) -> Unit) : DialogFragment() {
         return inflater.inflate(R.layout.recent_movie_list_popup, container, false)
     }
 
-    private fun showEmptyFieldList(context: Context) {
-        Toast.makeText(context, "최근 검색된 항목이 없습니다.", Toast.LENGTH_LONG).show()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setAdapterAndRecyclerViewInit()
+
+        //  Popup close
+        popup_close.setOnClickListener(View.OnClickListener {
+            recentPresenter.closeDialog()
+        })
+
     }
+
 
     //  RecyclerView Adapter Set
     private fun setAdapterAndRecyclerViewInit() {
-
+        //   init Adapter
         recentMovieAdapter =
             RecentMovieAdapter {
                 Log.d(TAG, it)
                 //  recycler View item click movie name to Activity
                 keywork.invoke(it)
 
-                dismiss()
+                recentPresenter.closeDialog()
             }
+
         recentMovieAdapter.notifyDataSetChanged()
 
         //  recycler view init and adapter connect
@@ -62,28 +77,22 @@ class RecentMovieListDialog(var keywork: (String) -> Unit) : DialogFragment() {
             adapter = recentMovieAdapter
             setHasFixedSize(false)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-
         }
+
+        //  get Recent Data
+        recentPresenter.setRecentData()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
-        setAdapterAndRecyclerViewInit()
+    override fun setDataInsertToAdapter(data: List<RecentSearchName>) {
+        recentMovieAdapter.setClearAndAddList(data)
+    }
 
-        MovieRepositoryImpl.getRecentSearchList(namelist = { namelist ->
-            if (namelist.isEmpty()) {
-                showEmptyFieldList(requireContext())
-            } else {
-                recentMovieAdapter.setClearAndAddList(namelist)
-            }
-        })
+    override fun showEmptyFieldText() {
+        Toast.makeText(requireContext(), "최근 검색된 항목이 없습니다.", Toast.LENGTH_LONG).show()
+    }
 
-        //  Popup close
-        popup_close.setOnClickListener(View.OnClickListener {
-            dismiss()
-        })
-
-
+    override fun closeDialog() {
+        dismiss()
     }
 }

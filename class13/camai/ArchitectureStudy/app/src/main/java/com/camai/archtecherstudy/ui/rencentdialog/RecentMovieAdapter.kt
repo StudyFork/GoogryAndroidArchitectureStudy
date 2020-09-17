@@ -1,4 +1,4 @@
-package com.camai.archtecherstudy.ui.adapter
+package com.camai.archtecherstudy.ui.rencentdialog
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,7 +17,9 @@ class RecentMovieAdapter(val itemClick: (String) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recent_item, parent, false)
-        return ViewHolder(view).click { position ->
+        return ViewHolder(
+            view
+        ).click { position ->
             val name: String = recentlist[position].movieName.toString()
             Log.d("Click", name)
             itemClick(name)
