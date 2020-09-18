@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.hjhan.hyejeong.R
 import com.hjhan.hyejeong.data.model.Item
-import com.hjhan.hyejeong.data.repository.NaverRepository
 import com.hjhan.hyejeong.data.repository.NaverRepositoryImpl
 import com.hjhan.hyejeong.data.source.local.NaverLocalDataSourceImpl
 import com.hjhan.hyejeong.data.source.remote.NaverRemoteDataSourceImpl
@@ -27,14 +26,13 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
 
     private lateinit var movieAdapter: MovieAdapter
 
-    private val repositoryImpl: NaverRepository by lazy {
+    override val presenter: MainContract.Presenter by lazy {
         val remoteDataSourceImpl = NaverRemoteDataSourceImpl()
         val localDataSourceImpl = NaverLocalDataSourceImpl()
-        NaverRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl)
-    }
-
-    override val presenter: MainContract.Presenter by lazy {
-        MainPresenter(this@MainActivity, repositoryImpl)
+        MainPresenter(
+            this@MainActivity,
+            NaverRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl)
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,12 +53,8 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
         }
 
         historyButton.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putStringArrayList("list", ArrayList(repositoryImpl.getQueryList()))
-            QueryHistoryDialog().apply {
-                arguments = bundle
-                show(supportFragmentManager, HISTORY_DIALOG_TAG)
-            }
+            //최근 검색 목록
+            QueryHistoryDialog().show(supportFragmentManager, HISTORY_DIALOG_TAG)
         }
 
 
