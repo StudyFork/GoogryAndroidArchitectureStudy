@@ -1,18 +1,22 @@
 package com.hong.architecturestudy.ext
 
 import android.content.Context
-import android.os.Build
-import android.text.Html
-import android.text.Spanned
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.RatingBar
+import android.widget.TextView
+import androidx.core.text.HtmlCompat
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 
-fun String.toHtml(): Spanned {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY)
-    } else {
-        Html.fromHtml(this)
-    }
+@BindingAdapter("toHtml")
+fun TextView.toHtml(html: String) {
+    this.text = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT)
+}
+
+@BindingAdapter("movieRating")
+fun RatingBar.setMovieRating(score: String) {
+    this.rating = (score.toFloatOrNull() ?: 0f) / 2
 }
 
 fun hideKeyboard(context: Context, view: View) {
