@@ -6,6 +6,6 @@ class SavedQueryPresenter(override val view: SavedQueryContract.View) : BasePres
     SavedQueryContract.Presenter {
     override fun getSavedQuery(savedQuery: Array<String>?) {
         val reversedList = savedQuery?.reversed() ?: listOf()
-        view.getSavedQuery(reversedList.toTypedArray())
+        view.storeSavedQuery(reversedList.toTypedArray())
     }
 }

@@ -4,7 +4,7 @@ import com.example.aas.base.BaseContract
 
 interface SavedQueryContract {
     interface View : BaseContract.View {
-        fun getSavedQuery(savedQuery: Array<String>)
+        fun storeSavedQuery(savedQuery: Array<String>)
     }
 
     interface Presenter : BaseContract.Presenter {

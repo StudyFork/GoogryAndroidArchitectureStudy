@@ -27,7 +27,7 @@ class SavedQueryDialogFragment(private val historySelectionListener: HistorySele
         }
     }
 
-    override fun getSavedQuery(savedQuery: Array<String>) {
+    override fun storeSavedQuery(savedQuery: Array<String>) {
         this.savedQuery = savedQuery
     }
 
