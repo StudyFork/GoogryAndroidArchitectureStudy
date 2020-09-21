@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
+import com.camai.archtecherstudy.databinding.RecentMovieListPopupBinding
 import kotlinx.android.synthetic.main.recent_movie_list_popup.*
 
 class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
@@ -27,6 +29,7 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
     companion object {
         const val TAG = "MovieSearchDialog"
     }
+    private lateinit var binding: RecentMovieListPopupBinding
 
     override fun onStart() {
         super.onStart()
@@ -41,7 +44,9 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.recent_movie_list_popup, container, false)
+        binding =
+            DataBindingUtil.bind(inflater.inflate(R.layout.recent_movie_list_popup, container, false))!!
+        return binding.root
     }
 
 

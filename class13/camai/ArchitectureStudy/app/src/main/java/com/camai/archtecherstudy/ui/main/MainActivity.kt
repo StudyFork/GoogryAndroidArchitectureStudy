@@ -7,11 +7,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
+import com.camai.archtecherstudy.databinding.ActivityMainBinding
 import com.camai.archtecherstudy.ui.rencentdialog.RecentMovieDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -26,10 +28,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private val mainPresenter: MainContract.Presenter by lazy {
         MainPresenter(this, MovieRepositoryImpl)
     }
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         //  Recycler View And Adapter Init
         setAdapterAndRecyclerViewInit()
