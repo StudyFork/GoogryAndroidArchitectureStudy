@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -34,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="@id/guide_split"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:loadImageUrl="@{movieData.image}"/>
+            bind:loadImageUrl="@{movieData.image}" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -48,8 +48,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guide_split"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="영 화 제 목"
-            bind:toHtml="@{movieData.title}"/>
+            bind:toHtml="@{movieData.title}"
+            tools:text="영 화 제 목" />
 
         <RatingBar
             android:id="@+id/rating_bar"
@@ -63,7 +63,7 @@
             android:stepSize="0.1"
             app:layout_constraintStart_toEndOf="@id/guide_split"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            bind:movieRating="@{movieData.userRating}"/>
+            bind:movieRating="@{movieData.userRating}" />
 
         <TextView
             android:id="@+id/tv_opening_date"
@@ -72,12 +72,12 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:gravity="start"
+            android:text="@{movieData.pubDate}"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guide_split"
             app:layout_constraintTop_toBottomOf="@id/rating_bar"
-            tools:text="개 봉 일 자"
-            android:text="@{movieData.pubDate}"/>
+            tools:text="개 봉 일 자" />
 
         <TextView
             android:id="@+id/tv_director"
@@ -85,12 +85,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
+            android:text="@{movieData.director}"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guide_split"
             app:layout_constraintTop_toBottomOf="@id/tv_opening_date"
-            tools:text="영 화 감 독"
-            android:text="@{movieData.director}"/>
+            tools:text="영 화 감 독" />
 
         <TextView
             android:id="@+id/tv_actor"
