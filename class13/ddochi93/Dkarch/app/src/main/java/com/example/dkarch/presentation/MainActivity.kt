@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +13,9 @@ import com.example.dkarch.R
 import com.example.dkarch.data.entity.Movie
 import com.example.dkarch.databinding.ActivityMainBinding
 import com.example.dkarch.domain.api.usecase.GetMovieListUseCase
+import com.example.dkarch.domain.repository.NaverMovieRepository
 import com.example.dkarch.domain.repositoryImpl.HttpClientRepositoryImpl
+import com.example.dkarch.domain.repositoryImpl.NaverMovieRepositoryImpl
 import com.example.dkarch.domain.repositoryImpl.RetrofitRepositoryImpl
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -20,6 +23,8 @@ import retrofit2.HttpException
 
 class MainActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
+    private val naverMovieRepository: NaverMovieRepository =
+        NaverMovieRepositoryImpl(GetMovieListUseCase(RetrofitRepositoryImpl(HttpClientRepositoryImpl())))
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var movieAdapter: MovieAdapter
@@ -55,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         val query = binding.title.text.toString()
 
         if (query.isNotEmpty()) {
-            GetMovieListUseCase(RetrofitRepositoryImpl(HttpClientRepositoryImpl())).getMovieList(query)
+            naverMovieRepository.getMovies(query)
                 .subscribe({ movieResponse ->
                     movieResponse.body()?.let {
                         movieAdapter.submitList(it.items)
@@ -75,6 +80,11 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 
 }

@@ -7,7 +7,5 @@ import retrofit2.Response
 interface NaverMovieRepository {
     fun getMovies(query: String): Single<Response<MovieResponse>>
 
-    fun saveQuery(query: String)
-
     fun getQueryList(): List<String>
 }

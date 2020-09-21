@@ -18,12 +18,11 @@ class LocalDataSourceRepositoryImpl : LocalDataSourceRepository {
         if (query.isNotBlank()) {
             if (savedQueryList.contains(query)) {
                 savedQueryList.remove(query)
-                savedQueryList.add(query)
             }
-            if (savedQueryList.size > 4) {
+            if (savedQueryList.size >= 5) {
                 savedQueryList.removeFirst()
-                savedQueryList.add(query)
             }
+            savedQueryList.add(query)
         }
         sharedPrefRepository.writePrefs(
             Consts.RECENT_QUERY_LIST,
@@ -33,9 +32,11 @@ class LocalDataSourceRepositoryImpl : LocalDataSourceRepository {
 
     override fun getSavedQueryList(): List<String> {
         val queryList = mutableListOf<String>()
-        sharedPrefRepository.getPrefsStringValue(Consts.RECENT_QUERY_LIST)?.let {
+        val jsonString = sharedPrefRepository.getPrefsStringValue(Consts.RECENT_QUERY_LIST)
+
+        if (jsonString != null && jsonString.isNotBlank()) {
             try {
-                val arr = JSONArray(it)
+                val arr = JSONArray(jsonString)
                 for (i in 0 until arr.length()) {
                     queryList.add(arr.getString(i))
                 }
