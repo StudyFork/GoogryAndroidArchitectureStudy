@@ -3,8 +3,7 @@ package com.hjhan.hyejeong.ui.base
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-abstract class BaseActivity<T : BaseContract.Presenter>(layoutResId: Int) :
-    AppCompatActivity(layoutResId), BaseContract.View {
+abstract class BaseActivity<T : BaseContract.Presenter> : AppCompatActivity(), BaseContract.View {
 
     abstract val presenter: T
 
