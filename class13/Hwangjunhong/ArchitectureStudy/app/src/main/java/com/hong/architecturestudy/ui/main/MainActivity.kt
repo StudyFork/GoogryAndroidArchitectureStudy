@@ -1,6 +1,7 @@
 package com.hong.architecturestudy.ui.main
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
@@ -44,18 +45,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main), 
         supportFragmentManager.fragmentFactory = fragmentFactory
         super.onCreate(savedInstanceState)
 
+        binding.activity = this
         setRecyclerView()
 
-        binding.btnSearch.setOnClickListener {
-            val keyword = binding.editSearch.text.toString()
-            mainPresenter.getMovieList(keyword)
-            binding.editSearch.text.clear()
-            hideKeyboard(this, binding.editSearch)
-        }
+    }
 
-        binding.btnSearchList.setOnClickListener {
-            movieListDialogFragment.show(supportFragmentManager, "dialog")
-        }
+    fun searchMovie(view: View) {
+        val keyword = binding.editSearch.text.toString()
+        mainPresenter.getMovieList(keyword)
+        binding.editSearch.text.clear()
+        hideKeyboard(this, binding.editSearch)
+    }
+
+    fun getRecentSearchList(view: View) {
+        movieListDialogFragment.show(supportFragmentManager, "dialog")
     }
 
     private fun setRecyclerView() {
