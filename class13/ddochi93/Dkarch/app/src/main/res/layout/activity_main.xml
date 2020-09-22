@@ -17,12 +17,11 @@
 
         <EditText
             android:id="@+id/title"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="4dp"
             android:hint="영화제목을 입력하세요"
-
-            app:layout_constraintEnd_toStartOf="@id/search_btn"
+            app:layout_constraintRight_toLeftOf="@id/search_btn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,8 +31,17 @@
             android:layout_height="0dp"
             android:onClick="@{() -> activity.searchButtonClicked()}"
             android:text="검색"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/history_btn"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/history_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:onClick="@{() -> activity.historyButtonClicked()}"
+            android:text="기록"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/search_btn" />
 
         <View
             android:id="@+id/border"
