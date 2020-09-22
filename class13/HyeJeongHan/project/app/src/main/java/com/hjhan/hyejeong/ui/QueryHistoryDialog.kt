@@ -5,21 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.recyclerview.widget.RecyclerView
 import com.hjhan.hyejeong.R
 import com.hjhan.hyejeong.data.repository.NaverRepositoryImpl
 import com.hjhan.hyejeong.data.source.local.NaverLocalDataSourceImpl
 import com.hjhan.hyejeong.data.source.remote.NaverRemoteDataSourceImpl
+import com.hjhan.hyejeong.databinding.DialogQueryHistoryBinding
 
 
 class QueryHistoryDialog : DialogFragment(), QueryHistoryContract.View {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var button: Button
-    private lateinit var emptyText: TextView
+    private lateinit var binding: DialogQueryHistoryBinding
     private lateinit var queryHistoryAdapter: QueryHistoryAdapter
 
     private val presenter: QueryHistoryContract.Presenter by lazy {
@@ -36,19 +33,13 @@ class QueryHistoryDialog : DialogFragment(), QueryHistoryContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.dialog_query_history, container)
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.query_recycler_view)
-        button = view.findViewById<Button>(R.id.close_button)
-        emptyText = view.findViewById<Button>(R.id.empty_list_text)
+        return inflater.inflate(R.layout.dialog_query_history, container, false).apply {
+            binding = DataBindingUtil.bind(this)!!
+            binding.dialog = this@QueryHistoryDialog
 
-        button.setOnClickListener {
-            dismiss()
+            presenter.getRecentQueryList()
         }
-
-        presenter.getRecentQueryList()
-
-        return view
     }
 
     override fun onStart() {
@@ -62,19 +53,23 @@ class QueryHistoryDialog : DialogFragment(), QueryHistoryContract.View {
 
     override fun emptyQueryList() {
         //목록 없을때
-        recyclerView.visibility = View.GONE
-        emptyText.visibility = View.VISIBLE
+        binding.queryRecyclerView.visibility = View.GONE
+        binding.emptyListText.visibility = View.VISIBLE
     }
 
     override fun setRecentQueryList(list: List<String>) {
         //목록 있을떄
-        recyclerView.visibility = View.VISIBLE
-        emptyText.visibility = View.GONE
+        binding.queryRecyclerView.visibility = View.VISIBLE
+        binding.emptyListText.visibility = View.GONE
 
         queryHistoryAdapter = QueryHistoryAdapter()
-        recyclerView.adapter = queryHistoryAdapter
+        binding.queryRecyclerView.adapter = queryHistoryAdapter
 
         queryHistoryAdapter.setMovieList(list)
+    }
+
+    fun onCloseButtonClicked() {
+        dismiss()
     }
 
     companion object {
