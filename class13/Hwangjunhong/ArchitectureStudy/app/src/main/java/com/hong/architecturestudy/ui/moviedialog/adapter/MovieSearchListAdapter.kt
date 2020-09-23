@@ -24,7 +24,6 @@ class MovieSearchListAdapter(val onClick: GetMovieTitle) :
             }
         }
 
-
     override fun getItemCount() = movieItems.size
 
     override fun onBindViewHolder(holder: MovieSearchListViewHolder, position: Int) {
@@ -36,5 +35,4 @@ class MovieSearchListAdapter(val onClick: GetMovieTitle) :
         movieItems.addAll(movieInfo)
         notifyDataSetChanged()
     }
-
 }
