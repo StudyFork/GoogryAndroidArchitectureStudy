@@ -1,4 +1,4 @@
-package com.example.aas.ui
+package com.example.aas.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
