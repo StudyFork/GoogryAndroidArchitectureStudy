@@ -9,10 +9,12 @@ interface MainContract {
         fun onSearchRequest()
         fun showSavedQuery(savedQuery: Single<List<String>>)
         fun showMovieResult(movieResult: Single<List<Movie>>)
+        fun openWebLink(uri: String)
     }
 
     interface Presenter : BaseContract.Presenter {
         fun getMovies(query: String)
         fun getSavedQueries()
+        fun openMovieSpecific(uri: String)
     }
 }

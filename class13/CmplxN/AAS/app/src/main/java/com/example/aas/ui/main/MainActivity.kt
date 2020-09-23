@@ -1,5 +1,7 @@
 package com.example.aas.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -25,12 +27,9 @@ class MainActivity :
     SavedQueryDialogFragment.HistorySelectionListener, MainContract.View {
 
     override val presenter: MainContract.Presenter by lazy {
-        MainPresenter(
-            this,
-            MovieSearchRepositoryImpl
-        )
+        MainPresenter(this, MovieSearchRepositoryImpl)
     }
-    private val movieAdapter = MovieAdapter()
+    private val movieAdapter = MovieAdapter(presenter)
     private val fragmentFactory: FragmentFactory = FragmentFactoryImpl(this)
 
     val requestMovies: PresenterMediator = { presenter.getMovies(et_movie_name.text.toString()) }
@@ -69,6 +68,11 @@ class MainActivity :
                 this.showToast("Network Error", Toast.LENGTH_LONG)
                 it.printStackTrace()
             }).addTo(compositeDisposable)
+    }
+
+    override fun openWebLink(uri: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+        startActivity(intent)
     }
 
     override fun showSavedQuery(savedQuery: Single<List<String>>) {

@@ -15,6 +15,8 @@ class MainPresenter(
 
     override fun getSavedQueries() = view.showSavedQuery(movieSearchRepository.getSavedQueries())
 
+    override fun openMovieSpecific(uri: String) = view.openWebLink(uri)
+
     override fun onDestroy() {
         movieSearchRepository.onDestroy()
         super.onDestroy()
