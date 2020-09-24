@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aas.R
 import com.example.aas.data.model.Movie
 
-class MovieAdapter(val presenter: MainContract.Presenter) :
+class MovieAdapter(private val callback: MovieSelectionListener) :
     RecyclerView.Adapter<MovieViewHolder>() {
     private val movieList = mutableListOf<Movie>()
 
@@ -19,7 +19,7 @@ class MovieAdapter(val presenter: MainContract.Presenter) :
                 parent,
                 false
             )
-        ).apply { binding.presenter = presenter }
+        ).apply { binding.callback = callback }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) =
         holder.bind(movieList[position])
@@ -30,5 +30,9 @@ class MovieAdapter(val presenter: MainContract.Presenter) :
         movieList.clear()
         movieList.addAll(newMovieList)
         notifyDataSetChanged()
+    }
+
+    interface MovieSelectionListener {
+        fun onMovieSelect(uri: String)
     }
 }

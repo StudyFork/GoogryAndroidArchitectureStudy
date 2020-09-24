@@ -11,15 +11,15 @@
             type="com.example.aas.data.model.Movie" />
 
         <variable
-            name="presenter"
-            type="com.example.aas.ui.main.MainContract.Presenter" />
+            name="callback"
+            type="com.example.aas.ui.main.MovieAdapter.MovieSelectionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:paddingVertical="8dp"
-        bind:throttledClick="@{()->presenter.openMovieSpecific(movie.link)}">
+        bind:throttledClick="@{()->callback.onMovieSelect(movie.link)}">
 
         <ImageView
             android:id="@+id/img_movie"

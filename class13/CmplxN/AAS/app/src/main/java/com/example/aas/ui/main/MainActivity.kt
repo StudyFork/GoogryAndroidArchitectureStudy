@@ -24,12 +24,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity :
     BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
-    SavedQueryDialogFragment.HistorySelectionListener, MainContract.View {
+    SavedQueryDialogFragment.HistorySelectionListener, MovieAdapter.MovieSelectionListener,
+    MainContract.View {
 
     override val presenter: MainContract.Presenter by lazy {
         MainPresenter(this, MovieSearchRepositoryImpl)
     }
-    private val movieAdapter = MovieAdapter(presenter)
+    private val movieAdapter = MovieAdapter(this)
     private val fragmentFactory: FragmentFactory = FragmentFactoryImpl(this)
 
     val requestMovies: PresenterMediator = { presenter.getMovies(et_movie_name.text.toString()) }
@@ -68,6 +69,10 @@ class MainActivity :
                 this.showToast("Network Error", Toast.LENGTH_LONG)
                 it.printStackTrace()
             }).addTo(compositeDisposable)
+    }
+
+    override fun onMovieSelect(uri: String) {
+        presenter.openMovieSpecific(uri)
     }
 
     override fun openWebLink(uri: String) {
