@@ -1,4 +1,4 @@
-package com.example.dkarch.presentation
+package com.example.dkarch.presentation.main
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -17,6 +17,8 @@ import com.example.dkarch.domain.repository.NaverMovieRepository
 import com.example.dkarch.domain.repositoryImpl.HttpClientRepositoryImpl
 import com.example.dkarch.domain.repositoryImpl.NaverMovieRepositoryImpl
 import com.example.dkarch.domain.repositoryImpl.RetrofitRepositoryImpl
+import com.example.dkarch.presentation.MovieAdapter
+import com.example.dkarch.presentation.QueryHistoryFragment
 import com.example.dkarch.presentation.QueryHistoryFragment.Companion.HISTORY_DIALOG_TAG
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

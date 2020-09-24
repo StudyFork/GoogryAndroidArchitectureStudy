@@ -8,6 +8,7 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.example.dkarch.databinding.FragmentQueryHistoryBinding
 import com.example.dkarch.domain.globalconsts.Consts
+import com.example.dkarch.presentation.main.MainActivity
 
 
 class QueryHistoryFragment : DialogFragment() {
