@@ -1,7 +1,6 @@
 package com.camai.archtecherstudy.ui.rencentdialog
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,20 +14,22 @@ import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import com.camai.archtecherstudy.databinding.RecentMovieListPopupBinding
-import kotlinx.android.synthetic.main.recent_movie_list_popup.*
 
 class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
     RecentMovieContract.View {
 
-    private lateinit var recentMovieAdapter: RecentMovieAdapter
 
     private val recentPresenter: RecentMovieContract.Presenter by lazy {
         RecentMoviePresenter(this, MovieRepositoryImpl)
+    }
+    private val recentMovieAdapter: RecentMovieAdapter by lazy {
+        RecentMovieAdapter(recentPresenter)
     }
 
     companion object {
         const val TAG = "MovieSearchDialog"
     }
+
     private lateinit var binding: RecentMovieListPopupBinding
 
     override fun onStart() {
@@ -45,7 +46,13 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.bind(inflater.inflate(R.layout.recent_movie_list_popup, container, false))!!
+            DataBindingUtil.bind(
+                inflater.inflate(
+                    R.layout.recent_movie_list_popup,
+                    container,
+                    false
+                )
+            )!!
         return binding.root
     }
 
@@ -56,7 +63,7 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
         setAdapterAndRecyclerViewInit()
 
         //  Popup close
-        popup_close.setOnClickListener(View.OnClickListener {
+        binding.popupClose.setOnClickListener(View.OnClickListener {
             recentPresenter.closeDialog()
         })
 
@@ -65,20 +72,11 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
 
     //  RecyclerView Adapter Set
     private fun setAdapterAndRecyclerViewInit() {
-        //   init Adapter
-        recentMovieAdapter =
-            RecentMovieAdapter {
-                Log.d(TAG, it)
-                //  recycler View item click movie name to Activity
-                keywork.invoke(it)
-
-                recentPresenter.closeDialog()
-            }
 
         recentMovieAdapter.notifyDataSetChanged()
 
         //  recycler view init and adapter connect
-        recycler_recent_view.run {
+        binding.recyclerRecentView.run {
             adapter = recentMovieAdapter
             setHasFixedSize(false)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
@@ -86,6 +84,12 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
 
         //  get Recent Data
         recentPresenter.setRecentData()
+    }
+
+    override fun setClickName(name: String) {
+        keywork.invoke(name)
+
+        recentPresenter.closeDialog()
     }
 
 
