@@ -1,4 +1,4 @@
-package com.hong.architecturestudy.components
+package com.hong.architecturestudy.constants
 
 object Constants {
     const val BASE_URL = "https://openapi.naver.com/"
