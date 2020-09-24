@@ -3,9 +3,17 @@
 
     <data>
 
+        <variable
+            name="recentItem"
+            type="com.camai.archtecherstudy.data.source.local.room.RecentSearchName" />
+
+        <variable
+            name="recentPresenter"
+            type="com.camai.archtecherstudy.ui.rencentdialog.RecentMoviePresenter" />
     </data>
 
     <LinearLayout
+        android:id="@+id/li_recent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -13,11 +21,13 @@
             android:id="@+id/txt_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:layout_marginHorizontal="24dp"
-            android:paddingTop="8dp"
             android:layout_gravity="center_vertical"
-            android:textSize="16sp"
+            android:layout_marginHorizontal="24dp"
+            android:fontFamily="sans-serif-black"
+            android:onClick="@{()->recentPresenter.setClickData(recentItem.movieName)}"
+            android:paddingTop="8dp"
+            android:text="@{recentItem.movieName}"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 </layout>
