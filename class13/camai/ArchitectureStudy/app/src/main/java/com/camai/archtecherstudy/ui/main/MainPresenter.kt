@@ -8,15 +8,21 @@ class MainPresenter(
     private val movieRepositoryImpl: MovieRepository
 ) : MainContract.Presenter {
 
+
+
+    override fun openWeb(url: String) {
+        viewMain.openWebView(url)
+    }
+
     //  Keyword Empty Check
     override fun setSearchKeywordCheck(keyword: String) {
         //  progress View
-        viewMain.progressView()
+        viewMain.progressViewStatus(true)
 
         //   Empty Check
         if (keyword.isNullOrBlank()) {
             //  progress Gone
-            viewMain.progressGone()
+            viewMain.progressViewStatus(false)
             //  Toast Null
             viewMain.showEmptyFieldText()
         } else {
@@ -30,7 +36,7 @@ class MainPresenter(
         movieRepositoryImpl.getMovieNameSearch(keyword, 100, 1,
             success = {
                 //  Progress Gone
-                viewMain.progressGone()
+                viewMain.progressViewStatus(false)
                 //  EditText Clear
                 viewMain.textClear()
 
@@ -40,7 +46,7 @@ class MainPresenter(
             },
             failed = {
                 //  Progress Gone
-                viewMain.progressGone()
+                viewMain.progressViewStatus(false)
                 //  EditText Clear
                 viewMain.textClear()
                 //  Toast Message
