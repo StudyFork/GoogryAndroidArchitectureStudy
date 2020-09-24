@@ -29,7 +29,7 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
             }
 
             override fun onFailure(call: Call<MovieData>, t: Throwable) {
-                failed("네트워크 통신 실패")
+                failed(t.message ?: "알 수 없는 에러")
             }
         })
     }
