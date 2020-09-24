@@ -6,7 +6,10 @@ import com.example.aas.databinding.ItemMovieBinding
 
 class MovieViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(movie: Movie) {
-        binding.movie = movie
+    fun bind(_movie: Movie) {
+        binding.run {
+            movie = _movie
+            executePendingBindings()
+        }
     }
 }
