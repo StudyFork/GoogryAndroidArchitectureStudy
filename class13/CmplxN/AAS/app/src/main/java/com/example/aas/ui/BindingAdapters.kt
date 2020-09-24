@@ -22,11 +22,11 @@ fun ImageView.loadImageFromUrl(uri: String) {
         .into(this)
 }
 
-typealias PresenterMediator = () -> Unit
-
 @BindingAdapter("throttledClick")
-fun View.setThrottleClick(function: PresenterMediator) {
-    RxView.clicks(this)
-        .throttleFirst(1000L, TimeUnit.MILLISECONDS)
-        .subscribe { function() }
+fun View.setThrottleClick(onClickListener: View.OnClickListener?) {
+    onClickListener?.run {
+        RxView.clicks(this@setThrottleClick)
+            .throttleFirst(1000L, TimeUnit.MILLISECONDS)
+            .subscribe { onClick(this@setThrottleClick) }
+    }
 }

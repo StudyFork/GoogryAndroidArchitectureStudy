@@ -12,7 +12,6 @@ import com.example.aas.base.BaseActivity
 import com.example.aas.data.model.Movie
 import com.example.aas.data.repository.MovieSearchRepositoryImpl
 import com.example.aas.databinding.ActivityMainBinding
-import com.example.aas.ui.PresenterMediator
 import com.example.aas.ui.savedquerydialog.SavedQueryDialogFragment
 import com.example.aas.utils.hideKeyboard
 import com.example.aas.utils.showToast
@@ -32,9 +31,6 @@ class MainActivity :
     }
     private val movieAdapter = MovieAdapter(this)
     private val fragmentFactory: FragmentFactory = FragmentFactoryImpl(this)
-
-    val requestMovies: PresenterMediator = { presenter.getMovies(et_movie_name.text.toString()) }
-    val requestHistory: PresenterMediator = { presenter.getSavedQueries() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportFragmentManager.fragmentFactory = fragmentFactory

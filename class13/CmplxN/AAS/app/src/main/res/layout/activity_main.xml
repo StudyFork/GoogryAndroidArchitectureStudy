@@ -9,6 +9,14 @@
         <variable
             name="activity"
             type="com.example.aas.ui.main.MainActivity" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="query"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,6 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:hint="검색어를 입력하세요"
+            android:text="@={query}"
             app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/btn_request"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +51,7 @@
             app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/btn_history"
             app:layout_constraintTop_toTopOf="parent"
-            bind:throttledClick="@{activity.requestMovies}" />
+            bind:throttledClick="@{()->activity.presenter.getMovies(query)}" />
 
         <Button
             android:id="@+id/btn_history"
@@ -52,7 +61,7 @@
             app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:throttledClick="@{activity.requestHistory}" />
+            bind:throttledClick="@{()->activity.presenter.getSavedQueries()}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_movie"
