@@ -16,11 +16,8 @@ class NaverMovieRepositoryImpl(private val getMovieListUseCase: GetMovieListUseC
         LocalDataSourceRepositoryImpl()
 
     override fun getMovies(query: String): Single<Response<MovieResponse>> {
-        return remoteDataSourceRepository.getMovies(query).doOnSuccess { saveQuery(query) }
-    }
-
-    private fun saveQuery(query: String) {
-        localDataSourceRepository.saveQuery(query)
+        return remoteDataSourceRepository.getMovies(query)
+            .doOnSuccess { localDataSourceRepository.saveQuery(query) }
     }
 
     override fun getQueryList(): List<String> {
