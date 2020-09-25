@@ -9,11 +9,6 @@ class MainPresenter(
 ) : MainContract.Presenter {
 
 
-
-    override fun openWeb(url: String) {
-        viewMain.openWebView(url)
-    }
-
     //  Keyword Empty Check
     override fun setSearchKeywordCheck(keyword: String) {
         //  progress View

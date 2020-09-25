@@ -82,12 +82,6 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
         recentPresenter.setRecentData()
     }
 
-    override fun setClickName(name: String) {
-        keywork.invoke(name)
-
-        recentPresenter.closeDialog()
-    }
-
 
     override fun setDataInsertToAdapter(data: List<RecentSearchName>) {
         recentMovieAdapter.setClearAndAddList(data)

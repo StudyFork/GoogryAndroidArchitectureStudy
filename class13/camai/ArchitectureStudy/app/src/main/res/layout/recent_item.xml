@@ -7,9 +7,6 @@
             name="recentItem"
             type="com.camai.archtecherstudy.data.source.local.room.RecentSearchName" />
 
-        <variable
-            name="recentPresenter"
-            type="com.camai.archtecherstudy.ui.rencentdialog.RecentMoviePresenter" />
     </data>
 
     <LinearLayout
@@ -24,7 +21,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="24dp"
             android:fontFamily="sans-serif-black"
-            android:onClick="@{()->recentPresenter.setClickData(recentItem.movieName)}"
             android:paddingTop="8dp"
             android:text="@{recentItem.movieName}"
             android:textSize="18sp"

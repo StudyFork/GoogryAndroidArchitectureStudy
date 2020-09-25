@@ -7,10 +7,6 @@ class RecentMoviePresenter(
     private val MovieRepositoryImpl: MovieRepositoryImpl
 ) : RecentMovieContract.Presenter {
 
-    override fun setClickData(name: String) {
-        viewDialog.setClickName(name)
-    }
-
     override fun setRecentData() {
         MovieRepositoryImpl.getRecentSearchList(namelist = {
             if (it.isEmpty()) {

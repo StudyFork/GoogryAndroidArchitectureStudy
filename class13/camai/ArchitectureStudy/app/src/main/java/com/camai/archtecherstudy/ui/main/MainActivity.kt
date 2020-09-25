@@ -95,11 +95,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         Toast.makeText(applicationContext, keyword + " 를 찾을 수 없습니다.", Toast.LENGTH_LONG).show()
     }
 
-    override fun openWebView(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        startActivity(intent)
-    }
-
     override fun setRecyclerViewScollorPositionInit(keyword: String) {
         binding.recyclerView.layoutManager?.scrollToPosition(0)
         //  Movie Name Search

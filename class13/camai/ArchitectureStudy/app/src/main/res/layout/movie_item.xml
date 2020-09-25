@@ -6,9 +6,7 @@
         <variable
             name="movieItem"
             type="com.camai.archtecherstudy.data.model.Items" />
-        <variable
-            name="presenter"
-            type="com.camai.archtecherstudy.ui.main.MainPresenter" />
+
     </data>
 
 
@@ -16,7 +14,6 @@
         android:id="@+id/line_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> presenter.openWeb(movieItem.link)}"
         android:padding="10dp">
 
         <ImageView
