@@ -26,10 +26,6 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
         RecentMovieAdapter(recentPresenter)
     }
 
-    companion object {
-        const val TAG = "MovieSearchDialog"
-    }
-
     private lateinit var binding: RecentMovieListPopupBinding
 
     override fun onStart() {
@@ -103,5 +99,9 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
 
     override fun closeDialog() {
         dismiss()
+    }
+
+    companion object {
+        const val TAG = "MovieSearchDialog"
     }
 }
