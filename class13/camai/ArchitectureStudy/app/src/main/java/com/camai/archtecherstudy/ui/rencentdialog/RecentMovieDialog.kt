@@ -23,7 +23,12 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
         RecentMoviePresenter(this, MovieRepositoryImpl)
     }
     private val recentMovieAdapter: RecentMovieAdapter by lazy {
-        RecentMovieAdapter(recentPresenter)
+        RecentMovieAdapter {
+            //  recycler View item click movie name to Activity
+            keywork.invoke(it)
+
+            recentPresenter.closeDialog()
+        }
     }
 
     private lateinit var binding: RecentMovieListPopupBinding

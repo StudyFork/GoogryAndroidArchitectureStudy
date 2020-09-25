@@ -20,12 +20,7 @@ class MovieSearchAdapter(val presenter: MainContract.Presenter) :
             parent,
             false
         )
-    ).apply {
-        itemView.setOnClickListener {
-            binding.presenter = presenter as MainPresenter?
-        }
-    }
-
+    )
 
     override fun getItemCount() = movieInfoArrayList.size
 

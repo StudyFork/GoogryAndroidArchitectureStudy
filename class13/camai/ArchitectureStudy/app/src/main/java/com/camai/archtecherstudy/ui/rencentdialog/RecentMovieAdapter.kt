@@ -9,7 +9,7 @@ import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import com.camai.archtecherstudy.databinding.RecentItemBinding
 
 
-class RecentMovieAdapter(private val presenter: RecentMovieContract.Presenter) :
+class RecentMovieAdapter(val itemClick: (String) -> Unit) :
 
     RecyclerView.Adapter<RecentMovieAdapter.ViewHolder>() {
 
@@ -24,7 +24,7 @@ class RecentMovieAdapter(private val presenter: RecentMovieContract.Presenter) :
         )
     ).apply {
         itemView.setOnClickListener {
-            binding.recentPresenter = presenter as RecentMoviePresenter?
+            itemClick(recentlist.get(adapterPosition).movieName.toString())
         }
     }
 
