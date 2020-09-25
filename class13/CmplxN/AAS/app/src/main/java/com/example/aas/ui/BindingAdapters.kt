@@ -24,9 +24,9 @@ fun ImageView.loadImageFromUrl(uri: String) {
 
 @BindingAdapter("throttledClick")
 fun View.setThrottleClick(onClickListener: View.OnClickListener?) {
-    onClickListener?.run {
-        RxView.clicks(this@setThrottleClick)
+    onClickListener?.let {
+        RxView.clicks(this)
             .throttleFirst(1000L, TimeUnit.MILLISECONDS)
-            .subscribe { onClick(this@setThrottleClick) }
+            .subscribe { _ -> it.onClick(this) }
     }
 }
