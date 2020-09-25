@@ -6,6 +6,8 @@ interface BaseContract {
     }
 
     interface Presenter {
+        val view: View
+
         fun onDestroy()
     }
 }
