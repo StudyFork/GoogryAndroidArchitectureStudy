@@ -1,5 +1,7 @@
 package com.example.aas.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -9,48 +11,38 @@ import com.example.aas.R
 import com.example.aas.base.BaseActivity
 import com.example.aas.data.model.Movie
 import com.example.aas.data.repository.MovieSearchRepositoryImpl
+import com.example.aas.databinding.ActivityMainBinding
 import com.example.aas.ui.savedquerydialog.SavedQueryDialogFragment
 import com.example.aas.utils.hideKeyboard
 import com.example.aas.utils.showToast
-import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.concurrent.TimeUnit
 
-class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
-    SavedQueryDialogFragment.HistorySelectionListener, MainContract.View {
+class MainActivity :
+    BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
+    SavedQueryDialogFragment.HistorySelectionListener, MovieAdapter.MovieSelectionListener,
+    MainContract.View {
 
     override val presenter: MainContract.Presenter by lazy {
-        MainPresenter(
-            this,
-            MovieSearchRepositoryImpl
-        )
+        MainPresenter(this, MovieSearchRepositoryImpl)
     }
-    private val movieAdapter = MovieAdapter()
+    private val movieAdapter = MovieAdapter(this)
     private val fragmentFactory: FragmentFactory = FragmentFactoryImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportFragmentManager.fragmentFactory = fragmentFactory
         super.onCreate(savedInstanceState)
 
-        rcv_movie.adapter = movieAdapter
-
-        RxTextView.textChanges(et_movie_name)
-            .subscribe { btn_request.isEnabled = it.isNotBlank() }
-            .addTo(compositeDisposable)
-
-        RxView.clicks(btn_request)
-            .throttleFirst(1000L, TimeUnit.MILLISECONDS)
-            .subscribe { presenter.getMovies(et_movie_name.text.toString()) }
-            .addTo(compositeDisposable)
-
-        RxView.clicks(btn_history)
-            .throttleFirst(1000L, TimeUnit.MILLISECONDS)
-            .subscribe { presenter.getSavedQueries() }
-            .addTo(compositeDisposable)
+        binding.run {
+            activity = this@MainActivity
+            rcvMovie.adapter = movieAdapter
+            RxTextView.textChanges(etMovieName)
+                .subscribe { btnRequest.isEnabled = it.isNotBlank() }
+                .addTo(compositeDisposable)
+        }
     }
 
     override fun onHistorySelection(query: String) {
@@ -73,6 +65,15 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
                 this.showToast("Network Error", Toast.LENGTH_LONG)
                 it.printStackTrace()
             }).addTo(compositeDisposable)
+    }
+
+    override fun onMovieSelect(uri: String) {
+        presenter.openMovieSpecific(uri)
+    }
+
+    override fun openWebLink(uri: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+        startActivity(intent)
     }
 
     override fun showSavedQuery(savedQuery: Single<List<String>>) {

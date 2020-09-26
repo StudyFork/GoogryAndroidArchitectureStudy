@@ -1,63 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:paddingVertical="8dp">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/img_movie"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline_item"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+    <data>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_item"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="130dp" />
+        <variable
+            name="movie"
+            type="com.example.aas.data.model.Movie" />
+
+        <variable
+            name="callback"
+            type="com.example.aas.ui.main.MovieAdapter.MovieSelectionListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:paddingVertical="8dp"
+        bind:throttledClick="@{()->callback.onMovieSelect(movie.link)}">
+
+        <ImageView
+            android:id="@+id/img_movie"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_item"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:loadImageFromUri="@{movie.image}"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_item"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="130dp" />
 
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/tv_subtitle"
-        app:layout_constraintStart_toStartOf="@+id/guideline_item"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="title" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/tv_subtitle"
+            app:layout_constraintStart_toStartOf="@+id/guideline_item"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:htmlText="@{movie.title}" />
 
-    <TextView
-        android:id="@+id/tv_subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/tv_actor"
-        app:layout_constraintStart_toStartOf="@+id/guideline_item"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        tools:text="subtitle" />
+        <TextView
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/tv_actor"
+            app:layout_constraintStart_toStartOf="@+id/guideline_item"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            bind:htmlText="@{movie.subtitle}" />
 
-    <TextView
-        android:id="@+id/tv_actor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/tv_rating"
-        app:layout_constraintStart_toStartOf="@+id/guideline_item"
-        app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
-        tools:text="actor" />
+        <TextView
+            android:id="@+id/tv_actor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tv_rating"
+            app:layout_constraintStart_toStartOf="@+id/guideline_item"
+            app:layout_constraintTop_toBottomOf="@id/tv_subtitle"
+            bind:htmlText="@{movie.actor}" />
 
-    <TextView
-        android:id="@+id/tv_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline_item"
-        app:layout_constraintTop_toBottomOf="@id/tv_actor"
-        tools:text="rating" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline_item"
+            app:layout_constraintTop_toBottomOf="@id/tv_actor"
+            bind:htmlText="@{movie.userRating}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
