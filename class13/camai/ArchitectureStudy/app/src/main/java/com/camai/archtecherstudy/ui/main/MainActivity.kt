@@ -1,49 +1,55 @@
 package com.camai.archtecherstudy.ui.main
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
+import com.camai.archtecherstudy.databinding.ActivityMainBinding
+import com.camai.archtecherstudy.extension.visibleProgress
 import com.camai.archtecherstudy.ui.rencentdialog.RecentMovieDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
-
     private val TAG = "MovieSearch"
 
-    private val movieSearchAdapter: MovieSearchAdapter by lazy {
-        MovieSearchAdapter()
-    }
+    var progressStatus: Boolean = false
 
     private val mainPresenter: MainContract.Presenter by lazy {
         MainPresenter(this, MovieRepositoryImpl)
     }
 
+    private val movieSearchAdapter: MovieSearchAdapter by lazy {
+        MovieSearchAdapter(mainPresenter)
+    }
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         //  Recycler View And Adapter Init
         setAdapterAndRecyclerViewInit()
 
         //  Search Button Click Event
-        btn_search.setOnClickListener(View.OnClickListener {
+        binding.btnSearch.setOnClickListener(View.OnClickListener {
             hideKeyboard()
-            val moviename: String = edit_name.text.toString()
+            val moviename: String = binding.editName.text.toString()
             mainPresenter.setSearchKeywordCheck(moviename)
 
         })
 
         //  Recent Search Movie Name list Dialog Show Click Event
-        btn_recent.setOnClickListener(View.OnClickListener {
+        binding.btnRecent.setOnClickListener(View.OnClickListener {
             RecentMovieDialog(keywork = {
                 //  Click movie name
                 mainPresenter.setSearchKeywordCheck(it)
@@ -57,7 +63,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private fun setAdapterAndRecyclerViewInit() {
 
         //  recyclerView init
-        recycler_view.run {
+        binding.recyclerView.run {
             adapter = movieSearchAdapter
             setHasFixedSize(false)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
@@ -71,16 +77,14 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         imm.hideSoftInputFromWindow(edit_name.windowToken, 0)
     }
 
-    override fun progressView() {
-        progressbar.isVisible = true
+    override fun progressViewStatus(status: Boolean) {
+        progressStatus = status
+        visibleProgress(binding.progressbar, status)
     }
 
-    override fun progressGone() {
-        progressbar.isVisible = false
-    }
 
     override fun textClear() {
-        edit_name.text.clear()
+        binding.editName.text.clear()
     }
 
     override fun showEmptyFieldText() {
@@ -92,7 +96,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun setRecyclerViewScollorPositionInit(keyword: String) {
-        recycler_view.layoutManager?.scrollToPosition(0)
+        binding.recyclerView.layoutManager?.scrollToPosition(0)
         //  Movie Name Search
         mainPresenter.setSearchMovie(keyword)
     }

@@ -1,67 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/line_list"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="10dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/img_poster"
-        android:layout_width="120dp"
-        android:layout_height="150dp"
-        android:contentDescription="NoImage"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY" />
+    <data>
+        <variable
+            name="movieItem"
+            type="com.camai.archtecherstudy.data.model.Items" />
+
+    </data>
+
 
     <LinearLayout
+        android:id="@+id/line_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="5dp">
+        app:clickWeb="@{movieItem.link}"
+        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/txt_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="title"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:layout_marginBottom="2dp"/>
+        <ImageView
+            android:id="@+id/img_poster"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            android:contentDescription="NoImage"
+            app:ImageDrawable="@{movieItem.image}"
+            app:ImageDrawableError="@{@drawable/ic_input_trail_error}"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
 
-        <RatingBar
-            android:id="@+id/rb_user_rating"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:isIndicator="true"
-            android:max="10"
-            android:numStars="10"
-            android:stepSize="0.5"
-            android:layout_marginBottom="2dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp">
 
-        <TextView
-            android:id="@+id/txt_pub_data"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="pubData"
-            android:layout_marginBottom="2dp"/>
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@{movieItem.title}"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginBottom="2dp" />
 
-        <TextView
-            android:id="@+id/txt_director"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="director"
-            android:layout_marginBottom="2dp"/>
+            <RatingBar
+                android:id="@+id/rb_user_rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:isIndicator="true"
+                android:max="10"
+                android:numStars="10"
+                android:stepSize="0.5"
+                android:layout_marginBottom="2dp"
+                android:rating="@{movieItem.userRating}"/>
 
-        <TextView
-            android:id="@+id/txt_actor"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="actor"
-            android:layout_marginBottom="2dp"/>
+            <TextView
+                android:id="@+id/txt_pub_data"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@{movieItem.pubDate}"
+                android:layout_marginBottom="2dp" />
+
+            <TextView
+                android:id="@+id/txt_director"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@{movieItem.director}"
+                android:layout_marginBottom="2dp" />
+
+            <TextView
+                android:id="@+id/txt_actor"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@{movieItem.actor}"
+                android:layout_marginBottom="2dp" />
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
+</layout>

@@ -1,42 +1,43 @@
 package com.camai.archtecherstudy.ui.rencentdialog
 
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
+import com.camai.archtecherstudy.databinding.RecentItemBinding
 
 
 class RecentMovieAdapter(val itemClick: (String) -> Unit) :
+
     RecyclerView.Adapter<RecentMovieAdapter.ViewHolder>() {
 
     private val recentlist = mutableListOf<RecentSearchName>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recent_item, parent, false)
-        return ViewHolder(
-            view
-        ).click { position ->
-            val name: String = recentlist[position].movieName.toString()
-            Log.d("Click", name)
-            itemClick(name)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.recent_item,
+            parent,
+            false
+        )
+    ).apply {
+        itemView.setOnClickListener {
+            itemClick(recentlist.get(adapterPosition).movieName.toString())
         }
     }
 
-    fun <T : RecyclerView.ViewHolder> T.click(event: (position: Int) -> Unit): T {
-        itemView.setOnClickListener {
-            event.invoke(adapterPosition)
-        }
-        return this
-    }
 
     override fun getItemCount() = recentlist.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(recentlist[position])
+
+        val item = recentlist[position]
+        holder.apply {
+            bind(item)
+
+        }
     }
 
     //  Update Movie Name Data
@@ -50,11 +51,13 @@ class RecentMovieAdapter(val itemClick: (String) -> Unit) :
         notifyDataSetChanged()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val name = itemView.findViewById<TextView>(R.id.txt_name)
+    class ViewHolder(val binding: RecentItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(nameInfo: RecentSearchName) {
-            name?.text = nameInfo.movieName
+            binding.apply {
+                recentItem = nameInfo
+                executePendingBindings()
+            }
         }
     }
 }
