@@ -1,7 +1,5 @@
 package com.hong.architecturestudy.ui.main.adapter
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -18,13 +16,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context), R.layout.item_movie_list, parent, false
             )
-        ).apply {
-            itemView.setOnClickListener {
-                val item = items[absoluteAdapterPosition]
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
-                itemView.context.startActivity(intent)
-            }
-        }
+        )
 
     override fun getItemCount() = items.size
 
