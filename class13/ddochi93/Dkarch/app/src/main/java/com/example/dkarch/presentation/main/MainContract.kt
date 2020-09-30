@@ -13,8 +13,6 @@ interface MainContract {
     interface Presenter : BaseContract.Presenter {
         fun getMovieList(query: String)
 
-        fun getQueryList(): List<String>
-
         fun handleError(throwable: Throwable)
     }
 }

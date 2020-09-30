@@ -10,13 +10,12 @@ import com.example.dkarch.R
 import com.example.dkarch.data.entity.Movie
 import com.example.dkarch.databinding.ActivityMainBinding
 import com.example.dkarch.domain.api.usecase.GetMovieListUseCase
-import com.example.dkarch.domain.globalconsts.Consts
 import com.example.dkarch.domain.repositoryImpl.HttpClientRepositoryImpl
 import com.example.dkarch.domain.repositoryImpl.NaverMovieRepositoryImpl
 import com.example.dkarch.domain.repositoryImpl.RetrofitRepositoryImpl
+import com.example.dkarch.presentation.base.BaseActivity
 import com.example.dkarch.presentation.queryHistory.QueryHistoryFragment
 import com.example.dkarch.presentation.queryHistory.QueryHistoryFragment.Companion.HISTORY_DIALOG_TAG
-import com.example.dkarch.presentation.base.BaseActivity
 
 class MainActivity :
     BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
@@ -72,13 +71,7 @@ class MainActivity :
     }
 
     fun historyButtonClicked() {
-        val queryHistoryList = presenter.getQueryList()
-        val bundle = Bundle()
-        bundle.putStringArrayList(Consts.FRAGMENT_QUERY_LIST, ArrayList(queryHistoryList))
-        QueryHistoryFragment().apply {
-            arguments = bundle
-            show(supportFragmentManager, HISTORY_DIALOG_TAG)
-        }
+        QueryHistoryFragment().show(supportFragmentManager, HISTORY_DIALOG_TAG)
     }
 
     override fun showMovieList(movieList: ArrayList<Movie>) {
@@ -90,6 +83,7 @@ class MainActivity :
     }
 
     override fun onQuerySelected(query: String) {
+        binding.title.setText(query)
         presenter.getMovieList(query)
     }
 

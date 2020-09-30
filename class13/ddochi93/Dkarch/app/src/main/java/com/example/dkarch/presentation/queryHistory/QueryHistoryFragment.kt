@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.example.dkarch.databinding.FragmentQueryHistoryBinding
-import com.example.dkarch.domain.globalconsts.Consts
+import com.example.dkarch.domain.api.usecase.GetMovieListUseCase
+import com.example.dkarch.domain.repositoryImpl.HttpClientRepositoryImpl
+import com.example.dkarch.domain.repositoryImpl.NaverMovieRepositoryImpl
+import com.example.dkarch.domain.repositoryImpl.RetrofitRepositoryImpl
 import com.example.dkarch.presentation.base.BaseDialogFragment
 import com.example.dkarch.presentation.main.MainActivity
 
@@ -14,13 +17,23 @@ import com.example.dkarch.presentation.main.MainActivity
 class QueryHistoryFragment : BaseDialogFragment<QueryHistoryContract.Presenter>(),
     QueryHistoryContract.View {
     private lateinit var queryHistoryBinding: FragmentQueryHistoryBinding
-    private var queryHistory: ArrayList<String> = ArrayList()
     override val presenter by lazy {
-        QueryHistoryPresenter(this)
+        QueryHistoryPresenter(
+            this,
+            NaverMovieRepositoryImpl(
+                GetMovieListUseCase(
+                    RetrofitRepositoryImpl(HttpClientRepositoryImpl())
+                )
+            )
+        )
     }
 
     interface QuerySelectedListener {
         fun onQuerySelected(query: String)
+    }
+
+    companion object {
+        const val HISTORY_DIALOG_TAG = "HISTORY_DIALOG_TAG"
     }
 
     override fun onStart() {
@@ -48,18 +61,7 @@ class QueryHistoryFragment : BaseDialogFragment<QueryHistoryContract.Presenter>(
     }
 
     private fun initView() {
-        arguments?.getStringArrayList(Consts.FRAGMENT_QUERY_LIST)?.map {
-            queryHistory.add(it)
-        }
-        queryHistoryBinding.queryRecyclerView.adapter =
-            QueryHistoryAdapter(queryHistory.reversed(), onQueryItemClicked)
-
-        if (queryHistory.isEmpty()) {
-            queryHistoryBinding.emptyListText.visibility = View.VISIBLE
-        } else {
-            queryHistoryBinding.emptyListText.visibility = View.GONE
-        }
-
+        presenter.getSavedQueryList()
     }
 
     fun closeButtonClicked() {
@@ -71,7 +73,13 @@ class QueryHistoryFragment : BaseDialogFragment<QueryHistoryContract.Presenter>(
         (activity as MainActivity).onQuerySelected(query)
     }
 
-    companion object {
-        const val HISTORY_DIALOG_TAG = "HISTORY_DIALOG_TAG"
+    override fun showQueryList(savedQueryList: List<String>) {
+        if (savedQueryList.isEmpty()) {
+            queryHistoryBinding.emptyListText.visibility = View.VISIBLE
+        } else {
+            queryHistoryBinding.emptyListText.visibility = View.GONE
+            queryHistoryBinding.queryRecyclerView.adapter =
+                QueryHistoryAdapter(savedQueryList.reversed(), onQueryItemClicked)
+        }
     }
 }

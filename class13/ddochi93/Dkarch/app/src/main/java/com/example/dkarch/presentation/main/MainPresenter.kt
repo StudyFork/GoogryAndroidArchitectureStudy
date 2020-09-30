@@ -19,10 +19,6 @@ class MainPresenter(
         }).addTo(compositeDisposable)
     }
 
-    override fun getQueryList(): List<String> {
-        return naverMovieRepository.getQueryList()
-    }
-
     override fun onDestroy() {
         compositeDisposable.clear()
         super.onDestroy()
