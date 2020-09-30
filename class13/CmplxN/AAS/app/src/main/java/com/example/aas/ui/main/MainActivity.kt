@@ -33,7 +33,9 @@ class MainActivity :
         super.onCreate(savedInstanceState)
 
         initBinding()
+        initView()
         initObserver()
+
         savedInstanceState?.getParcelableArrayList<Movie>(RCV_LIST)?.let {
             movieAdapter.setList(it)
         }
@@ -53,13 +55,14 @@ class MainActivity :
     }
 
     private fun initBinding() {
-        with(binding) {
-            viewModel = mainViewModel
-            rcvMovie.adapter = movieAdapter
-            RxTextView.textChanges(etMovieName)
-                .subscribe { btnRequest.isEnabled = it.isNotBlank() }
-                .addTo(compositeDisposable)
-        }
+        binding.viewModel = mainViewModel
+    }
+
+    private fun initView() {
+        rcv_movie.adapter = movieAdapter
+        RxTextView.textChanges(et_movie_name)
+            .subscribe { et_movie_name.isEnabled = it.isNotBlank() }
+            .addTo(compositeDisposable)
     }
 
     private fun initObserver() {
