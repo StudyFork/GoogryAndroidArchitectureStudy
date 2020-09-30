@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import com.hjhan.hyejeong.R
 import com.hjhan.hyejeong.data.repository.NaverRepositoryImpl
 import com.hjhan.hyejeong.data.source.local.NaverLocalDataSourceImpl
 import com.hjhan.hyejeong.data.source.remote.NaverRemoteDataSourceImpl
@@ -34,12 +32,22 @@ class QueryHistoryDialog : DialogFragment(), QueryHistoryContract.View {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.dialog_query_history, container, false).apply {
-            binding = DataBindingUtil.bind(this)!!
-            binding.dialog = this@QueryHistoryDialog
+        setInflateLayout(inflater, container)
+        initView()
 
-            presenter.getRecentQueryList()
-        }
+        return binding.root
+    }
+
+    private fun setInflateLayout(inflater: LayoutInflater, container: ViewGroup?) {
+        binding = DialogQueryHistoryBinding.inflate(inflater, container, false)
+        binding.dialog = this
+    }
+
+    private fun initView() {
+        queryHistoryAdapter = QueryHistoryAdapter()
+        binding.queryRecyclerView.adapter = queryHistoryAdapter
+
+        presenter.getRecentQueryList()
     }
 
     override fun onStart() {
@@ -61,9 +69,6 @@ class QueryHistoryDialog : DialogFragment(), QueryHistoryContract.View {
         //목록 있을떄
         binding.queryRecyclerView.visibility = View.VISIBLE
         binding.emptyListText.visibility = View.GONE
-
-        queryHistoryAdapter = QueryHistoryAdapter()
-        binding.queryRecyclerView.adapter = queryHistoryAdapter
 
         queryHistoryAdapter.setMovieList(list)
     }
