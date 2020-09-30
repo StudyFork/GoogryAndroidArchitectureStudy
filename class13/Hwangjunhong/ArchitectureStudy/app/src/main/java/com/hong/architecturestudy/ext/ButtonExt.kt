@@ -17,7 +17,7 @@ fun Button.showRecentSearchList(
 
     this.setThrottleClick(View.OnClickListener {
         manager?.let {
-            dialogFragment?.show(manager, "fragmentDialog")
+            dialogFragment?.show(it, "fragmentDialog")
         }
     })
 
