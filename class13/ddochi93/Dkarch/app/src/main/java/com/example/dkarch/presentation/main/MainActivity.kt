@@ -20,7 +20,7 @@ import com.example.dkarch.presentation.base.BaseActivity
 
 class MainActivity :
     BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
-    MainContract.View {
+    MainContract.View, QueryHistoryFragment.QuerySelectedListener {
 
     override val presenter: MainContract.Presenter by lazy {
         MainPresenter(
@@ -87,6 +87,10 @@ class MainActivity :
 
     override fun showEmptyMessage() {
         Toast.makeText(this, "영화제목을 입력하세요!", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onQuerySelected(query: String) {
+        presenter.getMovieList(query)
     }
 
 }

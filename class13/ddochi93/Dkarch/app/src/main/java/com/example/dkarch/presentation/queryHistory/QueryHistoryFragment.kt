@@ -1,19 +1,27 @@
-package com.example.dkarch.presentation
+package com.example.dkarch.presentation.queryHistory
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.fragment.app.DialogFragment
 import com.example.dkarch.databinding.FragmentQueryHistoryBinding
 import com.example.dkarch.domain.globalconsts.Consts
+import com.example.dkarch.presentation.base.BaseDialogFragment
 import com.example.dkarch.presentation.main.MainActivity
 
 
-class QueryHistoryFragment : DialogFragment() {
+class QueryHistoryFragment : BaseDialogFragment<QueryHistoryContract.Presenter>(),
+    QueryHistoryContract.View {
     private lateinit var queryHistoryBinding: FragmentQueryHistoryBinding
     private var queryHistory: ArrayList<String> = ArrayList()
+    override val presenter by lazy {
+        QueryHistoryPresenter(this)
+    }
+
+    interface QuerySelectedListener {
+        fun onQuerySelected(query: String)
+    }
 
     override fun onStart() {
         super.onStart()
@@ -23,15 +31,16 @@ class QueryHistoryFragment : DialogFragment() {
         )
     }
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         setUpDataBinding(inflater, container)
         initView()
         return queryHistoryBinding.root
     }
+
 
     private fun setUpDataBinding(inflater: LayoutInflater, container: ViewGroup?) {
         queryHistoryBinding = FragmentQueryHistoryBinding.inflate(inflater, container, false)
@@ -59,18 +68,10 @@ class QueryHistoryFragment : DialogFragment() {
 
     private val onQueryItemClicked = { query: String ->
         dismiss()
-        (activity as MainActivity).getMovieList(query)
+        (activity as MainActivity).onQuerySelected(query)
     }
 
     companion object {
-        //        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            QueryHistoryFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-//            }
         const val HISTORY_DIALOG_TAG = "HISTORY_DIALOG_TAG"
     }
 }
