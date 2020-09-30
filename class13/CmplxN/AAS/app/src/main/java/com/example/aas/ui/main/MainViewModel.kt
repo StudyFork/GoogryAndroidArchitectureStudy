@@ -12,7 +12,7 @@ class MainViewModel(private val movieSearchRepository: MovieSearchRepository) : 
     val searchRequestEvent = ObservableField<Unit>()
     val failureEvent = ObservableField<Unit>()
     val movieSearchResult = ObservableField<List<Movie>>()
-    val savedQueryResult = ObservableField<List<String>>()
+    val savedQueryResult = ObservableField<Array<String>>()
     val movieUrl = ObservableField<String>()
 
     fun getMovies(query: String) {
@@ -33,7 +33,7 @@ class MainViewModel(private val movieSearchRepository: MovieSearchRepository) : 
             .map { it.reversed() }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                savedQueryResult.set(it)
+                savedQueryResult.set(it.toTypedArray())
             }, {
                 it.printStackTrace()
                 failureEvent.notifyChange()
