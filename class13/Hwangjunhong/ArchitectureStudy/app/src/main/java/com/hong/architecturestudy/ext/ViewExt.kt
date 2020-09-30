@@ -22,7 +22,7 @@ fun View.setOnClickQuery(query: String, vm: MainViewModel? = null) {
     }
 }
 
-@BindingAdapter("onClick")
+@BindingAdapter("onClickOpenLink")
 fun View.onClick(url: String) {
     setOnClickListener {
         ContextCompat.startActivity(
