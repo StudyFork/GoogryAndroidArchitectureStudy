@@ -9,7 +9,7 @@ import com.example.aas.data.model.Movie
 
 class MovieAdapter(private val callback: MovieSelectionListener) :
     RecyclerView.Adapter<MovieViewHolder>() {
-    private val movieList = mutableListOf<Movie>()
+    val movieList = arrayListOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         MovieViewHolder(
