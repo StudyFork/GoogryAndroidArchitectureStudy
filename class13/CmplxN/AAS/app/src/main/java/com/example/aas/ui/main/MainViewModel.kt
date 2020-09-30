@@ -30,10 +30,10 @@ class MainViewModel(private val movieSearchRepository: MovieSearchRepository) : 
     fun getSavedQueries() {
         movieSearchRepository.getSavedQueries()
             .observeOn(Schedulers.computation())
-            .map { it.reversed() }
+            .map { it.reversed().toTypedArray() }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                savedQueryResult.set(it.toTypedArray())
+                savedQueryResult.set(it)
             }, {
                 it.printStackTrace()
                 failureEvent.notifyChange()

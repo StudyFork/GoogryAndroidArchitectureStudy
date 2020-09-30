@@ -33,6 +33,6 @@ class MovieAdapter(private val callback: MovieSelectionListener) :
     }
 
     interface MovieSelectionListener {
-        fun onMovieSelect(uri: String)
+        fun onMovieSelect(url: String)
     }
 }
