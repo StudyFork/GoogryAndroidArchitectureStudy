@@ -7,12 +7,8 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.example.aas.ui.main.MainActivity" />
-
-        <variable
-            name="clickListener"
-            type="android.view.View.OnClickListener" />
+            name="viewModel"
+            type="com.example.aas.ui.main.MainViewModel" />
 
         <variable
             name="query"
@@ -51,7 +47,7 @@
             app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/btn_history"
             app:layout_constraintTop_toTopOf="parent"
-            bind:throttledClick="@{()->activity.presenter.getMovies(query)}" />
+            bind:throttledClick="@{()->viewModel.getMovies(query)}" />
 
         <Button
             android:id="@+id/btn_history"
@@ -61,7 +57,7 @@
             app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:throttledClick="@{()->activity.presenter.getSavedQueries()}" />
+            bind:throttledClick="@{()->viewModel.getSavedQueries()}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_movie"
