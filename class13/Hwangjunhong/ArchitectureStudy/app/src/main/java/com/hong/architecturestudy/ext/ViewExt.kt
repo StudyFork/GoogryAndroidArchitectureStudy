@@ -25,12 +25,10 @@ fun View.setOnClickQuery(query: String, vm: MainViewModel? = null) {
 @BindingAdapter("onClick")
 fun View.onClick(url: String) {
     setOnClickListener {
-        url.let {
-            ContextCompat.startActivity(
-                context, Intent(Intent.ACTION_VIEW, Uri.parse(url)),
-                null
-            )
-        }
+        ContextCompat.startActivity(
+            context, Intent(Intent.ACTION_VIEW, Uri.parse(url)),
+            null
+        )
     }
 }
 
