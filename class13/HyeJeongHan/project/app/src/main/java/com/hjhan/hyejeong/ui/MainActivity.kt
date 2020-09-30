@@ -3,7 +3,6 @@ package com.hjhan.hyejeong.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import com.hjhan.hyejeong.R
 import com.hjhan.hyejeong.data.model.Item
 import com.hjhan.hyejeong.data.repository.NaverRepositoryImpl
@@ -13,9 +12,10 @@ import com.hjhan.hyejeong.databinding.ActivityMainBinding
 import com.hjhan.hyejeong.ui.QueryHistoryDialog.Companion.HISTORY_DIALOG_TAG
 import com.hjhan.hyejeong.ui.base.BaseActivity
 
-class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
+class MainActivity :
+    BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
+    MainContract.View {
 
-    private lateinit var binding: ActivityMainBinding
     private lateinit var movieAdapter: MovieAdapter
 
     override val presenter: MainContract.Presenter by lazy {
@@ -29,7 +29,6 @@ class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.activity = this
 
         movieAdapter = MovieAdapter()
