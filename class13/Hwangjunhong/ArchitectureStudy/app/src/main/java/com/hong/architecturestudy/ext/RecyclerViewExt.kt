@@ -15,9 +15,7 @@ fun RecyclerView.setAdapterItems(item: List<MovieData>?) {
     this.adapter = movieAdapter
     this.setHasFixedSize(true)
 
-    with(movieAdapter) {
-        item?.let { this.setData(it) }
-    }
+    item?.let { movieAdapter.setData(it) }
 }
 
 @BindingAdapter("setDialogItems", "bindVm", "setHasFixedSize")
@@ -28,9 +26,5 @@ fun RecyclerView.setDialogAdapterItems(item: List<MovieInfo>?, mainVm: MainViewM
     this.adapter = movieSearchListAdapter
     this.setHasFixedSize(setHasFixed)
 
-    with(movieSearchListAdapter) {
-        item?.let {
-            this.setList(it)
-        }
-    }
+    item?.let { movieSearchListAdapter.setList(it) }
 }
