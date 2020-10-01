@@ -45,7 +45,7 @@ class MainActivity :
     }
 
     fun searchMovieList(){
-        val title = edit_title.text.toString()
+        val title = binding.editTitle.text.toString()
         presenter.searchMovieList(title)
     }
 
@@ -64,7 +64,7 @@ class MainActivity :
     }
 
     override fun onItemSelected(title: String) {
-        edit_title.text = Editable.Factory.getInstance().newEditable(title)
+        binding.editTitle.text = Editable.Factory.getInstance().newEditable(title)
     }
 
     override fun showQueryEmpty() {
