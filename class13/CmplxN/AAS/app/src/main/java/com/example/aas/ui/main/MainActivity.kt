@@ -70,9 +70,11 @@ class MainActivity :
         mainViewModel.searchRequestEvent.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                et_movie_name.text.also { et_movie_name.setText("") }
-                et_movie_name.clearFocus()
-                hideKeyboard(this@MainActivity, et_movie_name)
+                with(et_movie_name) {
+                    setText("")
+                    clearFocus()
+                    hideKeyboard(this@MainActivity, this)
+                }
             }
         })
 
