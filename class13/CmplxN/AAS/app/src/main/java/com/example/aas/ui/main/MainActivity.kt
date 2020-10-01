@@ -46,7 +46,8 @@ class MainActivity :
     }
 
     override fun onMovieSelect(url: String) {
-        mainViewModel.openMovieSpecific(url)
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -61,7 +62,7 @@ class MainActivity :
     private fun initView() {
         rcv_movie.adapter = movieAdapter
         RxTextView.textChanges(et_movie_name)
-            .subscribe { et_movie_name.isEnabled = it.isNotBlank() }
+            .subscribe { btn_request.isEnabled = it.isNotBlank() }
             .addTo(compositeDisposable)
     }
 
@@ -82,16 +83,6 @@ class MainActivity :
             }
         })
 
-        mainViewModel.movieSearchResult.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                mainViewModel.movieSearchResult.get()?.let {
-                    showToast("Search Completed", Toast.LENGTH_SHORT)
-                    movieAdapter.setList(it)
-                }
-            }
-        })
-
         mainViewModel.savedQueryResult.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -106,16 +97,6 @@ class MainActivity :
                             SavedQueryDialogFragment.TAG
                         )
                     }
-                }
-            }
-        })
-
-        mainViewModel.movieUrl.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                mainViewModel.movieUrl.get()?.let {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
-                    startActivity(intent)
                 }
             }
         })

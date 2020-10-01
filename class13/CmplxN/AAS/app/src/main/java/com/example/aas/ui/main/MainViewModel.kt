@@ -9,15 +9,15 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel(private val movieSearchRepository: MovieSearchRepository) : BaseViewModel() {
-    val searchRequestEvent = ObservableField<Unit>()
-    val failureEvent = ObservableField<Unit>()
+    val searchRequestEvent = ObservableField(Unit)
+    val failureEvent = ObservableField(Unit)
     val movieSearchResult = ObservableField<List<Movie>>()
     val savedQueryResult = ObservableField<Array<String>>()
-    val movieUrl = ObservableField<String>()
 
     fun getMovies(query: String) {
         searchRequestEvent.notifyChange()
-        movieSearchRepository.getMovies(query).map { it.movies }
+        movieSearchRepository.getMovies(query)
+            .map { it.movies }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 movieSearchResult.set(it)
@@ -38,14 +38,6 @@ class MainViewModel(private val movieSearchRepository: MovieSearchRepository) : 
                 it.printStackTrace()
                 failureEvent.notifyChange()
             }).addTo(compositeDisposable)
-    }
-
-    fun openMovieSpecific(url: String) {
-        if (movieUrl.get() == url) {
-            movieUrl.notifyChange()
-        } else {
-            movieUrl.set(url)
-        }
     }
 
     override fun onDestroy() {
