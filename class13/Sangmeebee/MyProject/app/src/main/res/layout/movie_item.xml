@@ -7,10 +7,6 @@
         <variable
             name="item"
             type="com.example.myproject.data.model.Items" />
-
-        <variable
-            name="bindingAdapter"
-            type="com.example.myproject.extension.BindingAdaptersKt" />
     </data>
 
     <LinearLayout
