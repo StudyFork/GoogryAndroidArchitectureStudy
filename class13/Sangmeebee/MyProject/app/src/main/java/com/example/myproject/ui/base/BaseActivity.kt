@@ -5,9 +5,9 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.myproject.databinding.ActivityMainBinding
+import androidx.databinding.ViewDataBinding
 
-abstract class BaseActivity<T : BaseContract.Presenter, B : ActivityMainBinding>(@LayoutRes val layoutId: Int) :
+abstract class BaseActivity<T : BaseContract.Presenter, B : ViewDataBinding>(@LayoutRes val layoutId: Int) :
     AppCompatActivity(), BaseContract.View {
 
     abstract val presenter: T
