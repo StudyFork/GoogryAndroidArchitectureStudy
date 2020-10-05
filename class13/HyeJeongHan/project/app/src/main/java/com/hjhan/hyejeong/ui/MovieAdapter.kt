@@ -13,7 +13,7 @@ import com.hjhan.hyejeong.databinding.ItemMovieBinding
 class MovieAdapter :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private val list = mutableListOf<Item>()
+    private var list = mutableListOf<Item>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = DataBindingUtil.inflate<ItemMovieBinding>(
@@ -37,10 +37,7 @@ class MovieAdapter :
     }
 
     fun setMovieList(list: List<Item>) {
-        with(this.list) {
-            clear()
-            addAll(list)
-        }
+        this.list = list.toMutableList()
 
         notifyDataSetChanged()
     }

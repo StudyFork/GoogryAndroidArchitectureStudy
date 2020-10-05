@@ -1,10 +1,9 @@
 package com.hjhan.hyejeong.ui
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
+import androidx.databinding.Observable
 import com.hjhan.hyejeong.R
-import com.hjhan.hyejeong.data.model.Item
 import com.hjhan.hyejeong.data.repository.NaverRepositoryImpl
 import com.hjhan.hyejeong.data.source.local.NaverLocalDataSourceImpl
 import com.hjhan.hyejeong.data.source.remote.NaverRemoteDataSourceImpl
@@ -12,47 +11,36 @@ import com.hjhan.hyejeong.databinding.ActivityMainBinding
 import com.hjhan.hyejeong.ui.QueryHistoryDialog.Companion.HISTORY_DIALOG_TAG
 import com.hjhan.hyejeong.ui.base.BaseActivity
 
-class MainActivity :
-    BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
-    MainContract.View {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private lateinit var movieAdapter: MovieAdapter
-
-    override val presenter: MainContract.Presenter by lazy {
+    private val viewModel by lazy {
         val remoteDataSourceImpl = NaverRemoteDataSourceImpl()
         val localDataSourceImpl = NaverLocalDataSourceImpl()
-        MainPresenter(
-            this@MainActivity,
-            NaverRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl)
-        )
+        MainViewModel(NaverRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.activity = this
+        binding.viewModel = viewModel
 
-        movieAdapter = MovieAdapter()
-        binding.movieRecyclerView.adapter = movieAdapter
-
+        setViewModelEvent()
     }
 
-    override fun emptyQuery() {
-        Toast.makeText(this, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
-    }
+    private fun setViewModelEvent() {
+        viewModel.onFailedEvent.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(this@MainActivity, "네트워크 통신 실패.", Toast.LENGTH_SHORT).show()
+            }
+        })
 
-    override fun emptyMovieList() {
-        binding.emptyListText.visibility = View.VISIBLE
-        binding.movieRecyclerView.visibility = View.GONE
-    }
-
-    override fun setMovieList(list: List<Item>) {
-        binding.emptyListText.visibility = View.GONE
-        binding.movieRecyclerView.visibility = View.VISIBLE
-        movieAdapter.setMovieList(list)
-    }
-
-    fun onSearchButtonClicked() {
-        presenter.getMovieList(binding.searchEditText.text.toString())
+        viewModel.onEmptyQuery.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(this@MainActivity, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     fun onHistoryButtonClicked() {
