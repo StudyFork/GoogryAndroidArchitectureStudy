@@ -7,13 +7,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import io.reactivex.disposables.CompositeDisposable
 
-abstract class BaseActivity<T : BaseContract.Presenter, U : ViewDataBinding>(@LayoutRes private val contentLayoutId: Int) :
-    AppCompatActivity(), BaseContract.View {
-
-    abstract val presenter: T
+abstract class BaseActivity<T : ViewDataBinding>(@LayoutRes private val contentLayoutId: Int) :
+    AppCompatActivity() {
 
     protected val compositeDisposable = CompositeDisposable()
-    protected lateinit var binding: U
+    protected lateinit var binding: T
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +19,6 @@ abstract class BaseActivity<T : BaseContract.Presenter, U : ViewDataBinding>(@La
     }
 
     override fun onDestroy() {
-        presenter.onDestroy()
         compositeDisposable.clear()
         super.onDestroy()
     }

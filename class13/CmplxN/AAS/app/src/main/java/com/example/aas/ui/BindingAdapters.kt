@@ -5,7 +5,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.aas.data.model.Movie
+import com.example.aas.ui.main.MovieAdapter
 import com.jakewharton.rxbinding2.view.RxView
 import java.util.concurrent.TimeUnit
 
@@ -29,4 +32,9 @@ fun View.setThrottleClick(onClickListener: View.OnClickListener?) {
             .throttleFirst(1000L, TimeUnit.MILLISECONDS)
             .subscribe { _ -> it.onClick(this) }
     }
+}
+
+@BindingAdapter("movieList")
+fun RecyclerView.setMovieList(list: List<Movie>?) {
+    list?.let { (adapter as? MovieAdapter)?.setList(it) }
 }

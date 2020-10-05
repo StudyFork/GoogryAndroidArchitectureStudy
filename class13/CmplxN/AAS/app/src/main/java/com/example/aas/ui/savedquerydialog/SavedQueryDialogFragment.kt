@@ -3,20 +3,14 @@ package com.example.aas.ui.savedquerydialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import com.example.aas.base.BaseDialogFragment
+import androidx.fragment.app.DialogFragment
 
 class SavedQueryDialogFragment(private val historySelectionListener: HistorySelectionListener) :
-    BaseDialogFragment<SavedQueryContract.Presenter>(), SavedQueryContract.View {
-
-    override val presenter: SavedQueryContract.Presenter by lazy { SavedQueryPresenter(this) }
-    private lateinit var savedQuery: Array<String>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        presenter.getSavedQuery(arguments?.getStringArray(HISTORY_LIST))
-        super.onCreate(savedInstanceState)
-    }
+    DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val savedQuery = arguments?.getStringArray(HISTORY_LIST)
+        requireNotNull(savedQuery)
         return requireActivity().let {
             AlertDialog.Builder(it)
                 .setTitle("최근 5개 검색어")
@@ -25,10 +19,6 @@ class SavedQueryDialogFragment(private val historySelectionListener: HistorySele
                 }
                 .create()
         }
-    }
-
-    override fun storeSavedQuery(savedQuery: Array<String>) {
-        this.savedQuery = savedQuery
     }
 
     interface HistorySelectionListener {
