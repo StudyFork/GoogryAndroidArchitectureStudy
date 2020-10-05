@@ -46,8 +46,8 @@
                 android:isIndicator="true"
                 android:max="5"
                 android:numStars="5"
-                android:stepSize="0.5"
-                bind:rating="@{item.userRating}" />
+                android:rating="@{item.userRating/2}"
+                android:stepSize="0.5" />
 
             <TextView
                 android:id="@+id/tv_date"

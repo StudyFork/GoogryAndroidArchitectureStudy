@@ -13,8 +13,10 @@ import com.example.myproject.databinding.MovieItemBinding
 import com.example.myproject.ui.MovieAdapter.ViewHolder
 
 
-class MovieAdapter(private val context: Context, private val movieArrayList: ArrayList<Items>) :
+class MovieAdapter(private val context: Context) :
     RecyclerView.Adapter<ViewHolder>() {
+
+    private val movieArrayList = arrayListOf<Items>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<MovieItemBinding>(
@@ -48,7 +50,6 @@ class MovieAdapter(private val context: Context, private val movieArrayList: Arr
         movieArrayList.addAll(items)
         notifyDataSetChanged()
     }
-
 
     inner class ViewHolder(private val binding: MovieItemBinding) :
         RecyclerView.ViewHolder(binding.root) {

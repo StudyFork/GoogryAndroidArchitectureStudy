@@ -1,6 +1,6 @@
 package com.example.myproject.data.source.local
 
-import com.example.myproject.data.App
+import com.example.myproject.data.sharedPreferences.App
 
 class NaverLocalDataSourceImpl : NaverLocalDataSource {
     override fun saveRecentSearchTitle(title: String) {

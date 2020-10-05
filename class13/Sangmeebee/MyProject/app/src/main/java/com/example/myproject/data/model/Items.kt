@@ -19,5 +19,5 @@ data class Items(
     @SerializedName("actor")
     val actor: String,
     @SerializedName("userRating")
-    val userRating: Double
+    val userRating: Float
 )
