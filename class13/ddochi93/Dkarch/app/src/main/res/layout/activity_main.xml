@@ -7,13 +7,13 @@
 
         <variable
             name="activity"
-            type="com.example.dkarch.presentation.MainActivity" />
+            type="com.example.dkarch.presentation.main.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.MainActivity">
+        tools:context=".presentation.main.MainActivity">
 
         <EditText
             android:id="@+id/title"

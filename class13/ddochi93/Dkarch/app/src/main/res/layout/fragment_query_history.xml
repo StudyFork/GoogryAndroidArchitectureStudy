@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.example.dkarch.presentation.QueryHistoryFragment" />
+            type="com.example.dkarch.presentation.queryHistory.QueryHistoryFragment" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -1,4 +1,4 @@
-package com.example.dkarch.presentation
+package com.example.dkarch.presentation.queryHistory
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

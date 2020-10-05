@@ -1,6 +1,5 @@
 package com.example.dkarch.domain.repositoryImpl
 
-import android.app.Application
 import com.example.dkarch.MyApplication
 import com.example.dkarch.domain.globalconsts.Consts
 import com.example.dkarch.domain.repository.LocalDataSourceRepository

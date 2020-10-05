@@ -1,4 +1,4 @@
-package com.example.dkarch.presentation
+package com.example.dkarch.presentation.main
 
 import android.net.Uri
 import android.os.Build
@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dkarch.R
 import com.example.dkarch.data.entity.Movie
 import com.example.dkarch.domain.util.loadUri
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter(
