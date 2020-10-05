@@ -10,7 +10,7 @@ import com.hjhan.hyejeong.databinding.ItemQueryBinding
 class QueryHistoryAdapter :
     RecyclerView.Adapter<QueryHistoryAdapter.QueryViewHolder>() {
 
-    private val list = mutableListOf<String>()
+    private var list = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QueryViewHolder {
         val view = DataBindingUtil.inflate<ItemQueryBinding>(
@@ -34,10 +34,7 @@ class QueryHistoryAdapter :
     }
 
     fun setMovieList(list: List<String>) {
-        with(this.list) {
-            clear()
-            addAll(list)
-        }
+        this.list = list.toMutableList()
 
         notifyDataSetChanged()
     }
