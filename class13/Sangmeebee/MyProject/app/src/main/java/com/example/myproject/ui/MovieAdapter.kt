@@ -56,6 +56,7 @@ class MovieAdapter :
 
         fun bind(item: Items) {
             binding.item = item
+            binding.executePendingBindings()
         }
     }
 }

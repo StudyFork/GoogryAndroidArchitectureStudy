@@ -23,8 +23,7 @@ class MainActivity :
     BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
     MainContract.View, OnListItemSelectedInterface {
 
-    private var movies: ArrayList<Items> = ArrayList()
-    private val movieAdapter = MovieAdapter(this, movies)
+    private val movieAdapter = MovieAdapter()
 
     private val repositoryDataSourceImpl: NaverRepository by lazy {
         val naverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
