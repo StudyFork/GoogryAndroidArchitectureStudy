@@ -1,6 +1,5 @@
 package com.example.myproject.ui
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -13,8 +12,10 @@ import com.example.myproject.databinding.MovieItemBinding
 import com.example.myproject.ui.MovieAdapter.ViewHolder
 
 
-class MovieAdapter(private val context: Context, private val movieArrayList: ArrayList<Items>) :
+class MovieAdapter :
     RecyclerView.Adapter<ViewHolder>() {
+
+    private val movieArrayList = arrayListOf<Items>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate<MovieItemBinding>(
@@ -27,7 +28,7 @@ class MovieAdapter(private val context: Context, private val movieArrayList: Arr
         binding.root.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(movieArrayList[result.bindingAdapterPosition].link)
-            context.startActivity(intent)
+            parent.context.startActivity(intent)
         }
         return result
     }
