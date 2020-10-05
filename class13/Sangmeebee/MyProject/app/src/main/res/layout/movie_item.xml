@@ -1,57 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/movie_item"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <!--image, title, userRating, pubData, director, actor -->
+    <data>
 
-    <ImageView
-        android:id="@+id/iv_poster"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop" />
+        <variable
+            name="item"
+            type="com.example.myproject.data.model.Items" />
+    </data>
 
     <LinearLayout
+        android:id="@+id/movie_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp">
+        android:padding="5dp">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="title" />
+        <!--image, title, userRating, pubData, director, actor -->
 
-        <RatingBar
-            android:id="@+id/rb_grade_rating"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:isIndicator="true"
-            android:max="5"
-            android:numStars="5"
-            android:stepSize="0.5" />
+        <ImageView
+            android:id="@+id/iv_poster"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            bind:imageUrl="@{item.image}" />
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp">
 
-        <TextView
-            android:id="@+id/tv_director"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                bind:htmlText="@{item.title}" />
 
-        <TextView
-            android:id="@+id/tv_actor"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            <RatingBar
+                android:id="@+id/rb_grade_rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:isIndicator="true"
+                android:max="5"
+                android:numStars="5"
+                android:stepSize="0.5"
+                bind:rating="@{item.userRating}" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@{String.valueOf(item.pubDate)}" />
+
+            <TextView
+                android:id="@+id/tv_director"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                bind:htmlText="@{item.director}" />
+
+            <TextView
+                android:id="@+id/tv_actor"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                bind:htmlText="@{item.title}" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</layout>

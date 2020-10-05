@@ -11,6 +11,7 @@ import com.example.myproject.data.repository.NaverRepository
 import com.example.myproject.data.repository.NaverRepositoryImpl
 import com.example.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.example.myproject.data.source.remote.NaverRemoteDataSourceImpl
+import com.example.myproject.databinding.ActivityMainBinding
 import com.example.myproject.ui.MovieAdapter
 import com.example.myproject.ui.OnListItemSelectedInterface
 import com.example.myproject.ui.TitleFragmentDialog
@@ -18,11 +19,11 @@ import com.example.myproject.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
+class MainActivity :
+    BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
     MainContract.View, OnListItemSelectedInterface {
 
-    private var movies: ArrayList<Items> = ArrayList()
-    private val movieAdapter = MovieAdapter(this, movies)
+    private val movieAdapter = MovieAdapter()
 
     private val repositoryDataSourceImpl: NaverRepository by lazy {
         val naverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
@@ -37,20 +38,20 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.activity = this
+
         setRecyclerView()
+    }
 
-        btn_search.setOnClickListener {
+    fun searchMovieList(){
+        val title = binding.editTitle.text.toString()
+        presenter.searchMovieList(title)
+    }
 
-            val title = edit_title.text.toString()
-            presenter.searchMovieList(title)
-
-        }
-
-        btn_history.setOnClickListener {
-            val dialog =
-                TitleFragmentDialog.newInstance(repositoryDataSourceImpl.readRecentSearchTitle())
-            dialog.show(supportFragmentManager, "title_history_dialog")
-        }
+    fun showHistory(){
+        val dialog =
+            TitleFragmentDialog.newInstance(repositoryDataSourceImpl.readRecentSearchTitle())
+        dialog.show(supportFragmentManager, "title_history_dialog")
     }
 
     private fun setRecyclerView() {
@@ -62,7 +63,7 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
     }
 
     override fun onItemSelected(title: String) {
-        edit_title.text = Editable.Factory.getInstance().newEditable(title)
+        binding.editTitle.text = Editable.Factory.getInstance().newEditable(title)
     }
 
     override fun showQueryEmpty() {

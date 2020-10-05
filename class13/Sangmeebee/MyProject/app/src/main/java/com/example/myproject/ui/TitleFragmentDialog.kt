@@ -8,16 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Button
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myproject.R
+import com.example.myproject.databinding.DialogFragmentTitleBinding
 
 class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
 
     private var titleList: ArrayList<String> = arrayListOf()
     private lateinit var onListItemSelectedInterface: OnListItemSelectedInterface
-
+    private lateinit var binding: DialogFragmentTitleBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let { titleList = it.getStringArrayList("title_list") as ArrayList<String> }
@@ -28,21 +28,18 @@ class TitleFragmentDialog : DialogFragment(), OnListItemSelectedInterface {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.dialog_fragment_title, container, false)
+        return inflater.inflate(R.layout.dialog_fragment_title, container, false)?.apply {
+            binding = DataBindingUtil.bind(this)!!
+            binding.dialog = this@TitleFragmentDialog
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_search_list)
-        val cancelBtn = view.findViewById<Button>(R.id.btn_close)
         val adapter = TitleAdapter(this)
         adapter.setTitleList(titleList)
-        recyclerView.adapter = adapter
-
-        cancelBtn.setOnClickListener {
-            dismiss()
-        }
+        binding.rvSearchList.adapter = adapter
     }
 
     override fun onAttach(context: Context) {
