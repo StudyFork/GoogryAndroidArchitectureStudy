@@ -1,11 +1,11 @@
 package com.hjhan.hyejeong.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hjhan.hyejeong.R
+import com.hjhan.hyejeong.databinding.ItemQueryBinding
 
 class QueryHistoryAdapter :
     RecyclerView.Adapter<QueryHistoryAdapter.QueryViewHolder>() {
@@ -13,8 +13,10 @@ class QueryHistoryAdapter :
     private val list = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QueryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.item_query, parent,
+        val view = DataBindingUtil.inflate<ItemQueryBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.item_query,
+            parent,
             false
         )
 
@@ -40,13 +42,11 @@ class QueryHistoryAdapter :
         notifyDataSetChanged()
     }
 
-    class QueryViewHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-
-        var query = itemView.findViewById(R.id.query_text_view) as TextView
+    class QueryViewHolder(private val binding: ItemQueryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: String) {
-            query.text = data
+            binding.queryTextView.text = data
         }
     }
 }
