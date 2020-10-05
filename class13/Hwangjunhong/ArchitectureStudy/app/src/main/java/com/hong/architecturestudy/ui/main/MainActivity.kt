@@ -9,6 +9,7 @@ import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
 import com.hong.architecturestudy.databinding.ActivityMainBinding
 import com.hong.architecturestudy.ext.toast
 import com.hong.architecturestudy.ui.base.BaseActivity
+import com.hong.architecturestudy.ui.main.adapter.MovieAdapter
 import com.hong.architecturestudy.ui.moviedialog.MovieListDialogFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -17,22 +18,47 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         MainViewModel(RepositoryDataSourceImpl(LocalDataSourceImpl(), RemoteDataSourceImpl()))
     }
 
+    private val fragment = MovieListDialogFragment.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setBinding()
         showToastMessage()
+        setRecyclerView()
     }
 
     private fun setBinding() {
-        val fragment = MovieListDialogFragment.getInstance()
         fragment.mainViewModel = vm
 
         binding.apply {
             vm = this@MainActivity.vm
-            fragmentDialog = fragment
-            manager = supportFragmentManager
+            activity = this@MainActivity
         }
+    }
+
+    private fun setRecyclerView() {
+        val movieAdapter = MovieAdapter()
+        binding.rvMoviesList.adapter = movieAdapter
+        binding.rvMoviesList.setHasFixedSize(true)
+
+        vm.movieList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                vm.movieList.get()?.let {
+                    movieAdapter.setData(it)
+                }
+            }
+        })
+    }
+
+    fun showRecentSearchList() {
+        fragment.show(supportFragmentManager, "fragmentDialog")
+
+        vm.isVisible.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                fragment.dismiss()
+            }
+        })
     }
 
     private fun showToastMessage() {
