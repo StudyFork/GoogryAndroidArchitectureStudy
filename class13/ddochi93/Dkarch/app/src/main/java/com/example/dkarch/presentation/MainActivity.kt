@@ -3,23 +3,29 @@ package com.example.dkarch.presentation
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dkarch.R
 import com.example.dkarch.data.entity.Movie
 import com.example.dkarch.databinding.ActivityMainBinding
 import com.example.dkarch.domain.api.usecase.GetMovieListUseCase
+import com.example.dkarch.domain.globalconsts.Consts
+import com.example.dkarch.domain.repository.NaverMovieRepository
 import com.example.dkarch.domain.repositoryImpl.HttpClientRepositoryImpl
+import com.example.dkarch.domain.repositoryImpl.NaverMovieRepositoryImpl
 import com.example.dkarch.domain.repositoryImpl.RetrofitRepositoryImpl
+import com.example.dkarch.presentation.QueryHistoryFragment.Companion.HISTORY_DIALOG_TAG
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import retrofit2.HttpException
 
 class MainActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
+    private val naverMovieRepository: NaverMovieRepository =
+        NaverMovieRepositoryImpl(GetMovieListUseCase(RetrofitRepositoryImpl(HttpClientRepositoryImpl())))
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var movieAdapter: MovieAdapter
@@ -55,16 +61,19 @@ class MainActivity : AppCompatActivity() {
         val query = binding.title.text.toString()
 
         if (query.isNotEmpty()) {
-            GetMovieListUseCase(RetrofitRepositoryImpl(HttpClientRepositoryImpl())).getMovieList(query)
-                .subscribe({ movieResponse ->
-                    movieResponse.body()?.let {
-                        movieAdapter.submitList(it.items)
-                    }
-                }, {
-                    handleError(it)
-                }).addTo(compositeDisposable)
+            getMovieList(query)
         } else {
             Toast.makeText(this, "영화제목을 입력하세요!", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    fun historyButtonClicked() {
+        val queryHistoryList = naverMovieRepository.getQueryList()
+        val bundle = Bundle()
+        bundle.putStringArrayList(Consts.FRAGMENT_QUERY_LIST, ArrayList(queryHistoryList))
+        QueryHistoryFragment().apply {
+            arguments = bundle
+            show(supportFragmentManager, HISTORY_DIALOG_TAG)
         }
     }
 
@@ -75,6 +84,23 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+    }
+
+    fun getMovieList(query: String) {
+        binding.title.setText(query)
+        naverMovieRepository.getMovies(query)
+            .subscribe({ movieResponse ->
+                movieResponse.body()?.let {
+                    movieAdapter.submitList(it.items)
+                }
+            }, {
+                handleError(it)
+            }).addTo(compositeDisposable)
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 
 }

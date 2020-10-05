@@ -18,49 +18,49 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@color/kbGreen"/>
+            tools:src="@color/kbGreen" />
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/movie_img"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="5dp"
-            android:text="제목 : " />
+            android:text="제목 : "
+            app:layout_constraintStart_toEndOf="@+id/movie_img"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_sub_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="부제 : "
             app:layout_constraintStart_toStartOf="@+id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_title"
-            android:text="부제 : "/>
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
         <TextView
             android:id="@+id/tv_actor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="출연진 : "
             app:layout_constraintStart_toStartOf="@id/tv_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_sub_title"
-            android:text="출연진 : " />
+            app:layout_constraintTop_toBottomOf="@id/tv_sub_title" />
 
         <TextView
             android:id="@+id/tv_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_actor"
+            android:text="평점 : "
             app:layout_constraintStart_toStartOf="@id/tv_title"
-            android:text="평점 : "/>
+            app:layout_constraintTop_toBottomOf="@id/tv_actor" />
 
         <View
             android:id="@+id/border"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/kbLine"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="1.0"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
