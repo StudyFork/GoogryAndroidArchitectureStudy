@@ -60,5 +60,11 @@ class MainActivity : AppCompatActivity() {
         val titleDialog = TitleFragmentDialog()
         titleDialog.mainViewModel = vm
         titleDialog.show(supportFragmentManager, "title_history_dialog")
+
+        vm.isVisible.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                titleDialog.dismiss()
+            }
+        })
     }
 }

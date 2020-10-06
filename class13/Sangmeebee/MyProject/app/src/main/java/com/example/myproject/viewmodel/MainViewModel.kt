@@ -16,6 +16,7 @@ class MainViewModel {
     val msg = ObservableField<String>()
     val isEmpty = ObservableField<Boolean>()
     val showToastMsg = ObservableField<Unit>()
+    val isVisible = ObservableField<Unit>()
 
     fun callMovieList() {
         val query = query.get() ?: return
@@ -41,5 +42,9 @@ class MainViewModel {
                 showToastMsg.notifyChange()
             })
         }
+    }
+
+    fun dismissDialog(){
+        isVisible.notifyChange()
     }
 }

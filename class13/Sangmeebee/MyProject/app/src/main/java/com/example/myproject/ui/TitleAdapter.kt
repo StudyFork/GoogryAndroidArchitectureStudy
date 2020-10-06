@@ -1,32 +1,26 @@
 package com.example.myproject.ui
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myproject.R
+import com.example.myproject.databinding.TitleListBinding
+import com.example.myproject.viewmodel.MainViewModel
 
-class TitleAdapter(
-    private val onListItemSelectedInterface: OnListItemSelectedInterface
-) :
-    RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
+class TitleAdapter : RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
 
     private val titleList = arrayListOf<String>()
+    private lateinit var binding: TitleListBinding
+    var mainViewModel: MainViewModel? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.title_list, parent,
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context), R.layout.title_list, parent,
             false
         )
-        val result = TitleViewHolder(view)
-
-        view.setOnClickListener {
-            val title = titleList[result.absoluteAdapterPosition]
-            onListItemSelectedInterface.onItemSelected(title)
-        }
-
-        return result
+        binding.adapter = this
+        return TitleViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TitleViewHolder, position: Int) {
@@ -44,12 +38,19 @@ class TitleAdapter(
         notifyDataSetChanged()
     }
 
-    class TitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
+    fun setSelectedTitle(title: String) {
+        mainViewModel?.let{
+            it.query.set(title)
+            it.dismissDialog()
+        }
+    }
+
+    class TitleViewHolder(private val binding: TitleListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(title: String) {
-            tvTitle?.text = title
+            binding.title = title
+            binding.executePendingBindings()
         }
-
     }
 }
