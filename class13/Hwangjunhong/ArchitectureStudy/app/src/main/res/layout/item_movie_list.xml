@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_under_line"
-        android:padding="16dp">
+        android:padding="16dp"
+        bind:onClickOpenLink="@{movieData.link}">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guide_split"

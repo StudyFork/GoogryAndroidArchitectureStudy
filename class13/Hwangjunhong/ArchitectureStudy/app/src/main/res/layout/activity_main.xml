@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -8,6 +9,10 @@
         <variable
             name="activity"
             type="com.hong.architecturestudy.ui.main.MainActivity" />
+
+        <variable
+            name="vm"
+            type="com.hong.architecturestudy.ui.main.MainViewModel" />
 
     </data>
 
@@ -20,6 +25,7 @@
             android:id="@+id/edit_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text="@={vm.query}"
             app:layout_constraintEnd_toStartOf="@+id/btn_search"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +40,7 @@
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/edit_search"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{activity::searchMovie}"/>
+            bind:throttleClick="@{() -> vm.searchMovieList()}" />
 
         <Button
             android:id="@+id/btn_search_list"
@@ -45,7 +51,7 @@
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/btn_search"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{activity::getRecentSearchList}"/>
+            bind:throttleClick="@{() -> activity.showRecentSearchList()}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movies_list"
