@@ -36,9 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:orientation="vertical"
-            android:visibility="@{viewModel.getRecentQueryList().empty? View.GONE : View.VISIBLE}"
+            android:visibility="@{viewModel.queryList.empty? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            bind:setListQuery="@{viewModel.getRecentQueryList()}" />
+            bind:setListQuery="@{viewModel.queryList}" />
 
         <TextView
             android:id="@+id/empty_list_text"
@@ -47,7 +47,7 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:text="최근 검색어가 없습니다."
-            android:visibility="@{viewModel.getRecentQueryList().empty? View.VISIBLE : View.GONE}" />
+            android:visibility="@{viewModel.queryList.empty? View.VISIBLE : View.GONE}" />
 
         <Button
             android:id="@+id/close_button"

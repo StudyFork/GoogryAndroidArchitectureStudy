@@ -36,6 +36,8 @@ class QueryHistoryDialog : DialogFragment() {
         binding = DialogQueryHistoryBinding.inflate(inflater, container, false)
         binding.dialog = this
         binding.viewModel = viewModel
+
+        viewModel.getRecentQueryList()
     }
 
     override fun onStart() {
