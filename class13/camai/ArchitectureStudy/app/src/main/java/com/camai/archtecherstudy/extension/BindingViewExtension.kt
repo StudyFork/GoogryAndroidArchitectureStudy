@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.camai.archtecherstudy.data.model.Items
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import com.camai.archtecherstudy.observer.MainViewModel
+import com.camai.archtecherstudy.observer.RecentViewModel
 import com.camai.archtecherstudy.ui.main.MovieSearchAdapter
+import com.camai.archtecherstudy.ui.rencentdialog.RecentMovieAdapter
 
 
 @BindingAdapter("ImageDrawable", "ImageDrawableError")
@@ -67,4 +70,34 @@ fun RecyclerView.setAdapterAndRecyclerViewInit(items: List<Items>?){
     }
 
     items?.let{ movieSearchAdapter.setClearAndAddList(items)}
+}
+
+@BindingAdapter("setCloseDialog")
+fun closeDialog(button: Button, vm: RecentViewModel?){
+    button.setOnClickListener {
+        vm?.closeDialog()
+    }
+}
+
+
+@BindingAdapter("setRecentItems", "setVm")
+fun RecyclerView.setAdapterAndRecycleInit(items: List<RecentSearchName>?, setBindVm: RecentViewModel?){
+    val recentMovieAdapter = RecentMovieAdapter{
+        setBindVm?.clickKeyword?.set(it)
+        setBindVm?.clickName()
+    }
+    this.run {
+        adapter = recentMovieAdapter
+        setHasFixedSize(false)
+        addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+
+    }
+
+    items?.let{ recentMovieAdapter.setClearAndAddList(items)}
+}
+
+@BindingAdapter("setRecentData")
+fun RecyclerView.setRecentData(bindVm: RecentViewModel?){
+    bindVm?.setRecentData()
+
 }
