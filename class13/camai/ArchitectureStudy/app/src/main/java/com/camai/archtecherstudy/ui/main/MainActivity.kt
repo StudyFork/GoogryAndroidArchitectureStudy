@@ -19,17 +19,14 @@ import com.camai.archtecherstudy.extension.visibleProgress
 import com.camai.archtecherstudy.ui.rencentdialog.RecentMovieDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : AppCompatActivity() {
     private val TAG = "MovieSearch"
 
     var progressStatus: Boolean = false
 
-    private val mainPresenter: MainContract.Presenter by lazy {
-        MainPresenter(this, MovieRepositoryImpl)
-    }
 
     private val movieSearchAdapter: MovieSearchAdapter by lazy {
-        MovieSearchAdapter(mainPresenter)
+        MovieSearchAdapter()
     }
     private lateinit var binding: ActivityMainBinding
 
@@ -44,7 +41,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding.btnSearch.setOnClickListener(View.OnClickListener {
             hideKeyboard()
             val moviename: String = binding.editName.text.toString()
-            mainPresenter.setSearchKeywordCheck(moviename)
+
 
         })
 
@@ -52,7 +49,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding.btnRecent.setOnClickListener(View.OnClickListener {
             RecentMovieDialog(keywork = {
                 //  Click movie name
-                mainPresenter.setSearchKeywordCheck(it)
             })
                 .show(supportFragmentManager, RecentMovieDialog.TAG)
         })
@@ -77,34 +73,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         imm.hideSoftInputFromWindow(edit_name.windowToken, 0)
     }
 
-    override fun progressViewStatus(status: Boolean) {
-        progressStatus = status
-        visibleProgress(binding.progressbar, status)
-    }
-
-
-    override fun textClear() {
-        binding.editName.text.clear()
-    }
-
-    override fun showEmptyFieldText() {
-        Toast.makeText(applicationContext, "검색어를 입력해주세요.", Toast.LENGTH_LONG).show()
-    }
-
-    override fun showNotFoundMessage(keyword: String) {
-        Toast.makeText(applicationContext, keyword + " 를 찾을 수 없습니다.", Toast.LENGTH_LONG).show()
-    }
-
-    override fun setRecyclerViewScollorPositionInit(keyword: String) {
-        binding.recyclerView.layoutManager?.scrollToPosition(0)
-        //  Movie Name Search
-        mainPresenter.setSearchMovie(keyword)
-    }
-
-    //  Data input to Adapter
-    override fun setDataInsertToAdapter(data: ArrayList<Items>) {
-        setListData(data)
-    }
 
     //  Update Movie Search Result Data List
     private fun setListData(infoList: ArrayList<Items>) {
