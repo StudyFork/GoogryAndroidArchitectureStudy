@@ -26,7 +26,20 @@ class MainActivity : AppCompatActivity() {
         binding.vm = vm
 
         setRecyclerView()
+        showToastMsg()
+        updateRecyclerViewItems()
 
+    }
+
+    private fun setRecyclerView() {
+        binding.recyclerview.apply {
+            setHasFixedSize(true)
+            adapter = movieAdapter
+            addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+        }
+    }
+
+    private fun showToastMsg(){
         vm.showToastMsg.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -40,20 +53,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
 
+    private fun updateRecyclerViewItems(){
         vm.movieList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 movieAdapter.clearAndAddItems(vm.movieList.get() as ArrayList<Items>)
             }
         })
-    }
-
-    private fun setRecyclerView() {
-        binding.recyclerview.apply {
-            setHasFixedSize(true)
-            adapter = movieAdapter
-            addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-        }
     }
 
     fun showTitleDialog() {
