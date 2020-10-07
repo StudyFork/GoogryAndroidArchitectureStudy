@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:text="@string/popup_close"
                 android:textStyle="bold"
-                app:setCloseDialog="@{vm}"/>
+                android:onClick="@{()->vm.closeDialog()}"/>
 
         </LinearLayout>
 

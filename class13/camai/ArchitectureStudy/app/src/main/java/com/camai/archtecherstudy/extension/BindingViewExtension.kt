@@ -56,12 +56,6 @@ fun RecyclerView.setAdapterAndRecyclerViewInit(items: List<Items>?){
     items?.let{ movieSearchAdapter.setClearAndAddList(items)}
 }
 
-@BindingAdapter("setCloseDialog")
-fun closeDialog(button: Button, vm: RecentViewModel?){
-    button.setOnClickListener {
-        vm?.closeDialog()
-    }
-}
 
 
 @BindingAdapter("setRecentItems", "setVm")
