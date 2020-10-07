@@ -8,7 +8,7 @@ import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.databinding.MovieItemBinding
 
-class MovieSearchAdapter() :
+class MovieSearchAdapter :
     RecyclerView.Adapter<MovieSearchAdapter.ViewHolder>() {
 
     private val movieInfoArrayList = mutableListOf<Items>()

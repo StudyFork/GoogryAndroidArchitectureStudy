@@ -1,19 +1,13 @@
 package com.camai.archtecherstudy.ui.main
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
-import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.databinding.ActivityMainBinding
 import com.camai.archtecherstudy.observer.MainViewModel
@@ -37,21 +31,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     //  ViewModel CallBack
-    private fun isObserverCallBack(){
+    private fun isObserverCallBack() {
 
-        vm.searchMovie.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+        vm.searchMovie.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 hideKeyboard()
             }
         })
 
-        vm.textNull.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+        vm.textNull.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 showFieldText("")
             }
         })
 
-        vm.failedSearch.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+        vm.failedSearch.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 val keyword = vm.keyword.get()
 
@@ -61,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        vm.openDialog.addOnPropertyChangedCallback(object: Observable.OnPropertyChangedCallback(){
+        vm.openDialog.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 RecentMovieDialog(keywork = {
                     //  Click movie name
@@ -80,11 +76,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     //  Toast Message
-    private fun showFieldText(text: String){
-        if(text.isNullOrBlank()){
+    private fun showFieldText(text: String) {
+        if (text.isNullOrBlank()) {
             Toast.makeText(applicationContext, "검색어를 입력해주세요.", Toast.LENGTH_LONG).show()
-        }
-        else{
+        } else {
             Toast.makeText(applicationContext, text + " 를 찾을 수 없습니다.", Toast.LENGTH_LONG).show()
         }
     }

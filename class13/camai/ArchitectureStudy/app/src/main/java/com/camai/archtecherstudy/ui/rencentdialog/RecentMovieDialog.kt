@@ -9,11 +9,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.fragment.app.DialogFragment
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
-import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import com.camai.archtecherstudy.databinding.RecentMovieListPopupBinding
 import com.camai.archtecherstudy.observer.RecentViewModel
 
@@ -59,14 +56,14 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
 
     }
 
-    private fun isObserverCallBack(){
-        vm.isFailed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+    private fun isObserverCallBack() {
+        vm.isFailed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 Toast.makeText(requireContext(), "최근 검색된 항목이 없습니다.", Toast.LENGTH_LONG).show()
             }
         })
 
-        vm.isSuccess.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+        vm.isSuccess.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 var name: String = vm.clickKeyword.get().toString()
                 keywork.invoke(name)
@@ -74,7 +71,8 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
             }
         })
 
-        vm.dimissDialog.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+        vm.dimissDialog.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 dismiss()
             }
