@@ -80,7 +80,7 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
 
 
     }
-    
+
 
     companion object {
         const val TAG = "MovieSearchDialog"
