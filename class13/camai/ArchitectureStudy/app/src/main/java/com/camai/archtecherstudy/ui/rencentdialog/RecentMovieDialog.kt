@@ -15,19 +15,14 @@ import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import com.camai.archtecherstudy.databinding.RecentMovieListPopupBinding
 
-class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
-    RecentMovieContract.View {
+class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
 
 
-    private val recentPresenter: RecentMovieContract.Presenter by lazy {
-        RecentMoviePresenter(this, MovieRepositoryImpl)
-    }
     private val recentMovieAdapter: RecentMovieAdapter by lazy {
         RecentMovieAdapter {
             //  recycler View item click movie name to Activity
             keywork.invoke(it)
 
-            recentPresenter.closeDialog()
         }
     }
 
@@ -65,7 +60,7 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
 
         //  Popup close
         binding.popupClose.setOnClickListener(View.OnClickListener {
-            recentPresenter.closeDialog()
+
         })
 
     }
@@ -83,22 +78,9 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
 
-        //  get Recent Data
-        recentPresenter.setRecentData()
-    }
 
-
-    override fun setDataInsertToAdapter(data: List<RecentSearchName>) {
-        recentMovieAdapter.setClearAndAddList(data)
     }
-
-    override fun showEmptyFieldText() {
-        Toast.makeText(requireContext(), "최근 검색된 항목이 없습니다.", Toast.LENGTH_LONG).show()
-    }
-
-    override fun closeDialog() {
-        dismiss()
-    }
+    
 
     companion object {
         const val TAG = "MovieSearchDialog"
