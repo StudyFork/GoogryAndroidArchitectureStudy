@@ -33,7 +33,7 @@ class MovieSearchAdapter() :
     }
 
     //  Update Movie List Data
-    fun setClearAndAddList(movielist: ArrayList<Items>) {
+    fun setClearAndAddList(movielist: List<Items>) {
         //  adaper clear and movielist data add
         with(movieInfoArrayList) {
             clear()
