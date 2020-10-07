@@ -61,7 +61,6 @@
                 android:clipToPadding="false"
                 app:setRecentItems="@{vm.recentList}"
                 app:setVm="@{vm}"
-                app:setRecentData="@{vm}"
                 tools:listitem="@layout/recent_item" />
 
 

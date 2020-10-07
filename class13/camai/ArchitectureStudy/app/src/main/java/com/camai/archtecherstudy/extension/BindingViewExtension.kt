@@ -79,9 +79,3 @@ fun RecyclerView.setAdapterAndRecycleInit(items: List<RecentSearchName>?, setBin
 
     items?.let{ recentMovieAdapter.setClearAndAddList(items)}
 }
-
-@BindingAdapter("setRecentData")
-fun RecyclerView.setRecentData(bindVm: RecentViewModel?){
-    bindVm?.setRecentData()
-
-}
