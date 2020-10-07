@@ -42,22 +42,6 @@ fun onClickWeb(linearLayout: LinearLayout, url: String?){
     }
 }
 
-@BindingAdapter("clickSearch")
-fun searchMovie(button: Button, vm: MainViewModel?){
-    button.setOnClickListener {
-        vm.apply {
-            this!!.isVisibile.set(true)
-            this.onClickSearch()
-        }
-    }
-}
-
-@BindingAdapter("openRecentDialog")
-fun openDialog(button: Button, vm: MainViewModel?){
-    button.setOnClickListener {
-        vm?.openRecent()
-    }
-}
 
 @BindingAdapter("setMovieItems")
 fun RecyclerView.setAdapterAndRecyclerViewInit(items: List<Items>?){

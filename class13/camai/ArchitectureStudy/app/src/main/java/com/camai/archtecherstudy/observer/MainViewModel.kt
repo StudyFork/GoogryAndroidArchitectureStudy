@@ -18,7 +18,7 @@ class MainViewModel(private val movieRepositoryImpl: MovieRepository) {
     private var name : String = ""
 
     fun onClickSearch() {
-
+        isVisibile.set(true)
 
         name = keyword.get().toString()
 
