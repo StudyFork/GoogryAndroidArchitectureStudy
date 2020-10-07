@@ -34,7 +34,10 @@ class QueryHistoryAdapter :
     }
 
     fun setMovieList(list: List<String>) {
-        this.list = list.toMutableList()
+        with(this.list) {
+            clear()
+            addAll(list)
+        }
 
         notifyDataSetChanged()
     }

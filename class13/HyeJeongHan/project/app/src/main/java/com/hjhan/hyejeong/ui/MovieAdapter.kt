@@ -37,7 +37,10 @@ class MovieAdapter :
     }
 
     fun setMovieList(list: List<Item>) {
-        this.list = list.toMutableList()
+        with(this.list) {
+            clear()
+            addAll(list)
+        }
 
         notifyDataSetChanged()
     }
