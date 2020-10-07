@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,16 +15,13 @@ import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import com.camai.archtecherstudy.databinding.RecentMovieListPopupBinding
+import com.camai.archtecherstudy.observer.RecentViewModel
 
 class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
 
 
-    private val recentMovieAdapter: RecentMovieAdapter by lazy {
-        RecentMovieAdapter {
-            //  recycler View item click movie name to Activity
-            keywork.invoke(it)
-
-        }
+    private val vm: RecentViewModel by lazy {
+        RecentViewModel(MovieRepositoryImpl)
     }
 
     private lateinit var binding: RecentMovieListPopupBinding
@@ -49,6 +47,7 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
                     false
                 )
             )!!
+        binding.vm = vm
         return binding.root
     }
 
@@ -56,28 +55,30 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setAdapterAndRecyclerViewInit()
-
-        //  Popup close
-        binding.popupClose.setOnClickListener(View.OnClickListener {
-
-        })
+        isObserverCallBack()
 
     }
 
+    private fun isObserverCallBack(){
+        vm.isFailed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(requireContext(), "최근 검색된 항목이 없습니다.", Toast.LENGTH_LONG).show()
+            }
+        })
 
-    //  RecyclerView Adapter Set
-    private fun setAdapterAndRecyclerViewInit() {
+        vm.isSuccess.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                var name: String = vm.clickKeyword.get().toString()
+                keywork.invoke(name)
+                dismiss()
+            }
+        })
 
-        recentMovieAdapter.notifyDataSetChanged()
-
-        //  recycler view init and adapter connect
-        binding.recyclerRecentView.run {
-            adapter = recentMovieAdapter
-            setHasFixedSize(false)
-            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-        }
-
+        vm.dimissDialog.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                dismiss()
+            }
+        })
 
     }
 

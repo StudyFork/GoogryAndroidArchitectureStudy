@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="vm"
+            type="com.camai.archtecherstudy.observer.RecentViewModel" />
     </data>
 
     <LinearLayout
@@ -37,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/popup_close"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:setCloseDialog="@{vm}"/>
 
         </LinearLayout>
 
@@ -56,6 +59,9 @@
                 android:overScrollMode="never"
                 android:paddingBottom="20dp"
                 android:clipToPadding="false"
+                app:setRecentItems="@{vm.recentList}"
+                app:setVm="@{vm}"
+                app:setRecentData="@{vm}"
                 tools:listitem="@layout/recent_item" />
 
 
