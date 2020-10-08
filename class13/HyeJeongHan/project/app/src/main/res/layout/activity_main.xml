@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -8,6 +9,12 @@
         <variable
             name="activity"
             type="com.hjhan.hyejeong.ui.MainActivity" />
+
+        <variable
+            name="viewModel"
+            type="com.hjhan.hyejeong.ui.MainViewModel" />
+
+        <import type="android.view.View" />
 
     </data>
 
@@ -26,13 +33,14 @@
                 android:id="@+id/search_edit_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="@={viewModel.query}" />
 
             <Button
                 android:id="@+id/search_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> activity.onSearchButtonClicked()}"
+                android:onClick="@{() -> viewModel.setMovieList()}"
                 android:text="search" />
 
             <Button
@@ -49,7 +57,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:visibility="@{viewModel.movieList.empty? View.GONE : View.VISIBLE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            bind:setListMovie="@{viewModel.movieList}" />
 
         <TextView
             android:id="@+id/empty_list_text"
@@ -59,7 +69,7 @@
             android:gravity="center"
             android:text="찾으시는 영화가 없습니다."
             android:textSize="20dp"
-            android:visibility="gone" />
+            android:visibility="@{viewModel.movieList.empty? View.VISIBLE : View.GONE}" />
 
     </LinearLayout>
 </layout>

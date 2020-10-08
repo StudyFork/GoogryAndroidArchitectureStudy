@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="dialog"
             type="com.hjhan.hyejeong.ui.QueryHistoryDialog" />
+
+        <variable
+            name="viewModel"
+            type="com.hjhan.hyejeong.ui.QueryHistoryViewModel" />
+
+        <import type="android.view.View" />
 
     </data>
 
@@ -29,7 +36,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:visibility="@{viewModel.queryList.empty? View.GONE : View.VISIBLE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            bind:setListQuery="@{viewModel.queryList}" />
 
         <TextView
             android:id="@+id/empty_list_text"
@@ -38,7 +47,7 @@
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:text="최근 검색어가 없습니다."
-            android:visibility="gone" />
+            android:visibility="@{viewModel.queryList.empty? View.VISIBLE : View.GONE}" />
 
         <Button
             android:id="@+id/close_button"
