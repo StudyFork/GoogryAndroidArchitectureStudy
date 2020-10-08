@@ -7,7 +7,6 @@ import androidx.databinding.Observable
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myproject.R
-import com.example.myproject.data.model.Items
 import com.example.myproject.databinding.ActivityMainBinding
 import com.example.myproject.extension.toast
 import com.example.myproject.viewmodel.MainViewModel
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun viewModelCallback(){
+    private fun viewModelCallback() {
         vm.showToastMsg.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -52,13 +51,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        vm.movieList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+        vm.movieList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                movieAdapter.clearAndAddItems(vm.movieList.get() as ArrayList<Items>)
+                vm.movieList.get()?.let { movieAdapter.clearAndAddItems(it) }
             }
         })
 
-        vm.showDialog.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+        vm.showDialog.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 showTitleDialog()
             }

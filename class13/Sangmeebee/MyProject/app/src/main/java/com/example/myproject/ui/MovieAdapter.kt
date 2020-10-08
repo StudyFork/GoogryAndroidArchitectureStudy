@@ -35,7 +35,7 @@ class MovieAdapter : RecyclerView.Adapter<ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun clearAndAddItems(items: ArrayList<Items>) {
+    fun clearAndAddItems(items: List<Items>) {
         movieArrayList.clear()
         movieArrayList.addAll(items)
         notifyDataSetChanged()

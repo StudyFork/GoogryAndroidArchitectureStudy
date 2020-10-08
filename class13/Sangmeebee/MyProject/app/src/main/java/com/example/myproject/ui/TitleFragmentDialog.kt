@@ -34,7 +34,7 @@ class TitleFragmentDialog : DialogFragment() {
 
         val adapter = TitleAdapter()
         adapter.mainViewModel = this.mainViewModel
-        adapter.setTitleList(vm.titleList.get() as ArrayList<String>)
+        vm.titleList.get()?.let { adapter.setTitleList(it) }
         binding.rvSearchList.adapter = adapter
     }
 
