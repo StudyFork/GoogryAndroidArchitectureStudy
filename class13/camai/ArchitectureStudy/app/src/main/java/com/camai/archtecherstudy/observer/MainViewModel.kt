@@ -15,16 +15,15 @@ class MainViewModel() {
     val textNull = ObservableField<Unit>()
     val failedSearch = ObservableField<Unit>()
     val openDialog = ObservableField<Unit>()
-    private var name : String = ""
 
     fun onClickSearch() {
         isVisibile.set(true)
 
-        name = keyword.get().toString()
+        var name : String  = keyword.get().toString()
 
         searchMovie.notifyChange()
 
-        if(name.isNullOrBlank()){
+        if(name.isBlank()){
             textNull.notifyChange()
         }
         else{
