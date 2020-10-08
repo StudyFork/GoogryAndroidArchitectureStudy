@@ -11,11 +11,10 @@ import com.example.myproject.databinding.DialogFragmentTitleBinding
 import com.example.myproject.viewmodel.MainViewModel
 import com.example.myproject.viewmodel.TitleViewModel
 
-class TitleFragmentDialog : DialogFragment() {
+class TitleFragmentDialog(private val setTitle : (String) -> Unit) : DialogFragment() {
 
     private lateinit var binding: DialogFragmentTitleBinding
     private val vm = TitleViewModel()
-    var mainViewModel: MainViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +31,7 @@ class TitleFragmentDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = TitleAdapter()
-        adapter.mainViewModel = this.mainViewModel
+        val adapter = TitleAdapter(setTitle)
         vm.titleList.get()?.let { adapter.setTitleList(it) }
         binding.rvSearchList.adapter = adapter
     }

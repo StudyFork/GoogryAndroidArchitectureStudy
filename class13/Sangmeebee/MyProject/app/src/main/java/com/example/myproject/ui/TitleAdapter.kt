@@ -6,13 +6,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myproject.R
 import com.example.myproject.databinding.TitleListBinding
-import com.example.myproject.viewmodel.MainViewModel
 
-class TitleAdapter : RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
+class TitleAdapter(val setTitle: (String) -> Unit) :
+    RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
 
     private val titleList = arrayListOf<String>()
     private lateinit var binding: TitleListBinding
-    var mainViewModel: MainViewModel? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TitleViewHolder {
         binding = DataBindingUtil.inflate(
@@ -38,11 +37,8 @@ class TitleAdapter : RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setSelectedTitle(title: String) {
-        mainViewModel?.let{
-            it.query.set(title)
-            it.dismissDialog()
-        }
+    fun setSelectedTitle(title: String){
+        setTitle(title)
     }
 
     class TitleViewHolder(private val binding: TitleListBinding) :
