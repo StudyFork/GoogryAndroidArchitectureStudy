@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val TAG = "MovieSearch"
 
     private val vm: MainViewModel by lazy {
-        MainViewModel(MovieRepositoryImpl)
+        MainViewModel()
     }
     private lateinit var binding: ActivityMainBinding
 

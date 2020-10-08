@@ -3,8 +3,9 @@ package com.camai.archtecherstudy.observer
 import androidx.databinding.ObservableField
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.repository.MovieRepository
+import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 
-class MainViewModel(private val movieRepositoryImpl: MovieRepository) {
+class MainViewModel() {
 
     var keyword = ObservableField<String>()
     val movieList = ObservableField<List<Items>>()
@@ -15,6 +16,7 @@ class MainViewModel(private val movieRepositoryImpl: MovieRepository) {
     val failedSearch = ObservableField<Unit>()
     val openDialog = ObservableField<Unit>()
     private var name : String = ""
+    private var movieRepositoryImpl : MovieRepository = MovieRepositoryImpl
 
     fun onClickSearch() {
         isVisibile.set(true)
