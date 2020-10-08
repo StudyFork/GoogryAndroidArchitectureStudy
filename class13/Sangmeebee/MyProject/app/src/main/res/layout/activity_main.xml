@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.example.myproject.ui.MainActivity" />
-
-        <variable
             name="vm"
             type="com.example.myproject.viewmodel.MainViewModel" />
     </data>
@@ -49,7 +45,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{() -> activity.showTitleDialog()}"
+                    android:onClick="@{() -> vm.callDialog()}"
                     android:text="History" />
 
             </LinearLayout>

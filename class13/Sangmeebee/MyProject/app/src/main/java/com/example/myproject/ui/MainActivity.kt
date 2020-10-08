@@ -22,12 +22,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.activity = this
         binding.vm = vm
 
         setRecyclerView()
-        showToastMsg()
-        updateRecyclerViewItems()
+        viewModelCallback()
 
     }
 
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showToastMsg(){
+    private fun viewModelCallback(){
         vm.showToastMsg.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
@@ -53,12 +51,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-    }
 
-    private fun updateRecyclerViewItems(){
         vm.movieList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 movieAdapter.clearAndAddItems(vm.movieList.get() as ArrayList<Items>)
+            }
+        })
+
+        vm.showDialog.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback(){
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showTitleDialog()
             }
         })
     }
