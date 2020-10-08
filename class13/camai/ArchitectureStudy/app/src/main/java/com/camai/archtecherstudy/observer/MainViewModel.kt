@@ -27,25 +27,7 @@ class MainViewModel(private val movieRepositoryImpl: MovieRepository) {
             textNull.notifyChange()
         }
         else{
-            movieRepositoryImpl.getMovieNameSearch(name, 100, 1,
-                success = {
-
-                    //  movie list data to recycler View
-                    movieList.set(it)
-                    //  Progress Gone
-                    isVisibile.set(false)
-                    keyword.set("")
-
-                },
-                failed = {
-                    //  Progress Gone
-                    isVisibile.set(false)
-                    //  EditText Clear
-                    keyword.set("")
-                    //  Toast Message
-                    failedSearch.notifyChange()
-
-                })
+            getMovieSearch()
         }
 
     }
@@ -56,26 +38,7 @@ class MainViewModel(private val movieRepositoryImpl: MovieRepository) {
         val name = keyword.get()
 
         if(name != null){
-            movieRepositoryImpl.getMovieNameSearch(name, 100, 1,
-                success = {
-                    //  movie list data to recycler View
-                    movieList.set(it)
-                    //  Progress Gone
-                    isVisibile.set(false)
-                    //  EditText Clear
-                    keyword.set("")
-
-                },
-                failed = {
-                    //  Progress Gone
-                    isVisibile.set(false)
-                    //  EditText Clear
-                    //  EditText Clear
-                    keyword.set("")
-                    //  Toast Message
-                    failedSearch.notifyChange()
-
-                })
+            getMovieSearch()
         }
 
     }
@@ -83,4 +46,28 @@ class MainViewModel(private val movieRepositoryImpl: MovieRepository) {
     fun openRecent(){
         openDialog.notifyChange()
     }
+
+    private fun getMovieSearch(){
+        movieRepositoryImpl.getMovieNameSearch(name, 100, 1,
+            success = {
+                //  movie list data to recycler View
+                movieList.set(it)
+                //  Progress Gone
+                isVisibile.set(false)
+                //  EditText Clear
+                keyword.set("")
+
+            },
+            failed = {
+                //  Progress Gone
+                isVisibile.set(false)
+                //  EditText Clear
+                //  EditText Clear
+                keyword.set("")
+                //  Toast Message
+                failedSearch.notifyChange()
+
+            })
+    }
+
 }
