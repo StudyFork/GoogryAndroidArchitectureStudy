@@ -12,7 +12,6 @@ class MainViewModel(private val movieRepositoryImpl: MovieRepository) {
 
     val searchMovie = ObservableField<Unit>()
     val textNull = ObservableField<Unit>()
-    val successSearch = ObservableField<Unit>()
     val failedSearch = ObservableField<Unit>()
     val openDialog = ObservableField<Unit>()
     private var name : String = ""
@@ -65,7 +64,6 @@ class MainViewModel(private val movieRepositoryImpl: MovieRepository) {
                     isVisibile.set(false)
                     //  EditText Clear
                     keyword.set("")
-                    successSearch.notifyChange()
 
                 },
                 failed = {
