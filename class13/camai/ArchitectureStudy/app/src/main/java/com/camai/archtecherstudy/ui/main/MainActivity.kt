@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                 RecentMovieDialog(keywork = {
                     //  Click movie name
                     vm.keyword.set(it)
-                    vm.onSearchMovie()
+                    vm.onClickSearch()
                 })
                     .show(supportFragmentManager, RecentMovieDialog.TAG)
             }

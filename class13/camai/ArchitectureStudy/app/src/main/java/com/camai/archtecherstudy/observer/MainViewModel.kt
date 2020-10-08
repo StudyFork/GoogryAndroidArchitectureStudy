@@ -29,18 +29,26 @@ class MainViewModel() {
             textNull.notifyChange()
         }
         else{
-            getMovieSearch()
-        }
+            movieRepositoryImpl.getMovieNameSearch(name, 100, 1,
+                success = {
+                    //  movie list data to recycler View
+                    movieList.set(it)
+                    //  Progress Gone
+                    isVisibile.set(false)
+                    //  EditText Clear
+                    keyword.set("")
 
-    }
+                },
+                failed = {
+                    //  Progress Gone
+                    isVisibile.set(false)
+                    //  EditText Clear
+                    //  EditText Clear
+                    keyword.set("")
+                    //  Toast Message
+                    failedSearch.notifyChange()
 
-    fun onSearchMovie(){
-        searchMovie.notifyChange()
-
-        val name = keyword.get()
-
-        if(name != null){
-            getMovieSearch()
+                })
         }
 
     }
@@ -49,27 +57,6 @@ class MainViewModel() {
         openDialog.notifyChange()
     }
 
-    private fun getMovieSearch(){
-        movieRepositoryImpl.getMovieNameSearch(name, 100, 1,
-            success = {
-                //  movie list data to recycler View
-                movieList.set(it)
-                //  Progress Gone
-                isVisibile.set(false)
-                //  EditText Clear
-                keyword.set("")
 
-            },
-            failed = {
-                //  Progress Gone
-                isVisibile.set(false)
-                //  EditText Clear
-                //  EditText Clear
-                keyword.set("")
-                //  Toast Message
-                failedSearch.notifyChange()
-
-            })
-    }
 
 }
