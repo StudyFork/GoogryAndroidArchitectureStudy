@@ -23,7 +23,7 @@ import com.camai.archtecherstudy.ui.rencentdialog.RecentMovieAdapter
 
 
 @BindingAdapter("ImageDrawable", "ImageDrawableError")
-fun ImageViewAdapter(view: ImageView, res: String?, error: Drawable) {
+fun lowerCamelCase(view: ImageView, res: String?, error: Drawable) {
     val options = RequestOptions()
         .error(error)
 
