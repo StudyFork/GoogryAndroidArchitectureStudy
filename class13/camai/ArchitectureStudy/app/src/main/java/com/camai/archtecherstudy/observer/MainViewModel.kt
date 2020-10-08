@@ -16,7 +16,6 @@ class MainViewModel() {
     val failedSearch = ObservableField<Unit>()
     val openDialog = ObservableField<Unit>()
     private var name : String = ""
-    private var movieRepositoryImpl : MovieRepository = MovieRepositoryImpl
 
     fun onClickSearch() {
         isVisibile.set(true)
@@ -29,7 +28,7 @@ class MainViewModel() {
             textNull.notifyChange()
         }
         else{
-            movieRepositoryImpl.getMovieNameSearch(name, 100, 1,
+            MovieRepositoryImpl.getMovieNameSearch(name, 100, 1,
                 success = {
                     //  movie list data to recycler View
                     movieList.set(it)
