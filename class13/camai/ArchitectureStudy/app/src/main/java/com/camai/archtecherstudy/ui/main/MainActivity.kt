@@ -27,11 +27,11 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.vm = vm
 
-        isObserverCallBack()
+        setupObserverCallBack()
     }
 
     //  ViewModel CallBack
-    private fun isObserverCallBack() {
+    private fun setupObserverCallBack() {
 
         vm.searchMovie.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {

@@ -53,11 +53,11 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         vm.setRecentData()
 
-        isObserverCallBack()
+        setupObserverCallBack()
 
     }
 
-    private fun isObserverCallBack() {
+    private fun setupObserverCallBack() {
         vm.isFailed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 Toast.makeText(requireContext(), "최근 검색된 항목이 없습니다.", Toast.LENGTH_LONG).show()
