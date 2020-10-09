@@ -13,7 +13,8 @@
         android:id="@+id/movie_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp">
+        android:padding="5dp"
+        bind:webUrl="@{item.link}">
 
         <!--image, title, userRating, pubData, director, actor -->
 
@@ -46,8 +47,8 @@
                 android:isIndicator="true"
                 android:max="5"
                 android:numStars="5"
-                android:stepSize="0.5"
-                bind:rating="@{item.userRating}" />
+                android:rating="@{item.userRating/2}"
+                android:stepSize="0.5" />
 
             <TextView
                 android:id="@+id/tv_date"

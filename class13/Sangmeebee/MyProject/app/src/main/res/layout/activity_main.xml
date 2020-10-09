@@ -6,15 +6,14 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.example.myproject.ui.main.MainActivity" />
-
+            name="vm"
+            type="com.example.myproject.viewmodel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.MainActivity">
+        tools:context=".ui.MainActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,14 +29,15 @@
                     android:id="@+id/edit_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2" />
+                    android:layout_weight="2"
+                    android:text="@={vm.query}" />
 
                 <Button
                     android:id="@+id/btn_search"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{() -> activity.searchMovieList()}"
+                    android:onClick="@{() -> vm.callMovieList()}"
                     android:text="Search" />
 
                 <Button
@@ -45,7 +45,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:onClick="@{() -> activity.showHistory()}"
+                    android:onClick="@{() -> vm.callDialog()}"
                     android:text="History" />
 
             </LinearLayout>

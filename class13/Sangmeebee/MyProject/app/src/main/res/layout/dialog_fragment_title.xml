@@ -17,6 +17,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="60dp"
+            android:paddingVertical="10dp"
             android:text="검색 목록"
             android:textSize="20sp" />
 
