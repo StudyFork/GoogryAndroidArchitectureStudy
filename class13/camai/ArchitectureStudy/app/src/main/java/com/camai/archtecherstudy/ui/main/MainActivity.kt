@@ -7,8 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
-import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.databinding.ActivityMainBinding
 import com.camai.archtecherstudy.observer.MainViewModel
 import com.camai.archtecherstudy.ui.rencentdialog.RecentMovieDialog
@@ -20,6 +21,10 @@ class MainActivity : AppCompatActivity() {
     private val vm: MainViewModel by lazy {
         MainViewModel()
     }
+
+    private val movieSearchAdapter: MovieSearchAdapter by lazy {
+        MovieSearchAdapter()
+    }
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +32,21 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.vm = vm
 
+        setAdapterAndRecyclerViewInit()
+
         setupObserverCallBack()
+    }
+
+    //  RecyclerView Adapter Set
+    private fun setAdapterAndRecyclerViewInit() {
+
+        //  recyclerView init
+        binding.recyclerView.run {
+            adapter = movieSearchAdapter
+            setHasFixedSize(false)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        }
+
     }
 
     //  ViewModel CallBack
@@ -46,6 +65,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        vm.successSearch.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                movieSearchAdapter.setClearAndAddList(vm.movieList.get()!!)
+            }
+        })
         vm.failedSearch.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

@@ -13,6 +13,7 @@ class MainViewModel() {
 
     val searchMovie = ObservableField<Unit>()
     val textNull = ObservableField<Unit>()
+    val successSearch = ObservableField<Unit>()
     val failedSearch = ObservableField<Unit>()
     val openDialog = ObservableField<Unit>()
 
@@ -35,7 +36,7 @@ class MainViewModel() {
                     isVisibile.set(false)
                     //  EditText Clear
                     keyword.set("")
-
+                    successSearch.notifyChange()
                 },
                 failed = {
                     //  Progress Gone

@@ -3,11 +3,8 @@ package com.camai.archtecherstudy.extension
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.RatingBar
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,21 +38,6 @@ fun onClickWeb(linearLayout: LinearLayout, url: String?){
         linearLayout.context.startActivity(intent)
     }
 }
-
-
-@BindingAdapter("setMovieItems")
-fun RecyclerView.setAdapterAndRecyclerViewInit(items: List<Items>?){
-    val movieSearchAdapter = MovieSearchAdapter()
-
-    this.run {
-        adapter = movieSearchAdapter
-        setHasFixedSize(false)
-        addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-    }
-
-    items?.let{ movieSearchAdapter.setClearAndAddList(items)}
-}
-
 
 
 @BindingAdapter("setRecentItems", "setVm")

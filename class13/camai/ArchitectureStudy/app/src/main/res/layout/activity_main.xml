@@ -72,7 +72,6 @@
                 android:overScrollMode="never"
                 android:paddingBottom="50dp"
                 android:clipToPadding="false"
-                app:setMovieItems="@{vm.movieList}"
                 tools:listitem="@layout/movie_item"
                 />
 
