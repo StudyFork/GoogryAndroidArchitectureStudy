@@ -59,8 +59,6 @@
                 android:overScrollMode="never"
                 android:paddingBottom="20dp"
                 android:clipToPadding="false"
-                app:setRecentItems="@{vm.recentList}"
-                app:setVm="@{vm}"
                 tools:listitem="@layout/recent_item" />
 
 

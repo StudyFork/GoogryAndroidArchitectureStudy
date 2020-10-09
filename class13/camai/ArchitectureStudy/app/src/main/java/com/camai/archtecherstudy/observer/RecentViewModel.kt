@@ -4,7 +4,7 @@ import androidx.databinding.ObservableField
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 
-class RecentViewModel(private val MovieRepositoryImpl: MovieRepositoryImpl) {
+class RecentViewModel() {
 
     val clickKeyword = ObservableField<String>()
     val recentList = ObservableField<List<RecentSearchName>>()

@@ -38,20 +38,3 @@ fun onClickWeb(linearLayout: LinearLayout, url: String?){
         linearLayout.context.startActivity(intent)
     }
 }
-
-
-@BindingAdapter("setRecentItems", "setVm")
-fun RecyclerView.setAdapterAndRecycleInit(items: List<RecentSearchName>?, setBindVm: RecentViewModel?){
-    val recentMovieAdapter = RecentMovieAdapter{
-        setBindVm?.clickKeyword?.set(it)
-        setBindVm?.clickName()
-    }
-    this.run {
-        adapter = recentMovieAdapter
-        setHasFixedSize(false)
-        addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-
-    }
-
-    items?.let{ recentMovieAdapter.setClearAndAddList(items)}
-}

@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.fragment.app.DialogFragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.databinding.RecentMovieListPopupBinding
@@ -18,7 +20,14 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
 
 
     private val vm: RecentViewModel by lazy {
-        RecentViewModel(MovieRepositoryImpl)
+        RecentViewModel()
+    }
+    private val recentMovieAdapter: RecentMovieAdapter by lazy {
+        RecentMovieAdapter {
+            //  recycler View item click movie name to Activity
+            keywork.invoke(it)
+            vm.closeDialog()
+        }
     }
 
     private lateinit var binding: RecentMovieListPopupBinding
@@ -51,10 +60,27 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm.setRecentData()
+        
+        setAdapterAndRecyclerViewInit()
 
         setupObserverCallBack()
 
+    }
+
+    //  RecyclerView Adapter Set
+    private fun setAdapterAndRecyclerViewInit() {
+
+        recentMovieAdapter.notifyDataSetChanged()
+
+        //  recycler view init and adapter connect
+        binding.recyclerRecentView.run {
+            adapter = recentMovieAdapter
+            setHasFixedSize(false)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        }
+
+        //  get Recent Data
+        vm.setRecentData()
     }
 
     private fun setupObserverCallBack() {
