@@ -29,7 +29,7 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
             vm.closeDialog()
         }
     }
-
+    
     private lateinit var binding: RecentMovieListPopupBinding
 
     override fun onStart() {
@@ -60,7 +60,6 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
         setAdapterAndRecyclerViewInit()
 
         setupObserverCallBack()
@@ -82,7 +81,7 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
         //  get Recent Data
         vm.setRecentData()
     }
-
+    
     private fun setupObserverCallBack() {
         vm.isFailed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
