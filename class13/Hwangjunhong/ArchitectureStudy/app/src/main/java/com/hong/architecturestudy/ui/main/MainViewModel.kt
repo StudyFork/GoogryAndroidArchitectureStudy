@@ -1,30 +1,31 @@
 package com.hong.architecturestudy.ui.main
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.hong.architecturestudy.data.model.MovieData
 import com.hong.architecturestudy.data.repository.RepositoryDataSource
 
-class MainViewModel(private val repositoryDataSource: RepositoryDataSource) {
+class MainViewModel(private val repositoryDataSource: RepositoryDataSource) : ViewModel() {
 
-    val movieList = ObservableField<List<MovieData>>()
-    val msg = ObservableField<Message>()
-    val query = ObservableField<String>()
-    val isVisible = ObservableField<Boolean>()
+    private val _movieList = MutableLiveData<List<MovieData>>()
+    private val _msg = MutableLiveData<Message>()
+    val query = MutableLiveData<String>()
+    val isVisible = MutableLiveData<Boolean>()
+
+    val movieList: LiveData<List<MovieData>> get() = _movieList
+    val msg: LiveData<Message> get() = _msg
 
     fun searchMovieList() {
-        val query = query.get() ?: return
+        val query = query.value ?: return
         repositoryDataSource.getMovieList(query,
             onSuccess = {
-                msg.set(Message.SUCCESS)
-                movieList.set(it)
+                _msg.value = Message.SUCCESS
+                _movieList.value = it
             },
             onFailure = {
-                msg.set(Message.NETWORK_ERROR)
+                _msg.value = Message.NETWORK_ERROR
             })
-    }
-
-    fun visibleChange() {
-        isVisible.notifyChange()
     }
 }
 

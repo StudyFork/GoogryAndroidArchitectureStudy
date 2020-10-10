@@ -14,10 +14,9 @@ import java.util.concurrent.TimeUnit
 fun View.setOnClickQuery(query: String, vm: MainViewModel? = null) {
     setOnClickListener {
         vm?.let {
-            it.query.set(query)
+            it.query.value = query
             it.searchMovieList()
-            it.visibleChange()
-
+            it.isVisible.value = true
         }
     }
 }
