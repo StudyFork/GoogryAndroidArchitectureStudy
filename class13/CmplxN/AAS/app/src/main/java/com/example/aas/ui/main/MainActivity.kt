@@ -4,13 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.Observable
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.commit
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.aas.R
 import com.example.aas.base.BaseActivity
-import com.example.aas.data.model.Movie
 import com.example.aas.data.repository.MovieSearchRepositoryImpl
 import com.example.aas.databinding.ActivityMainBinding
 import com.example.aas.ui.savedquerydialog.SavedQueryDialogFragment
@@ -26,7 +27,14 @@ class MainActivity :
 
     private val movieAdapter = MovieAdapter(this)
     private val fragmentFactory: FragmentFactory = FragmentFactoryImpl(this)
-    private val mainViewModel = MainViewModel(MovieSearchRepositoryImpl)
+    private val mainViewModel: MainViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel(MovieSearchRepositoryImpl) as T
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportFragmentManager.fragmentFactory = fragmentFactory
@@ -35,10 +43,6 @@ class MainActivity :
         initBinding()
         initView()
         initObserver()
-
-        savedInstanceState?.getParcelableArrayList<Movie>(RCV_LIST)?.let {
-            movieAdapter.setList(it)
-        }
     }
 
     override fun onHistorySelection(query: String) {
@@ -50,58 +54,46 @@ class MainActivity :
         startActivity(intent)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(RCV_LIST, movieAdapter.movieList)
-    }
-
     private fun initBinding() {
-        binding.viewModel = mainViewModel
+        with(binding) {
+            viewModel = mainViewModel
+            lifecycleOwner = this@MainActivity
+        }
     }
 
     private fun initView() {
         rcv_movie.adapter = movieAdapter
+        movieAdapter.setList(mainViewModel.movieSearchResult.value ?: emptyList())
         RxTextView.textChanges(et_movie_name)
             .subscribe { btn_request.isEnabled = it.isNotBlank() }
             .addTo(compositeDisposable)
     }
 
     private fun initObserver() {
-        mainViewModel.searchRequestEvent.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                with(et_movie_name) {
-                    setText("")
-                    clearFocus()
-                    hideKeyboard(this@MainActivity, this)
-                }
+        mainViewModel.searchRequestEvent.observe(this) {
+            with(et_movie_name) {
+                setText("")
+                clearFocus()
+                hideKeyboard(this@MainActivity, this)
             }
-        })
+        }
 
-        mainViewModel.failureEvent.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showToast("Request Failed", Toast.LENGTH_LONG)
-            }
-        })
+        mainViewModel.failureEvent.observe(this) {
+            showToast("Request Failed", Toast.LENGTH_LONG)
+        }
 
-        mainViewModel.savedQueryResult.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                mainViewModel.savedQueryResult.get()?.let {
-                    supportFragmentManager.commit {
-                        val bundle = Bundle().apply {
-                            putStringArray(SavedQueryDialogFragment.HISTORY_LIST, it)
-                        }
-                        add(
-                            SavedQueryDialogFragment::class.java,
-                            bundle,
-                            SavedQueryDialogFragment.TAG
-                        )
-                    }
+        mainViewModel.savedQueryResult.observe(this) {
+            supportFragmentManager.commit {
+                val bundle = Bundle().apply {
+                    putStringArray(SavedQueryDialogFragment.HISTORY_LIST, it)
                 }
+                add(
+                    SavedQueryDialogFragment::class.java,
+                    bundle,
+                    SavedQueryDialogFragment.TAG
+                )
             }
-        })
+        }
     }
 
     private class FragmentFactoryImpl(private val historySelectionListener: SavedQueryDialogFragment.HistorySelectionListener) :
@@ -115,9 +107,5 @@ class MainActivity :
                 else -> super.instantiate(classLoader, className)
             }
         }
-    }
-
-    companion object {
-        const val RCV_LIST = "RCV_LIST"
     }
 }
