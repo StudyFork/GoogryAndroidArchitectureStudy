@@ -7,30 +7,29 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
-import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 import com.camai.archtecherstudy.databinding.RecentMovieListPopupBinding
+import com.camai.archtecherstudy.observer.RecentViewModel
 
-class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
-    RecentMovieContract.View {
+class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment() {
 
 
-    private val recentPresenter: RecentMovieContract.Presenter by lazy {
-        RecentMoviePresenter(this, MovieRepositoryImpl)
+    private val vm: RecentViewModel by lazy {
+        RecentViewModel()
     }
     private val recentMovieAdapter: RecentMovieAdapter by lazy {
         RecentMovieAdapter {
             //  recycler View item click movie name to Activity
             keywork.invoke(it)
-
-            recentPresenter.closeDialog()
+            vm.closeDialog()
         }
     }
-
+    
     private lateinit var binding: RecentMovieListPopupBinding
 
     override fun onStart() {
@@ -54,22 +53,18 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
                     false
                 )
             )!!
+        binding.vm = vm
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setAdapterAndRecyclerViewInit()
 
-        //  Popup close
-        binding.popupClose.setOnClickListener(View.OnClickListener {
-            recentPresenter.closeDialog()
-        })
+        setupObserverCallBack()
 
     }
-
 
     //  RecyclerView Adapter Set
     private fun setAdapterAndRecyclerViewInit() {
@@ -84,21 +79,33 @@ class RecentMovieDialog(var keywork: (String) -> Unit) : DialogFragment(),
         }
 
         //  get Recent Data
-        recentPresenter.setRecentData()
+        vm.setRecentData()
+    }
+    
+    private fun setupObserverCallBack() {
+        vm.isFailed.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(requireContext(), "최근 검색된 항목이 없습니다.", Toast.LENGTH_LONG).show()
+            }
+        })
+
+        vm.isSuccess.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                var name: String = vm.clickKeyword.get().toString()
+                keywork.invoke(name)
+                dismiss()
+            }
+        })
+
+        vm.dimissDialog.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                dismiss()
+            }
+        })
+
     }
 
-
-    override fun setDataInsertToAdapter(data: List<RecentSearchName>) {
-        recentMovieAdapter.setClearAndAddList(data)
-    }
-
-    override fun showEmptyFieldText() {
-        Toast.makeText(requireContext(), "최근 검색된 항목이 없습니다.", Toast.LENGTH_LONG).show()
-    }
-
-    override fun closeDialog() {
-        dismiss()
-    }
 
     companion object {
         const val TAG = "MovieSearchDialog"

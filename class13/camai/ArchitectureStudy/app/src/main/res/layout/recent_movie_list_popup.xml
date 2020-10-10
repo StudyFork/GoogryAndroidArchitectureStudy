@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="vm"
+            type="com.camai.archtecherstudy.observer.RecentViewModel" />
     </data>
 
     <LinearLayout
@@ -37,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/popup_close"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:onClick="@{()->vm.closeDialog()}"/>
 
         </LinearLayout>
 
