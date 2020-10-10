@@ -1,6 +1,6 @@
 package com.example.aas.ui.main
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.example.aas.base.BaseViewModel
 import com.example.aas.data.model.Movie
 import com.example.aas.data.repository.MovieSearchRepository
@@ -9,21 +9,26 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel(private val movieSearchRepository: MovieSearchRepository) : BaseViewModel() {
-    val searchRequestEvent = ObservableField(Unit)
-    val failureEvent = ObservableField(Unit)
-    val movieSearchResult = ObservableField<List<Movie>>()
-    val savedQueryResult = ObservableField<Array<String>>()
+    private val _searchRequestEvent: MutableLiveData<Unit> = MutableLiveData()
+    private val _failureEvent: MutableLiveData<Unit> = MutableLiveData()
+    private val _movieSearchResult = MutableLiveData<List<Movie>>()
+    private val _savedQueryResult = MutableLiveData<Array<String>>()
+
+    val searchRequestEvent = _searchRequestEvent
+    val failureEvent = _failureEvent
+    val movieSearchResult = _movieSearchResult
+    val savedQueryResult = _savedQueryResult
 
     fun getMovies(query: String) {
-        searchRequestEvent.notifyChange()
+        _searchRequestEvent.value = Unit
         movieSearchRepository.getMovies(query)
             .map { it.movies }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                movieSearchResult.set(it)
+                _movieSearchResult.value = it
             }, {
                 it.printStackTrace()
-                failureEvent.notifyChange()
+                _failureEvent.value = Unit
             }).addTo(compositeDisposable)
     }
 
@@ -33,15 +38,10 @@ class MainViewModel(private val movieSearchRepository: MovieSearchRepository) : 
             .map { it.reversed().toTypedArray() }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                savedQueryResult.set(it)
+                _savedQueryResult.value = it
             }, {
                 it.printStackTrace()
-                failureEvent.notifyChange()
+                _failureEvent.value = Unit
             }).addTo(compositeDisposable)
-    }
-
-    override fun onDestroy() {
-        movieSearchRepository.onDestroy()
-        super.onDestroy()
     }
 }
