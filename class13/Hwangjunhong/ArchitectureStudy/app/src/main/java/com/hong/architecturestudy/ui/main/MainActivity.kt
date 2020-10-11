@@ -48,17 +48,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.rvMoviesList.adapter = movieAdapter
         binding.rvMoviesList.setHasFixedSize(true)
 
-        vm.movieList.observe {
-            vm.movieList.value?.let {
-                movieAdapter.setData(it)
-            }
+        vm.movieList observe {
+            movieAdapter.setData(it)
         }
     }
 
     fun showRecentSearchList() {
         fragment.show(supportFragmentManager, "fragmentDialog")
 
-        vm.isVisible.observe {
+        vm.isVisible observe {
             if (it) {
                 fragment.dismiss()
                 vm.isVisible.value = false
@@ -66,12 +64,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    private fun showToastMessage() {
-        vm.msg.observe { message ->
-            when (message) {
-                Message.NETWORK_ERROR -> toast(R.string.message_network_error)
-                Message.SUCCESS -> toast(R.string.message_success)
-            }
+    private fun showToastMessage() = vm.msg observe { message ->
+        when (message) {
+            Message.NETWORK_ERROR -> toast(R.string.message_network_error)
+            Message.SUCCESS -> toast(R.string.message_success)
         }
     }
 

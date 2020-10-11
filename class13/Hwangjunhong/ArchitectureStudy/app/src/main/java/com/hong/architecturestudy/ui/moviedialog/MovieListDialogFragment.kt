@@ -60,10 +60,8 @@ class MovieListDialogFragment : DialogFragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
-        vm.movieInfo.observe {
-            vm.movieInfo.value?.let {
-                movieAdapter.setList(it)
-            }
+        vm.movieInfo observe {
+            movieAdapter.setList(it)
         }
 
         lifecycleScope.launch(Dispatchers.IO) {
