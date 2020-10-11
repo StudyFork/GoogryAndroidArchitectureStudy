@@ -44,9 +44,11 @@ class MovieListDialogFragment : DialogFragment() {
 
         val movieAdapter = MovieSearchListAdapter()
         movieAdapter.vm = mainViewModel
-        binding.rvSearchList.adapter = movieAdapter
-        binding.rvSearchList.setHasFixedSize(true)
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.apply {
+            rvSearchList.adapter = movieAdapter
+            rvSearchList.setHasFixedSize(true)
+            lifecycleOwner = viewLifecycleOwner
+        }
 
         vm.movieInfo.observe {
             vm.movieInfo.value?.let {
