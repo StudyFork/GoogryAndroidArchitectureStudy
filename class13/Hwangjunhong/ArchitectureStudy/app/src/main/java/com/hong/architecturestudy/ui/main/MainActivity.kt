@@ -37,8 +37,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun setBinding() {
-        fragment.mainViewModel = vm
-
         binding.apply {
             vm = this@MainActivity.vm
             activity = this@MainActivity
