@@ -1,5 +1,6 @@
 package com.example.aas.ui.main
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.aas.base.BaseViewModel
 import com.example.aas.data.model.Movie
@@ -14,10 +15,10 @@ class MainViewModel(private val movieSearchRepository: MovieSearchRepository) : 
     private val _movieSearchResult = MutableLiveData<List<Movie>>()
     private val _savedQueryResult = MutableLiveData<Array<String>>()
 
-    val searchRequestEvent = _searchRequestEvent
-    val failureEvent = _failureEvent
-    val movieSearchResult = _movieSearchResult
-    val savedQueryResult = _savedQueryResult
+    val searchRequestEvent: LiveData<Unit> = _searchRequestEvent
+    val failureEvent: LiveData<Unit> = _failureEvent
+    val movieSearchResult: LiveData<List<Movie>> = _movieSearchResult
+    val savedQueryResult: LiveData<Array<String>> = _savedQueryResult
 
     fun getMovies(query: String) {
         _searchRequestEvent.value = Unit
