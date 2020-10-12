@@ -2,8 +2,6 @@ package com.hong.architecturestudy.ui.main
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.hong.architecturestudy.R
@@ -71,7 +69,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    private infix fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
-        observe(this@MainActivity, Observer { observer(it) })
-    }
+
 }
