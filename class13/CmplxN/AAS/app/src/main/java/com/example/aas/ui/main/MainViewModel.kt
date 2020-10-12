@@ -14,13 +14,15 @@ class MainViewModel(private val movieSearchRepository: MovieSearchRepository) : 
     private val _failureEvent: MutableLiveData<Unit> = MutableLiveData()
     private val _movieSearchResult = MutableLiveData<List<Movie>>()
     private val _savedQueryResult = MutableLiveData<Array<String>>()
+    val query: MutableLiveData<String> = MutableLiveData()
 
     val searchRequestEvent: LiveData<Unit> = _searchRequestEvent
     val failureEvent: LiveData<Unit> = _failureEvent
     val movieSearchResult: LiveData<List<Movie>> = _movieSearchResult
     val savedQueryResult: LiveData<Array<String>> = _savedQueryResult
 
-    fun getMovies(query: String) {
+    fun getMovies() {
+        val query = query.value ?: return
         _searchRequestEvent.value = Unit
         movieSearchRepository.getMovies(query)
             .map { it.movies }

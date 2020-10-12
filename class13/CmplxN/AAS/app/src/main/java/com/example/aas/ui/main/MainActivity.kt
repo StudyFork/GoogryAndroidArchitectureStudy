@@ -46,7 +46,8 @@ class MainActivity :
     }
 
     override fun onHistorySelection(query: String) {
-        mainViewModel.getMovies(query)
+        mainViewModel.query.value = query
+        mainViewModel.getMovies()
     }
 
     override fun onMovieSelect(url: String) {
@@ -56,8 +57,8 @@ class MainActivity :
 
     private fun initBinding() {
         with(binding) {
-            viewModel = mainViewModel
             lifecycleOwner = this@MainActivity
+            viewModel = mainViewModel
         }
     }
 
