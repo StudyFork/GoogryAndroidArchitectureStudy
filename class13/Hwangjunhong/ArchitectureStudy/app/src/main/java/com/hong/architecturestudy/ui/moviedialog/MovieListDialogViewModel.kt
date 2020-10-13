@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hong.architecturestudy.data.repository.RepositoryDataSource
 import com.hong.architecturestudy.data.source.local.entity.MovieInfo
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class MovieListDialogViewModel(private val repository: RepositoryDataSource) : ViewModel() {
 
@@ -18,10 +15,13 @@ class MovieListDialogViewModel(private val repository: RepositoryDataSource) : V
     private var loadRecentJob: Job? = null
 
     fun loadRecentSearchMovieList() {
-        val list = repository.loadRecentSearchQuery()
 
-        loadRecentJob = CoroutineScope(Dispatchers.Main).launch {
-            _movieInfo.value = list
+        loadRecentJob = CoroutineScope(Dispatchers.IO).launch {
+            val list = repository.loadRecentSearchQuery()
+
+            withContext(Dispatchers.Main) {
+                _movieInfo.value = list
+            }
         }
     }
 

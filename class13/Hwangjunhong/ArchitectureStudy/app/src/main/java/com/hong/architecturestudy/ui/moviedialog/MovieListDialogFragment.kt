@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.hong.architecturestudy.R
 import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
 import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
@@ -15,8 +18,6 @@ import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
 import com.hong.architecturestudy.databinding.DialogFragmentMovieListBinding
 import com.hong.architecturestudy.ui.main.MainActivity
 import com.hong.architecturestudy.ui.moviedialog.adapter.MovieSearchListAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class MovieListDialogFragment : DialogFragment() {
 
@@ -54,9 +55,7 @@ class MovieListDialogFragment : DialogFragment() {
             movieAdapter.setList(it)
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            vm.loadRecentSearchMovieList()
-        }
+        vm.loadRecentSearchMovieList()
     }
 
     private infix fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
