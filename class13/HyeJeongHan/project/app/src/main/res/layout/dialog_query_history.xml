@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.hjhan.hyejeong.ui.QueryHistoryViewModel" />
+            type="com.hjhan.hyejeong.ui.MainViewModel" />
 
         <import type="android.view.View" />
 
