@@ -1,9 +1,11 @@
 package com.example.myproject.ui
 
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myproject.R
@@ -15,13 +17,14 @@ class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter()
     private lateinit var binding: ActivityMainBinding
-    val vm = MainViewModel()
+    private val vm by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.vm = vm
+        binding.lifecycleOwner = this
 
         setRecyclerView()
         viewModelCallback()
@@ -37,44 +40,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun viewModelCallback() {
-        vm.showToastMsg.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.msg.get()?.let {
-                    when (it) {
-                        "success" -> toast(R.string.call_success)
-                        "empty" -> toast(R.string.call_empty)
-                        "empty_result" -> toast(R.string.call_result_empty)
-                        "error" -> toast(R.string.call_error)
-                    }
-                }
+        vm.msg.observe(this, Observer {
+            Log.d("sangmin", "hi")
+            when (it) {
+                "success" -> toast(R.string.call_success)
+                "empty" -> toast(R.string.call_empty)
+                "empty_result" -> toast(R.string.call_result_empty)
+                "error" -> toast(R.string.call_error)
             }
         })
 
-        vm.movieList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                vm.movieList.get()?.let { movieAdapter.clearAndAddItems(it) }
-            }
+        vm.movieList.observe(this, Observer {
+            vm.movieList.value?.let { movieAdapter.clearAndAddItems(it) }
         })
 
-        vm.showDialog.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showTitleDialog()
-            }
-        })
-    }
-
-    fun showTitleDialog() {
-        val titleDialog = TitleFragmentDialog {
-            vm.query.set(it)
-            vm.dismissDialog()
-        }
-        titleDialog.show(supportFragmentManager, "title_history_dialog")
-
-        vm.isVisible.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                titleDialog.dismiss()
-            }
+        vm.showDialog.observe(this, Observer {
+            TitleFragmentDialog().show(supportFragmentManager, "title_history_dialog")
         })
     }
 }

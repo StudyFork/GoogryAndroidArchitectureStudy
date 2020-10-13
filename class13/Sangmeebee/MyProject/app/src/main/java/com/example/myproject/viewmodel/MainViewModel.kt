@@ -1,55 +1,46 @@
 package com.example.myproject.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.myproject.data.model.Items
 import com.example.myproject.data.repository.NaverRepository
 import com.example.myproject.data.repository.NaverRepositoryImpl
 import com.example.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.example.myproject.data.source.remote.NaverRemoteDataSourceImpl
 
-class MainViewModel {
+class MainViewModel : ViewModel() {
 
     private val repository: NaverRepository =
         NaverRepositoryImpl(NaverLocalDataSourceImpl(), NaverRemoteDataSourceImpl())
-    val query = ObservableField<String>()
-    val movieList = ObservableField<List<Items>>()
-    val msg = ObservableField<String>()
-    val isEmpty = ObservableField<Boolean>()
-    val showToastMsg = ObservableField<Unit>()
-    val isVisible = ObservableField<Unit>()
-    val showDialog = ObservableField<Unit>()
+    val query = MutableLiveData<String>()
+    val movieList = MutableLiveData<List<Items>>()
+    val titleList = MutableLiveData<List<String>>()
+    val showDialog = MutableLiveData<Unit>()
+    var msg = MutableLiveData<String>()
 
     fun callMovieList() {
-        val query = query.get() ?: return
+        val query = query.value ?: return
         if (query.isEmpty()) {
-            msg.set("empty")
-            isEmpty.set(true)
-            showToastMsg.notifyChange()
+            msg.value = "empty"
         } else {
             repository.getMovieList(query, {
                 if (it.isEmpty()) {
-                    msg.set("empty_result")
-                    isEmpty.set(true)
-                    showToastMsg.notifyChange()
+                    msg.value = "empty_result"
                 } else {
-                    msg.set("success")
-                    isEmpty.set(false)
-                    showToastMsg.notifyChange()
-                    movieList.set(it)
+                    msg.value = "success"
+                    movieList.value = it
                 }
             }, {
-                msg.set("error")
-                isEmpty.set(true)
-                showToastMsg.notifyChange()
+                msg.value = "error"
             })
         }
     }
 
-    fun dismissDialog() {
-        isVisible.notifyChange()
+    fun callDialog() {
+        showDialog.value = Unit
     }
 
-    fun callDialog(){
-        showDialog.notifyChange()
+    fun callTitleList() {
+        titleList.value = repository.readRecentSearchTitle()
     }
 }
