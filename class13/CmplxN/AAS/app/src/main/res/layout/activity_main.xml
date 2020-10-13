@@ -10,9 +10,6 @@
             name="viewModel"
             type="com.example.aas.ui.main.MainViewModel" />
 
-        <variable
-            name="query"
-            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:hint="검색어를 입력하세요"
-            android:text="@={query}"
+            android:text="@={viewModel.query}"
             app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/btn_request"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +44,7 @@
             app:layout_constraintBottom_toBottomOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/btn_history"
             app:layout_constraintTop_toTopOf="parent"
-            bind:throttledClick="@{()->viewModel.getMovies(query)}" />
+            bind:throttledClick="@{()->viewModel.getMovies()}" />
 
         <Button
             android:id="@+id/btn_history"
