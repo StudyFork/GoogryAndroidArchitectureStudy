@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
-        <variable
-            name="mainVm"
-            type="com.hong.architecturestudy.ui.main.MainViewModel" />
 
         <variable
             name="movieInfo"
@@ -16,9 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        bind:bindVm="@{mainVm}"
-        bind:onClickQuery="@{movieInfo.movieTitle}">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_movie_title"

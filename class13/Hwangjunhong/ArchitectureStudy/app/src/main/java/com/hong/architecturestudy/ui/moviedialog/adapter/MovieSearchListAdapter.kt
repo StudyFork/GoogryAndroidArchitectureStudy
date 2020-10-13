@@ -20,7 +20,15 @@ class MovieSearchListAdapter :
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context), R.layout.item_movie_search_list, parent, false
             )
-        )
+        ).apply {
+            itemView.setOnClickListener {
+                vm?.apply {
+                    query.value = movieItems[absoluteAdapterPosition].movieTitle
+                    searchMovieList()
+                    isVisible.value = true
+                }
+            }
+        }
 
     override fun getItemCount() = movieItems.size
 

@@ -12,7 +12,6 @@ class MovieSearchListViewHolder(private val binding: ItemMovieSearchListBinding)
         vm.let {
             binding.apply {
                 this.movieInfo = movieInfo
-                this.mainVm = vm
                 this.executePendingBindings()
             }
         }
