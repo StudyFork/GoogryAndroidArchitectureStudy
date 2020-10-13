@@ -6,15 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import com.example.myproject.R
 import com.example.myproject.databinding.DialogFragmentTitleBinding
 import com.example.myproject.viewmodel.MainViewModel
-import com.example.myproject.viewmodel.TitleViewModel
 
-class TitleFragmentDialog(private val setTitle : (String) -> Unit) : DialogFragment() {
+class TitleFragmentDialog : DialogFragment() {
 
     private lateinit var binding: DialogFragmentTitleBinding
-    private val vm = TitleViewModel()
+    private val vm by activityViewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,8 +31,11 @@ class TitleFragmentDialog(private val setTitle : (String) -> Unit) : DialogFragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = TitleAdapter(setTitle)
-        vm.titleList.get()?.let { adapter.setTitleList(it) }
+        val adapter = TitleAdapter {
+            vm.query.value = it
+            dismiss()
+        }
+        vm.titleList.value?.let { adapter.setTitleList(it) }
         binding.rvSearchList.adapter = adapter
     }
 
