@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.hong.architecturestudy.ui.main.MainActivity" />
+            name="query"
+            type="String" />
 
         <variable
             name="vm"
@@ -25,7 +25,7 @@
             android:id="@+id/edit_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@={vm.query}"
+            android:text="@={query}"
             app:layout_constraintEnd_toStartOf="@+id/btn_search"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/edit_search"
             app:layout_constraintTop_toTopOf="parent"
-            bind:throttleClick="@{() -> vm.searchMovieList()}" />
+            bind:throttleClick="@{() -> vm.searchMovieList(query)}" />
 
         <Button
             android:id="@+id/btn_search_list"
@@ -50,8 +50,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toEndOf="@+id/btn_search"
-            app:layout_constraintTop_toTopOf="parent"
-            bind:throttleClick="@{() -> activity.showRecentSearchList()}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_movies_list"

@@ -6,14 +6,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.R
 import com.hong.architecturestudy.data.source.local.entity.MovieInfo
-import com.hong.architecturestudy.ui.main.MainViewModel
 import com.hong.architecturestudy.ui.moviedialog.holder.MovieSearchListViewHolder
 
 class MovieSearchListAdapter :
     RecyclerView.Adapter<MovieSearchListViewHolder>() {
 
     private val movieItems = mutableListOf<MovieInfo>()
-    var vm: MainViewModel? = null
+    lateinit var onClick: (String) -> Unit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         MovieSearchListViewHolder(
@@ -22,18 +21,14 @@ class MovieSearchListAdapter :
             )
         ).apply {
             itemView.setOnClickListener {
-                vm?.apply {
-                    query.value = movieItems[absoluteAdapterPosition].movieTitle
-                    searchMovieList()
-                    isVisible.value = true
-                }
+                onClick(movieItems[absoluteAdapterPosition].movieTitle)
             }
         }
 
     override fun getItemCount() = movieItems.size
 
     override fun onBindViewHolder(holder: MovieSearchListViewHolder, position: Int) {
-        holder.bind(movieItems[position], vm)
+        holder.bind(movieItems[position])
     }
 
     fun setList(movieInfo: List<MovieInfo>) {

@@ -8,12 +8,9 @@ import com.hong.architecturestudy.ui.main.MainViewModel
 class MovieSearchListViewHolder(private val binding: ItemMovieSearchListBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(movieInfo: MovieInfo, vm: MainViewModel? = null) {
-
-        vm.let {
-            binding.apply {
-                this.movieInfo = movieInfo
-                this.executePendingBindings()
-            }
+        binding.apply {
+            this.movieInfo = movieInfo
+            this.executePendingBindings()
         }
     }
 }

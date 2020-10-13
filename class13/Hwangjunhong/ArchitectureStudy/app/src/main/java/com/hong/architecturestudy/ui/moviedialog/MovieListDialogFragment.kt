@@ -43,7 +43,6 @@ class MovieListDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val movieAdapter = MovieSearchListAdapter()
-        movieAdapter.vm = (activity as MainActivity).vm
 
         with(binding) {
             rvSearchList.adapter = movieAdapter
@@ -55,7 +54,12 @@ class MovieListDialogFragment : DialogFragment() {
             movieAdapter.setList(it)
         }
 
-        vm.loadRecentSearchMovieList()
+        movieAdapter.onClick = { query ->
+            (requireActivity() as MainActivity).onQueryCallBack(query)
+            dismiss()
+        }
+
+        vm.showRecentSearchMovieList()
     }
 
     private infix fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
