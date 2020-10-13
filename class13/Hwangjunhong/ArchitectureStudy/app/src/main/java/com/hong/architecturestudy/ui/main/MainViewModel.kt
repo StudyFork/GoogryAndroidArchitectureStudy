@@ -9,12 +9,13 @@ import com.hong.architecturestudy.data.repository.RepositoryDataSource
 class MainViewModel(private val repositoryDataSource: RepositoryDataSource) : ViewModel() {
 
     private val _movieList = MutableLiveData<List<MovieData>>()
-    private val _msg = MutableLiveData<Message>()
-    val query = MutableLiveData<String>()
-    val isVisible = MutableLiveData<Boolean>()
-
     val movieList: LiveData<List<MovieData>> get() = _movieList
+
+    private val _msg = MutableLiveData<Message>()
     val msg: LiveData<Message> get() = _msg
+
+    val isVisible = MutableLiveData<Boolean>()
+    val query = MutableLiveData<String>()
 
     fun searchMovieList() {
         val query = query.value ?: return
@@ -27,6 +28,7 @@ class MainViewModel(private val repositoryDataSource: RepositoryDataSource) : Vi
                 _msg.value = Message.NETWORK_ERROR
             })
     }
+
 }
 
 enum class Message {
