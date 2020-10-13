@@ -19,7 +19,7 @@ abstract class BaseActivity<VDB : ViewDataBinding>(@LayoutRes private val layout
         }
     }
 
-    infix fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
+    protected infix fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
         observe(this@BaseActivity, Observer { observer(it) })
     }
 }
