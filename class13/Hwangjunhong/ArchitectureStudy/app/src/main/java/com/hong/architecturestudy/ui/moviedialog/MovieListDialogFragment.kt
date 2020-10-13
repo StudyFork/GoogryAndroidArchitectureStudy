@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import com.hong.architecturestudy.R
@@ -14,7 +13,7 @@ import com.hong.architecturestudy.data.repository.RepositoryDataSourceImpl
 import com.hong.architecturestudy.data.source.local.LocalDataSourceImpl
 import com.hong.architecturestudy.data.source.remote.RemoteDataSourceImpl
 import com.hong.architecturestudy.databinding.DialogFragmentMovieListBinding
-import com.hong.architecturestudy.ui.main.MainViewModel
+import com.hong.architecturestudy.ui.main.MainActivity
 import com.hong.architecturestudy.ui.moviedialog.adapter.MovieSearchListAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,15 +25,6 @@ class MovieListDialogFragment : DialogFragment() {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return MovieListDialogViewModel(RepositoryDataSourceImpl(LocalDataSourceImpl(), RemoteDataSourceImpl())) as T
-            }
-        }
-    }
-
-    private val mainViewModel: MainViewModel by activityViewModels {
-        object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(RepositoryDataSourceImpl(LocalDataSourceImpl(), RemoteDataSourceImpl())) as T
             }
         }
     }
@@ -52,7 +42,7 @@ class MovieListDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val movieAdapter = MovieSearchListAdapter()
-        movieAdapter.vm = mainViewModel
+        movieAdapter.vm = (activity as MainActivity).vm
 
         with(binding) {
             rvSearchList.adapter = movieAdapter
