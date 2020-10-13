@@ -14,8 +14,7 @@ class MovieListDialogViewModel(private val repository: RepositoryDataSource) : V
 
     private var loadRecentJob: Job? = null
 
-    fun loadRecentSearchMovieList() {
-
+    fun showRecentSearchMovieList() {
         loadRecentJob = CoroutineScope(Dispatchers.IO).launch {
             val list = repository.loadRecentSearchQuery()
 
@@ -28,6 +27,6 @@ class MovieListDialogViewModel(private val repository: RepositoryDataSource) : V
     override fun onCleared() {
         loadRecentJob?.cancel()
         super.onCleared()
-
     }
+
 }
