@@ -37,10 +37,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun setBinding() {
-        binding.apply {
-            activity = this@MainActivity
-            vm = this@MainActivity.vm
-        }
+        binding.vm = vm
+        binding.activity = this
     }
 
     private fun setRecyclerView() {
