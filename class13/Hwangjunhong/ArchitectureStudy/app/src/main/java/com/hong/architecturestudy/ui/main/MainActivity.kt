@@ -16,7 +16,7 @@ import com.hong.architecturestudy.ui.moviedialog.MovieListDialogFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val vm: MainViewModel by viewModels {
+    val vm: MainViewModel by viewModels {
         object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -32,12 +32,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         setBinding()
         showToastMessage()
         setRecyclerView()
+        dialogDismiss()
+
     }
 
     private fun setBinding() {
         binding.apply {
-            vm = this@MainActivity.vm
             activity = this@MainActivity
+            vm = this@MainActivity.vm
         }
     }
 
@@ -54,6 +56,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     fun showRecentSearchList() {
         fragment.show(supportFragmentManager, "fragmentDialog")
 
+    }
+
+    private fun dialogDismiss() {
         vm.isVisible observe {
             if (it) {
                 fragment.dismiss()
@@ -68,6 +73,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             Message.SUCCESS -> toast(R.string.message_success)
         }
     }
-
 
 }
