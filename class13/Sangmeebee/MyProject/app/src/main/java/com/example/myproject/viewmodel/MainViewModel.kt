@@ -15,12 +15,12 @@ class MainViewModel : ViewModel() {
     val query = MutableLiveData<String>()
     val movieList = MutableLiveData<List<Items>>()
     val titleList = MutableLiveData<List<String>>()
-    val showDialog = MutableLiveData<Unit>()
+    val showDialog = MutableLiveData<Boolean>(false)
     var msg = MutableLiveData<String>()
 
     fun callMovieList() {
-        val query = query.value ?: return
-        if (query.isEmpty()) {
+        val query = query.value
+        if (query.isNullOrEmpty()) {
             msg.value = "empty"
         } else {
             repository.getMovieList(query, {
@@ -37,7 +37,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun callDialog() {
-        showDialog.value = Unit
+        showDialog.value = true
     }
 
     fun callTitleList() {

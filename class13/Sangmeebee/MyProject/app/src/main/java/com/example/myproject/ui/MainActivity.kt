@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun viewModelCallback() {
         vm.msg.observe(this, Observer {
-            Log.d("sangmin", "hi")
             when (it) {
                 "success" -> toast(R.string.call_success)
                 "empty" -> toast(R.string.call_empty)
@@ -55,7 +54,10 @@ class MainActivity : AppCompatActivity() {
         })
 
         vm.showDialog.observe(this, Observer {
-            TitleFragmentDialog().show(supportFragmentManager, "title_history_dialog")
+            if (it) {
+                vm.showDialog.value = false
+                TitleFragmentDialog().show(supportFragmentManager, "title_history_dialog")
+            }
         })
     }
 }
