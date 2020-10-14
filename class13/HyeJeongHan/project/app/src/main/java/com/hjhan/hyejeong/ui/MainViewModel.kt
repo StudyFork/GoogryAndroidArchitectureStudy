@@ -1,35 +1,41 @@
 package com.hjhan.hyejeong.ui
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.hjhan.hyejeong.data.model.Item
 import com.hjhan.hyejeong.data.repository.NaverRepository
 
-class MainViewModel(private val repositoryImpl: NaverRepository) {
+class MainViewModel(private val repositoryImpl: NaverRepository) : ViewModel() {
 
-    val query = ObservableField<String>()
-    val movieList = ObservableField<List<Item>>()
-    val onFailedEvent = ObservableField<Unit>()
-    val onEmptyQuery = ObservableField<Unit>()
+    val query = MutableLiveData<String>()
+    val movieList = MutableLiveData<List<Item>>()
+    val onFailedEvent = MutableLiveData<Unit>()
+    val onEmptyQuery = MutableLiveData<Unit>()
+    val queryList = MutableLiveData<List<String>>()
 
     fun setMovieList() {
-        if (query.get().isNullOrBlank()) {
+        if (query.value.isNullOrBlank()) {
             // 검색어 없을때 처리
-            onEmptyQuery.notifyChange()
+            onEmptyQuery.value = Unit
 
         } else {
             repositoryImpl.getSearchMovies(
-                query = query.get()!!,
+                query = query.value!!,
                 success = {
                     it.items.run {
                         //항상 리스트 통으로 넘겨줘야함.
-                        movieList.set(it.items)
+                        movieList.value = it.items
                     }
                 },
                 failed = {
-                    onFailedEvent.notifyChange()
+                    onFailedEvent.value = Unit
                 })
         }
 
+    }
+
+    fun getRecentQueryList() {
+        queryList.value = repositoryImpl.getQueryList()
     }
 
 }

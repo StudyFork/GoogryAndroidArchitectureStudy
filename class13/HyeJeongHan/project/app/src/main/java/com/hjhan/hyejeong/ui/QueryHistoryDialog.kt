@@ -6,20 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
-import com.hjhan.hyejeong.data.repository.NaverRepositoryImpl
-import com.hjhan.hyejeong.data.source.local.NaverLocalDataSourceImpl
-import com.hjhan.hyejeong.data.source.remote.NaverRemoteDataSourceImpl
+import androidx.fragment.app.activityViewModels
 import com.hjhan.hyejeong.databinding.DialogQueryHistoryBinding
 
 
 class QueryHistoryDialog : DialogFragment() {
 
     private lateinit var binding: DialogQueryHistoryBinding
-    private val viewModel by lazy {
-        val remoteDataSourceImpl = NaverRemoteDataSourceImpl()
-        val localDataSourceImpl = NaverLocalDataSourceImpl()
-        QueryHistoryViewModel(NaverRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl))
-    }
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +30,7 @@ class QueryHistoryDialog : DialogFragment() {
         binding = DialogQueryHistoryBinding.inflate(inflater, container, false)
         binding.dialog = this
         binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         viewModel.getRecentQueryList()
     }
