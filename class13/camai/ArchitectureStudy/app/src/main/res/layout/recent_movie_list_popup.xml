@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="vm"
-            type="com.camai.archtecherstudy.observer.RecentViewModel" />
+            name="mvm"
+            type="com.camai.archtecherstudy.observer.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:text="@string/popup_close"
                 android:textStyle="bold"
-                android:onClick="@{()->vm.closeDialog()}"/>
+                android:onClick="@{()->mvm.closeRecent()}"/>
 
         </LinearLayout>
 
