@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,16 +15,14 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
-import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.databinding.RecentMovieListPopupBinding
 import com.camai.archtecherstudy.observer.MainViewModel
 import com.camai.archtecherstudy.observer.MainViewModelFactory
-import com.camai.archtecherstudy.observer.RecentViewModel
 
-class RecentMovieDialog() : DialogFragment() {
+class RecentMovieDialog : DialogFragment() {
 
 
-    private lateinit var mvm : MainViewModel
+    private lateinit var mvm: MainViewModel
 
     private val recentMovieAdapter: RecentMovieAdapter by lazy {
         RecentMovieAdapter {
@@ -35,7 +32,7 @@ class RecentMovieDialog() : DialogFragment() {
             mvm.onClickSearch()
         }
     }
-    
+
     private lateinit var binding: RecentMovieListPopupBinding
 
     override fun onStart() {
@@ -59,7 +56,10 @@ class RecentMovieDialog() : DialogFragment() {
                     false
                 )
             )!!
-        mvm  =  ViewModelProvider(getViewModelStoreOwner(), MainViewModelFactory())[MainViewModel::class.java]
+        mvm = ViewModelProvider(
+            getViewModelStoreOwner(),
+            MainViewModelFactory()
+        )[MainViewModel::class.java]
 
         binding.lifecycleOwner = this
         binding.mvm = mvm
@@ -97,7 +97,7 @@ class RecentMovieDialog() : DialogFragment() {
         //  get Recent Data
         mvm.setRecentData()
     }
-    
+
     private fun setupObserverCallBack() {
         mvm.isFailed.observe(viewLifecycleOwner, Observer<Unit> {
             Toast.makeText(requireContext(), "최근 검색된 항목이 없습니다.", Toast.LENGTH_LONG).show()
