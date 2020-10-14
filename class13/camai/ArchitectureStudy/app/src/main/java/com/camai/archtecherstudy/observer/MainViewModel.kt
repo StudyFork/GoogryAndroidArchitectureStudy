@@ -1,61 +1,86 @@
 package com.camai.archtecherstudy.observer
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.camai.archtecherstudy.data.model.Items
-import com.camai.archtecherstudy.data.repository.MovieRepository
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
+import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 
-class MainViewModel() {
+class MainViewModel : ViewModel() {
 
-    var keyword = ObservableField<String>()
-    val movieList = ObservableField<List<Items>>()
-    val isVisibile = ObservableField<Boolean>(false)
+    var keyword = MutableLiveData<String>()
+    val movieList = MutableLiveData<List<Items>>()
+    val isVisibile = MutableLiveData<Boolean>(false)
 
-    val searchMovie = ObservableField<Unit>()
-    val textNull = ObservableField<Unit>()
-    val successSearch = ObservableField<Unit>()
-    val failedSearch = ObservableField<Unit>()
-    val openDialog = ObservableField<Unit>()
+    val searchMovie = MutableLiveData<Unit>()
+    val textNull = MutableLiveData<Unit>()
+    val successSearch = MutableLiveData<Unit>()
+    val failedSearch = MutableLiveData<Unit>()
+    val openDialog = MutableLiveData<Unit>()
+
+    val recentList = MutableLiveData<List<RecentSearchName>>()
+
+    val closeDialog = MutableLiveData<Unit>()
+    val isSuccess = MutableLiveData<Unit>()
+    val isFailed = MutableLiveData<Unit>()
+
 
     fun onClickSearch() {
-        isVisibile.set(true)
+        isVisibile.value = true
 
-        var name : String  = keyword.get().toString()
+        searchMovie.value = Unit
 
-        searchMovie.notifyChange()
+        if (keyword.value.isNullOrEmpty()) {
+            textNull.value = Unit
+            isVisibile.value = false
+        } else {
+            val name: String = keyword.value ?: return
 
-        if(name.isBlank()){
-            textNull.notifyChange()
-        }
-        else{
             MovieRepositoryImpl.getMovieNameSearch(name, 100, 1,
                 success = {
                     //  movie list data to recycler View
-                    movieList.set(it)
+                    movieList.value = it
                     //  Progress Gone
-                    isVisibile.set(false)
-                    //  EditText Clear
-                    keyword.set("")
-                    successSearch.notifyChange()
+                    isVisibile.value = false
+                    keyword.value = ""
+                    successSearch.value = Unit
                 },
                 failed = {
                     //  Progress Gone
-                    isVisibile.set(false)
+                    isVisibile.value = false
                     //  EditText Clear
-                    //  EditText Clear
-                    keyword.set("")
+                    keyword.value = ""
                     //  Toast Message
-                    failedSearch.notifyChange()
+                    failedSearch.value = Unit
 
                 })
         }
 
     }
 
-    fun openRecent(){
-        openDialog.notifyChange()
+    fun openRecent() {
+        openDialog.value = Unit
     }
 
+    fun setRecentData() {
+        MovieRepositoryImpl.getRecentSearchList(namelist = {
+            if (it.isEmpty()) {
+                isFailed.value = Unit
+            } else {
+                recentList.value = it
+                isSuccess.value = Unit
+            }
+        })
+    }
 
+    fun clickName() {
+        isSuccess.value = Unit
+
+    }
+
+    fun closeRecent() {
+        closeDialog.value = Unit
+
+    }
 
 }
