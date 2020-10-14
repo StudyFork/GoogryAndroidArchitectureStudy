@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
+import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.databinding.ActivityMainBinding
 import com.camai.archtecherstudy.observer.MainViewModel
 import com.camai.archtecherstudy.observer.MainViewModelFactory
@@ -66,8 +67,8 @@ class MainActivity : AppCompatActivity() {
         vm.textNull.observe(this, Observer<Unit> {
             showFieldText("")
         })
-        vm.successSearch.observe(this, Observer<Unit> {
-            movieSearchAdapter.setClearAndAddList(vm.movieList.value!!)
+        vm.movieList.observe(this, Observer<List<Items>> {
+            movieSearchAdapter.setClearAndAddList(it)
         })
 
         vm.failedSearch.observe(this, Observer<Unit> {

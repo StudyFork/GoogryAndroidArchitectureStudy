@@ -14,7 +14,6 @@ class MainViewModel : ViewModel() {
 
     val searchMovie = MutableLiveData<Unit>()
     val textNull = MutableLiveData<Unit>()
-    val successSearch = MutableLiveData<Unit>()
     val failedSearch = MutableLiveData<Unit>()
     val openDialog = MutableLiveData<Unit>()
 
@@ -43,7 +42,6 @@ class MainViewModel : ViewModel() {
                     //  Progress Gone
                     isVisibile.value = false
                     keyword.value = ""
-                    successSearch.value = Unit
                 },
                 failed = {
                     //  Progress Gone
@@ -73,10 +71,6 @@ class MainViewModel : ViewModel() {
         })
     }
 
-    fun clickName() {
-        isSuccess.value = Unit
-
-    }
 
     fun closeRecent() {
         closeDialog.value = Unit
