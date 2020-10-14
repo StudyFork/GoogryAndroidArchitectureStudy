@@ -6,21 +6,22 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.databinding.ActivityMainBinding
 import com.camai.archtecherstudy.observer.MainViewModel
+import com.camai.archtecherstudy.observer.MainViewModelFactory
 import com.camai.archtecherstudy.ui.rencentdialog.RecentMovieDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private val TAG = "MovieSearch"
 
-    private val vm: MainViewModel by lazy {
-        MainViewModel()
-    }
+    private lateinit var vm: MainViewModel
+
 
     private val movieSearchAdapter: MovieSearchAdapter by lazy {
         MovieSearchAdapter()
@@ -30,7 +31,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        vm = ViewModelProvider(this, MainViewModelFactory()).get(MainViewModel::class.java)
+
         binding.vm = vm
+        binding.lifecycleOwner = this
 
         setAdapterAndRecyclerViewInit()
 
@@ -52,44 +57,31 @@ class MainActivity : AppCompatActivity() {
     //  ViewModel CallBack
     private fun setupObserverCallBack() {
 
-        vm.searchMovie.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+        vm.searchMovie.observe(this, Observer<Unit> {
+            if (it != null) {
                 hideKeyboard()
             }
         })
 
-        vm.textNull.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showFieldText("")
+        vm.textNull.observe(this, Observer<Unit> {
+            showFieldText("")
+        })
+        vm.successSearch.observe(this, Observer<Unit> {
+            movieSearchAdapter.setClearAndAddList(vm.movieList.value!!)
+        })
+
+        vm.failedSearch.observe(this, Observer<Unit> {
+            val keyword = vm.keyword.value
+
+            if (keyword != null) {
+                showFieldText(keyword)
             }
         })
 
-        vm.successSearch.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                movieSearchAdapter.setClearAndAddList(vm.movieList.get()!!)
-            }
-        })
-        vm.failedSearch.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val keyword = vm.keyword.get()
+        vm.openDialog.observe(this, Observer<Unit> {
+            RecentMovieDialog()
+                .show(supportFragmentManager, RecentMovieDialog.TAG)
 
-                if (keyword != null) {
-                    showFieldText(keyword)
-                }
-            }
-        })
-
-        vm.openDialog.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                RecentMovieDialog(keywork = {
-                    //  Click movie name
-                    vm.keyword.set(it)
-                    vm.onClickSearch()
-                })
-                    .show(supportFragmentManager, RecentMovieDialog.TAG)
-            }
         })
     }
 
