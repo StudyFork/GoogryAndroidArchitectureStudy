@@ -1,7 +1,6 @@
 package com.example.myproject.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -40,12 +39,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun viewModelCallback() {
+
         vm.msg.observe(this, Observer {
-            when (it) {
-                "success" -> toast(R.string.call_success)
-                "empty" -> toast(R.string.call_empty)
-                "empty_result" -> toast(R.string.call_result_empty)
-                "error" -> toast(R.string.call_error)
+            if (vm.isVisibleToast) {
+                when (it) {
+                    "success" -> toast(R.string.call_success)
+                    "empty" -> toast(R.string.call_empty)
+                    "empty_result" -> toast(R.string.call_result_empty)
+                    "error" -> toast(R.string.call_error)
+                }
+                vm.isVisibleToast = false
             }
         })
 

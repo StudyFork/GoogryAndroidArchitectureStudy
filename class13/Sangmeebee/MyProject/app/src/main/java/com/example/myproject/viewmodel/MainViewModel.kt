@@ -17,8 +17,10 @@ class MainViewModel : ViewModel() {
     val titleList = MutableLiveData<List<String>>()
     val showDialog = MutableLiveData<Boolean>(false)
     var msg = MutableLiveData<String>()
+    var isVisibleToast = true
 
     fun callMovieList() {
+        isVisibleToast = true
         val query = query.value
         if (query.isNullOrEmpty()) {
             msg.value = "empty"
