@@ -11,7 +11,11 @@ class MainViewModel(private val repositoryDataSource: RepositoryDataSource) : Ba
     private val _movieList = MutableLiveData<List<MovieData>>()
     val movieList: LiveData<List<MovieData>> get() = _movieList
 
+    private val _isVisibleDialog = MutableLiveData<Boolean>()
+    val isVisibleDialog: LiveData<Boolean> get() = _isVisibleDialog
+
     val query = MutableLiveData<String>()
+
 
     fun searchMovieList(query: String) {
         repositoryDataSource.getMovieList(query,
@@ -24,6 +28,9 @@ class MainViewModel(private val repositoryDataSource: RepositoryDataSource) : Ba
             })
     }
 
+    fun isVisible(boolean: Boolean) {
+        _isVisibleDialog.value = boolean
+    }
 }
 
 enum class Message {

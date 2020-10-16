@@ -63,13 +63,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
     }
 
     private fun showRecentSearchList() {
-        bind {
-            RxView.clicks(btnSearchList)
-                .throttleFirst(500L, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    fragment.show(supportFragmentManager, "fragmentDialog")
-                }
+
+        vm.isVisibleDialog observe {
+            fragment.show(supportFragmentManager, "fragmentDialog")
         }
     }
 
