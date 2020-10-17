@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.R
 import com.hong.architecturestudy.data.model.MovieData
 import com.hong.architecturestudy.ui.main.holder.MovieViewHolder
+import com.hong.architecturestudy.utils.log
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     private val items = mutableListOf<MovieData>()
@@ -28,5 +29,6 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
         items.clear()
         items.addAll(item)
         notifyDataSetChanged()
+        log("MovieAdapter setData$item")
     }
 }
