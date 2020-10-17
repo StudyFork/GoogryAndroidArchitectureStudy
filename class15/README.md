@@ -1,7 +1,7 @@
 # 15기
 
-- 이동훈 [](https://github.com//)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
+- 이동훈 [realizer12](https://github.com/realizer12)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class15/realizer12)
 
 - 박미소 [](https://github.com//)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
