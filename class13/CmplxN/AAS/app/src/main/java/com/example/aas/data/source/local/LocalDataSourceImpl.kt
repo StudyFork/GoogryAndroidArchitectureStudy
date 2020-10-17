@@ -3,14 +3,20 @@ package com.example.aas.data.source.local
 import android.content.Context
 import androidx.core.content.edit
 import com.example.aas.MyApplication
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import org.json.JSONArray
 import org.json.JSONException
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LocalDataSourceImpl : LocalDataSource {
+class LocalDataSourceImpl @Inject constructor() : LocalDataSource {
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -67,4 +73,12 @@ class LocalDataSourceImpl : LocalDataSource {
     companion object {
         const val sharedPreferencesName = "QueryHistory"
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class LocalDataSourceModule {
+    @Binds
+    @Singleton
+    abstract fun bindLocalDataSource(localDataSourceImpl: LocalDataSourceImpl): LocalDataSource
 }
