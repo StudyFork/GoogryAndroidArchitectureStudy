@@ -1,5 +1,6 @@
 package com.example.aas.ui.main
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.aas.base.BaseViewModel
@@ -9,7 +10,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel(private val movieSearchRepository: MovieSearchRepository) : BaseViewModel() {
+class MainViewModel @ViewModelInject constructor(
+    private val movieSearchRepository: MovieSearchRepository
+) : BaseViewModel() {
     private val _searchRequestEvent: MutableLiveData<Unit> = MutableLiveData()
     private val _failureEvent: MutableLiveData<Unit> = MutableLiveData()
     private val _movieSearchResult = MutableLiveData<List<Movie>>()
