@@ -4,8 +4,9 @@ import com.hong.architecturestudy.data.model.MovieData
 import com.hong.architecturestudy.data.source.local.LocalDataSource
 import com.hong.architecturestudy.data.source.local.entity.MovieInfo
 import com.hong.architecturestudy.data.source.remote.RemoteDataSource
+import javax.inject.Inject
 
-class RepositoryDataSourceImpl(
+class RepositoryDataSourceImpl @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource
 ) : RepositoryDataSource {
