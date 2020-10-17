@@ -9,10 +9,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-object RetrofitManager {
-    private const val TIME_OUT = 5000L
-
+class RetrofitManager @Inject constructor() {
     private val httpLoggingInterceptor by lazy {
         HttpLoggingInterceptor().apply {
             level =
@@ -54,4 +53,8 @@ object RetrofitManager {
     }
 
     val naverMoviesApi: NaverMoviesApi by lazy { retrofit.create() }
+
+    companion object {
+        private const val TIME_OUT = 5000L
+    }
 }
