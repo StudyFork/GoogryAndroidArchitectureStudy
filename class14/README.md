@@ -3,8 +3,8 @@
 - 정상훈 [](https://github.com//)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
 
-- 이재현 [](https://github.com//)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
+- 이재현 [juan-rybczinski](https://github.com//juan-rybczinski)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/juan-rybczinski)
 
 - 김상명 [](https://github.com//)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
