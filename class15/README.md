@@ -15,5 +15,5 @@
 - 강지회 [jihoi-kang](https://github.com/jihoi-kang)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class15/jihoi-kang)
 
-- 최미정 [](https://github.com//)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
+- 최미정 [PeonyF](https://github.com/PeonyF)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class15/PeonyF)
