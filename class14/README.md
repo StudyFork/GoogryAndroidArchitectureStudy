@@ -9,7 +9,7 @@
 - 김상명 [](https://github.com//)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
 
-- 심준보 [](https://github.com/)
+- 심준보 [simuelunbo](https://github.com/simuelunbo)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
 
 - 김동환 [](https://github.com/)
