@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -15,13 +16,14 @@ import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.databinding.ActivityMainBinding
 import com.camai.archtecherstudy.observer.MainViewModel
 import com.camai.archtecherstudy.ui.rencentdialog.RecentMovieDialog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val TAG = "MovieSearch"
 
-    private lateinit var vm: MainViewModel
-
+    private val vm: MainViewModel by viewModels()
 
     private val movieSearchAdapter: MovieSearchAdapter by lazy {
         MovieSearchAdapter()
@@ -31,9 +33,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        vm = ViewModelProvider(this, MainViewModelFactory()).get(MainViewModel::class.java)
-
+        
         binding.vm = vm
         binding.lifecycleOwner = this
 
