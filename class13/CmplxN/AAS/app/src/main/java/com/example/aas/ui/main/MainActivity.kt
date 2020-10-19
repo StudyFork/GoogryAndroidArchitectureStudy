@@ -8,33 +8,25 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.commit
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.aas.R
 import com.example.aas.base.BaseActivity
-import com.example.aas.data.repository.MovieSearchRepositoryImpl
 import com.example.aas.databinding.ActivityMainBinding
 import com.example.aas.ui.savedquerydialog.SavedQueryDialogFragment
 import com.example.aas.utils.hideKeyboard
 import com.example.aas.utils.showToast
 import com.jakewharton.rxbinding2.widget.RxTextView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     SavedQueryDialogFragment.HistorySelectionListener, MovieAdapter.MovieSelectionListener {
 
     private val movieAdapter = MovieAdapter(this)
     private val fragmentFactory: FragmentFactory = FragmentFactoryImpl(this)
-    private val mainViewModel: MainViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            @Suppress("UNCHECKED_CAST")
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel(MovieSearchRepositoryImpl) as T
-            }
-        }
-    }
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportFragmentManager.fragmentFactory = fragmentFactory
