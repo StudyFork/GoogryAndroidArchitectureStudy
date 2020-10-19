@@ -4,10 +4,18 @@ import android.util.Log
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.model.MovieResponseModel
 import com.camai.archtecherstudy.data.network.MovieApiServiceImpl
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import retrofit2.Call
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object MovieRemoteDataSourceImpl :
+class MovieRemoteDataSourceImpl @Inject constructor(
+    private val movieApi: MovieApiServiceImpl
+) :
     MovieRemoteDataSource {
 
     private val TAG = "MovieRemoteDataSource"
@@ -19,7 +27,7 @@ object MovieRemoteDataSourceImpl :
         success: (ArrayList<Items>) -> Unit,
         failed: (String) -> Unit
     ) {
-        val request = MovieApiServiceImpl.buildService()
+        val request = movieApi.service
         val call = request.getMovieSearch(keyword, display, start)
         call.enqueue(object :
             retrofit2.Callback<MovieResponseModel> {
@@ -51,4 +59,12 @@ object MovieRemoteDataSourceImpl :
             }
         })
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class RemoteDataSourceModule {
+    @Binds
+    @Singleton
+    abstract fun bindRemoteRepository(movieRemoteDataSourceImpl: MovieRemoteDataSourceImpl): MovieRemoteDataSource
 }
