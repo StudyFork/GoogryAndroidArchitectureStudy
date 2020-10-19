@@ -11,14 +11,9 @@ class ApplicationContext : Application() {
 
     companion object {
         private var instance: ApplicationContext? = null
-        fun applicationContext(): Context {
+        fun movieapplicationContext(): Context {
             return instance!!.applicationContext
         }
     }
 
-    override fun onCreate() {
-        super.onCreate()
-
-        MovieRepositoryImpl.getInsatance(applicationContext())
-    }
 }
