@@ -14,7 +14,6 @@ import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.databinding.ActivityMainBinding
 import com.camai.archtecherstudy.observer.MainViewModel
-import com.camai.archtecherstudy.observer.MainViewModelFactory
 import com.camai.archtecherstudy.ui.rencentdialog.RecentMovieDialog
 import kotlinx.android.synthetic.main.activity_main.*
 

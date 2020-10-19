@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.databinding.RecentMovieListPopupBinding
 import com.camai.archtecherstudy.observer.MainViewModel
-import com.camai.archtecherstudy.observer.MainViewModelFactory
 
 class RecentMovieDialog : DialogFragment() {
 
