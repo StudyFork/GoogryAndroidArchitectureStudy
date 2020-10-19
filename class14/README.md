@@ -1,7 +1,7 @@
 # 14기
 
-- 정상훈 [](https://github.com//)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
+- 정상훈 [hunihun](https://github.com/hunihun/)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/hunihun)
 
 - 이재현 [](https://github.com//)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
