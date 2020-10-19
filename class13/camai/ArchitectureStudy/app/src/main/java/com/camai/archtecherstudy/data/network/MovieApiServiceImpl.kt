@@ -1,6 +1,10 @@
 package com.camai.archtecherstudy.data.network
 
 import com.camai.archtecherstudy.BuildConfig
+import com.camai.archtecherstudy.utils.Constans.Companion.BASE_URL_NAVER_API
+import com.camai.archtecherstudy.utils.Constans.Companion.CLIENT_ID
+import com.camai.archtecherstudy.utils.Constans.Companion.CLIENT_SECRET
+import com.camai.archtecherstudy.utils.Constans.Companion.CONNECT_TIMEOUT
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,17 +13,16 @@ import okhttp3.logging.HttpLoggingInterceptor.Level.NONE
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-object MovieApiServiceImpl {
+class MovieApiServiceImpl @Inject constructor() {
 
-    private const val BASE_URL_NAVER_API = "https://openapi.naver.com/"
-    private const val CLIENT_ID = "IgChPWP2oMYZzitYv0rW"
-    private const val CLIENT_SECRET = "KKfBdZH0ZC"
-    private const val CONNECT_TIMEOUT: Long = 15
-    private var movieApiService: MovieApiService
+    private var httpLoggingInterceptor = HttpLoggingInterceptor()
+    private var okclient: OkHttpClient.Builder
+    private var create: Retrofit
+
 
     init {
-        val httpLoggingInterceptor = HttpLoggingInterceptor()
         if (BuildConfig.DEBUG) {
             httpLoggingInterceptor.level = BODY
         } else {
@@ -35,23 +38,24 @@ object MovieApiServiceImpl {
             return@Interceptor it.proceed(request)
         }
 
-        val client = OkHttpClient.Builder()
-            .addInterceptor(headerInterceptor)
-            .addInterceptor(httpLoggingInterceptor)
-            .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-            .build()
+        okclient = OkHttpClient.Builder().apply {
+            addInterceptor(headerInterceptor)
+            addInterceptor(httpLoggingInterceptor)
+            connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+            build()
+        }
 
-        val create = Retrofit.Builder()
+
+
+        create = Retrofit.Builder()
             .baseUrl(BASE_URL_NAVER_API)
-            .client(client)
+            .client(okclient.build())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
-        movieApiService = create.create(MovieApiService::class.java)
     }
 
-    fun buildService(): MovieApiService {
-        return movieApiService
+    val service: MovieApiService by lazy {
+        create.create(MovieApiService::class.java)
     }
 
 
