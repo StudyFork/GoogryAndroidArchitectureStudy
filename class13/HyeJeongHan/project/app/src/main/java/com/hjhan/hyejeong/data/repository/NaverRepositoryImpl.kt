@@ -3,8 +3,14 @@ package com.hjhan.hyejeong.data.repository
 import com.hjhan.hyejeong.data.model.MovieData
 import com.hjhan.hyejeong.data.source.local.NaverLocalDataSource
 import com.hjhan.hyejeong.data.source.remote.NaverRemoteDataSource
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NaverRepositoryImpl(
+class NaverRepositoryImpl @Inject constructor(
     private val naverRemoteDataSourceImpl: NaverRemoteDataSource,
     private val naverLocalDataSourceImpl: NaverLocalDataSource
 ) : NaverRepository {
@@ -25,4 +31,13 @@ class NaverRepositoryImpl(
     override fun getQueryList(): List<String> {
         return naverLocalDataSourceImpl.getQueryList()
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class RepositoryModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindRepository(repositoryImpl: NaverRepositoryImpl): NaverRepository
 }
