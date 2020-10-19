@@ -8,8 +8,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-object RetrofitCreator {
+class RetrofitCreator @Inject constructor() {
     private val retrofit: Retrofit
     private val okHttpClient: OkHttpClient.Builder
 

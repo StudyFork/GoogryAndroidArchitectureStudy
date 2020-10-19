@@ -1,12 +1,16 @@
 package com.hong.architecturestudy.ui.main
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hong.architecturestudy.data.model.MovieData
 import com.hong.architecturestudy.data.repository.RepositoryDataSource
 import com.hong.architecturestudy.ui.base.BaseViewModel
 
-class MainViewModel(private val repositoryDataSource: RepositoryDataSource) : BaseViewModel() {
+
+class MainViewModel @ViewModelInject constructor(
+    private val repositoryDataSource: RepositoryDataSource
+) : BaseViewModel() {
 
     private val _movieList = MutableLiveData<List<MovieData>>()
     val movieList: LiveData<List<MovieData>> get() = _movieList

@@ -5,8 +5,9 @@ import com.hong.architecturestudy.data.source.local.entity.MovieInfo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LocalDataSourceImpl : LocalDataSource {
+class LocalDataSourceImpl @Inject constructor() : LocalDataSource {
     private var movieDB: MovieDatabase? =
         MovieDatabase.getInstance(MyApplication.applicationContext())
 
@@ -23,3 +24,4 @@ class LocalDataSourceImpl : LocalDataSource {
     }
 
 }
+
