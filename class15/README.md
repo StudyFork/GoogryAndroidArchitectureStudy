@@ -3,8 +3,8 @@
 - 이동훈 [realizer12](https://github.com/realizer12)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class15/realizer12)
 
-- 박미소 [](https://github.com//)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
+- 박미소 [showmiso](https://github.com/showmiso)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class15/showmiso)
 
 - 한해인 [](https://github.com//)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
