@@ -6,8 +6,8 @@
 - 이재현 [juan-rybczinski](https://github.com//juan-rybczinski)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/juan-rybczinski)
 
-- 김상명 [](https://github.com//)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
+- 김상명 [myung777](https://github.com//myung777)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/myung777)
 
 - 심준보 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
