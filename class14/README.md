@@ -12,7 +12,7 @@
 - 심준보 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
 
-- 김동환 [](https://github.com/)
+- 김동환 [](https://github.com/dev-donghwan)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/dev-donghwan/)
 
 - 함도영 [](https://github.com//)
