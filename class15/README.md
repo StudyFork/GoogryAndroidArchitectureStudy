@@ -6,8 +6,8 @@
 - 박미소 [showmiso](https://github.com/showmiso)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class15/showmiso)
 
-- 한해인 [](https://github.com//)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
+- 한해인 [hhi-5258](https://github.com/hhi-5258)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class15/hhi-5258)
 
 - 임규진 [dktsudgg](https://github.com/dktsudgg)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class15/dktsudgg)
