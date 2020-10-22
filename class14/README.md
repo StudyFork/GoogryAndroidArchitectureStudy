@@ -15,5 +15,5 @@
 - 김동환 [](https://github.com/)
 [공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
 
-- 함도영 [](https://github.com//)
-[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/)
+- 함도영 [onxmoreplz](https://github.com//onxmoreplz)
+[공간](https://github.com/StudyFork/GoogryAndroidArchitectureStudy/tree/master/class14/onxmoreplz)
