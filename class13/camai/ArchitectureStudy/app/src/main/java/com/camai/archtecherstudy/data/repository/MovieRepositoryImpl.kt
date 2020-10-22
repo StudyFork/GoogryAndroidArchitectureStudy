@@ -1,9 +1,9 @@
 package com.camai.archtecherstudy.data.repository
 
 import com.camai.archtecherstudy.data.model.Items
-import com.camai.archtecherstudy.data.source.local.MovieLocalDataSourceImpl
+import com.camai.archtecherstudy.data.source.local.MovieLocalDataSource
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
-import com.camai.archtecherstudy.data.source.remote.MovieRemoteDataSourceImpl
+import com.camai.archtecherstudy.data.source.remote.MovieRemoteDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,8 +13,8 @@ import javax.inject.Singleton
 
 
 class MovieRepositoryImpl @Inject constructor(
-    private val localMovieRepository: MovieLocalDataSourceImpl,
-    private val remoteMovieRepository: MovieRemoteDataSourceImpl
+    private val localMovieRepository: MovieLocalDataSource,
+    private val remoteMovieRepository: MovieRemoteDataSource
 ) : MovieRepository {
 
     override fun getMovieNameSearch(
