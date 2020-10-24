@@ -1,4 +1,4 @@
-package com.example.aas.data.source.local
+package com.example.datamodule.data.source.local
 
 import io.reactivex.Single
 

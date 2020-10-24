@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aas.R
-import com.example.aas.data.model.Movie
+import com.example.datamodule.data.model.Movie
 
 class MovieAdapter(private val callback: MovieSelectionListener) :
     RecyclerView.Adapter<MovieViewHolder>() {

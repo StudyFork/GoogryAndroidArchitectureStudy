@@ -7,8 +7,8 @@ import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.aas.data.model.Movie
 import com.example.aas.ui.main.MovieAdapter
+import com.example.datamodule.data.model.Movie
 import com.jakewharton.rxbinding2.view.RxView
 import java.util.concurrent.TimeUnit
 

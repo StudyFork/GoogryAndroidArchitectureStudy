@@ -8,7 +8,7 @@
 
         <variable
             name="movie"
-            type="com.example.aas.data.model.Movie" />
+            type="com.example.datamodule.data.model.Movie" />
 
         <variable
             name="callback"

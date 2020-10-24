@@ -4,8 +4,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.aas.base.BaseViewModel
-import com.example.aas.data.model.Movie
-import com.example.aas.data.repository.MovieSearchRepository
+import com.example.datamodule.data.model.Movie
+import com.example.datamodule.data.repository.MovieSearchRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers

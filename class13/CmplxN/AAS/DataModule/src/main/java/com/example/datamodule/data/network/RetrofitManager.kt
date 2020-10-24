@@ -1,6 +1,6 @@
-package com.example.aas.data.network
+package com.example.datamodule.data.network
 
-import com.example.aas.BuildConfig
+import com.example.datamodule.BuildConfig
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
