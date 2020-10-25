@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="query"
+            type="String" />
+
+        <variable
+            name="vm"
+            type="com.hong.architecturestudy.ui.main.MainViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.MainActivity">
+
+        <EditText
+            android:id="@+id/edit_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@={query}"
+            app:layout_constraintEnd_toStartOf="@+id/btn_search"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="검색"
+            app:layout_constraintEnd_toStartOf="@id/btn_search_list"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/edit_search"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:throttleClick="@{() -> vm.searchMovieList(query)}" />
+
+        <Button
+            android:id="@+id/btn_search_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="목록"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/btn_search"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:throttleClick="@{() -> vm.isVisible(true)}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_movies_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_search" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
