@@ -8,7 +8,7 @@
 
         <variable
             name="movieData"
-            type="com.hong.architecturestudy.data.model.MovieData" />
+            type="com.hong.data.model.MovieData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

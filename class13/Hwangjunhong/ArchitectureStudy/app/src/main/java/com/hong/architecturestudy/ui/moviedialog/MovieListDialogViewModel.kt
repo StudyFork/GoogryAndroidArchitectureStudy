@@ -4,8 +4,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.hong.architecturestudy.data.repository.RepositoryDataSource
-import com.hong.architecturestudy.data.source.local.entity.MovieInfo
+import com.hong.data.repository.RepositoryDataSource
+import com.hong.data.source.local.entity.MovieInfo
 import kotlinx.coroutines.*
 
 class MovieListDialogViewModel @ViewModelInject constructor(

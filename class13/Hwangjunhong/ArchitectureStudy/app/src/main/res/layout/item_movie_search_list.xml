@@ -6,7 +6,7 @@
 
         <variable
             name="movieInfo"
-            type="com.hong.architecturestudy.data.source.local.entity.MovieInfo" />
+            type="com.hong.data.source.local.entity.MovieInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.R
-import com.hong.architecturestudy.data.source.local.entity.MovieInfo
 import com.hong.architecturestudy.ui.moviedialog.holder.MovieSearchListViewHolder
+import com.hong.data.source.local.entity.MovieInfo
 
 class MovieSearchListAdapter :
     RecyclerView.Adapter<MovieSearchListViewHolder>() {

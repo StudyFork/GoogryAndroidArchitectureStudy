@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hong.architecturestudy.R
-import com.hong.architecturestudy.data.model.MovieData
 import com.hong.architecturestudy.ui.main.holder.MovieViewHolder
 import com.hong.architecturestudy.utils.log
+import com.hong.data.model.MovieData
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     private val items = mutableListOf<MovieData>()

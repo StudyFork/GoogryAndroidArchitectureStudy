@@ -3,9 +3,9 @@ package com.hong.architecturestudy.ui.main
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.hong.architecturestudy.data.model.MovieData
-import com.hong.architecturestudy.data.repository.RepositoryDataSource
 import com.hong.architecturestudy.ui.base.BaseViewModel
+import com.hong.data.model.MovieData
+import com.hong.data.repository.RepositoryDataSource
 
 
 class MainViewModel @ViewModelInject constructor(
