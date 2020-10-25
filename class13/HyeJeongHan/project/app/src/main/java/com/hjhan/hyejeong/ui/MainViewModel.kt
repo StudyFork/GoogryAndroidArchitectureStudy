@@ -1,11 +1,13 @@
 package com.hjhan.hyejeong.ui
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.hjhan.hyejeong.data.model.Item
 import com.hjhan.hyejeong.data.repository.NaverRepository
 
-class MainViewModel(private val repositoryImpl: NaverRepository) : ViewModel() {
+class MainViewModel @ViewModelInject constructor(private val repository: NaverRepository) :
+    ViewModel() {
 
     val query = MutableLiveData<String>()
     val movieList = MutableLiveData<List<Item>>()
@@ -19,7 +21,7 @@ class MainViewModel(private val repositoryImpl: NaverRepository) : ViewModel() {
             onEmptyQuery.value = Unit
 
         } else {
-            repositoryImpl.getSearchMovies(
+            repository.getSearchMovies(
                 query = query.value!!,
                 success = {
                     it.items.run {
@@ -35,7 +37,7 @@ class MainViewModel(private val repositoryImpl: NaverRepository) : ViewModel() {
     }
 
     fun getRecentQueryList() {
-        queryList.value = repositoryImpl.getQueryList()
+        queryList.value = repository.getQueryList()
     }
 
 }

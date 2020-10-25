@@ -5,9 +5,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 
-object ServiceClient {
+class ServiceClient @Inject constructor() {
 
     private val baseUrl = Constants.BASE_URL
     private var retrofit: Retrofit? = null
