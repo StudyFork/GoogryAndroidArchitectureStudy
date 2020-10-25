@@ -1,6 +1,5 @@
 package com.camai.archtecherstudy.data.repository
 
-import android.content.Context
 import com.camai.archtecherstudy.data.model.Items
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 
@@ -14,9 +13,6 @@ interface MovieRepository {
         success: (ArrayList<Items>) -> Unit,
         failed: (String) -> Unit
     )
-
-    //  Database Instance Init
-    fun getInsatance(context: Context)
 
     //  local data select list source
     fun getRecentSearchList(namelist: (List<RecentSearchName>) -> Unit)

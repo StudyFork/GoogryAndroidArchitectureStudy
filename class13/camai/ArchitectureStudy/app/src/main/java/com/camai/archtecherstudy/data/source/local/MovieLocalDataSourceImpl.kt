@@ -1,20 +1,21 @@
 package com.camai.archtecherstudy.data.source.local
 
-import android.content.Context
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchDatabase
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
+import com.camai.archtecherstudy.ui.ApplicationContext
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object MovieLocalDataSourceImpl :
+class MovieLocalDataSourceImpl @Inject constructor() :
     MovieLocalDataSource {
 
-    private var recentSearchDatabase: RecentSearchDatabase? = null
-
-    override fun getInstance(context: Context): RecentSearchDatabase {
-        if (recentSearchDatabase == null) {
-            recentSearchDatabase = RecentSearchDatabase.getInstance(context)
-        }
-        return recentSearchDatabase!!
-    }
+    //  private var recentSearchDatabase: RecentSearchDatabase? = null
+    private var recentSearchDatabase: RecentSearchDatabase? =
+        RecentSearchDatabase.getInstance(ApplicationContext.movieapplicationContext())
 
 
     override fun getRecentMovieNameList(
@@ -55,4 +56,12 @@ object MovieLocalDataSourceImpl :
         addThread.run()
 
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class MovieLocalDataSourceModule {
+    @Binds
+    @Singleton
+    abstract fun bindLocalRepository(movieLocalDataSourceImpl: MovieLocalDataSourceImpl): MovieLocalDataSource
 }

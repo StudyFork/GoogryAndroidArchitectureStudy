@@ -8,21 +8,18 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.camai.archtecherstudy.R
 import com.camai.archtecherstudy.databinding.RecentMovieListPopupBinding
 import com.camai.archtecherstudy.observer.MainViewModel
-import com.camai.archtecherstudy.observer.MainViewModelFactory
 
 class RecentMovieDialog : DialogFragment() {
 
 
-    private lateinit var mvm: MainViewModel
+    private val mvm: MainViewModel by activityViewModels()
 
     private val recentMovieAdapter: RecentMovieAdapter by lazy {
         RecentMovieAdapter {
@@ -56,10 +53,6 @@ class RecentMovieDialog : DialogFragment() {
                     false
                 )
             )!!
-        mvm = ViewModelProvider(
-            getViewModelStoreOwner(),
-            MainViewModelFactory()
-        )[MainViewModel::class.java]
 
         binding.lifecycleOwner = this
         binding.mvm = mvm
@@ -74,13 +67,6 @@ class RecentMovieDialog : DialogFragment() {
         setupObserverCallBack()
 
     }
-
-    private fun Fragment.getViewModelStoreOwner(): ViewModelStoreOwner = try {
-        requireActivity()
-    } catch (e: IllegalStateException) {
-        this
-    }
-
 
     //  RecyclerView Adapter Set
     private fun setAdapterAndRecyclerViewInit() {

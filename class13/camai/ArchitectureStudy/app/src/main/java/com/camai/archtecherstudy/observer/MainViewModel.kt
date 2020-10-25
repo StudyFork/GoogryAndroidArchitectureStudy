@@ -1,15 +1,23 @@
 package com.camai.archtecherstudy.observer
 
+import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.camai.archtecherstudy.data.model.Items
+import com.camai.archtecherstudy.data.repository.MovieRepository
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
 import com.camai.archtecherstudy.data.source.local.room.RecentSearchName
 
-class MainViewModel : ViewModel() {
+class MainViewModel @ViewModelInject constructor(
+    private val repository: MovieRepository
+)
+    : ViewModel()
+{
 
     var keyword = MutableLiveData<String>()
-    val movieList = MutableLiveData<List<Items>>()
+    private val _movieList = MutableLiveData<List<Items>>()
+    val movieList: LiveData<List<Items>> = _movieList
     val isVisibile = MutableLiveData<Boolean>(false)
 
     val searchMovie = MutableLiveData<Unit>()
@@ -35,10 +43,10 @@ class MainViewModel : ViewModel() {
         } else {
             val name: String = keyword.value ?: return
 
-            MovieRepositoryImpl.getMovieNameSearch(name, 100, 1,
+            repository.getMovieNameSearch(name, 100, 1,
                 success = {
                     //  movie list data to recycler View
-                    movieList.value = it
+                    _movieList.value = it
                     //  Progress Gone
                     isVisibile.value = false
                     keyword.value = ""
@@ -61,7 +69,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun setRecentData() {
-        MovieRepositoryImpl.getRecentSearchList(namelist = {
+        repository.getRecentSearchList(namelist = {
             if (it.isEmpty()) {
                 isFailed.value = Unit
             } else {

@@ -3,7 +3,9 @@ package com.camai.archtecherstudy.ui
 import android.app.Application
 import android.content.Context
 import com.camai.archtecherstudy.data.repository.MovieRepositoryImpl
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class ApplicationContext : Application() {
     init {
         instance = this
@@ -11,14 +13,9 @@ class ApplicationContext : Application() {
 
     companion object {
         private var instance: ApplicationContext? = null
-        fun applicationContext(): Context {
+        fun movieapplicationContext(): Context {
             return instance!!.applicationContext
         }
     }
 
-    override fun onCreate() {
-        super.onCreate()
-
-        MovieRepositoryImpl.getInsatance(applicationContext())
-    }
 }
