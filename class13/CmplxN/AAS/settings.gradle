@@ -1,2 +1,3 @@
+include ':DataModule'
 include ':app'
 rootProject.name = "AAS"

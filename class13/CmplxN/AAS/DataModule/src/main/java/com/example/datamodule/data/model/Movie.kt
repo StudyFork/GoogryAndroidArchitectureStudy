@@ -1,4 +1,4 @@
-package com.example.aas.data.model
+package com.example.datamodule.data.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

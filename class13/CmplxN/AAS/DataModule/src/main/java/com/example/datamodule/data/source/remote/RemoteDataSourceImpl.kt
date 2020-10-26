@@ -1,7 +1,7 @@
-package com.example.aas.data.source.remote
+package com.example.datamodule.data.source.remote
 
-import com.example.aas.data.model.ApiResult
-import com.example.aas.data.network.RetrofitManager
+import com.example.datamodule.data.model.ApiResult
+import com.example.datamodule.data.network.RetrofitManager
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

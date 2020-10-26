@@ -1,8 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
+apply from: '../config.gradle'
 
 android {
     compileSdkVersion 30
@@ -14,10 +11,6 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
-        buildConfigField "String", "NAVER_CLIENT_ID", '\"baPVy6Scd6jvsqAsrrHu\"'
-        buildConfigField "String", "NAVER_CLIENT_SECRET", '\"lCfi3Abd26\"'
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,14 +19,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
     }
     buildFeatures {
         dataBinding = true
@@ -50,16 +35,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    // RxJava
-    implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
-    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    // RxBinding
     implementation "com.jakewharton.rxbinding2:rxbinding:2.2.0"
-
-    // retrofit + OkHttp
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
     // rcv
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
@@ -76,10 +53,10 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
-    // hilt
-    implementation "com.google.dagger:hilt-android:2.28-alpha"
-    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+    // hilt viewmodel
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     // When using Kotlin.
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+
+    implementation project(":DataModule")
 }

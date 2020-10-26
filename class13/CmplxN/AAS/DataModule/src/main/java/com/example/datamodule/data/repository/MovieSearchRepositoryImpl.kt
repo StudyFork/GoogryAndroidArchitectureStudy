@@ -1,8 +1,8 @@
-package com.example.aas.data.repository
+package com.example.datamodule.data.repository
 
-import com.example.aas.data.model.ApiResult
-import com.example.aas.data.source.local.LocalDataSource
-import com.example.aas.data.source.remote.RemoteDataSource
+import com.example.datamodule.data.model.ApiResult
+import com.example.datamodule.data.source.local.LocalDataSource
+import com.example.datamodule.data.source.remote.RemoteDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
