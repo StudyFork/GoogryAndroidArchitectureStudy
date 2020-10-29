@@ -1,5 +1,6 @@
 package com.example.myproject.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.myproject.data.model.Items
@@ -8,10 +9,8 @@ import com.example.myproject.data.repository.NaverRepositoryImpl
 import com.example.myproject.data.source.local.NaverLocalDataSourceImpl
 import com.example.myproject.data.source.remote.NaverRemoteDataSourceImpl
 
-class MainViewModel : ViewModel() {
+class MainViewModel @ViewModelInject constructor(private val repository: NaverRepository) : ViewModel() {
 
-    private val repository: NaverRepository =
-        NaverRepositoryImpl(NaverLocalDataSourceImpl(), NaverRemoteDataSourceImpl())
     val query = MutableLiveData<String>()
     val movieList = MutableLiveData<List<Items>>()
     val titleList = MutableLiveData<List<String>>()
