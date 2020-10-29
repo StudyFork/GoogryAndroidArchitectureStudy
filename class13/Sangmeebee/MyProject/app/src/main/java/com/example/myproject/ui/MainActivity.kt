@@ -11,7 +11,9 @@ import com.example.myproject.R
 import com.example.myproject.databinding.ActivityMainBinding
 import com.example.myproject.extension.toast
 import com.example.myproject.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val movieAdapter = MovieAdapter()
