@@ -75,11 +75,11 @@
             android:text="@string/label_director" />
 
         <TextView
+            android:id="@+id/tv_director"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="봉준호"
             android:layout_marginStart="@dimen/margin_item_text"
-            />
+            tools:text="봉준호" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

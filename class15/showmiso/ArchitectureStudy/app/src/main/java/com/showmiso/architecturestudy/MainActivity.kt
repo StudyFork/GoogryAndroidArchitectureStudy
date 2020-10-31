@@ -2,17 +2,22 @@ package com.showmiso.architecturestudy
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.showmiso.architecturestudy.api.APIInterface
 import com.showmiso.architecturestudy.api.RetrofitClient
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var api: APIInterface
     private val disposable = CompositeDisposable()
+    private val adapter = MovieAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,16 +42,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
+        rcv_result.layoutManager = LinearLayoutManager(this)
+        rcv_result.adapter = adapter
 
-        api.getMovies("기생충")
+        btn_search.setOnClickListener {
+            val text = et_search.text.toString()
+            updateMovieList(text)
+        }
+        updateMovieList("기생충")
+    }
+
+    private fun updateMovieList(query: String) {
+        if (query.isEmpty()) {
+            Toast.makeText(this, "텍스트를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        api.getMovies(query)
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
                 Log.d(tag, "Success")
+                it.items?.also { movieList ->
+                    adapter.movies = movieList
+                    adapter.notifyDataSetChanged()
+                }
             }, {
                 Log.e(tag, "Fail", it)
             })
             .addTo(disposable)
-
     }
 
     companion object {
