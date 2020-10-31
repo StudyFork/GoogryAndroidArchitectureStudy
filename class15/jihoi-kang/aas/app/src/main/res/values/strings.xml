@@ -4,5 +4,6 @@
 
     <string name="text_search">Search</string>
     <string name="msg_no_result">No search results found.</string>
+    <string name="msg_search_failed">Search failed.</string>
 
 </resources>
