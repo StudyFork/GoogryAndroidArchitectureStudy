@@ -3,8 +3,14 @@ package com.example.myproject.data.repository
 import com.example.myproject.data.model.Items
 import com.example.myproject.data.source.local.NaverLocalDataSource
 import com.example.myproject.data.source.remote.NaverRemoteDataSource
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NaverRepositoryImpl(
+class NaverRepositoryImpl @Inject constructor(
     private val naverLocalDataSource: NaverLocalDataSource,
     private val naverRemoteDataSource: NaverRemoteDataSource
 ) : NaverRepository {
@@ -24,4 +30,13 @@ class NaverRepositoryImpl(
     }
 
     override fun readRecentSearchTitle() = naverLocalDataSource.readRecentSearchTitle()
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class RepositoryModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindRepository(repositoryImpl: NaverRepositoryImpl): NaverRepository
 }

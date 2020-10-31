@@ -1,8 +1,14 @@
 package com.example.myproject.data.source.local
 
 import com.example.myproject.data.sharedPreferences.App
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NaverLocalDataSourceImpl : NaverLocalDataSource {
+class NaverLocalDataSourceImpl @Inject constructor() : NaverLocalDataSource {
     override fun saveRecentSearchTitle(title: String) {
         App.prefs.saveRecentSearchTitle(title)
     }
@@ -15,4 +21,12 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
         }
         return temp
     }
+}
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class LocalDataSourceModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindLocalDataSource(localDataSourceImpl: NaverLocalDataSourceImpl): NaverLocalDataSource
 }
