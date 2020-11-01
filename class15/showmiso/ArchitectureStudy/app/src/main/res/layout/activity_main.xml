@@ -19,6 +19,7 @@
             android:layout_weight="1"
             android:inputType="text"
             android:maxLines="1"
+            android:imeOptions="actionSearch"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button

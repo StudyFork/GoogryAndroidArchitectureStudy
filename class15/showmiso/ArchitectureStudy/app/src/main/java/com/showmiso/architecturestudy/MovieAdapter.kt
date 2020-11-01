@@ -11,13 +11,13 @@ import kotlinx.android.synthetic.main.item_movie.view.*
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     var movies: List<Model.Movie> = ArrayList()
 
-    inner class MovieViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Model.Movie) {
 //            val movie: Model.Movie = itemView.tag as Model.Movie
-            itemView.tv_title.text = movie.title
+            itemView.tv_title.text = getTitleString(movie.title)
             itemView.tv_sub_title.text = movie.subtitle
             itemView.tv_pub_date.text = movie.pubDate
-            itemView.tv_director.text = movie.director
+            itemView.tv_director.text = getDirectorString(movie.director)
             Glide.with(itemView)
                 .load(movie.image)
                 .into(itemView.img_photo)
@@ -33,6 +33,20 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         val movie = movies[position]
 //        holder.itemView.tag = movie
         holder.bind(movie)
+    }
+
+    private fun getTitleString(title: String?): String? {
+        return title?.replace("<b>", "")?.replace("</b>", "")
+    }
+
+    private fun getDirectorString(director: String?): String? {
+        return director?.let {
+            if (it.isEmpty()) {
+                ""
+            } else {
+                it.substring(0, director.length - 1).replace("|", ", ")
+            }
+        }
     }
 
     override fun getItemCount(): Int {

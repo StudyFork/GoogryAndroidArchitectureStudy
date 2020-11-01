@@ -8,7 +8,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-
     fun createService(url: String, clientId: String, clientSecret: String): APIInterface {
         val headerInterceptor = HeaderInterceptor(clientId, clientSecret)
         val client = OkHttpClient()
@@ -36,5 +35,4 @@ object RetrofitClient {
             return chain.proceed(request)
         }
     }
-
 }

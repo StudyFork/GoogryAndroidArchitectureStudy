@@ -2,6 +2,7 @@ package com.showmiso.architecturestudy
 
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var api: APIInterface
     private val disposable = CompositeDisposable()
     private val adapter = MovieAdapter()
@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initService()
-
         initUI()
     }
 
@@ -49,7 +48,14 @@ class MainActivity : AppCompatActivity() {
             val text = et_search.text.toString()
             updateMovieList(text)
         }
-        updateMovieList("기생충")
+        et_search.setOnEditorActionListener { textView, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val text = textView.text.toString()
+                updateMovieList(text)
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
     }
 
     private fun updateMovieList(query: String) {
@@ -63,6 +69,10 @@ class MainActivity : AppCompatActivity() {
             .subscribe({
                 Log.d(tag, "Success")
                 it.items?.also { movieList ->
+                    if (movieList.isEmpty()) {
+                        Toast.makeText(this, "검색결과가 없습니다", Toast.LENGTH_SHORT).show()
+                        return@subscribe
+                    }
                     adapter.movies = movieList
                     adapter.notifyDataSetChanged()
                 }

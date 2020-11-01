@@ -5,10 +5,8 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface APIInterface {
-
     @GET("movie.json")
     fun getMovies(
         @Query("query") query: String
     ): Single<Model.MovieResponse>
-
 }
