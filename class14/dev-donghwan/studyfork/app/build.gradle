@@ -34,4 +34,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    implementation "androidx.recyclerview:recyclerview:$recyclerView_version"
+
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlin_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2$rxRetrofitAdpater_version"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
 }
