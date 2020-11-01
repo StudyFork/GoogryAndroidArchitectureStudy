@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jay.aas.databinding.ItemMovieBinding
 import com.jay.aas.model.Movie
 
-class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter(
+    private val onItemClick: (String) -> Unit,
+) : RecyclerView.Adapter<MovieViewHolder>() {
 
-    private var movies: List<Movie> = listOf()
+    private var movies: List<Movie> = emptyList()
 
     fun setMovies(movies: List<Movie>) {
         this.movies = movies
@@ -18,7 +20,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding =
             ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(binding)
+        return MovieViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {

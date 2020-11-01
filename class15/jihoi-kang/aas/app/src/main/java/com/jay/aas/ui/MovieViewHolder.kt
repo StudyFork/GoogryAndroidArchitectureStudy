@@ -9,7 +9,8 @@ import com.jay.aas.databinding.ItemMovieBinding
 import com.jay.aas.model.Movie
 
 class MovieViewHolder(
-    private val binding: ItemMovieBinding
+    private val binding: ItemMovieBinding,
+    private val onItemClick: (String) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     @Suppress("DEPRECATION")
@@ -29,6 +30,8 @@ class MovieViewHolder(
         Glide.with(binding.root.context)
             .load(movie.image)
             .into(binding.ivPost)
+
+        binding.root.setOnClickListener { onItemClick(movie.link) }
     }
 
 }

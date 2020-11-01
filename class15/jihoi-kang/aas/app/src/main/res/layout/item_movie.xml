@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="8dp"
-    android:paddingTop="8dp"
-    android:paddingEnd="8dp"
-    android:paddingBottom="4dp">
+    android:padding="4dp">
 
     <ImageView
         android:id="@+id/iv_post"
@@ -24,7 +21,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:textColor="#00d0a8"
+        android:textColor="@color/movie_pub_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_post"
         app:layout_constraintTop_toTopOf="parent"
@@ -76,6 +73,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:lineSpacingExtra="4dp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_post"
         app:layout_constraintTop_toBottomOf="@id/ll_user_rating"

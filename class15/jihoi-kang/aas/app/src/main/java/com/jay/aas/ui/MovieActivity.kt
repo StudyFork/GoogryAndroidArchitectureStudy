@@ -1,6 +1,8 @@
 package com.jay.aas.ui
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -21,7 +23,6 @@ import retrofit2.Response
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.resume
 
-
 class MovieActivity : AppCompatActivity(), CoroutineScope {
 
     private val TAG = this::class.java.simpleName
@@ -36,6 +37,10 @@ class MovieActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var inputMethodManager: InputMethodManager
     private lateinit var movieService: MovieService
     private lateinit var movieAdapter: MovieAdapter
+
+    private val onItemClick: (String) -> Unit = { link ->
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,15 +59,15 @@ class MovieActivity : AppCompatActivity(), CoroutineScope {
         val view = binding.root
         setContentView(view)
 
-        movieAdapter = MovieAdapter()
+        movieAdapter = MovieAdapter(onItemClick)
         binding.rvMovie.adapter = movieAdapter
 
         binding.evSearch.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 searchMovies(v.text.toString())
-                true
+                return@setOnEditorActionListener true
             }
-            false
+            return@setOnEditorActionListener false
         }
         binding.ivSearch.setOnClickListener { searchMovies(binding.evSearch.text.toString()) }
     }
