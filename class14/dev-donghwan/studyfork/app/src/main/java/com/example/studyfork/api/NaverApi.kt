@@ -1,4 +1,4 @@
-package com.example.studyfork
+package com.example.studyfork.api
 
 import io.reactivex.Single
 import okhttp3.ResponseBody
