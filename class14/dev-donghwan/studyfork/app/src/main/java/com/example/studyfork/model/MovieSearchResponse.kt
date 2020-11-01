@@ -3,7 +3,7 @@ package com.example.studyfork.model
 
 data class MovieSearchResponse(
     val display: Int,
-    val movieItems: List<MovieItem>,
+    val items: List<MovieItem>,
     val lastBuildDate: String,
     val start: Int,
     val total: Int,
@@ -21,5 +21,5 @@ data class MovieSearchResponse(
 }
 
 fun MovieSearchResponse.toDomain(): List<MovieSearchResponse.MovieItem> {
-    return this.movieItems
+    return this.items
 }
