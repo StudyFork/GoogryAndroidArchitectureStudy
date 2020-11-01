@@ -3,12 +3,11 @@ package kr.dktsudgg.androidarchitecturestudy
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.dktsudgg.androidarchitecturestudy.api.WebRequestManager
 import kr.dktsudgg.androidarchitecturestudy.api.naver.NaverMovieApi
@@ -26,9 +25,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         /**
-         * 영화 검색결과 리스트 보여주는 RecyclerView 매니저 등록
+         * 영화 검색결과 리스트 보여주는 RecyclerView 매니저 등록 및 목록 구분선 추가
          */
         searchedMovieList.layoutManager = LinearLayoutManager(this);
+        searchedMovieList.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                LinearLayoutManager.VERTICAL
+            )
+        )
 
         /**
          * 검색 버튼 OnClicklistener 등록
