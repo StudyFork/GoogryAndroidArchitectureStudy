@@ -7,6 +7,7 @@ buildscript {
         rxRetrofitAdpater_version = "2.7.1"
         retrofit_version = "2.9.0"
         recyclerView_version = "1.1.0"
+        glide_version = "4.11.0"
     }
 
     repositories {
