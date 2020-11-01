@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.studyfork.model.Network
 import com.example.studyfork.model.toDomain
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.plugins.RxJavaPlugins
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,6 +14,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        RxJavaPlugins.setErrorHandler {
+            it.printStackTrace()
+        }
 
         rec_movie.adapter = recyclerAdapter
 
