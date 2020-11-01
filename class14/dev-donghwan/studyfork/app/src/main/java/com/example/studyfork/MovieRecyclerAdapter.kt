@@ -11,7 +11,7 @@ import com.example.studyfork.model.MovieSearchResponse
 class MovieRecyclerAdapter : RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolder>() {
     private val items: ArrayList<MovieSearchResponse.MovieItem> = ArrayList()
 
-    fun itemChange(vararg item: MovieSearchResponse.MovieItem) {
+    fun itemChange(item: List<MovieSearchResponse.MovieItem>) {
         this.items.clear()
         this.items.addAll(item)
         notifyDataSetChanged()

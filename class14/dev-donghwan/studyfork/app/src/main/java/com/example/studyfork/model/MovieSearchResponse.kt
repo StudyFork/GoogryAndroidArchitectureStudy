@@ -8,10 +8,6 @@ data class MovieSearchResponse(
     val start: Int,
     val total: Int,
 ) {
-    fun MovieSearchResponse.toDomain(): List<MovieItem> {
-        return this.movieItems
-    }
-
     data class MovieItem(
         val actor: String,
         val director: String,
@@ -22,4 +18,8 @@ data class MovieSearchResponse(
         val title: String,
         val userRating: String,
     )
+}
+
+fun MovieSearchResponse.toDomain(): List<MovieSearchResponse.MovieItem> {
+    return this.movieItems
 }
