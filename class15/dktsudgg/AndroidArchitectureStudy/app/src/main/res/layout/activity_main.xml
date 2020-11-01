@@ -17,17 +17,18 @@
 
             <EditText
                 android:id="@+id/movieSearchEditText"
-                android:hint="@string/movie_search_autofill_hints"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="5"
+                android:hint="@string/movie_search_autofill_hints"
                 android:inputType="text" />
 
             <Button
                 android:id="@+id/movieSearchBtn"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
-                android:layout_weight="2" />
+                android:layout_weight="2"
+                android:text="검색" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
