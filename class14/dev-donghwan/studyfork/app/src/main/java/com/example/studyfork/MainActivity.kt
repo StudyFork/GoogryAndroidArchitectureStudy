@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.studyfork.model.Network
 import com.example.studyfork.model.toDomain
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private val recyclerAdapter by lazy { MovieRecyclerAdapter() }
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +30,13 @@ class MainActivity : AppCompatActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe { response ->
                         recyclerAdapter.itemChange(response.toDomain())
-                    }
+                    }.addTo(compositeDisposable)
             }
         }
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 }
