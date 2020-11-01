@@ -1,16 +1,18 @@
 package com.example.studyfork.model
 
 
-import com.google.gson.annotations.SerializedName
-
 data class MovieSearchResponse(
     val display: Int,
-    val items: List<Item>,
+    val movieItems: List<MovieItem>,
     val lastBuildDate: String,
     val start: Int,
-    val total: Int
+    val total: Int,
 ) {
-    data class Item(
+    fun MovieSearchResponse.toDomain(): List<MovieItem> {
+        return this.movieItems
+    }
+
+    data class MovieItem(
         val actor: String,
         val director: String,
         val image: String,
@@ -18,6 +20,6 @@ data class MovieSearchResponse(
         val pubDate: String,
         val subtitle: String,
         val title: String,
-        val userRating: String
+        val userRating: String,
     )
 }

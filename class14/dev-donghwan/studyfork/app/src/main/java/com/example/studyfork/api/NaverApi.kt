@@ -1,12 +1,12 @@
 package com.example.studyfork.api
 
+import com.example.studyfork.model.MovieSearchResponse
 import io.reactivex.Single
-import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface NaverApi {
 
     @GET("v1/search/movie.json")
-    fun getMovieList(@Query("query") query: String): Single<ResponseBody>
+    fun searchMovie(@Query("query") query: String): Single<MovieSearchResponse>
 }
