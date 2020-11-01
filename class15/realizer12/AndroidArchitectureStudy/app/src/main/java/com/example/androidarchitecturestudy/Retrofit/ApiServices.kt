@@ -9,11 +9,10 @@ import retrofit2.http.Query
 
 interface ApiServices {
 
-    @Headers("X-Naver-Client-Id: {67znsYa_iJOrjYNeChNL}", "X-Naver-Client-Secret: {V2h_LIRLgC}")
+    @Headers("X-Naver-Client-Id: 67znsYa_iJOrjYNeChNL", "X-Naver-Client-Secret: V2h_LIRLgC")
     @GET("movie.json")
     fun getMovieSearchResult(
-        @Query("query") movieName: String,
-        @Query("display") resultCount: Int
-    ): Call<GetMovieInfo>
+        @Query("query") movieName: String
+    ): Call<GetMovieInfo.MovieList>
 
 }
