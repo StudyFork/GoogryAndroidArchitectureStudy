@@ -32,9 +32,13 @@ class RecyclerAdapter() :
                 .into(itemView.item_img_image)
             if (data.director.isNotEmpty()) {
                 itemView.item_text_director.text = "감독 : " + data.director
+            } else {
+                itemView.item_text_director.text = ""
             }
             if (data.actor.isNotEmpty()) {
                 itemView.item_text_actors.text = "출연 : " + data.actor
+            } else {
+                itemView.item_text_actors.text = ""
             }
             itemView.item_text_title.text = data.title.replace("<b>", "").replace("</b>", "")
         }
