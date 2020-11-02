@@ -13,6 +13,7 @@
             android:id="@+id/imageview_movie"
             android:layout_width="90dp"
             android:layout_height="match_parent"
+            android:scaleType="fitXY"
             android:src="@color/design_default_color_error"/>
 
         <LinearLayout
