@@ -2,11 +2,17 @@ package com.hhi.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.hhi.myapplication.api.MovieData
+import com.hhi.myapplication.api.NaverAPI
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private val recyclerAdapter = RecyclerAdapter()
+    private val api = NaverAPI.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +30,28 @@ class MainActivity : AppCompatActivity() {
             if (main_edit_search.text.isEmpty()) {
                 return@setOnClickListener
             } else {
-
+                searchMovie(main_edit_search.text.toString())
             }
         }
+    }
+
+    private fun searchMovie(query: String) {
+        api.searchMovies(query).enqueue(object : retrofit2.Callback<MovieData.Response> {
+            override fun onResponse(
+                call: Call<MovieData.Response>,
+                response: Response<MovieData.Response>
+            ) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        recyclerAdapter.movieList = it.items
+                        recyclerAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MovieData.Response>, t: Throwable) {
+                Log.d("search_failed", t.toString());
+            }
+        })
     }
 }
