@@ -7,5 +7,8 @@ import retrofit2.http.Query
 
 interface NetworkService {
     @GET("v1/search/movie.json")
-    fun getMovie(@Query("query") query: String): Call<MovieResponse>
+    fun getMovieSearch(
+        @Query("query") query: String,
+        @Query("display") display: Int
+    ): Call<MovieResponse>
 }

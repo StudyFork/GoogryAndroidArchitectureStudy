@@ -1,21 +1,19 @@
 package com.architecture.androidarchitecturestudy.webservice
 
-
-import com.architecture.androidarchitecturestudy.BuildConfig
+import com.architecture.androidarchitecturestudy.util.config
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 
 object ApiClient {
     private const val BASE_URL = "https://openapi.naver.com/"
 
     private val okHttpClient = OkHttpClient.Builder()
-        .addNetworkInterceptor{
+        .addNetworkInterceptor {
             val request = it.request()
                 .newBuilder()
-                .addHeader("X-Naver-Client-Id", BuildConfig.CLIENT_ID)
-                .addHeader("X-Naver-Client-Secret", BuildConfig.CLIENT_KEY)
+                .addHeader("X-Naver-Client-Id", config.clientId)
+                .addHeader("X-Naver-Client-Secret", config.clientSecret)
                 .build()
             it.proceed(request)
         }.build()
@@ -25,5 +23,5 @@ object ApiClient {
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(BASE_URL)
         .build()
-    val NETWORK_SERVICE:NetworkService= retrofit.create(NetworkService::class.java)
+    val NETWORK_SERVICE: NetworkService = retrofit.create(NetworkService::class.java)
 }
