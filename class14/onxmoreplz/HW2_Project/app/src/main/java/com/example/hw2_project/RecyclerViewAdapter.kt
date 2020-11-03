@@ -29,7 +29,7 @@ class RecyclerViewAdapter(private val movieList : MovieList) : RecyclerView.Adap
         val movie_img = itemView.findViewById<ImageView>(R.id.imageview_movie)
         val movie_title = itemView.findViewById<TextView>(R.id.textview_movie_title)
         val movie_pub = itemView.findViewById<TextView>(R.id.textview_movie_pubdate)
-        val movie_director = itemView.findViewById<TextView>(R.id.textview_movie_description)
+        val movie_director = itemView.findViewById<TextView>(R.id.textview_movie_director)
 
         fun bindItem( movie : Movie ){
             Glide.with(view.context).load(movie.image).into(movie_img)
