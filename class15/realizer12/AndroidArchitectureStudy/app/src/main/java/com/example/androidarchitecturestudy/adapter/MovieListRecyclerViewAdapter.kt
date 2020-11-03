@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidarchitecturestudy.R
 import com.example.androidarchitecturestudy.data.GetMovieInfo
+import kotlinx.android.synthetic.main.item_main_recyclerview.view.*
 
 class MovieListRecyclerViewAdapter(private val context: Context) :
     RecyclerView.Adapter<MovieListRecyclerViewAdapter.MovieItemViewHolder>() {
@@ -44,9 +45,9 @@ class MovieListRecyclerViewAdapter(private val context: Context) :
 
     inner class MovieItemViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
 
-        val tvMovieTitle = itemview.findViewById<TextView>(R.id.tv_movie_title)
-        val imgMoviePoster = itemview.findViewById<ImageView>(R.id.img_movie_poster)
-        val rtbMovieGrade = itemview.findViewById<RatingBar>(R.id.rtb_movie_grade)
+        val tvMovieTitle = itemview.tv_movie_title
+        val imgMoviePoster = itemview.img_movie_poster
+        val rtbMovieGrade = itemview.rtb_movie_grade
 
 
         //각 뷰에  데이터 연결
