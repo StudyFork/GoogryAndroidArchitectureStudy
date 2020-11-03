@@ -18,9 +18,9 @@ class MainActivity : AppCompatActivity() {
     val clienId = "fQFY7M9rMOVD2KDT8Aaq"
     val clientSecret = "v8aD8p_Ri0"
 
-    lateinit var editTextMovieName : EditText
-    lateinit var buttonSearch : Button
-    lateinit var recyclerView : RecyclerView
+    private lateinit var editTextMovieName : EditText
+    private lateinit var buttonSearch : Button
+    private lateinit var recyclerView : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
