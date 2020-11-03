@@ -3,6 +3,7 @@ package com.deepco.studyfork
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.deepco.studyfork.model.Item
 
 class RecyclerAdapterMovie :
     RecyclerView.Adapter<MyViewHolder>() {
@@ -15,9 +16,8 @@ class RecyclerAdapterMovie :
         )
     }
 
-    override fun getItemCount(): Int {
-        return this.modelList.size
-    }
+    override fun getItemCount() = modelList.count()
+
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(this.modelList[position])
