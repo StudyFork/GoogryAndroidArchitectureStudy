@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:padding="@dimen/space_x_small">
 
     <ImageView
         android:id="@+id/iv_post"
@@ -20,7 +20,7 @@
         android:id="@+id/tv_pub_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/space_small"
         android:textColor="@color/movie_pub_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_post"
@@ -31,9 +31,9 @@
         android:id="@+id/tv_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:lineSpacingExtra="4dp"
+        android:layout_marginStart="@dimen/space_small"
+        android:layout_marginTop="@dimen/space_x_small"
+        android:lineSpacingExtra="@dimen/line_spacing_default"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_post"
@@ -44,8 +44,8 @@
         android:id="@+id/ll_user_rating"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginStart="@dimen/space_small"
+        android:layout_marginTop="@dimen/space_x_small"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,15 +53,15 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title">
 
         <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="@dimen/icon_size_small"
+            android:layout_height="@dimen/icon_size_small"
             android:src="@drawable/ic_star_orange_light" />
 
         <TextView
             android:id="@+id/tv_user_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="@dimen/space_x_small"
             tools:text="7.4" />
 
     </LinearLayout>
@@ -70,9 +70,9 @@
         android:id="@+id/tv_actor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:lineSpacingExtra="4dp"
+        android:layout_marginStart="@dimen/space_small"
+        android:layout_marginTop="@dimen/space_x_small"
+        android:lineSpacingExtra="@dimen/line_spacing_default"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_post"

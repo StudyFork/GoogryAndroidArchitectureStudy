@@ -2,4 +2,16 @@
 <resources>
     <dimen name="movie_image_width">100dp</dimen>
     <dimen name="movie_image_height">100dp</dimen>
+
+    <dimen name="icon_size_small">16dp</dimen>
+    <dimen name="icon_size_median">24dp</dimen>
+    <dimen name="icon_size_large">32dp</dimen>
+
+    <dimen name="space_x_small">4dp</dimen>
+    <dimen name="space_small">8dp</dimen>
+    <dimen name="space_median">12dp</dimen>
+    <dimen name="space_large">16dp</dimen>
+    <dimen name="space_x_large">20dp</dimen>
+
+    <dimen name="line_spacing_default">4dp</dimen>
 </resources>

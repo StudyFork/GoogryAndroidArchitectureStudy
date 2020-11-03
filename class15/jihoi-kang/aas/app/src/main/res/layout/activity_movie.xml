@@ -12,8 +12,8 @@
         android:layout_height="?attr/actionBarSize"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
+        android:paddingStart="@dimen/space_small"
+        android:paddingEnd="@dimen/space_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,14 +26,15 @@
             android:hint="@string/text_search"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:paddingStart="8dp"
+            android:paddingStart="@dimen/space_small"
+            android:paddingEnd="@dimen/space_small"
             android:singleLine="true" />
 
         <ImageView
             android:id="@+id/iv_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="@dimen/space_small"
             android:src="@drawable/ic_search_black" />
 
     </LinearLayout>
@@ -42,8 +43,8 @@
         android:id="@+id/rv_movie"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
+        android:paddingStart="@dimen/space_small"
+        android:paddingEnd="@dimen/space_small"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
