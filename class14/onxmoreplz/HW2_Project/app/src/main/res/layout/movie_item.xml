@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -16,7 +17,7 @@
             android:scaleType="fitXY"
             android:src="@color/design_default_color_error"/>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -27,21 +28,25 @@
                 android:id="@+id/textview_movie_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:text="영화 제목"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:layout_marginLeft="3dp"
-                android:text="영화 제목"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="3dp">
+                android:layout_marginLeft="3dp"
+                app:layout_constraintTop_toBottomOf="@+id/textview_movie_title">
 
                 <LinearLayout
+                    android:id="@+id/linearlayout_pubdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/textview_movie_pubdate"
@@ -55,7 +60,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/linearlayout_pubdate">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -74,10 +80,10 @@
                         android:text="영화 설명"/>
 
                 </LinearLayout>
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 </LinearLayout>
