@@ -27,9 +27,7 @@ class MainActivity : AppCompatActivity() {
         main_recyclerview.setHasFixedSize(false)
         main_recyclerview.adapter = recyclerAdapter
         main_btn_search.setOnClickListener {
-            if (main_edit_search.text.isEmpty()) {
-                return@setOnClickListener
-            } else {
+            if (main_edit_search.text.isNotEmpty()) {
                 searchMovie(main_edit_search.text.toString())
             }
         }
