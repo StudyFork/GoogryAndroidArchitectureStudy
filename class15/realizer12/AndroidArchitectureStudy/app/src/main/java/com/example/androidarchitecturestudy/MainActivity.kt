@@ -27,9 +27,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initSet()
         setRecyclerView()
         searchMovie()
 
+    }
+
+
+    //초기 설정들 세팅
+    private fun initSet(){
+        retrofitClient = RetrofitClient(ServerIp.naverMovieApiUrl)
     }
 
 
@@ -81,7 +88,6 @@ class MainActivity : AppCompatActivity() {
     //서버에  영화 데이터 받아옴
     // TODO: 2020/11/01 추후  코루틴 또는 Rx로 변경하기
     private fun getMovieData(searchQuery: String) {
-        retrofitClient = RetrofitClient(ServerIp.naverMovieApiUrl)
         retrofitClient.apiService.getMovieSearchResult(searchQuery)
             .enqueue(object : Callback<GetMovieInfo.MovieList> {
 
