@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
 
 
                 override fun onFailure(call: Call<GetMovieInfo.MovieList>, t: Throwable) {
-                    Log.v("check_log", t.message.toString())
+                    Log.e("check_log", t.message.toString())
 
                 }
 
