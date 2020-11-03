@@ -1,5 +1,6 @@
-package com.deepco.studyfork
+package com.deepco.studyfork.api
 
+import com.deepco.studyfork.model.MovieData
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,7 +13,7 @@ import retrofit2.http.Query
 interface RetrofitService {
 
     @GET("v1/search/movie.json")
-    fun getSearchNews(
+    fun getSearchMovie(
         @Query("query") query: String,
         @Query("display") display: Int? = null,
         @Query("start") start: Int? = null

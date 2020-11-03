@@ -1,4 +1,4 @@
-package com.deepco.studyfork
+package com.deepco.studyfork.model
 
 data class MovieData(
     val display: Int,
