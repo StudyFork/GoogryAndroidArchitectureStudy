@@ -53,10 +53,13 @@ class MovieListAdapter(val context: Context, var movieList: MutableList<MovieIte
     }
 
     /**
-     * HTML 태그 제거하는 메소드
+     * HTML 태그 제거하는 메소드 (Android N에서 deprecated된 히스토리를 반영하여 버전별 대응)
      */
     private fun stripHtml(html: String): String {
-        return Html.fromHtml(html).toString()
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.N) {
+            return Html.fromHtml(html).toString()
+        }
+        return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY).toString()
     }
 
     /**
