@@ -231,4 +231,7 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
+# Secret File
+**/*/res/values/secrets.xml
+
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,kotlin
