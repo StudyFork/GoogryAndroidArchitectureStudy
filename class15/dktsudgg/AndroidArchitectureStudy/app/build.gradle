@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def getSecretProperty(String key){
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('app/secrets.properties')))
+    return props[key]
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -20,6 +26,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "NAVER_CLIENT_ID", "\""+getSecretProperty("NAVER_CLIENT_ID")+"\""
+            variant.buildConfigField "String", "NAVER_CLIENT_SECRET", "\""+getSecretProperty("NAVER_CLIENT_SECRET")+"\""
         }
     }
 

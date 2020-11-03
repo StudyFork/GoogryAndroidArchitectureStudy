@@ -61,8 +61,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
      */
     fun searchMovie(context: Context, searchText: String) {
         WebRequestManager.getInstance(NaverMovieApi::class)?.searchMovies(
-            getString(R.string.naver_client_id),
-            getString(R.string.naver_client_secret),
+            BuildConfig.NAVER_CLIENT_ID,
+            BuildConfig.NAVER_CLIENT_SECRET,
             searchText,
             null,
             null
