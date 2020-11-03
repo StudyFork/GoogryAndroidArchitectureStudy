@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var retrofitClient: RetrofitClient
 
-    //리사이클러뷰 어뎁터
+    // 리사이클러뷰 어뎁터
     private lateinit var recyclerViewAdapter: MovieListRecyclerViewAdapter
 
 
@@ -34,13 +34,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    //초기 설정들 세팅
+    // 초기 설정들 세팅
     private fun initSet(){
         retrofitClient = RetrofitClient(ServerIp.naverMovieApiUrl)
     }
 
 
-    //리사이클러뷰 세팅
+    // 리사이클러뷰 세팅
     private fun setRecyclerView() {
 
         recyclerViewAdapter = MovieListRecyclerViewAdapter(this)
@@ -51,27 +51,27 @@ class MainActivity : AppCompatActivity() {
             adapter = recyclerViewAdapter
         }
 
-    }//setRecyclerView
+    }// setRecyclerView
 
-    //리사이클러뷰 데이터 업데이트
+    // 리사이클러뷰 데이터 업데이트
     private fun updateRecyclerView(movieList: ArrayList<GetMovieInfo.MovieData>) {
         recyclerViewAdapter.getMovieData(movieList)
     }
 
 
-    //영화 검색 실행
+    // 영화 검색 실행
     private fun searchMovie() {
 
 
-        //검색 버튼 눌릴때
+        // 검색 버튼 눌릴때
         btn_main_search_movie.setOnClickListener {
 
-            //영화 검색 실행
+            // 영화 검색 실행
             getMovieData(edit_main_search_movie.text.toString())
         }
 
 
-        //edittext search action 눌릴때
+        // edittext search action 눌릴때
         edit_main_search_movie.setOnEditorActionListener { _, actionId, _ ->
 
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -82,10 +82,10 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-    }//searchMovie
+    }// searchMovie
 
 
-    //서버에  영화 데이터 받아옴
+    // 서버에  영화 데이터 받아옴
     // TODO: 2020/11/01 추후  코루틴 또는 Rx로 변경하기
     private fun getMovieData(searchQuery: String) {
         retrofitClient.apiService.getMovieSearchResult(searchQuery)
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                     response: Response<GetMovieInfo.MovieList>
                 ) {
 
-                    //응답 성공
+                    // 응답 성공
                     if (response.isSuccessful) {
                         val movieList = response.body()?.movieList
 
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                             updateRecyclerView(movieList = movieList)
                         }
 
-                    } else {//응답 실패
+                    } else {// 응답 실패
                         Log.v("check_log", response.code().toString())
                         Log.v("check_log", response.errorBody()?.string().toString())
                     }
@@ -118,6 +118,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
             })
-    }//getMovieData 끝
+    }// getMovieData 끝
 
 }

@@ -50,23 +50,23 @@ class MovieListRecyclerViewAdapter(private val context: Context) :
         val rtbMovieGrade = itemview.rtb_movie_grade
 
 
-        //각 뷰에  데이터 연결
+        // 각 뷰에  데이터 연결
         fun bind(movieData: GetMovieInfo.MovieData?) {
 
-            //영화 제목
+            // 영화 제목
             if (movieData?.title != null) {
                 tvMovieTitle.text = removeHtmlTag(htmlText = movieData.title)
             } else {
                 tvMovieTitle.text = movieData?.title
             }
 
-            //영화 포스터
+            // 영화 포스터
             Glide.with(itemView.context).load(movieData?.image)
                 .error(R.drawable.ic_launcher_background)
                 .into(imgMoviePoster)
 
 
-            //rating은 null일경우 0f 적용
+            // rating은 null일경우 0f 적용
             if (movieData != null) {
 
                 //10점으로 옮으로 2로나눠줌
@@ -77,10 +77,10 @@ class MovieListRecyclerViewAdapter(private val context: Context) :
 
         }
 
-    }//MovieItemViewHolder 끝
+    }// MovieItemViewHolder 끝
 
 
-    //제목에  html 태그 섞여와서 없앰.
+    // 제목에  html 태그 섞여와서 없앰.
     private fun removeHtmlTag(htmlText: String?): String {
 
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -90,6 +90,6 @@ class MovieListRecyclerViewAdapter(private val context: Context) :
             Html.fromHtml(htmlText).toString()
         }
 
-    }//removeHtmlTag 끝
+    }// removeHtmlTag 끝
 
 }
