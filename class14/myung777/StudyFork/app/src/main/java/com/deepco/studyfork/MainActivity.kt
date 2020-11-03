@@ -3,7 +3,9 @@ package com.deepco.studyfork
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.deepco.studyfork.api.RetrofitService
+import com.deepco.studyfork.model.Item
+import com.deepco.studyfork.model.MovieData
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchMovie(name: String) {
-        api.getSearchNews(name).enqueue(object : Callback<MovieData> {
+        api.getSearchMovie(name).enqueue(object : Callback<MovieData> {
             override fun onResponse(
                 call: Call<MovieData>,
                 response: Response<MovieData>
@@ -49,10 +51,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecyclerView() {
         recyclerAdapterMovie = RecyclerAdapterMovie()
-        recycler_view.apply {
-            layoutManager =
-                LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
-            adapter = recyclerAdapterMovie
-        }
+        recycler_view.adapter = recyclerAdapterMovie
     }
 }
