@@ -9,7 +9,7 @@ import com.showmiso.architecturestudy.api.MovieModel
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    var movies: List<MovieModel.Movie> = ArrayList()
+    private var movies: List<MovieModel.Movie> = ArrayList()
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: MovieModel.Movie) {
@@ -45,6 +45,11 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
                 it.substring(0, director.length - 1).replace("|", ", ")
             }
         }
+    }
+
+    fun setMovieList(movies: List<MovieModel.Movie>) {
+        this.movies = movies
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

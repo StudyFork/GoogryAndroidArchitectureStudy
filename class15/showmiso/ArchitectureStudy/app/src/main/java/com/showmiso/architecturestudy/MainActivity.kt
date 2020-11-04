@@ -73,8 +73,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this, getString(R.string.msg_no_result), Toast.LENGTH_SHORT).show()
                         return@subscribe
                     }
-                    adapter.movies = movieList
-                    adapter.notifyDataSetChanged()
+                    adapter.setMovieList(movieList)
                 }
             }, {
                 Log.e(tag, "Fail", it)
