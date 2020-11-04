@@ -3,7 +3,7 @@ package com.showmiso.architecturestudy.api
 
 import com.google.gson.annotations.SerializedName
 
-class Model {
+class MovieModel {
     data class MovieResponse(
         @SerializedName("display")
         val display: Int?,
