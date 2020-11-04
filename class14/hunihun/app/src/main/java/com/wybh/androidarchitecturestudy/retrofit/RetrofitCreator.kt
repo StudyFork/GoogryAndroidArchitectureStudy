@@ -25,6 +25,7 @@ class RetrofitCreator {
 
         private fun createOkHttpClient(): OkHttpClient {
             return OkHttpClient.Builder()
+                .addInterceptor(RetrofitInterceptor())
                 .build()
         }
     }
