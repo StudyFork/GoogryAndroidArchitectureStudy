@@ -6,7 +6,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.showmiso.architecturestudy.api.APIInterface
+import com.showmiso.architecturestudy.api.ApiInterface
 import com.showmiso.architecturestudy.api.RetrofitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val api: APIInterface by lazy {
+    private val api: ApiInterface by lazy {
         RetrofitClient.createService(
             Constants.MOVIE_URL,
             Constants.CLIENT_ID,
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initUI()
+        initUi()
     }
 
     override fun onDestroy() {
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun initUI() {
+    private fun initUi() {
         rcv_result.layoutManager = LinearLayoutManager(this)
         rcv_result.adapter = adapter
 
