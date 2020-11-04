@@ -3,7 +3,6 @@ package com.architecture.androidarchitecturestudy.adapter
 import android.content.Intent
 import android.net.Uri
 import android.text.Html
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -24,9 +23,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickL
     private val pubDate: TextView = view.findViewById(R.id.tv_movie_item_pub_date)
     private val actor: TextView = view.findViewById(R.id.tv_rv_movie_item_actor)
 
-    override fun onClick(p0: View?) {
-        val adapterPosition = adapterPosition
-        Log.e("position", adapterPosition.toString())
+    override fun onClick(view: View?) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(tempData.link))
         this.itemView.context.startActivity(intent)
     }
