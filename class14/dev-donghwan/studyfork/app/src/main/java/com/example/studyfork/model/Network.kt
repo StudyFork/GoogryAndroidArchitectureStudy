@@ -8,6 +8,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Network {
+    private const val clientId = "7et7ziEIFBngKSf4WOri"
+    private const val clientSecret = "1w6dwTIT7D"
+
     val naverApi: NaverApi by lazy { retrofit.create(NaverApi::class.java) }
 
     private val retrofit by lazy {
@@ -23,8 +26,8 @@ object Network {
         OkHttpClient.Builder().addInterceptor { chain ->
             chain.request()
                 .newBuilder()
-                .addHeader("X-Naver-Client-Id", "7et7ziEIFBngKSf4WOri")
-                .addHeader("X-Naver-Client-Secret", "1w6dwTIT7D")
+                .addHeader("X-Naver-Client-Id", clientId)
+                .addHeader("X-Naver-Client-Secret", clientSecret)
                 .build()
                 .let { request ->
                     chain.proceed(request)
