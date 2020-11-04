@@ -2,7 +2,9 @@ package com.architecture.androidarchitecturestudy.adapter
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.text.Html
+import android.text.Spanned
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -30,7 +32,7 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickL
 
     fun onBind(movieData: Movie) {
         tempData = movieData
-        title.text = Html.fromHtml(movieData.title)
+        title.text = htmlVersionCheck(movieData)
         pubDate.text = movieData.pubDate
         actor.text = movieData.actor
         director.text = movieData.director
@@ -38,6 +40,14 @@ class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickL
         Glide.with(itemView.context).load(movieData.image).into(image)
         itemView.setOnClickListener {
             onClick(itemView)
+        }
+    }
+
+    private fun htmlVersionCheck(movieData: Movie): Spanned? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(movieData.title, Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            Html.fromHtml(movieData.title)
         }
     }
 }
