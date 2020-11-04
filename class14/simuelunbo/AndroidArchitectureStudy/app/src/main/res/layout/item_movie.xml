@@ -12,7 +12,7 @@
         android:layout_marginStart="@dimen/item_inner_margin"
         android:layout_marginTop="@dimen/item_inner_margin"
         android:layout_marginBottom="@dimen/item_inner_margin"
-        android:background="#FAF0F0"
+        style="@style/MovieDefaultImage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
