@@ -6,11 +6,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.architecture.androidarchitecturestudy.R
 import com.architecture.androidarchitecturestudy.adapter.MovieAdapter
+import com.architecture.androidarchitecturestudy.model.Movie
 import com.architecture.androidarchitecturestudy.model.MovieRepository
 import com.architecture.androidarchitecturestudy.model.MovieResponse
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,10 +18,13 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private val movieRepository: MovieRepository = MovieRepository()
+    private lateinit var movieAdapter: MovieAdapter
+    var movieList = ArrayList<Movie>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         initRecyclerView()
 
         btn_main_search.setOnClickListener {
@@ -38,13 +39,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        rv_main_movie_list.setHasFixedSize(true)
-        rv_main_movie_list.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                LinearLayoutManager.VERTICAL
-            )
-        )
+        movieAdapter = MovieAdapter()
+        rv_main_movie_list.adapter = movieAdapter
     }
 
     private fun searchMovie(keyword: String) {
@@ -60,9 +56,11 @@ class MainActivity : AppCompatActivity() {
                 response: Response<MovieResponse>
             ) {
                 if (response.isSuccessful) {
-                    val movieResponse = response.body();
-                    rv_main_movie_list.adapter = MovieAdapter(movieResponse!!.items)
-                    Log.e("성공", response.body()!!.items.toString())
+
+                    val movieResponse: MovieResponse? = response.body()
+                    movieList = movieResponse?.items as ArrayList<Movie>
+                    movieAdapter.setItemList(movieList)
+                    Log.e("성공", movieList.toString())
                 }
             }
         })
@@ -70,7 +68,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun removeKeyboard() =
         (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-            et_main_search.windowToken,
-            0
+            et_main_search.windowToken, 0
         )
 }
