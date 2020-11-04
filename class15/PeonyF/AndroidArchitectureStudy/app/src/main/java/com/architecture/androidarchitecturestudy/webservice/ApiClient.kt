@@ -12,8 +12,8 @@ object ApiClient {
         .addNetworkInterceptor {
             val request = it.request()
                 .newBuilder()
-                .addHeader("X-Naver-Client-Id", config.clientId)
-                .addHeader("X-Naver-Client-Secret", config.clientSecret)
+                .addHeader("X-Naver-Client-Id", config.CLIENT_ID)
+                .addHeader("X-Naver-Client-Secret", config.CLIENT_SECRET)
                 .build()
             it.proceed(request)
         }.build()
