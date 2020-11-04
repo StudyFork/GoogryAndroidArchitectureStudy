@@ -7,6 +7,6 @@ import retrofit2.http.Query
 
 interface RetrofitImpl {
     
-    @GET("movie.json")
+    @GET("v1/search/movie.json")
     fun getCinemaData(@Query("query") query: String?): Observable<ResponseCinemaData>
 }

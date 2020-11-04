@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitCreator {
 
     companion object {
-        private const val API_BASE_URL = "https://openapi.naver.com/v1/search/"
+        private const val API_BASE_URL = "https://openapi.naver.com/"
 
         private fun defaultRetrofit(): Retrofit {
             return Retrofit.Builder()
