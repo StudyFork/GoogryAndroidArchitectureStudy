@@ -38,8 +38,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        rv_main_movie_list.layoutManager =
-            LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv_main_movie_list.setHasFixedSize(true)
         rv_main_movie_list.addItemDecoration(
             DividerItemDecoration(
