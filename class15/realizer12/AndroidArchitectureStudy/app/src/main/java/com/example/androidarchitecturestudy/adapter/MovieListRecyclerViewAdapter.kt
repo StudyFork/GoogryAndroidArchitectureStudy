@@ -1,14 +1,9 @@
 package com.example.androidarchitecturestudy.adapter
 
 import android.content.Context
-import android.os.Build
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RatingBar
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidarchitecturestudy.R
@@ -82,14 +77,7 @@ class MovieListRecyclerViewAdapter(private val context: Context) :
 
     // 제목에  html 태그 섞여와서 없앰.
     private fun removeHtmlTag(htmlText: String?): String {
-
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(htmlText, Html.FROM_HTML_MODE_LEGACY).toString()
-
-        } else {
-            Html.fromHtml(htmlText).toString()
-        }
-
+        return htmlText?.replace("<b>", "")?.replace("</b>", "") ?: ""
     }// removeHtmlTag 끝
 
 }
