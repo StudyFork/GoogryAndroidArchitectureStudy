@@ -8,5 +8,5 @@ interface APIInterface {
     @GET("movie.json")
     fun getMovies(
         @Query("query") query: String
-    ): Single<Model.MovieResponse>
+    ): Single<MovieModel.MovieResponse>
 }
