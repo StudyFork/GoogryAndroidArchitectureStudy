@@ -15,7 +15,13 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var api: APIInterface
+    private val api: APIInterface by lazy {
+        RetrofitClient.createService(
+            Constants.MOVIE_URL,
+            Constants.CLIENT_ID,
+            Constants.CLIENT_SECRET
+        )
+    }
     private val disposable = CompositeDisposable()
     private val adapter = MovieAdapter()
 
@@ -23,21 +29,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initService()
         initUI()
     }
 
     override fun onDestroy() {
         disposable.clear()
         super.onDestroy()
-    }
-
-    private fun initService() {
-        api = RetrofitClient.createService(
-            getString(R.string.searchMoveUrl),
-            getString(R.string.clientId),
-            getString(R.string.clientSecret)
-        )
     }
 
     private fun initUI() {
@@ -70,7 +67,8 @@ class MainActivity : AppCompatActivity() {
                 Log.d(tag, "Success")
                 it.items?.also { movieList ->
                     if (movieList.isEmpty()) {
-                        Toast.makeText(this, getString(R.string.msg_no_result), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.msg_no_result), Toast.LENGTH_SHORT)
+                            .show()
                         return@subscribe
                     }
                     adapter.setMovieList(movieList)

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="searchMoveUrl">https://openapi.naver.com/v1/search/</string>
-    <string name="clientId">Yb6PFDIFez87YnIzfeYE</string>
-    <string name="clientSecret">Whv2MSg0Ks</string>
-</resources>
