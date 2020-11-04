@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         call.enqueue(object : Callback<MovieResponse> {
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                 Log.e("에러발생", t.toString())
+                t.printStackTrace()
             }
 
             override fun onResponse(
