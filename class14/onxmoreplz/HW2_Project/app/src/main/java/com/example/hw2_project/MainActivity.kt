@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            //리사이클러뷰 항목 사이즈 고정
+            //리사이클러뷰 동일한 크기의 아이템 사용
             recyclerView.setHasFixedSize(true)
 
             //API
