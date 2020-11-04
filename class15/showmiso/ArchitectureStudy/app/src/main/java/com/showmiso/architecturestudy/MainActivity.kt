@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateMovieList(query: String) {
         if (query.isEmpty()) {
-            Toast.makeText(this, "텍스트를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.msg_request_text), Toast.LENGTH_SHORT).show()
             return
         }
         api.getMovies(query)
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d(tag, "Success")
                 it.items?.also { movieList ->
                     if (movieList.isEmpty()) {
-                        Toast.makeText(this, "검색결과가 없습니다", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.msg_no_result), Toast.LENGTH_SHORT).show()
                         return@subscribe
                     }
                     adapter.movies = movieList
