@@ -31,12 +31,13 @@ class CinemaAdapter(private var itemList: ArrayList<CinemaItem>, private var act
     }
 
     inner class CinemaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val ivThumnail = itemView.findViewById<ImageView>(R.id.iv_thumnail)
+        private val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
+        private val tvPubData = itemView.findViewById<TextView>(R.id.tv_pubData)
+        private val tvRating = itemView.findViewById<TextView>(R.id.tv_userRating)
+        private val llItem = itemView.findViewById<LinearLayout>(R.id.ll_item)
+
         fun bind(item: CinemaItem) {
-            val ivThumnail = itemView.findViewById<ImageView>(R.id.iv_thumnail)
-            val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
-            val tvPubData = itemView.findViewById<TextView>(R.id.tv_pubData)
-            val tvRating = itemView.findViewById<TextView>(R.id.tv_userRating)
-            val llItem = itemView.findViewById<LinearLayout>(R.id.ll_item)
 
             Glide.with(activity)
                 .load(item.thumnail)
