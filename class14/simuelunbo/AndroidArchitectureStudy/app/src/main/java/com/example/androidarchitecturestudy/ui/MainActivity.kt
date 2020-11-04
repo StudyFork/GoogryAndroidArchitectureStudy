@@ -1,11 +1,11 @@
 package com.example.androidarchitecturestudy.ui
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.androidarchitecturestudy.R
 import com.example.androidarchitecturestudy.api.MovieResponse
@@ -41,31 +41,31 @@ class MainActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(et_search.windowToken, 0)
     }
 
-    private fun recyclerViewInit(){
+    private fun recyclerViewInit() {
         movieAdapter = MovieAdapter()
         rcv_result.adapter = movieAdapter
     }
 
-    private fun requestMovieInfo(query: String){
-       NaverMovieInterface.create().searchMovies(query).enqueue(object :
-           retrofit2.Callback<MovieResponse> {
-           override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-               if(response.isSuccessful) {
-                   response.body()?.let {
-                       movieAdapter.setMovieList(it.items as ArrayList<Movie>)
-                       progressBar.isVisible = false
-                       et_search.text?.clear()
-                   }
-               }
-               else{
-                   Log.e("MainActivity", response.message())
-               }
-           }
+    private fun requestMovieInfo(query: String) {
+        NaverMovieInterface.create().searchMovies(query).enqueue(object :
+            retrofit2.Callback<MovieResponse> {
+            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                progressBar.isVisible = false
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        movieAdapter.setMovieList(it.items as ArrayList<Movie>)
+                        et_search.text?.clear()
+                    }
+                } else {
+                    Log.e("MainActivity", response.message())
+                }
+            }
 
-           override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-               Toast.makeText(applicationContext, "다시 검색해 주세요", Toast.LENGTH_SHORT).show()
-           }
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                progressBar.isVisible = false
+                Toast.makeText(applicationContext, "다시 검색해 주세요", Toast.LENGTH_SHORT).show()
+            }
 
-       })
+        })
     }
 }
