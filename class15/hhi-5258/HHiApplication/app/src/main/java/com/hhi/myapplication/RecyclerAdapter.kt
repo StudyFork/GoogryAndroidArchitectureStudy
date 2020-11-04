@@ -28,7 +28,9 @@ class RecyclerAdapter() :
 
     class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
         fun bind(data: MovieData.MovieItem) {
-            Glide.with(itemView.context).load(data.image)
+            Glide
+                .with(itemView.context).load(data.image)
+                .error(R.drawable.ic_launcher_foreground)
                 .into(itemView.item_img_image)
             if (data.director.isNotEmpty()) {
                 itemView.item_text_director.text = "감독 : " + data.director
