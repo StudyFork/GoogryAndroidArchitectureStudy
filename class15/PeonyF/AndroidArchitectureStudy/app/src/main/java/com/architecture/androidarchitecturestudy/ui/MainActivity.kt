@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         movieAdapter = MovieAdapter()
-        rv_main_movie_list.adapter = movieAdapter
+        rv_main_movie.adapter = movieAdapter
     }
 
     private fun searchMovie(keyword: String) {
