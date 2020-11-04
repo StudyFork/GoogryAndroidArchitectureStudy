@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.showmiso.architecturestudy.api.ApiInterface
 import com.showmiso.architecturestudy.api.RetrofitClient
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -38,9 +37,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUi() {
-        rcv_result.layoutManager = LinearLayoutManager(this)
         rcv_result.adapter = adapter
-
         btn_search.setOnClickListener {
             val text = et_search.text.toString()
             updateMovieList(text)
