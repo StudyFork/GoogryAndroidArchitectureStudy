@@ -146,3 +146,4 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/androidstudio
 
 api_key.xml
+workspace.xml
