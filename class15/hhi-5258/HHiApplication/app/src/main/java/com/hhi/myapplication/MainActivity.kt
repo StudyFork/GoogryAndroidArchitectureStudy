@@ -1,8 +1,8 @@
 package com.hhi.myapplication
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hhi.myapplication.api.MovieData
 import com.hhi.myapplication.api.NaverAPI

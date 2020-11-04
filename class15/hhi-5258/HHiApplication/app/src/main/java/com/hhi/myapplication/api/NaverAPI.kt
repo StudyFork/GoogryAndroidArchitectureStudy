@@ -1,5 +1,6 @@
 package com.hhi.myapplication.api
 
+import com.hhi.myapplication.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,8 +18,6 @@ interface NaverAPI {
 
     companion object {
         private const val BASE_URL = "https://openapi.naver.com/"
-        private const val CLIENT_ID = "oTOKzDP69il4Ex94toJ2"
-        private const val CLIENT_SECRET = "ga21zXQ5sU"
 
         fun create(): NaverAPI {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -27,8 +26,8 @@ interface NaverAPI {
             val headerInterceptor = Interceptor {
                 val request = it.request()
                     .newBuilder()
-                    .addHeader("X-Naver-Client-Id", CLIENT_ID)
-                    .addHeader("X-Naver-Client-Secret", CLIENT_SECRET)
+                    .addHeader("X-Naver-Client-Id", BuildConfig.NAVER_CLIENT_ID)
+                    .addHeader("X-Naver-Client-Secret", BuildConfig.NAVER_CLIENT_SECRET)
                     .build()
                 return@Interceptor it.proceed(request)
             }

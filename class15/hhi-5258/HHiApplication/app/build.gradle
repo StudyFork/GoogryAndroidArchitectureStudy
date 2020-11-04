@@ -2,6 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def keys = new Properties()
+file("../key.properties").withInputStream {
+    stream -> keys.load(stream)
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -14,6 +19,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "NAVER_CLIENT_ID", keys.NAVER_CLIENT_ID)
+        buildConfigField("String", "NAVER_CLIENT_SECRET", keys.NAVER_CLIENT_SECRET)
     }
 
     compileOptions {
@@ -29,6 +37,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "NAVER_CLIENT_ID", keys.NAVER_CLIENT_ID
+            variant.buildConfigField "String", "NAVER_CLIENT_SECRET", keys.NAVER_CLIENT_SECRET
         }
     }
 }
