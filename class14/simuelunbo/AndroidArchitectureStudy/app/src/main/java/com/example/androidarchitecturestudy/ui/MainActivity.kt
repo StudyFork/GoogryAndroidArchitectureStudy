@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
             if (searchText.isEmpty()) {
                 Toast.makeText(this, "검색을 원하시는 영화 제목을 입력해 주세요", Toast.LENGTH_SHORT).show()
             } else {
-                progressBar.isVisible = true
                 hideKeyboard(this)
                 requestMovieInfo(searchText)
             }
@@ -47,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestMovieInfo(query: String) {
+        progressBar.isVisible = true
         NaverMovieInterface.create().searchMovies(query).enqueue(object :
             retrofit2.Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
