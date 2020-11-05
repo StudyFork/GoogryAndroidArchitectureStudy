@@ -23,7 +23,7 @@
 
             <EditText
                 android:id="@+id/et_main_search"
-                android:layout_width="@dimen/width_0dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:ems="10"
@@ -31,7 +31,7 @@
 
             <Button
                 android:id="@+id/btn_main_search"
-                android:layout_width="@dimen/width_0dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/search" />
