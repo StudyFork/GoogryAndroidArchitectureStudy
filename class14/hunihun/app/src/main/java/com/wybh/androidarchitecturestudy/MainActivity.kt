@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun initAdapter() {
-        mAdapter = CinemaAdapter(itemList, this)
+        mAdapter = CinemaAdapter(itemList)
         rvCinema.run {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
