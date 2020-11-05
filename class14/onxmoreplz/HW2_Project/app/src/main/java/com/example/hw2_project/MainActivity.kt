@@ -30,6 +30,9 @@ class MainActivity : AppCompatActivity() {
         editTextMovieName = findViewById<EditText>(R.id.edittext_movie_name)
         recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
 
+        //리사이클러뷰 동일한 크기의 아이템 사용
+        recyclerView.setHasFixedSize(true)
+
         //[검색] 버튼 클릭 리스너
         buttonSearch.setOnClickListener {
 
@@ -38,9 +41,6 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "영화 제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-            //리사이클러뷰 동일한 크기의 아이템 사용
-            recyclerView.setHasFixedSize(true)
 
             //API
             requestByOkhttp(editTextMovieName.text.toString())
