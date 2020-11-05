@@ -56,9 +56,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
 
                     val movieResponse: MovieResponse? = response.body()
-                    movieList = movieResponse?.items as ArrayList<Movie>
-                    movieAdapter.setItemList(movieList)
-                    Log.e("성공", movieList.toString())
+                    movieResponse?.items?.let { movieAdapter.setItemList(it) }
                 }
             }
         })
