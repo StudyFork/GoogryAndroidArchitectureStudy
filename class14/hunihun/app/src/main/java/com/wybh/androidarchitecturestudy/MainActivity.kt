@@ -37,11 +37,6 @@ class MainActivity : AppCompatActivity() {
         initViewClickListener()
     }
 
-    override fun onDestroy() {
-        compositeDisposable.dispose()
-        super.onDestroy()
-    }
-
     private fun initView() {
         etSearchWord = findViewById(R.id.et_searchWord)
         btnSearch = findViewById(R.id.btn_search)
@@ -85,5 +80,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.dispose()
+    }
 }
