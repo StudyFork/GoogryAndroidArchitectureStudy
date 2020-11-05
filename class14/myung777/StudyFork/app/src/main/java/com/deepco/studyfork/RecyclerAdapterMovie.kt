@@ -23,7 +23,7 @@ class RecyclerAdapterMovie :
         holder.bind(this.modelList[position])
     }
 
-    fun setItemList(modelList: ArrayList<Item>) {
+    fun setItemList(modelList: List<Item>) {
         this.modelList.clear()
         this.modelList = modelList
         notifyDataSetChanged()
