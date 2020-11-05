@@ -18,10 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        RxJavaPlugins.setErrorHandler {
-            it.printStackTrace()
-        }
-
         rec_movie.adapter = recyclerAdapter
 
         btn_search.setOnClickListener {
