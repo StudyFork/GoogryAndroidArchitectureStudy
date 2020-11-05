@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.showmiso.architecturestudy.api.MovieModel
 import kotlinx.android.synthetic.main.item_movie.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private var movies: List<MovieModel.Movie> = ArrayList()
+    private var movies: MutableList<MovieModel.Movie> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
@@ -22,7 +24,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     fun setMovieList(movies: List<MovieModel.Movie>) {
-        this.movies = movies
+        Collections.copy(this.movies, movies)
         notifyDataSetChanged()
     }
 
