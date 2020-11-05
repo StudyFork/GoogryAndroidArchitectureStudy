@@ -12,7 +12,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    var movieList = ArrayList<Item>()
     private lateinit var api: RetrofitService
     private lateinit var recyclerAdapterMovie: RecyclerAdapterMovie
 
@@ -39,8 +38,7 @@ class MainActivity : AppCompatActivity() {
                 response: Response<MovieData>
             ) {
                 val movieData: MovieData? = response.body()
-                movieList = movieData?.items as ArrayList<Item>
-                recyclerAdapterMovie.setItemList(movieList)
+                recyclerAdapterMovie.setItemList(movieData?.items as ArrayList<Item>)
             }
 
             override fun onFailure(call: Call<MovieData>, t: Throwable) {
