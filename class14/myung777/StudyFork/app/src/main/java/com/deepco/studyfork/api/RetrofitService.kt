@@ -1,5 +1,6 @@
 package com.deepco.studyfork.api
 
+import com.deepco.studyfork.BuildConfig
 import com.deepco.studyfork.model.MovieData
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -26,7 +27,11 @@ interface RetrofitService {
 
         fun create(): RetrofitService {
             val httpLoggingInterceptor = HttpLoggingInterceptor()
-            httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            if (BuildConfig.DEBUG) {
+                httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            } else {
+                httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.NONE
+            }
 
             val headerInterceptor = Interceptor {
                 val request = it.request()
