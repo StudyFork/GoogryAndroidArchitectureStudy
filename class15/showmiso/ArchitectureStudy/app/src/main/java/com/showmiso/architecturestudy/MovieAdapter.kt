@@ -11,7 +11,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private var movies: MutableList<MovieModel.Movie> = ArrayList()
+    private var movies: List<MovieModel.Movie> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
@@ -24,7 +24,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     fun setMovieList(movies: List<MovieModel.Movie>) {
-        Collections.copy(this.movies, movies)
+        this.movies = movies.toList()
         notifyDataSetChanged()
     }
 
