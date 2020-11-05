@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             recyclerView.setHasFixedSize(true)
 
             //API
-            fetchJson(editTextMovieName.text.toString())
+            requestByOkhttp(editTextMovieName.text.toString())
 
             //키보드 내리기
             val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -51,9 +51,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun fetchJson(vararg p0 : String){
+    private fun requestByOkhttp(vararg movieName : String){
         //OkHttp로 요청
-        val text = URLEncoder.encode("${p0[0]}", "UTF-8")
+        val text = URLEncoder.encode("${movieName[0]}", "UTF-8")
         println(text)
 
         val url = URL("https://openapi.naver.com/v1/search/movie.json?query=${text}&display=10&start=1&genre=")
@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
             .method("GET", null)
             .build()
 
+        //요청을 위한 Client 객체 생성
         val client = OkHttpClient()
         client.newCall(request).enqueue(object : Callback{
 
