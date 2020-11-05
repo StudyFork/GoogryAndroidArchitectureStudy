@@ -25,7 +25,7 @@ class MovieAdapter() :
 
     fun setItemList(modelList: ArrayList<Movie>) {
         this.modelList.clear()
-        this.modelList = modelList
+        this.modelList.addAll(items)
         notifyDataSetChanged()
     }
 }
