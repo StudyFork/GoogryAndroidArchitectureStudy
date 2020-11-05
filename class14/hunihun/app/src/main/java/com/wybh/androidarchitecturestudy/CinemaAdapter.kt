@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -26,8 +25,8 @@ class CinemaAdapter(private var itemList: ArrayList<CinemaItem>): RecyclerView.A
     }
     
     fun setList(list: List<CinemaItem>) {
-        itemList.clear()
         itemList.addAll(list)
+        notifyDataSetChanged()
     }
 
     inner class CinemaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,7 +34,13 @@ class CinemaAdapter(private var itemList: ArrayList<CinemaItem>): RecyclerView.A
         private val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
         private val tvPubData = itemView.findViewById<TextView>(R.id.tv_pubData)
         private val tvRating = itemView.findViewById<TextView>(R.id.tv_userRating)
-        private val llItem = itemView.findViewById<LinearLayout>(R.id.ll_item)
+
+        init {
+            itemView.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(itemList[adapterPosition].link))
+                itemView.context.startActivity(intent)
+            }
+        }
 
         fun bind(item: CinemaItem) {
 
@@ -46,11 +51,6 @@ class CinemaAdapter(private var itemList: ArrayList<CinemaItem>): RecyclerView.A
             tvTitle.text = "제목 : " + item.title
             tvPubData.text = "출시 : " + item.pubDate
             tvRating.text = "평점 : " + item.userRating
-
-            llItem.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
-                itemView.context.startActivity(intent)
-            }
         }
     }
 }

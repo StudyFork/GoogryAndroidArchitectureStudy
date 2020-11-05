@@ -78,7 +78,6 @@ class MainActivity : AppCompatActivity() {
 
                         // adapter에 리스트 전달 및 교체
                         mAdapter.setList(itemList)
-                        mAdapter.notifyDataSetChanged()
 
                         // 키보드 내리기
                         imm.hideSoftInputFromWindow(etSearchWord.windowToken, 0)
