@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView : RecyclerView
 
     //어댑터 선언
-    private val mAdapter = RecyclerViewAdapter()
+    private val adapter = RecyclerViewAdapter()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,8 +87,8 @@ class MainActivity : AppCompatActivity() {
 
                 //어댑터 연결
                 runOnUiThread{
-                    mAdapter.movieListChange(moviefeed.items)
-                    recyclerView.adapter = mAdapter
+                    adapter.movieListChange(moviefeed.items)
+                    recyclerView.adapter = adapter
 
                     editTextMovieName.setText("")
                 }
