@@ -1,6 +1,5 @@
 package com.wybh.androidarchitecturestudy
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -12,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class CinemaAdapter(private var itemList: ArrayList<CinemaItem>, private var activity: Activity): RecyclerView.Adapter<CinemaAdapter.CinemaViewHolder>() {
+class CinemaAdapter(private var itemList: ArrayList<CinemaItem>): RecyclerView.Adapter<CinemaAdapter.CinemaViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CinemaViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cinema_item, parent, false)
         return CinemaViewHolder(view)
@@ -39,7 +38,7 @@ class CinemaAdapter(private var itemList: ArrayList<CinemaItem>, private var act
 
         fun bind(item: CinemaItem) {
 
-            Glide.with(activity)
+            Glide.with(itemView.context)
                 .load(item.thumnail)
                 .into(ivThumnail)
 
@@ -49,7 +48,7 @@ class CinemaAdapter(private var itemList: ArrayList<CinemaItem>, private var act
 
             llItem.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.link))
-                activity.startActivity(intent)
+                itemView.context.startActivity(intent)
             }
         }
     }
