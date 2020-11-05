@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_movie"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="@dimen/item_inner_margin"
+        android:layout_marginTop="@dimen/item_inner_margin"
+        android:layout_marginBottom="@dimen/item_inner_margin"
+        style="@style/MovieDefaultImage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_movie_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_inner_margin"
+        android:layout_marginTop="@dimen/item_inner_margin"
+        android:ellipsize="end"
+        android:maxWidth="200dp"
+        android:maxLines="1"
+        app:layout_constraintStart_toEndOf="@+id/iv_movie"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Tenet" />
+
+    <TextView
+        android:id="@+id/tv_pub_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_text_horizontal_margin"
+        android:layout_marginTop="@dimen/item_inner_margin"
+        app:layout_constraintStart_toEndOf="@+id/tv_movie_title"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="2020" />
+
+    <TextView
+        android:id="@+id/tv_director_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_inner_margin"
+        android:layout_marginTop="@dimen/item_text_vertical_margin"
+        android:text="@string/director"
+        app:layout_constraintStart_toEndOf="@+id/iv_movie"
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+
+    <TextView
+        android:id="@+id/tv_director_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_text_horizontal_margin"
+        android:layout_marginTop="@dimen/item_text_vertical_margin"
+        app:layout_constraintStart_toEndOf="@+id/tv_director_label"
+        app:layout_constraintTop_toBottomOf="@+id/tv_pub_date"
+        tools:text="크리스토퍼 놀란"/>
+
+    <TextView
+        android:id="@+id/tv_movie_rate_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_inner_margin"
+        android:layout_marginTop="@dimen/item_text_vertical_margin"
+        android:text="@string/movie_score"
+        app:layout_constraintStart_toEndOf="@+id/iv_movie"
+        app:layout_constraintTop_toBottomOf="@+id/tv_director_label" />
+
+    <TextView
+        android:id="@+id/tv_movie_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_text_horizontal_margin"
+        android:layout_marginTop="@dimen/item_text_vertical_margin"
+        app:layout_constraintStart_toEndOf="@+id/tv_movie_rate_label"
+        app:layout_constraintTop_toBottomOf="@+id/tv_director_name"
+        tools:text="4.0"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
