@@ -64,6 +64,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$accompatVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     implementation "androidx.recyclerview:recyclerview:$recyclerVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
 
     // network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
