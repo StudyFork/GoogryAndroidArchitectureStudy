@@ -93,8 +93,6 @@ lint/tmp/
 gen-external-apklibs
 output.json
 
-#config file
-util/config.kt
 
 # Replacement of .externalNativeBuild directories introduced
 # with Android Studio 3.5.
