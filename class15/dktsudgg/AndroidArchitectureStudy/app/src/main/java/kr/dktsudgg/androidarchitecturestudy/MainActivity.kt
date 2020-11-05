@@ -25,9 +25,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         /**
-         * 영화 검색결과 리스트 보여주는 RecyclerView 매니저 등록 및 목록 구분선 추가
+         * 영화 검색결과 리스트 보여주는 RecyclerView에 목록 구분선 추가
          */
-        searchedMovieList.layoutManager = LinearLayoutManager(this);
         searchedMovieList.addItemDecoration(
             DividerItemDecoration(
                 this,
