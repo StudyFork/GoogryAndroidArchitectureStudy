@@ -25,7 +25,7 @@ class CinemaAdapter(private var itemList: ArrayList<CinemaItem>): RecyclerView.A
         holder.bind(itemList[position])
     }
     
-    fun setList(list: ArrayList<CinemaItem>) {
+    fun setList(list: List<CinemaItem>) {
         itemList.clear()
         itemList.addAll(list)
     }
