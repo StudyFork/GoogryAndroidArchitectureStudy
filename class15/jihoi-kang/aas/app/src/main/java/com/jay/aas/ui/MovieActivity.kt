@@ -45,7 +45,7 @@ class MovieActivity : AppCompatActivity(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        movieService = RetrofitHelper.getRetrofit().create(MovieService::class.java)
+        movieService = RetrofitHelper.movieService
         initView()
     }
 
