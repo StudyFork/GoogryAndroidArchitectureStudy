@@ -8,7 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class RecyclerViewAdapter(private val movieList : MovieList) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
+class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
+
+    private val arrListOfMovie :ArrayList<Movie> = ArrayList()
+
+    fun movieListChange(movies : List<Movie>){
+        this.arrListOfMovie.clear()
+        this.arrListOfMovie.addAll(movies)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
@@ -16,11 +24,11 @@ class RecyclerViewAdapter(private val movieList : MovieList) : RecyclerView.Adap
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(movieList.items.get(position))
+        holder.bindItem(arrListOfMovie.get(position))
     }
 
     override fun getItemCount(): Int {
-        return movieList.items.count()
+        return arrListOfMovie.size
     }
 
     //ViewHolder

@@ -22,6 +22,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonSearch : Button
     private lateinit var recyclerView : RecyclerView
 
+    //어댑터 선언
+    private val mAdapter = RecyclerViewAdapter()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -54,7 +58,6 @@ class MainActivity : AppCompatActivity() {
     private fun requestByOkhttp(vararg movieName : String){
         //OkHttp로 요청
         val text = URLEncoder.encode("${movieName[0]}", "UTF-8")
-        println(text)
 
         val url = URL("https://openapi.naver.com/v1/search/movie.json?query=${text}&display=10&start=1&genre=")
 
@@ -84,7 +87,9 @@ class MainActivity : AppCompatActivity() {
 
                 //어댑터 연결
                 runOnUiThread{
-                    recyclerView.adapter = RecyclerViewAdapter(moviefeed)
+                    mAdapter.movieListChange(moviefeed.items)
+                    recyclerView.adapter = mAdapter
+
                     editTextMovieName.setText("")
                 }
             }
