@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AndroidArchitectureStudy</string>
+    <string name="search">검색</string>
+    <string name="actors">배우1 | 배우2 | 배우3 | 베우4</string>
+    <string name="directors">감독|</string>
+    <string name="pubDate">2020</string>
+    <string name="movieTitle">영화제목</string>
+
+
 </resources>
