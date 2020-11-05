@@ -10,10 +10,11 @@ class MovieAdapter(
     private val onItemClick: (String) -> Unit,
 ) : RecyclerView.Adapter<MovieViewHolder>() {
 
-    private var movies: List<Movie> = emptyList()
+    private val movies: MutableList<Movie> = mutableListOf()
 
     fun setMovies(movies: List<Movie>) {
-        this.movies = movies
+        this.movies.clear()
+        this.movies.addAll(movies)
         notifyDataSetChanged()
     }
 
