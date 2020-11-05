@@ -1,6 +1,5 @@
 package kr.dktsudgg.androidarchitecturestudy.view.adapter
 
-import android.content.Context
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,7 @@ import kotlinx.android.synthetic.main.movie_info_layout.view.*
 import kr.dktsudgg.androidarchitecturestudy.R
 import kr.dktsudgg.androidarchitecturestudy.api.naver.data.MovieItem
 
-class MovieListAdapter(val context: Context) :
-    RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
     private val movieList: MutableList<MovieItem> = mutableListOf()
 
@@ -23,7 +21,7 @@ class MovieListAdapter(val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
-            LayoutInflater.from(context).inflate(R.layout.movie_info_layout, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.movie_info_layout, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -33,7 +31,8 @@ class MovieListAdapter(val context: Context) :
         // 영화 제목. HTML태그 제거 및 클릭 시 링크주소를 Toast
         holder.title.text = stripHtml(movieItem.title)
         holder.title.setOnClickListener {
-            Toast.makeText(context, "링크는 " + movieItem.link, Toast.LENGTH_SHORT).show()
+            Toast.makeText(holder.itemView.context, "링크는 " + movieItem.link, Toast.LENGTH_SHORT)
+                .show()
         }
         // 영화 소제목
         holder.subtitle.text = movieItem.subtitle
@@ -47,7 +46,7 @@ class MovieListAdapter(val context: Context) :
         holder.userRating.text = movieItem.userRating
         // 영화 커버 이미지. Glide 사용하여 이미지 로딩
         Glide
-            .with(context)
+            .with(holder.itemView.context)
             .load(movieItem.image)
             .centerInside()
             .placeholder(R.drawable.ic_launcher_foreground)

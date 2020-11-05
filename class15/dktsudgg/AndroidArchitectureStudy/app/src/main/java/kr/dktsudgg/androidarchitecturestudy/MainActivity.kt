@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         /**
          * 영화 검색결과 리스트 보여주는 RecyclerView에 어댑터 연결 및 목록 구분선 추가
          */
-        searchedMovieList.adapter = MovieListAdapter(this@MainActivity)
+        searchedMovieList.adapter = MovieListAdapter()
         searchedMovieList.addItemDecoration(
             DividerItemDecoration(
                 this,
