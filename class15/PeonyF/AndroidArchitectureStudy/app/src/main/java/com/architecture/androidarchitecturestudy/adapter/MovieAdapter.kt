@@ -9,7 +9,7 @@ import com.architecture.androidarchitecturestudy.model.Movie
 class MovieAdapter() :
     RecyclerView.Adapter<MovieViewHolder>() {
 
-    private var modelList = ArrayList<Movie>()
+    private val modelList = ArrayList<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
