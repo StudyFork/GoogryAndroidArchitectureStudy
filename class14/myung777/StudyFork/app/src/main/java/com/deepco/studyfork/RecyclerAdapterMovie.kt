@@ -25,7 +25,7 @@ class RecyclerAdapterMovie :
 
     fun setItemList(modelList: List<Item>) {
         this.modelList.clear()
-        this.modelList = modelList
+        this.modelList.addAll(modelList)
         notifyDataSetChanged()
     }
 }
