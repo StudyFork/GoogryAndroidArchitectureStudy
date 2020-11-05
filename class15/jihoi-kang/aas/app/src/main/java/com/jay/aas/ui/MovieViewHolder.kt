@@ -2,7 +2,7 @@ package com.jay.aas.ui
 
 import android.os.Build
 import android.text.Html
-import android.view.View
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jay.aas.databinding.ItemMovieBinding
@@ -23,9 +23,7 @@ class MovieViewHolder(
                 Html.fromHtml(movie.title)
             }
         binding.tvUserRating.text = movie.userRating
-        binding.llUserRating.visibility =
-            if (movie.userRating == "0.00") View.GONE
-            else View.VISIBLE
+        binding.llUserRating.isGone = movie.userRating == "0.00"
         binding.tvActor.text = movie.actor
         Glide.with(binding.root.context)
             .load(movie.image)
