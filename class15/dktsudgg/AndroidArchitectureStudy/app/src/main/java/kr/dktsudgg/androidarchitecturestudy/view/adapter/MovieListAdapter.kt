@@ -12,8 +12,10 @@ import kotlinx.android.synthetic.main.movie_info_layout.view.*
 import kr.dktsudgg.androidarchitecturestudy.R
 import kr.dktsudgg.androidarchitecturestudy.api.naver.data.MovieItem
 
-class MovieListAdapter(val context: Context, var movieList: MutableList<MovieItem>) :
+class MovieListAdapter(val context: Context) :
     RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
+
+    private val movieList: MutableList<MovieItem> = mutableListOf()
 
     override fun getItemCount(): Int {
         return movieList.size
@@ -50,6 +52,15 @@ class MovieListAdapter(val context: Context, var movieList: MutableList<MovieIte
             .centerInside()
             .placeholder(R.drawable.ic_launcher_foreground)
             .into(holder.image);
+    }
+
+    /**
+     * 아이탬 목록을 갱신하는 메소드
+     */
+    fun refreshData(newMovieList: List<MovieItem>) {
+        movieList.clear()
+        movieList.addAll(newMovieList)
+        notifyDataSetChanged()
     }
 
     /**

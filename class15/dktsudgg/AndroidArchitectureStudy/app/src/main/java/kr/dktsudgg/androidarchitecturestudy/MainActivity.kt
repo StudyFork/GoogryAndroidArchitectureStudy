@@ -1,6 +1,5 @@
 package kr.dktsudgg.androidarchitecturestudy
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.dktsudgg.androidarchitecturestudy.api.WebRequestManager
 import kr.dktsudgg.androidarchitecturestudy.api.naver.NaverMovieApi
-import kr.dktsudgg.androidarchitecturestudy.api.naver.data.MovieItem
 import kr.dktsudgg.androidarchitecturestudy.api.naver.data.NaverMovieResponse
 import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieListAdapter
 import retrofit2.Call
@@ -25,8 +23,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
 
         /**
-         * 영화 검색결과 리스트 보여주는 RecyclerView에 목록 구분선 추가
+         * 영화 검색결과 리스트 보여주는 RecyclerView에 어댑터 연결 및 목록 구분선 추가
          */
+        searchedMovieList.adapter = MovieListAdapter(this@MainActivity)
         searchedMovieList.addItemDecoration(
             DividerItemDecoration(
                 this,
@@ -97,10 +96,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
      */
     private fun refreshSearchedMovieList(data: NaverMovieResponse?) {
         data?.items?.let {
-            searchedMovieList.adapter = MovieListAdapter(
-                this@MainActivity,
-                data.items as MutableList<MovieItem>
-            )
+            (searchedMovieList.adapter as MovieListAdapter).refreshData(data.items)
         }
     }
 
