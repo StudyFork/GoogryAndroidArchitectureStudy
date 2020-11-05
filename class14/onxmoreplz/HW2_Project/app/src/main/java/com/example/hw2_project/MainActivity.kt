@@ -15,8 +15,8 @@ import java.net.URLEncoder
 class MainActivity : AppCompatActivity() {
 
     //Naver 영화 검색 API 사용을 위한 App 등록
-    val clienId = "fQFY7M9rMOVD2KDT8Aaq"
-    val clientSecret = "v8aD8p_Ri0"
+    private val clienId = "fQFY7M9rMOVD2KDT8Aaq"
+    private val clientSecret = "v8aD8p_Ri0"
 
     private lateinit var editTextMovieName : EditText
     private lateinit var buttonSearch : Button
