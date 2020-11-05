@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         //리사이클러뷰 동일한 크기의 아이템 사용
         recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = adapter
 
         //[검색] 버튼 클릭 리스너
         buttonSearch.setOnClickListener {
@@ -88,7 +89,6 @@ class MainActivity : AppCompatActivity() {
                 //어댑터 연결
                 runOnUiThread{
                     adapter.movieListChange(moviefeed.items)
-                    recyclerView.adapter = adapter
 
                     editTextMovieName.setText("")
                 }
