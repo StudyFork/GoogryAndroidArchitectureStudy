@@ -38,10 +38,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         if (!compositeDisposable.isDisposed) {
             compositeDisposable.dispose()
         }
+        super.onDestroy()
     }
 
     private fun initView() {
