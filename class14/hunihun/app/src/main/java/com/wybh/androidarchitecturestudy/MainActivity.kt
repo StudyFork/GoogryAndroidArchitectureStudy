@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnSearch: Button
     private lateinit var rvCinema: RecyclerView
 
-    private lateinit var mAdapter: CinemaAdapter
+    private lateinit var cinemaAdapter: CinemaAdapter
     private lateinit var imm: InputMethodManager
 
     private var itemList: ArrayList<CinemaItem> = ArrayList()
@@ -53,9 +53,9 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun initAdapter() {
-        mAdapter = CinemaAdapter(itemList)
+        cinemaAdapter = CinemaAdapter(itemList)
         rvCinema.run {
-            adapter = mAdapter
+            adapter = cinemaAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
     }
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         // adapter에 리스트 전달 및 교체
-                        mAdapter.setList(itemList)
+                        cinemaAdapter.setList(itemList)
 
                         // 키보드 내리기
                         imm.hideSoftInputFromWindow(etSearchWord.windowToken, 0)
