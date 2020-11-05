@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                 response: Response<MovieResponse>
             ) {
                 if (response.isSuccessful) {
-
                     val movieResponse: MovieResponse? = response.body()
                     movieResponse?.items?.let { movieAdapter.setItemList(it) }
                 }
