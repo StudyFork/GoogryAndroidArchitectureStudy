@@ -3,7 +3,6 @@ package com.hhi.myapplication
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.hhi.myapplication.api.MovieData
 import com.hhi.myapplication.api.NaverAPI
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,8 +21,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        main_recyclerview.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         main_recyclerview.setHasFixedSize(false)
         main_recyclerview.adapter = recyclerAdapter
         main_btn_search.setOnClickListener {
