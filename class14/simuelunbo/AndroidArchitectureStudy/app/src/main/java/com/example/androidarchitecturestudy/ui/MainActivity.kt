@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerViewInit()
+        initRecyclerView()
 
         btn_search.setOnClickListener {
             val searchText = et_search.text.toString()
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(et_search.windowToken, 0)
     }
 
-    private fun recyclerViewInit() {
+    private fun initRecyclerView() {
         movieAdapter = MovieAdapter()
         rcv_result.adapter = movieAdapter
     }
