@@ -23,7 +23,7 @@ class MovieAdapter() :
         holder.onBind(this.modelList[position])
     }
 
-    fun setItemList(modelList: ArrayList<Movie>) {
+    fun setItemList(items: List<Movie>) {
         this.modelList.clear()
         this.modelList.addAll(items)
         notifyDataSetChanged()
