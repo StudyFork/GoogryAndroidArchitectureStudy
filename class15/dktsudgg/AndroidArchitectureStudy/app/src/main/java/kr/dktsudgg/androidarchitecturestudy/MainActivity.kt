@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.movieSearchBtn -> {    // 검색 버튼 클릭 시, 검색어 입력한 내용을 가지고 검색 수행
                 Log.i("버튼 클릭", "검색 버튼 클릭")
                 val searchText = movieSearchEditText.text.toString()
-                searchMovie(this, searchText)
+                searchMovie(searchText)
             }
             else -> {
             }
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     /**
      * 영화 검색 메소드
      */
-    fun searchMovie(context: Context, searchText: String) {
+    private fun searchMovie(searchText: String) {
         WebRequestManager.getInstance(NaverMovieApi::class)?.searchMovies(
             BuildConfig.NAVER_CLIENT_ID,
             BuildConfig.NAVER_CLIENT_SECRET,
@@ -76,18 +76,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     /**
                      * RecyclerView 갱신
                      */
-                    refreshSearchedMovieList(context, response.body())
+                    refreshSearchedMovieList(response.body())
                 }
             }
 
             override fun onFailure(call: Call<NaverMovieResponse>, t: Throwable) {
                 Log.e("네이버 영화 API 요청 실패", "${t}")
-                Toast.makeText(context, "검색 요청에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "검색 요청에 실패하였습니다.", Toast.LENGTH_SHORT).show()
 
                 /**
                  * RecyclerView 갱신
                  */
-                refreshSearchedMovieList(context, null)
+                refreshSearchedMovieList(null)
             }
         })
     }
@@ -95,10 +95,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     /**
      * 영화 검색 결과 갱신 메소드
      */
-    fun refreshSearchedMovieList(context: Context, data: NaverMovieResponse?) {
+    private fun refreshSearchedMovieList(data: NaverMovieResponse?) {
         data?.items?.let {
             searchedMovieList.adapter = MovieListAdapter(
-                context,
+                this@MainActivity,
                 data.items as MutableList<MovieItem>
             )
         }
