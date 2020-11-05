@@ -9,7 +9,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.lifecycleScope
 import com.jay.aas.R
 import com.jay.aas.api.MovieService
@@ -18,7 +17,7 @@ import com.jay.aas.databinding.ActivityMovieBinding
 import com.jay.aas.util.toast
 import kotlinx.coroutines.launch
 
-class MovieActivity : AppCompatActivity(), LifecycleObserver {
+class MovieActivity : AppCompatActivity() {
 
     private val TAG = this::class.java.simpleName
 
