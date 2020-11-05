@@ -8,7 +8,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.architecture.androidarchitecturestudy.R
 import com.architecture.androidarchitecturestudy.adapter.MovieAdapter
-import com.architecture.androidarchitecturestudy.model.Movie
 import com.architecture.androidarchitecturestudy.model.MovieRepository
 import com.architecture.androidarchitecturestudy.model.MovieResponse
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,7 +18,6 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private val movieRepository: MovieRepository = MovieRepository()
     private lateinit var movieAdapter: MovieAdapter
-    var movieList = ArrayList<Movie>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
