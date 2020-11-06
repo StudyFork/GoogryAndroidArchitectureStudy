@@ -14,7 +14,7 @@ class MovieListRecyclerViewAdapter(private val context: Context) :
     RecyclerView.Adapter<MovieListRecyclerViewAdapter.MovieItemViewHolder>() {
 
 
-    private var movieList = ArrayList<GetMovieInfo.MovieData>()
+    private val movieList = ArrayList<GetMovieInfo.MovieData>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
@@ -33,9 +33,9 @@ class MovieListRecyclerViewAdapter(private val context: Context) :
 
 
     fun setMovieData(movieList: ArrayList<GetMovieInfo.MovieData>) {
-        this.movieList = movieList
+        this.movieList.clear()
+        this.movieList.addAll(movieList)
         notifyDataSetChanged()
-
     }
 
     inner class MovieItemViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
