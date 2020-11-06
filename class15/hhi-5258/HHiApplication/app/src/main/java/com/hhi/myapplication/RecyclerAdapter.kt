@@ -8,13 +8,12 @@ import com.bumptech.glide.Glide
 import com.hhi.myapplication.api.MovieData
 import kotlinx.android.synthetic.main.main_recycler_item.view.*
 
-class RecyclerAdapter() :
-    RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
-    private var movieList: ArrayList<MovieData.MovieItem> = ArrayList()
+class RecyclerAdapter() : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+    private val movieList: ArrayList<MovieData.MovieItem> = ArrayList()
 
     fun setMovieList(list: ArrayList<MovieData.MovieItem>) {
-        movieList.clear()
-        movieList = list
+        this.movieList.clear()
+        this.movieList.addAll(list)
         notifyDataSetChanged()
     }
 
