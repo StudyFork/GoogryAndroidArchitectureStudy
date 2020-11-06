@@ -10,7 +10,7 @@ import com.example.androidarchitecturestudy.R
 import com.example.androidarchitecturestudy.data.GetMovieInfo
 import kotlinx.android.synthetic.main.item_main_recyclerview.view.*
 
-class MovieListRecyclerViewAdapter(private val context: Context) :
+class MovieListRecyclerViewAdapter() :
     RecyclerView.Adapter<MovieListRecyclerViewAdapter.MovieItemViewHolder>() {
 
 
@@ -19,7 +19,7 @@ class MovieListRecyclerViewAdapter(private val context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
         val view =
-            LayoutInflater.from(context).inflate(R.layout.item_main_recyclerview, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_main_recyclerview, parent, false)
         return MovieItemViewHolder(view)
     }
 
