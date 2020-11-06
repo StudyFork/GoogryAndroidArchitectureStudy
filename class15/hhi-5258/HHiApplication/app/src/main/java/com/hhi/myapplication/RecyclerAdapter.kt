@@ -10,7 +10,13 @@ import kotlinx.android.synthetic.main.main_recycler_item.view.*
 
 class RecyclerAdapter() :
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
-    var movieList: List<MovieData.MovieItem> = ArrayList()
+    private var movieList: ArrayList<MovieData.MovieItem> = ArrayList()
+
+    fun setMovieList(list: ArrayList<MovieData.MovieItem>) {
+        movieList.clear()
+        movieList = list
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
         val v =

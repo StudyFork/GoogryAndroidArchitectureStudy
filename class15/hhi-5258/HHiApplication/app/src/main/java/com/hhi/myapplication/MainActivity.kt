@@ -39,8 +39,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        recyclerAdapter.movieList = it.items
-                        recyclerAdapter.notifyDataSetChanged()
+                        recyclerAdapter.setMovieList(it.items)
                     }
                 }
             }
