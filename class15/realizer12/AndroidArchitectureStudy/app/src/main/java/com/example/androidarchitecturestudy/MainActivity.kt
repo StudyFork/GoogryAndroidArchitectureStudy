@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     }// setRecyclerView
 
     // 리사이클러뷰 데이터 업데이트
-    private fun updateRecyclerView(movieList: ArrayList<GetMovieInfo.MovieData>) {
+    private fun updateRecyclerView(movieList: List<GetMovieInfo.MovieData>) {
         recyclerViewAdapter.setMovieData(movieList)
     }
 

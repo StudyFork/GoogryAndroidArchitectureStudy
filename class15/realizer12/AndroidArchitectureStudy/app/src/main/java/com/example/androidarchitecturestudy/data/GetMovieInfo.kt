@@ -7,7 +7,7 @@ class GetMovieInfo {
     // 검색 쿼리에 따른 네이버 영화 리스트
     data class MovieList(
         @SerializedName("items")
-        val movieList: ArrayList<MovieData>?
+        val movieList: List<MovieData>?
     )
 
     // 각 영화별 구성된 데이터
