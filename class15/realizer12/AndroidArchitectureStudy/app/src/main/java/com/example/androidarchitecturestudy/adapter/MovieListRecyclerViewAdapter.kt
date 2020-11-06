@@ -40,9 +40,9 @@ class MovieListRecyclerViewAdapter(private val context: Context) :
 
     inner class MovieItemViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
 
-        val tvMovieTitle = itemview.tv_movie_title
-        val imgMoviePoster = itemview.img_movie_poster
-        val rtbMovieGrade = itemview.rtb_movie_grade
+        private val tvMovieTitle = itemview.tv_movie_title
+        private val imgMoviePoster = itemview.img_movie_poster
+        private val rtbMovieGrade = itemview.rtb_movie_grade
 
 
         // 각 뷰에  데이터 연결
