@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/img_photo"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_item"
+        android:layout_marginTop="@dimen/margin_item"
+        android:layout_marginBottom="@dimen/margin_item"
+        android:background="#DADADA"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_item"
+        android:layout_marginEnd="@dimen/margin_item"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/img_photo"
+        app:layout_constraintTop_toTopOf="@id/img_photo"
+        tools:text="기생충" />
+
+    <TextView
+        android:id="@+id/tv_sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxWidth="200dp"
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="PARASITE" />
+
+    <TextView
+        android:id="@+id/tv_dash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/dash"
+        app:layout_constraintBottom_toBottomOf="@id/tv_sub_title"
+        app:layout_constraintStart_toEndOf="@id/tv_sub_title" />
+
+    <TextView
+        android:id="@+id/tv_pub_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_item_text"
+        app:layout_constraintBottom_toBottomOf="@id/tv_dash"
+        app:layout_constraintStart_toEndOf="@id/tv_dash"
+        tools:text="2019" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_item_text"
+        android:layout_marginBottom="@dimen/margin_item"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_sub_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_sub_title">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_director" />
+
+        <TextView
+            android:id="@+id/tv_director"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_item_text"
+            tools:text="봉준호" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
