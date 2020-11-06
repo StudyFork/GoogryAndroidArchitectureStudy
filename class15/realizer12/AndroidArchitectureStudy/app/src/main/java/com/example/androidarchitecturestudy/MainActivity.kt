@@ -45,9 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerViewAdapter = MovieListRecyclerViewAdapter()
 
-
         recycler_view_main_movie_list.apply {
-            layoutManager = GridLayoutManager(this@MainActivity, 2)//그리드 형태로
             adapter = recyclerViewAdapter
         }
 
