@@ -32,7 +32,7 @@ class MovieListRecyclerViewAdapter(private val context: Context) :
     override fun getItemCount(): Int = movieList.size
 
 
-    fun getMovieData(movieList: ArrayList<GetMovieInfo.MovieData>) {
+    fun setMovieData(movieList: ArrayList<GetMovieInfo.MovieData>) {
         this.movieList = movieList
         notifyDataSetChanged()
 
