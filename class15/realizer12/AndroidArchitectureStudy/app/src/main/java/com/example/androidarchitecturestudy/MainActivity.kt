@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     // 리사이클러뷰 세팅
     private fun setRecyclerView() {
 
-        recyclerViewAdapter = MovieListRecyclerViewAdapter(this)
+        recyclerViewAdapter = MovieListRecyclerViewAdapter()
 
 
         recycler_view_main_movie_list.apply {
