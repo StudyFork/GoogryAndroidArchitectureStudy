@@ -18,8 +18,7 @@ class RecyclerAdapter() : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
-        val v =
-            LayoutInflater.from(parent.context).inflate(R.layout.main_recycler_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.main_recycler_item, parent, false)
         return RecyclerAdapter.ViewHolder(v)
     }
 
@@ -37,16 +36,9 @@ class RecyclerAdapter() : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
                 .with(itemView.context).load(data.image)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(itemView.item_img_image)
-            if (data.director.isNotEmpty()) {
-                itemView.item_text_director.text = "감독 : " + data.director
-            } else {
-                itemView.item_text_director.text = ""
-            }
-            if (data.actor.isNotEmpty()) {
-                itemView.item_text_actors.text = "출연 : " + data.actor
-            } else {
-                itemView.item_text_actors.text = ""
-            }
+
+            itemView.item_text_director.text = if (data.director.isEmpty()) "" else "감독 : " + data.director
+            itemView.item_text_actors.text = if (data.actor.isEmpty()) "" else "출연 : " + data.actor
             itemView.item_text_title.text = data.title.replace("<b>", "").replace("</b>", "")
         }
     }
