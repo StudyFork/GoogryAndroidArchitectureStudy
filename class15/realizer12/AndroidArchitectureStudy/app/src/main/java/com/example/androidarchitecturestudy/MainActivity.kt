@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         initSet()
         setRecyclerView()
-        searchMovie()
+        initEventListeners()
 
     }
 
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
 
     // 영화 검색 실행
-    private fun searchMovie() {
+    private fun initEventListeners() {
 
 
         // 검색 버튼 눌릴때
