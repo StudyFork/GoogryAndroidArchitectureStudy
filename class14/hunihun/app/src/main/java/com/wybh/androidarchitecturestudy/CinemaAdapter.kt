@@ -26,6 +26,7 @@ class CinemaAdapter : RecyclerView.Adapter<CinemaAdapter.CinemaViewHolder>() {
     }
     
     fun setList(list: List<CinemaItem>) {
+        itemList.clear()
         itemList.addAll(list)
         notifyDataSetChanged()
     }
