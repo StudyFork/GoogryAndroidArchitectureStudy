@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def getSecretProperty(String key){
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('app/secrets.properties')))
+    return props[key]
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -21,6 +27,22 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "NAVER_CLIENT_ID", "\""+getSecretProperty("NAVER_CLIENT_ID")+"\""
+            variant.buildConfigField "String", "NAVER_CLIENT_SECRET", "\""+getSecretProperty("NAVER_CLIENT_SECRET")+"\""
+        }
+    }
+
+    /**
+     * Java 8 compatibility 추가
+     */
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -34,4 +56,22 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    /**
+     * add RecyclerView dependencies
+     */
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc03"
+
+    /**
+     * Add Retrofit2 dependencies
+     */
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    /**
+     * Add Glide dependencies
+     */
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 }
