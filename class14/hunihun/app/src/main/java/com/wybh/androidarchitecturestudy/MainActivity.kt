@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                         // 리스트 초기화
                         itemList.clear()
 
-                        response.items.forEach{
+                        response.items.map{
                             val item = CinemaItem(it.image, it.title, it.actor, it.userRating, it.pubDate, it.link)
                             itemList.add(item)
                         }
