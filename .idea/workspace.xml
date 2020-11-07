@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="38d8fdc5-4917-4166-b0f2-51fd7446088f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/CinemaAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/CinemaAdapter.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/MainActivity.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
