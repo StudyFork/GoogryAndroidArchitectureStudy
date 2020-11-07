@@ -7,7 +7,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wybh.androidarchitecturestudy.model.ResponseCinemaData
 import com.wybh.androidarchitecturestudy.retrofit.RetrofitCreator
@@ -25,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cinemaAdapter: CinemaAdapter
     private lateinit var imm: InputMethodManager
 
-    private var itemList: ArrayList<CinemaItem> = ArrayList()
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +33,11 @@ class MainActivity : AppCompatActivity() {
         initView()
         initAdapter()
         initViewClickListener()
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.dispose()
+        super.onDestroy()
     }
 
     private fun initView() {
@@ -60,16 +63,16 @@ class MainActivity : AppCompatActivity() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.newThread())
                     .subscribe({ response: ResponseCinemaData ->
-                        // 리스트 초기화
-                        itemList.clear()
-
+                        // adapter list clear
+                        cinemaAdapter.dataClear()
+                        
                         response.items.map{
                             val item = CinemaItem(it.image, it.title, it.actor, it.userRating, it.pubDate, it.link)
-                            itemList.add(item)
+                            cinemaAdapter.addItem(item)
                         }
 
-                        // adapter에 리스트 전달 및 교체
-                        cinemaAdapter.setList(itemList)
+                        // recyclerview 갱신
+                        cinemaAdapter.notifyDataSetChanged()
 
                         // 키보드 내리기
                         imm.hideSoftInputFromWindow(etSearchWord.windowToken, 0)
@@ -77,10 +80,5 @@ class MainActivity : AppCompatActivity() {
                         Log.d("jsh", "fail >>> " + error.message)
                     }))
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.dispose()
     }
 }

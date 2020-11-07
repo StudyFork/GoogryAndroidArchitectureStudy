@@ -25,10 +25,12 @@ class CinemaAdapter : RecyclerView.Adapter<CinemaAdapter.CinemaViewHolder>() {
         holder.bind(itemList[position])
     }
     
-    fun setList(list: List<CinemaItem>) {
+    fun addItem(item: CinemaItem) {
+        itemList.add(item)
+    }
+    
+    fun dataClear() {
         itemList.clear()
-        itemList.addAll(list)
-        notifyDataSetChanged()
     }
 
     inner class CinemaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
