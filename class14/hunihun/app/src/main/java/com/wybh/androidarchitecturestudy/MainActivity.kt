@@ -20,12 +20,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var etSearchWord: EditText
     private lateinit var btnSearch: Button
     private lateinit var rvCinema: RecyclerView
-
-    private lateinit var cinemaAdapter: CinemaAdapter
     private lateinit var imm: InputMethodManager
 
     private val compositeDisposable = CompositeDisposable()
-
+    private val cinemaAdapter: CinemaAdapter = CinemaAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -49,7 +47,6 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun initAdapter() {
-        cinemaAdapter = CinemaAdapter()
         rvCinema.run {
             adapter = cinemaAdapter
         }
