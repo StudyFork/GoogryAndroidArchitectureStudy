@@ -1,6 +1,15 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.10"
+    ext {
+        kotlin_version = "1.4.10"
+        rxKotlin_version = "2.4.0"
+        rxAndroid_version = "2.1.1"
+        rxRetrofitAdpater_version = "2.7.1"
+        retrofit_version = "2.9.0"
+        recyclerView_version = "1.1.0"
+        glide_version = "4.11.0"
+    }
+
     repositories {
         google()
         jcenter()
