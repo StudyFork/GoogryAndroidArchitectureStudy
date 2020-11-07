@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun initAdapter() {
-        cinemaAdapter = CinemaAdapter(itemList)
+        cinemaAdapter = CinemaAdapter()
         rvCinema.run {
             adapter = cinemaAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
