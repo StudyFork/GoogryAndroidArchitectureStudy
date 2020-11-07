@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         cinemaAdapter = CinemaAdapter()
         rvCinema.run {
             adapter = cinemaAdapter
-            layoutManager = LinearLayoutManager(this@MainActivity)
         }
     }
 
