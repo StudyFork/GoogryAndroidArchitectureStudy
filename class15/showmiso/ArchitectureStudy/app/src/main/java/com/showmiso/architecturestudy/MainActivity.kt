@@ -5,24 +5,18 @@ import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.showmiso.architecturestudy.api.ApiInterface
-import com.showmiso.architecturestudy.api.RetrofitClient
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.showmiso.architecturestudy.data.remote.RemoteDataSourceImpl
+import com.showmiso.architecturestudy.data.repository.NaverRepositoryImpl
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val api: ApiInterface by lazy {
-        RetrofitClient.createService(
-            Constants.MOVIE_URL,
-            Constants.CLIENT_ID,
-            Constants.CLIENT_SECRET
-        )
-    }
     private val disposable = CompositeDisposable()
     private val adapter = MovieAdapter()
+    private val naverRepositoryImpl = NaverRepositoryImpl(
+        RemoteDataSourceImpl()
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,9 +51,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.msg_request_text), Toast.LENGTH_SHORT).show()
             return
         }
-        api.getMovies(query)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+        naverRepositoryImpl.getMovies(query)
             .subscribe({
                 Log.d(tag, "Success")
                 it.items?.also { movieList ->
