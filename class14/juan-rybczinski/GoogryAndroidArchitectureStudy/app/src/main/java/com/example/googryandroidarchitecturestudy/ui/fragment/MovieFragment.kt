@@ -5,10 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.network.MovieApi
 import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
@@ -19,29 +17,22 @@ class MovieFragment : Fragment() {
 
     private val TAG = this::class.java.simpleName
 
-    private lateinit var movieList: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        return inflater.inflate(R.layout.fragment_movie, container, false)
+    }
 
-        val view = inflater.inflate(R.layout.fragment_movie, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-//        search_button.setOnClickListener {
-//            Toast.makeText(requireContext(), "검색", Toast.LENGTH_SHORT).show()
-//        }
-
-        movieList = view.findViewById(R.id.movie_list)
         movieAdapter = MovieAdapter(listOf())
-        movieList.adapter = movieAdapter
+        movie_list.adapter = movieAdapter
 
-        view.findViewById<Button>(R.id.search_button).setOnClickListener {
+        search_button.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
                 try {
                     val movieResponse =
@@ -52,8 +43,6 @@ class MovieFragment : Fragment() {
                 }
             }
         }
-
-        return view
     }
 
 }
