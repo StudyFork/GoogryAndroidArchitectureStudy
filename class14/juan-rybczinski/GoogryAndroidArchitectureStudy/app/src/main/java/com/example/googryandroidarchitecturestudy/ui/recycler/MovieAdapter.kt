@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.model.Movie
 
-class MovieAdapter(
-    private var movies: List<Movie>
-) : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
+    private val movies: MutableList<Movie> = mutableListOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
@@ -23,7 +23,8 @@ class MovieAdapter(
     override fun getItemCount() = movies.size
 
     fun setMovies(movies: List<Movie>) {
-        this.movies = movies
+        this.movies.clear()
+        this.movies.addAll(movies)
         notifyDataSetChanged()
     }
 }

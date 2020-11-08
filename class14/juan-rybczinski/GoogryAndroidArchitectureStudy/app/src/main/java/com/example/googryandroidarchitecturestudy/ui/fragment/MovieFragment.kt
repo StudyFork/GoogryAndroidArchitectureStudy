@@ -29,7 +29,7 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        movieAdapter = MovieAdapter(listOf())
+        movieAdapter = MovieAdapter()
         movie_list.adapter = movieAdapter
 
         search_button.setOnClickListener {
