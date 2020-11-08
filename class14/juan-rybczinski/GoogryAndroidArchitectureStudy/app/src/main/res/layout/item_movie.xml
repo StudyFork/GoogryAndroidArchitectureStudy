@@ -50,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/movie_image"
         app:layout_constraintTop_toBottomOf="@+id/pub_date"
-        tools:text="미키 코이치로"/>
+        tools:text="미키 코이치로" />
 
     <TextView
         android:id="@+id/actor"
@@ -58,11 +58,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_margin"
         android:layout_marginEnd="@dimen/default_margin"
+        android:lines="1"
         app:layout_constraintBottom_toTopOf="@+id/rating"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/movie_image"
         app:layout_constraintTop_toBottomOf="@+id/director"
-        android:lines="1"
         tools:text="카시이 유우|쿠보타 마사타카|카지와라 히카리|치요 쇼타|요코야마 메구미|카시와바라 슈지" />
 
     <TextView
