@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_item"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/iv_thumnail"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        tools:src="@mipmap/ic_launcher"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="제목 : "/>
+
+        <TextView
+            android:id="@+id/tv_pubData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="출시 : "/>
+
+        <TextView
+            android:id="@+id/tv_userRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="평점 : "/>
+    </LinearLayout>
+</LinearLayout>
