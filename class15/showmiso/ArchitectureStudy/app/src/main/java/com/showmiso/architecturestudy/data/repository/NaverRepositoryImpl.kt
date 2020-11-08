@@ -12,8 +12,16 @@ class NaverRepositoryImpl(
 
     override fun getMovies(query: String): Single<MovieModel.MovieResponse> {
         return remoteDataSource.getMovies(query)
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun getMoviesList(query: String): Single<List<MovieModel.Movie>> {
+        return remoteDataSource.getMovies(query)
+            .subscribeOn(Schedulers.io())
+            .map {
+                it.items ?: listOf()
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.showmiso.architecturestudy.data.remote.RemoteDataSourceImpl
+import com.showmiso.architecturestudy.data.repository.NaverRepository
 import com.showmiso.architecturestudy.data.repository.NaverRepositoryImpl
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -14,14 +15,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private val disposable = CompositeDisposable()
     private val adapter = MovieAdapter()
-    private val naverRepositoryImpl = NaverRepositoryImpl(
-        RemoteDataSourceImpl()
-    )
+    private lateinit var naverRepository: NaverRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        naverRepository = NaverRepositoryImpl(
+            RemoteDataSourceImpl()
+        )
         initUi()
     }
 
@@ -51,16 +53,14 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.msg_request_text), Toast.LENGTH_SHORT).show()
             return
         }
-        naverRepositoryImpl.getMovies(query)
+
+        naverRepository.getMoviesList(query)
             .subscribe({
-                Log.d(tag, "Success")
-                it.items?.also { movieList ->
-                    if (movieList.isEmpty()) {
-                        Toast.makeText(this, getString(R.string.msg_no_result), Toast.LENGTH_SHORT)
-                            .show()
-                        return@subscribe
-                    }
-                    adapter.setMovieList(movieList)
+                if (it.isEmpty()) {
+                    Toast.makeText(this, getString(R.string.msg_no_result), Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    adapter.setMovieList(it)
                 }
             }, {
                 Log.e(tag, "Fail", it)
