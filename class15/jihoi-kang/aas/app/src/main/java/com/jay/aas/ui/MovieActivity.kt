@@ -12,10 +12,12 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.jay.aas.R
 import com.jay.aas.api.RetrofitHelper
+import com.jay.aas.data.MovieLocalDataSourceImpl
 import com.jay.aas.data.MovieRemoteDataSourceImpl
 import com.jay.aas.data.MovieRepository
 import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivityMovieBinding
+import com.jay.aas.room.AppDatabase
 import com.jay.aas.util.toast
 import kotlinx.coroutines.launch
 
@@ -36,9 +38,14 @@ class MovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        movieRepository =
-            MovieRepositoryImpl(MovieRemoteDataSourceImpl(RetrofitHelper.movieService))
+        initRepository()
         initView()
+    }
+
+    private fun initRepository() {
+        val remoteDataSource = MovieRemoteDataSourceImpl(RetrofitHelper.movieService)
+        val localDataSource = MovieLocalDataSourceImpl(AppDatabase.getInstance(this).movieDao())
+        movieRepository = MovieRepositoryImpl(remoteDataSource, localDataSource)
     }
 
     private fun initView() {
