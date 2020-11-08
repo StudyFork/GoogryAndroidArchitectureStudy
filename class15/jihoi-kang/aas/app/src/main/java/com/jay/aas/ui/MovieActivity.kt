@@ -11,8 +11,10 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.jay.aas.R
-import com.jay.aas.api.MovieService
 import com.jay.aas.api.RetrofitHelper
+import com.jay.aas.data.MovieRemoteDataSourceImpl
+import com.jay.aas.data.MovieRepository
+import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivityMovieBinding
 import com.jay.aas.util.toast
 import kotlinx.coroutines.launch
@@ -24,8 +26,8 @@ class MovieActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMovieBinding
 
     private lateinit var inputMethodManager: InputMethodManager
-    private lateinit var movieService: MovieService
     private lateinit var movieAdapter: MovieAdapter
+    private lateinit var movieRepository: MovieRepository
 
     private val onItemClick: (String) -> Unit = { link ->
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
@@ -34,7 +36,8 @@ class MovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        movieService = RetrofitHelper.movieService
+        movieRepository =
+            MovieRepositoryImpl(MovieRemoteDataSourceImpl(RetrofitHelper.movieService))
         initView()
     }
 
@@ -62,8 +65,7 @@ class MovieActivity : AppCompatActivity() {
         lifecycleScope.launch {
             inputMethodManager.hideSoftInputFromWindow(binding.evSearch.windowToken, 0)
             try {
-                val response = movieService.getMovies(query)
-                val movies = response.items
+                val movies = movieRepository.getMovies(query)
 
                 if (movies.isEmpty()) {
                     binding.tvNoResult.isVisible = true
