@@ -62,7 +62,7 @@ class MovieActivity : AppCompatActivity() {
         lifecycleScope.launch {
             inputMethodManager.hideSoftInputFromWindow(binding.evSearch.windowToken, 0)
             try {
-                val response = movieService.searchMovies(query)
+                val response = movieService.getMovies(query)
                 val movies = response.items
 
                 if (movies.isEmpty()) {
