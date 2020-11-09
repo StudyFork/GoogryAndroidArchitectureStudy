@@ -1,7 +1,7 @@
 package com.deepco.studyfork.api
 
 import com.deepco.studyfork.BuildConfig
-import com.deepco.studyfork.model.MovieData
+import com.deepco.studyfork.data.model.MovieData
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
