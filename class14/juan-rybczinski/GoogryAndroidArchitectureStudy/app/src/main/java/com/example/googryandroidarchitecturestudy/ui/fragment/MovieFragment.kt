@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.googryandroidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
+import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieBinding
 import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 import kotlinx.coroutines.launch
@@ -21,7 +22,10 @@ class MovieFragment : Fragment() {
     private var _binding: FragmentMovieBinding? = null
     private val binding get() = _binding!!
 
-    private val movieRemoteDataSource = MovieRemoteDataSourceImpl()
+    private val movieRepository: MovieRepository by lazy {
+        val movieRemoteDataSource = MovieRemoteDataSourceImpl()
+        MovieRepository(movieRemoteDataSource)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +45,7 @@ class MovieFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 try {
                     movieAdapter.setMovies(
-                        movieRemoteDataSource.searchMoviesFromRemote(
+                        movieRepository.searchMovies(
                             binding.searchText.text.toString()
                         )
                     )
