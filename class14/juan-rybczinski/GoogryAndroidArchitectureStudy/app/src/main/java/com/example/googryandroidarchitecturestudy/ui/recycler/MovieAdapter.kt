@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.googryandroidarchitecturestudy.R
-import com.example.googryandroidarchitecturestudy.model.Movie
+import com.example.googryandroidarchitecturestudy.data.model.MovieResponse.Movie
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     private val movies: MutableList<Movie> = mutableListOf()

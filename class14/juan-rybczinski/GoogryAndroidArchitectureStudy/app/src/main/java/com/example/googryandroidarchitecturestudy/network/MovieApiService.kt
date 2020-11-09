@@ -1,7 +1,6 @@
 package com.example.googryandroidarchitecturestudy.network
 
-import com.example.googryandroidarchitecturestudy.model.MovieResponse
-import retrofit2.Call
+import com.example.googryandroidarchitecturestudy.data.model.MovieResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
