@@ -4,5 +4,4 @@ data class MovieResponse(
     val total: Int?,
     val start: Int?,
     val items: List<Movie>?
-
 )

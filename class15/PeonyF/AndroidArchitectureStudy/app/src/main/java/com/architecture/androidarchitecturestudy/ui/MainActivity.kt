@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
             onFailure = { Log.e("Api is fail", it.toString()) })
     }
 
+
     private fun removeKeyboard() =
         (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
             et_main_search.windowToken, 0
