@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.hhi.myapplication.api.MovieData
+import com.hhi.myapplication.data.model.MovieData
 import kotlinx.android.synthetic.main.main_recycler_item.view.*
 
 class RecyclerAdapter() : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {

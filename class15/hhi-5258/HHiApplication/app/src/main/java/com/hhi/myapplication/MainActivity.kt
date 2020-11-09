@@ -3,7 +3,7 @@ package com.hhi.myapplication
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.hhi.myapplication.api.MovieData
+import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.api.NaverAPI
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call

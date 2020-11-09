@@ -1,8 +1,8 @@
-package com.hhi.myapplication.data.remote
+package com.hhi.myapplication.data.repository
 
 import com.hhi.myapplication.data.model.MovieData
 
-interface NaverRemoteDataSource {
+interface RepositoryDataSource {
     fun searchMovies(
         query: String,
         success: (MovieData.Response) -> Unit,
