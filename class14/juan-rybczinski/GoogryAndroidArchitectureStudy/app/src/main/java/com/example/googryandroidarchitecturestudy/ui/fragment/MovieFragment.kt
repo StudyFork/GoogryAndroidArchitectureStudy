@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.googryandroidarchitecturestudy.data.local.MovieLocalDataSourceImpl
 import com.example.googryandroidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
+import com.example.googryandroidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.example.googryandroidarchitecturestudy.database.MovieDatabase
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieBinding
 import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
@@ -26,8 +27,9 @@ class MovieFragment : Fragment() {
 
     private val movieRepository: MovieRepository by lazy {
         val movieRemoteDataSource = MovieRemoteDataSourceImpl()
-        val movieLocalDataSource = MovieLocalDataSourceImpl(MovieDatabase.getInstance(requireContext()))
-        MovieRepository(movieRemoteDataSource, movieLocalDataSource)
+        val movieLocalDataSource =
+            MovieLocalDataSourceImpl(MovieDatabase.getInstance(requireContext()))
+        MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource)
     }
 
     override fun onCreateView(
@@ -53,7 +55,7 @@ class MovieFragment : Fragment() {
                         )
                     )
                 } catch (e: Exception) {
-                    Log.e(TAG, e.message)
+                    Log.e(TAG, e.message.toString())
                 }
             }
         }
