@@ -2,11 +2,15 @@ package com.example.studyfork
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.example.studyfork.databinding.ActivityMainBinding
 import com.example.studyfork.model.RemoteDataSourceImpl
 import com.example.studyfork.model.RepositoryImpl
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private val binding: ActivityMainBinding by lazy {
+        DataBindingUtil.setContentView(this, R.layout.activity_main)
+    }
     private val repository by lazy {
         RepositoryImpl(RemoteDataSourceImpl())
     }
@@ -14,12 +18,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        rec_movie.adapter = recyclerAdapter
+        binding.recMovie.adapter = recyclerAdapter
 
-        btn_search.setOnClickListener {
-            edt_query.text?.run {
+        binding.btnSearch.setOnClickListener {
+            binding.edtQuery.text?.run {
                 repository.searchMovie(this.toString(),
                     {
                         it.items.run {
