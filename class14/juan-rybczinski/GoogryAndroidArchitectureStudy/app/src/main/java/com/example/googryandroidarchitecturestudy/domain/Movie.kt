@@ -2,6 +2,7 @@ package com.example.googryandroidarchitecturestudy.domain
 
 data class Movie(
     val title: String,
+    val link: String,
     val image: String,
     val subtitle: String,
     val pubDate: String,

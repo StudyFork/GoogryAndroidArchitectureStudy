@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -68,6 +69,10 @@ dependencies {
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
