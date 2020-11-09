@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.movie_info_layout.view.*
 import kr.dktsudgg.androidarchitecturestudy.R
-import kr.dktsudgg.androidarchitecturestudy.api.naver.data.MovieItem
+import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
