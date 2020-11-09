@@ -8,15 +8,15 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.architecture.androidarchitecturestudy.R
 import com.architecture.androidarchitecturestudy.adapter.MovieAdapter
-import com.architecture.androidarchitecturestudy.model.MovieRepository
-import com.architecture.androidarchitecturestudy.model.MovieResponse
+import com.architecture.androidarchitecturestudy.data.model.Movie
+import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private val movieRepository: MovieRepository = MovieRepository()
+    private val movieRepository by lazy { MovieRepositoryImpl() }
     private lateinit var movieAdapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,23 +42,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchMovie(keyword: String) {
-        val call = movieRepository.getMovieData(keyword, 30)
-        call.enqueue(object : Callback<MovieResponse> {
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                Log.e("에러발생", t.toString())
-                t.printStackTrace()
-            }
-
-            override fun onResponse(
-                call: Call<MovieResponse>,
-                response: Response<MovieResponse>
-            ) {
-                if (response.isSuccessful) {
-                    val movieResponse: MovieResponse? = response.body()
-                    movieResponse?.items?.let { movieAdapter.setItemList(it) }
-                }
-            }
-        })
+        movieRepository.getMovieData(keyword, 30,
+            onSuccess = { movieAdapter.setItemList(it.items as ArrayList<Movie>) },
+            onFailure = { Log.e("Api is fail", it.toString()) })
     }
 
     private fun removeKeyboard() =
