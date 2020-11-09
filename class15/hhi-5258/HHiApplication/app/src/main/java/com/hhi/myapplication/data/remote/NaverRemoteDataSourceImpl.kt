@@ -1,7 +1,7 @@
 package com.hhi.myapplication.data.remote
 
-import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.api.NaverAPI
+import com.hhi.myapplication.data.model.MovieData
 import retrofit2.Call
 import retrofit2.Response
 
