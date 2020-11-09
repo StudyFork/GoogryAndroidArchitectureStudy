@@ -1,5 +1,6 @@
-package com.example.androidarchitecturestudy.api
+package com.example.androidarchitecturestudy.data.api
 
+import com.example.androidarchitecturestudy.data.model.MovieData
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Call
@@ -12,9 +13,9 @@ interface NaverMovieInterface {
     @GET("/v1/search/movie.json")
     fun searchMovies(
         @Query("query") query: String,
-    ): Call<MovieResponse>
+    ): Call<MovieData>
 
-    companion object{
+    companion object {
         private const val BASE_URL = "https://openapi.naver.com/"
         private const val CLIENT_ID = "zoFgl2SLHGQXO2WoadKj"
         private const val CLIENT_SECRET = "Tx2eCHuLZ6"

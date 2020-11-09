@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidarchitecturestudy.R
-import com.example.androidarchitecturestudy.model.Movie
+import com.example.androidarchitecturestudy.data.model.Movie
 
 class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
     private val movies = ArrayList<Movie>()
@@ -15,12 +15,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
-       holder.bind(movies[position])
+        holder.bind(movies[position])
     }
 
     override fun getItemCount() = movies.count()
 
-    fun setMovieList(movieList: List<Movie>){
+    fun setMovieList(movieList: List<Movie>) {
         this.movies.clear()
         this.movies.addAll(movieList)
         notifyDataSetChanged()

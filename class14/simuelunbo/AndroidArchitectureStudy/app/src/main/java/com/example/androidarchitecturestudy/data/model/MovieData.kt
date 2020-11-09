@@ -1,6 +1,19 @@
-package com.example.androidarchitecturestudy.model
+package com.example.androidarchitecturestudy.data.model
 
 import com.google.gson.annotations.SerializedName
+
+data class MovieData(
+    @SerializedName("display")
+    val display: Int?,
+    @SerializedName("items")
+    val items: List<Movie>?,
+    @SerializedName("lastBuildDate")
+    val lastBuildDate: String?,
+    @SerializedName("start")
+    val start: Int?,
+    @SerializedName("total")
+    val total: Int?
+)
 
 data class Movie(
     @SerializedName("actor")
