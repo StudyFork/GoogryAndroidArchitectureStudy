@@ -6,4 +6,6 @@ interface Repository {
         success: (MovieSearchResponse) -> Unit,
         fail: (Throwable) -> Unit,
     )
+
+    fun disposableClear()
 }

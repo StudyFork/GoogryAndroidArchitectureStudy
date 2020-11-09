@@ -31,4 +31,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onDestroy() {
+        repository.disposableClear()
+        super.onDestroy()
+    }
 }

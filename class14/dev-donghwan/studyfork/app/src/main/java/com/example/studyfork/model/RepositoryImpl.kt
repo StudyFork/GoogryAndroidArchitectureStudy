@@ -21,4 +21,8 @@ class RepositoryImpl(private val remoteDataSource: RemoteDataSource) : Repositor
             })
             .addTo(compositeDisposable)
     }
+
+    override fun disposableClear() {
+        this.compositeDisposable.clear()
+    }
 }
