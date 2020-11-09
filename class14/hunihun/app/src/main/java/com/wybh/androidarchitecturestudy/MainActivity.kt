@@ -8,15 +8,17 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.wybh.androidarchitecturestudy.model.ResponseCinemaData
-import com.wybh.androidarchitecturestudy.retrofit.RetrofitCreator
-import com.wybh.androidarchitecturestudy.retrofit.RetrofitImpl
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.wybh.androidarchitecturestudy.data.remote.RemoteNaverApiImpl
+import com.wybh.androidarchitecturestudy.data.repository.RepositoryImpl
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 
 class MainActivity : AppCompatActivity() {
+    private val repository: RepositoryImpl by lazy {
+        val remoteNaverApi = RemoteNaverApiImpl()
+        RepositoryImpl(remoteNaverApi)
+    }
+    
     private lateinit var etSearchWord: EditText
     private lateinit var btnSearch: Button
     private lateinit var rvCinema: RecyclerView
@@ -54,28 +56,29 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewClickListener() {
         btnSearch.setOnClickListener {
-            compositeDisposable.add(
-                RetrofitCreator.create(RetrofitImpl::class.java)
-                    .getCinemaData(etSearchWord.text.toString())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.newThread())
-                    .subscribe({ response: ResponseCinemaData ->
-                        // adapter list clear
-                        cinemaAdapter.dataClear()
-                        
-                        response.items.map{
-                            val item = CinemaItem(it.image, it.title, it.actor, it.userRating, it.pubDate, it.link)
-                            cinemaAdapter.addItem(item)
-                        }
+            repository.searchCinema(etSearchWord.text.toString(), {
+                // adapter list clear
+                cinemaAdapter.dataClear()
+                it.items.map { response ->
+                    val item = CinemaItem(
+                        response.image,
+                        response.title,
+                        response.actor,
+                        response.userRating,
+                        response.pubDate,
+                        response.link
+                    )
+                    cinemaAdapter.addItem(item)
+                }
 
-                        // recyclerview 갱신
-                        cinemaAdapter.notifyDataSetChanged()
+                // recyclerview 갱신
+                cinemaAdapter.notifyDataSetChanged()
 
-                        // 키보드 내리기
-                        imm.hideSoftInputFromWindow(etSearchWord.windowToken, 0)
-                    }, { error: Throwable ->
-                        Log.d("jsh", "fail >>> " + error.message)
-                    }))
+                // 키보드 내리기
+                imm.hideSoftInputFromWindow(etSearchWord.windowToken, 0)
+            }, {
+                Log.e("jsh", "error >>> ${it.message}")
+            })
         }
     }
 }

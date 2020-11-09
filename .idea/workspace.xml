@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="38d8fdc5-4917-4166-b0f2-51fd7446088f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/CinemaAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/CinemaAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/data/remote/RemoteNaverApi.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/data/remote/RemoteNaverApiImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/data/repository/Repository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/data/repository/RepositoryImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/MainActivity.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -27,7 +31,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1750" />
