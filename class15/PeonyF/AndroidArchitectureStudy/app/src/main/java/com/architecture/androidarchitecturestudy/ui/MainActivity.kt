@@ -11,9 +11,6 @@ import com.architecture.androidarchitecturestudy.adapter.MovieAdapter
 import com.architecture.androidarchitecturestudy.data.model.Movie
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private val movieRepository by lazy { MovieRepositoryImpl() }
