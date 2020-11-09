@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.googryandroidarchitecturestudy.R
-import com.example.googryandroidarchitecturestudy.data.model.MovieResponse.Movie
+import com.example.googryandroidarchitecturestudy.domain.Movie
 
 class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
