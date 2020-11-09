@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.example.googryandroidarchitecturestudy.data.local.MovieLocalDataSourceImpl
 import com.example.googryandroidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
+import com.example.googryandroidarchitecturestudy.database.MovieDatabase
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieBinding
 import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 import kotlinx.coroutines.launch
@@ -24,7 +26,8 @@ class MovieFragment : Fragment() {
 
     private val movieRepository: MovieRepository by lazy {
         val movieRemoteDataSource = MovieRemoteDataSourceImpl()
-        MovieRepository(movieRemoteDataSource)
+        val movieLocalDataSource = MovieLocalDataSourceImpl(MovieDatabase.getInstance(requireContext()))
+        MovieRepository(movieRemoteDataSource, movieLocalDataSource)
     }
 
     override fun onCreateView(
