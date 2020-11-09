@@ -28,4 +28,9 @@ class RecyclerAdapterMovie :
         this.modelList.addAll(modelList)
         notifyDataSetChanged()
     }
+
+    fun clear() {
+        this.modelList.clear()
+        notifyDataSetChanged()
+    }
 }

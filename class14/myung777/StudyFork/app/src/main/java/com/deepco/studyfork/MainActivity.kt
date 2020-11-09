@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.deepco.studyfork.api.RetrofitService
-import com.deepco.studyfork.model.Item
-import com.deepco.studyfork.model.MovieData
+import com.deepco.studyfork.data.remote.RemoteMovieDataImpl
+import com.deepco.studyfork.data.repository.RepositoryMovieData
+import com.deepco.studyfork.data.repository.RepositoryMovieDataImpl
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var api: RetrofitService
     private lateinit var recyclerAdapterMovie: RecyclerAdapterMovie
+    private val repositoryDataSourceImpl: RepositoryMovieData by lazy {
+        val remoteMovieDataImpl = RemoteMovieDataImpl(api)
+        RepositoryMovieDataImpl(remoteMovieDataImpl)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,25 +28,19 @@ class MainActivity : AppCompatActivity() {
             if (text.isEmpty()) {
                 Toast.makeText(this, "영화 제목을 입력해주세요", Toast.LENGTH_SHORT).show()
             } else {
-                searchMovie(text)
+                repositoryDataSourceImpl.getMovieList(text, {
+                    if (it.isEmpty()) {
+                        recyclerAdapterMovie.clear()
+                        Toast.makeText(applicationContext, "$text 를 찾을 수 없습니다", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        recyclerAdapterMovie.setItemList(it)
+                    }
+                }, {
+                    Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+                })
             }
         }
-    }
-
-    private fun searchMovie(name: String) {
-        api.getSearchMovie(name).enqueue(object : Callback<MovieData> {
-            override fun onResponse(
-                call: Call<MovieData>,
-                response: Response<MovieData>
-            ) {
-                val movieData: MovieData? = response.body()
-                recyclerAdapterMovie.setItemList(movieData?.items as ArrayList<Item>)
-            }
-
-            override fun onFailure(call: Call<MovieData>, t: Throwable) {
-                Toast.makeText(applicationContext, "다시 검색해 주세요", Toast.LENGTH_SHORT).show()
-            }
-        })
     }
 
     private fun setRecyclerView() {
