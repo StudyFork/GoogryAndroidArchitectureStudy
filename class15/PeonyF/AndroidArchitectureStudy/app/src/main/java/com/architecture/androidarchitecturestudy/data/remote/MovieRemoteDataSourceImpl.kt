@@ -2,12 +2,14 @@ package com.architecture.androidarchitecturestudy.data.remote
 
 import com.architecture.androidarchitecturestudy.data.model.MovieResponse
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
+import com.architecture.androidarchitecturestudy.webservice.NetworkService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-object MovieRemoteDataSourceImpl : MovieRemoteDataSource {
-    private val network = ApiClient.NETWORK_SERVICE
+class MovieRemoteDataSourceImpl(
+    private val network: NetworkService = ApiClient.NETWORK_SERVICE
+) : MovieRemoteDataSource {
     override fun getMovieData(
         keyword: String,
         display: Int,
@@ -31,3 +33,4 @@ object MovieRemoteDataSourceImpl : MovieRemoteDataSource {
             })
     }
 }
+

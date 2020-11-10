@@ -9,11 +9,18 @@ import android.widget.Toast
 import com.architecture.androidarchitecturestudy.R
 import com.architecture.androidarchitecturestudy.adapter.MovieAdapter
 import com.architecture.androidarchitecturestudy.data.model.Movie
+import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSource
+import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
+import com.architecture.androidarchitecturestudy.data.repository.MovieRepository
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
+import com.architecture.androidarchitecturestudy.webservice.ApiClient
+import com.architecture.androidarchitecturestudy.webservice.NetworkService
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val movieRepository by lazy { MovieRepositoryImpl() }
+    private lateinit var networkService: NetworkService
+    private lateinit var movieRepository: MovieRepository
+    private lateinit var movieRemoteDataSource: MovieRemoteDataSource
     private lateinit var movieAdapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initRecyclerView()
+        initRepository()
 
         btn_main_search.setOnClickListener {
             if (et_main_search.text.isEmpty()) {
@@ -31,6 +39,12 @@ class MainActivity : AppCompatActivity() {
                 removeKeyboard()
             }
         }
+    }
+
+    private fun initRepository() {
+        networkService = ApiClient.NETWORK_SERVICE
+        movieRemoteDataSource = MovieRemoteDataSourceImpl(networkService)
+        movieRepository = MovieRepositoryImpl(movieRemoteDataSource)
     }
 
     private fun initRecyclerView() {
