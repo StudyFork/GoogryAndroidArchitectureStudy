@@ -29,13 +29,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "영화 제목을 입력해주세요", Toast.LENGTH_SHORT).show()
             } else {
                 repositoryDataSourceImpl.getMovieList(text, {
-                    if (it.isEmpty()) {
-                        recyclerAdapterMovie.clear()
-                        Toast.makeText(this, "$text 를 찾을 수 없습니다", Toast.LENGTH_SHORT)
-                            .show()
-                    } else {
-                        recyclerAdapterMovie.setItemList(it)
-                    }
+                    recyclerAdapterMovie.setItemList(it)
                 }, {
                     Toast.makeText(this, it, Toast.LENGTH_LONG).show()
                 })

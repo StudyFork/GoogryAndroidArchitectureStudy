@@ -24,7 +24,11 @@ class RemoteMovieDataImpl(
                 if (response.isSuccessful) {
                     val body = response.body()
                     body?.let {
-                        success(it.items)
+                        if (it.items.isNotEmpty()) {
+                            success(it.items)
+                        } else {
+                            failed("$title 를 찾을 수 없습니다")
+                        }
                     }
                 } else {
                     failed(response.message())
