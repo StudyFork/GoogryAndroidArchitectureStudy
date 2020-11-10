@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
                 repositoryDataSourceImpl.getMovieList(text, {
                     if (it.isEmpty()) {
                         recyclerAdapterMovie.clear()
-                        Toast.makeText(applicationContext, "$text 를 찾을 수 없습니다", Toast.LENGTH_SHORT)
+                        Toast.makeText(this, "$text 를 찾을 수 없습니다", Toast.LENGTH_SHORT)
                             .show()
                     } else {
                         recyclerAdapterMovie.setItemList(it)
