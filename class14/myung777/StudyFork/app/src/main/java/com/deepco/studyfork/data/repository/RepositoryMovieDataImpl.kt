@@ -11,8 +11,8 @@ class RepositoryMovieDataImpl(
         success: (List<Item>) -> Unit,
         failed: (String) -> Unit
     ) {
-        remoteMovieDataImpl.getMovieList(title, {
-            success(it)
-        }, failed)
+        remoteMovieDataImpl.getMovieList(
+            title, success, failed
+        )
     }
 }
