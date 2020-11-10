@@ -53,7 +53,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun searchMovie(keyword: String) {
-        movieRepository.getMovieData(keyword, 30,
+        movieRepository.getMovieData(
+            keyword,
+            30,
             onSuccess = { movieAdapter.setItemList(it.items as ArrayList<Movie>) },
             onFailure = { Log.e("Api is fail", it.toString()) })
     }
