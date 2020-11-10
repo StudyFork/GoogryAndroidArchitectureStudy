@@ -14,8 +14,12 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField "String","naver_clientId","\"67znsYa_iJOrjYNeChNL\""
+        buildConfigField "String","naver_clientSecret","\"V2h_LIRLgC\""
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
