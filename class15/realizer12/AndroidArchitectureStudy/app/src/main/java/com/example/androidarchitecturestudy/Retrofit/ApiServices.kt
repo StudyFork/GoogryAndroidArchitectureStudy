@@ -1,4 +1,4 @@
-package com.example.androidarchitecturestudy.Retrofit
+package com.example.androidarchitecturestudy.retrofit
 
 import com.example.androidarchitecturestudy.BuildConfig
 import com.example.androidarchitecturestudy.data.GetMovieInfo
