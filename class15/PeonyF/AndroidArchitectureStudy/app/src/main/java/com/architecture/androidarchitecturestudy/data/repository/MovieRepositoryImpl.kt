@@ -8,13 +8,13 @@ class MovieRepositoryImpl(
 ) : MovieRepository {
     override fun getMovieData(
         keyword: String,
-        cnt: Int,
+        display: Int,
         onSuccess: (MovieResponse) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
         return movieRemoteDataSource.getMovieData(
             keyword = keyword,
-            display = cnt,
+            display = display,
             onSuccess = onSuccess,
             onFailure = onFailure
         )
