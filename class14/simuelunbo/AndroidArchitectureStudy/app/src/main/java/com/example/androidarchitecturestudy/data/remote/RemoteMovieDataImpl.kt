@@ -22,7 +22,7 @@ class RemoteMovieDataImpl : RemoteMovieData {
                 if (response.isSuccessful) {
                     response.body()?.let {
                         success(it)
-                        it.items?.let { it1 -> repositoryMovieImpl.saveMovieData(it1) }
+                        it.items?.let { movie -> repositoryMovieImpl.saveMovieData(movie) }
                     }
                 } else {
                     failed(response.message())
