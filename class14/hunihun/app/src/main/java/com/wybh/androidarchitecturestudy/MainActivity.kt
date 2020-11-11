@@ -8,14 +8,14 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.wybh.androidarchitecturestudy.data.remote.RemoteNaverApiImpl
+import com.wybh.androidarchitecturestudy.data.remote.RemoteNaverDataSourceImpl
 import com.wybh.androidarchitecturestudy.data.repository.RepositoryImpl
 import io.reactivex.disposables.CompositeDisposable
 
 
 class MainActivity : AppCompatActivity() {
     private val repository: RepositoryImpl by lazy {
-        val remoteNaverApi = RemoteNaverApiImpl()
+        val remoteNaverApi = RemoteNaverDataSourceImpl()
         RepositoryImpl(remoteNaverApi)
     }
     
