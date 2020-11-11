@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun searchMovie(query: String) {
         repositoryDataSourceImpl.searchMovies(query,
-            { recyclerAdapter.setMovieList(it.items) },
-            { Log.e("search_failed", it.toString()); }
+            success = { recyclerAdapter.setMovieList(it.items) },
+            failed = { Log.e("search_failed", it.toString()); }
         )
     }
 }
