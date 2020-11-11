@@ -8,7 +8,7 @@ interface NaverMovieDataSource {
         query: String,
         display: Int?,
         start: Int?,
-        successCallback: (NaverMovieResponse?)->Unit,
+        successCallback: (NaverMovieResponse) -> Unit,
         failureCallback: (t: Throwable) -> Unit
     )
 

@@ -6,7 +6,7 @@ interface NaverMovieRepository {
 
     fun searchMovies(
         query: String,
-        successCallback: (NaverMovieResponse?) -> Unit,
+        successCallback: (NaverMovieResponse) -> Unit,
         failureCallback: (t: Throwable) -> Unit
     )
 

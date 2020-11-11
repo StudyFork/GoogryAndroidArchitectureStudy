@@ -10,7 +10,7 @@ class NaverMovieRepositoryImpl : NaverMovieRepository {
 
     override fun searchMovies(
         query: String,
-        successCallback: (NaverMovieResponse?) -> Unit,
+        successCallback: (NaverMovieResponse) -> Unit,
         failureCallback: (t: Throwable) -> Unit
     ) {
         naverMovieDataSource.searchMovies(query, null, null, successCallback, failureCallback)

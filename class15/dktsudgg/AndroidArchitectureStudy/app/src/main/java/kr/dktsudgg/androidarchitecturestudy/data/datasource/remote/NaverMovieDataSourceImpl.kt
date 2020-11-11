@@ -1,5 +1,6 @@
 package kr.dktsudgg.androidarchitecturestudy.data.datasource.remote
 
+import android.util.Log
 import kr.dktsudgg.androidarchitecturestudy.BuildConfig
 import kr.dktsudgg.androidarchitecturestudy.api.WebRequestManager
 import kr.dktsudgg.androidarchitecturestudy.api.naver.NaverMovieApi
@@ -17,7 +18,7 @@ class NaverMovieDataSourceImpl : NaverMovieDataSource {
         query: String,
         display: Int?,
         start: Int?,
-        successCallback: (NaverMovieResponse?) -> Unit,
+        successCallback: (NaverMovieResponse) -> Unit,
         failureCallback: (t: Throwable) -> Unit
     ) {
         WebRequestManager.getInstance(NaverMovieApi::class)
@@ -28,7 +29,14 @@ class NaverMovieDataSourceImpl : NaverMovieDataSource {
                     response: Response<NaverMovieResponse>
                 ) {
                     if (response.isSuccessful) {
-                        successCallback(response.body())
+                        response.body()?.let {
+                            successCallback(it)
+                        } ?: {  // 널인 경우
+                            Log.i(
+                                "NaverMovieDataSourceImpl - searchMovies",
+                                "response.body() is null.."
+                            )
+                        }()
                     }
                 }
 
