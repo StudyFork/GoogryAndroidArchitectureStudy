@@ -3,7 +3,7 @@ package com.deepco.studyfork
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.deepco.studyfork.model.Item
+import com.deepco.studyfork.data.model.Item
 import kotlinx.android.synthetic.main.movie_item.view.*
 
 class MyViewHolder(

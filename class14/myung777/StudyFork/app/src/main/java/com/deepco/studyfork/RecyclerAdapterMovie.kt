@@ -3,7 +3,7 @@ package com.deepco.studyfork
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.deepco.studyfork.model.Item
+import com.deepco.studyfork.data.model.Item
 
 class RecyclerAdapterMovie :
     RecyclerView.Adapter<MyViewHolder>() {
@@ -26,6 +26,11 @@ class RecyclerAdapterMovie :
     fun setItemList(modelList: List<Item>) {
         this.modelList.clear()
         this.modelList.addAll(modelList)
+        notifyDataSetChanged()
+    }
+
+    fun clear() {
+        this.modelList.clear()
         notifyDataSetChanged()
     }
 }
