@@ -7,17 +7,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.androidarchitecturestudy.R
-import com.example.androidarchitecturestudy.data.local.LocalMovieDataImpl
+import com.example.androidarchitecturestudy.data.local.NaverLocalDataSourceImpl
 import com.example.androidarchitecturestudy.data.model.Movie
-import com.example.androidarchitecturestudy.data.remote.RemoteMovieDataImpl
-import com.example.androidarchitecturestudy.data.repository.RepositoryMovieImpl
+import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImpl
+import com.example.androidarchitecturestudy.data.repository.NaverRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private var movieAdapter: MovieAdapter = MovieAdapter()
-    private val remoteMovieDataImpl = RemoteMovieDataImpl()
-    private val localMovieDataImpl = LocalMovieDataImpl()
-    private val repositoryMovieImpl = RepositoryMovieImpl(remoteMovieDataImpl, localMovieDataImpl)
+    private val remoteMovieDataImpl = NaverRemoteDataSourceImpl()
+    private val localMovieDataImpl = NaverLocalDataSourceImpl()
+    private val repositoryMovieImpl = NaverRepositoryImpl(remoteMovieDataImpl, localMovieDataImpl)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

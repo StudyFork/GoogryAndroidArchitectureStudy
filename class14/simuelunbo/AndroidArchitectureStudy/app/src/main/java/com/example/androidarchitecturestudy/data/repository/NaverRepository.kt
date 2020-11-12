@@ -3,7 +3,7 @@ package com.example.androidarchitecturestudy.data.repository
 import com.example.androidarchitecturestudy.data.model.Movie
 import com.example.androidarchitecturestudy.data.model.MovieData
 
-interface RepositoryMovie {
+interface NaverRepository {
 
     fun getSearchMovieList(
         query: String,

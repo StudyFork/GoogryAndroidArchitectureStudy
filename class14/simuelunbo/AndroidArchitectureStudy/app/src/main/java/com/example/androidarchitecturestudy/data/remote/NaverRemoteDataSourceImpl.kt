@@ -5,7 +5,7 @@ import com.example.androidarchitecturestudy.data.model.MovieData
 import retrofit2.Call
 import retrofit2.Response
 
-class RemoteMovieDataImpl : RemoteMovieData {
+class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
 
     override fun getSearchMovieList(
         query: String,
