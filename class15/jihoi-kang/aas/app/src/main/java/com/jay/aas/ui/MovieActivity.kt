@@ -40,6 +40,7 @@ class MovieActivity : AppCompatActivity() {
         inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         initRepository()
         initView()
+        initMovies()
     }
 
     private fun initRepository() {
@@ -64,6 +65,22 @@ class MovieActivity : AppCompatActivity() {
             return@setOnEditorActionListener false
         }
         binding.ivSearch.setOnClickListener { searchMovies(binding.evSearch.text.toString()) }
+    }
+
+    private fun initMovies() {
+        lifecycleScope.launch {
+            val movies = movieRepository.getMovies()
+
+            if (movies.isEmpty()) {
+                binding.tvNoResult.isVisible = true
+                binding.rvMovie.isGone = true
+            } else {
+                binding.tvNoResult.isGone = true
+                binding.rvMovie.isVisible = true
+
+                movieAdapter.setMovies(movies)
+            }
+        }
     }
 
     private fun searchMovies(query: String) {

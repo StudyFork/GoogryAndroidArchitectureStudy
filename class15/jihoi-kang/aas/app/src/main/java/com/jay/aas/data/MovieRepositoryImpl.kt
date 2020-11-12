@@ -16,4 +16,6 @@ class MovieRepositoryImpl(
         return movies
     }
 
+    override suspend fun getMovies(): List<Movie> =
+        movieLocalDataSource.getMovies()
 }
