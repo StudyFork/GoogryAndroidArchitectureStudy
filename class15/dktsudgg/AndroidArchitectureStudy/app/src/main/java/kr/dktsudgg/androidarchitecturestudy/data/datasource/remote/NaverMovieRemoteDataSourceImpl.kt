@@ -9,7 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NaverMovieDataSourceImpl : NaverMovieDataSource {
+class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
 
     private val NAVER_CLIENT_ID = BuildConfig.NAVER_CLIENT_ID;
     private val NAVER_CLIENT_SECRET = BuildConfig.NAVER_CLIENT_SECRET;

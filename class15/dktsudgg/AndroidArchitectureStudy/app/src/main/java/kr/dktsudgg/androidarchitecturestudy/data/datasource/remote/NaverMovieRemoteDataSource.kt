@@ -2,7 +2,7 @@ package kr.dktsudgg.androidarchitecturestudy.data.datasource.remote
 
 import kr.dktsudgg.androidarchitecturestudy.data.model.NaverMovieResponse
 
-interface NaverMovieDataSource {
+interface NaverMovieRemoteDataSource {
 
     fun searchMovies(
         query: String,
