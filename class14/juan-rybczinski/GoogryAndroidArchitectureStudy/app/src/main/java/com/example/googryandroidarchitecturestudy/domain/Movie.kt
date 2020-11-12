@@ -1,7 +1,8 @@
-package com.example.googryandroidarchitecturestudy.model
+package com.example.googryandroidarchitecturestudy.domain
 
-data class Movie (
+data class Movie(
     val title: String,
+    val link: String,
     val image: String,
     val subtitle: String,
     val pubDate: String,
