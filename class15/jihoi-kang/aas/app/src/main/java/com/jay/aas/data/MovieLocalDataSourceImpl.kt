@@ -11,7 +11,7 @@ class MovieLocalDataSourceImpl(
         movieDao.insertMovies(movies)
     }
 
-    override fun getMovies(query: String): List<Movie> = movieDao.getMovies(query)
+    override fun getMovies(): List<Movie> = movieDao.getMovies()
 
     override fun clearMovies() {
         movieDao.clearMovies()

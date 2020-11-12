@@ -6,7 +6,7 @@ class MovieRemoteDataSourceImpl(
     private val movieService: MovieService,
 ) : MovieRemoteDataSource {
 
-    override suspend fun getMovies(query: String) =
+    override suspend fun getSearchMovies(query: String) =
         movieService.getMovies(query).items
 
 }

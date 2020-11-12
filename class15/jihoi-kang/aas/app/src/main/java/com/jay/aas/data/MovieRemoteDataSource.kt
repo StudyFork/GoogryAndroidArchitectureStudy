@@ -4,6 +4,6 @@ import com.jay.aas.model.Movie
 
 interface MovieRemoteDataSource {
 
-    suspend fun getMovies(query: String): List<Movie>
+    suspend fun getSearchMovies(query: String): List<Movie>
 
 }

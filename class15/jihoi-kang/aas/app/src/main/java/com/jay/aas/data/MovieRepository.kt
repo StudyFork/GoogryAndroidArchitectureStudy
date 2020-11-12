@@ -4,6 +4,6 @@ import com.jay.aas.model.Movie
 
 interface MovieRepository {
 
-    suspend fun getMovies(query: String): List<Movie>
+    suspend fun getSearchMovies(query: String): List<Movie>
 
 }

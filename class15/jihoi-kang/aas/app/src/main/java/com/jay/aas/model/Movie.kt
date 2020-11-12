@@ -4,7 +4,6 @@ import androidx.room.Entity
 
 @Entity(primaryKeys = [("title")])
 data class Movie(
-    var query: String,
     val actor: String,
     val director: String,
     val image: String,

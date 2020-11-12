@@ -9,13 +9,9 @@ class MovieRepositoryImpl(
 
     private val TAG = this::class.java.simpleName
 
-    override suspend fun getMovies(query: String): List<Movie> {
-        var movies = movieLocalDataSource.getMovies(query)
-        if (movies.isEmpty()) {
-            movies = movieRemoteDataSource.getMovies(query)
-            movies.forEach { it.query = query }
-            movieLocalDataSource.insertMovies(movies)
-        }
+    override suspend fun getSearchMovies(query: String): List<Movie> {
+        val movies = movieRemoteDataSource.getSearchMovies(query)
+        movieLocalDataSource.insertMovies(movies)
 
         return movies
     }
