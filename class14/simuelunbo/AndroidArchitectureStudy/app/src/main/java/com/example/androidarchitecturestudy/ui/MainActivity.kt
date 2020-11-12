@@ -10,7 +10,6 @@ import com.example.androidarchitecturestudy.R
 import com.example.androidarchitecturestudy.data.local.LocalMovieDataImpl
 import com.example.androidarchitecturestudy.data.model.Movie
 import com.example.androidarchitecturestudy.data.remote.RemoteMovieDataImpl
-import com.example.androidarchitecturestudy.data.repository.RepositoryMovie
 import com.example.androidarchitecturestudy.data.repository.RepositoryMovieImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     private var movieAdapter: MovieAdapter = MovieAdapter()
     private val remoteMovieDataImpl = RemoteMovieDataImpl()
     private val localMovieDataImpl = LocalMovieDataImpl()
-    private val repositoryMovieImpl = RepositoryMovieImpl(remoteMovieDataImpl,localMovieDataImpl)
+    private val repositoryMovieImpl = RepositoryMovieImpl(remoteMovieDataImpl, localMovieDataImpl)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +51,11 @@ class MainActivity : AppCompatActivity() {
             query = query,
             success = {
                 movieAdapter.setMovieList(it.items as ArrayList<Movie>)
+                repositoryMovieImpl.saveMovieData(it.items)
                 progressBar.isVisible = false
             },
             failed = {
-                Toast.makeText(this@MainActivity,it,Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show()
                 progressBar.isVisible = false
             })
 
