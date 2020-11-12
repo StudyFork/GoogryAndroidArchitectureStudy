@@ -9,11 +9,9 @@ import retrofit2.http.Query
 
 
 interface ApiServices {
-
     @Headers("X-Naver-Client-Id: ${BuildConfig.naver_clientId}", "X-Naver-Client-Secret: ${BuildConfig.naver_clientSecret}")
     @GET("movie.json")
     fun getMovieSearchResult(
         @Query("query") movieName: String
     ): Call<GetMovieInfo.MovieList>
-
 }

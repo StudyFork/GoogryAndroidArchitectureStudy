@@ -1,6 +1,5 @@
 package com.example.androidarchitecturestudy.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,13 +70,12 @@ class MovieListRecyclerViewAdapter() :
             }
 
         }
-
-    }// MovieItemViewHolder 끝
+    }
 
 
     // 제목에  html 태그 섞여와서 없앰.
     private fun removeHtmlTag(htmlText: String?): String {
         return htmlText?.replace("<b>", "")?.replace("</b>", "") ?: ""
-    }// removeHtmlTag 끝
+    }
 
 }

@@ -4,15 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
-import com.example.androidarchitecturestudy.retrofit.RetrofitClient
-import com.example.androidarchitecturestudy.retrofit.ServerIp
 import com.example.androidarchitecturestudy.adapter.MovieListRecyclerViewAdapter
 import com.example.androidarchitecturestudy.data.GetMovieInfo
 import com.example.androidarchitecturestudy.data.repository.MovieRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,19 +24,15 @@ class MainActivity : AppCompatActivity() {
 
         setRecyclerView()
         initEventListeners()
-
     }
 
     // 리사이클러뷰 세팅
     private fun setRecyclerView() {
-
         recyclerViewAdapter = MovieListRecyclerViewAdapter()
-
         recycler_view_main_movie_list.apply {
             adapter = recyclerViewAdapter
         }
-
-    }// setRecyclerView
+    }
 
     // 리사이클러뷰 데이터 업데이트
     private fun updateRecyclerView(movieList: List<GetMovieInfo.MovieData>) {
@@ -51,7 +42,6 @@ class MainActivity : AppCompatActivity() {
 
     // 영화 검색 실행
     private fun initEventListeners() {
-
         // 검색 버튼 눌릴때
         btn_main_search_movie.setOnClickListener {
             getMovieData(edit_main_search_movie.text.toString())
@@ -67,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    }// searchMovie
+    }
 
 
 
@@ -85,6 +75,6 @@ class MainActivity : AppCompatActivity() {
         },{
             Log.v("check_log", it.message.toString())
         })
-    }// getMovieData 끝
+    }
 
 }

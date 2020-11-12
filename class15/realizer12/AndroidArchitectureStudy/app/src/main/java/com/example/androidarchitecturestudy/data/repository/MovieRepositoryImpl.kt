@@ -2,7 +2,6 @@ package com.example.androidarchitecturestudy.data.repository
 
 import com.example.androidarchitecturestudy.data.GetMovieInfo
 import com.example.androidarchitecturestudy.data.datasource.RemoteMovieDataImpl
-import com.example.androidarchitecturestudy.data.datasource.RemoteMovieDataSource
 
 class MovieRepositoryImpl() :MovieRepository{
 
