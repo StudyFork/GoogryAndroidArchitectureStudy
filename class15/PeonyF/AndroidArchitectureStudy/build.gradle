@@ -17,7 +17,7 @@ buildscript {
         okhttp3Version = "4.9.0"
         glideVersion = '4.11.0'
 
-        junitVersion = '4.13'
+        junitVersion = '4.13.1'
         androidxTest = '1.1.2'
         espressoVersion = '3.3.0'
 

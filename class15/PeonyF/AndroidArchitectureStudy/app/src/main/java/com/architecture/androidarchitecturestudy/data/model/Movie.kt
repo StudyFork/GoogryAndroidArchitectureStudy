@@ -1,4 +1,4 @@
-package com.architecture.androidarchitecturestudy.model
+package com.architecture.androidarchitecturestudy.data.model
 
 data class Movie(
     val title: String?,

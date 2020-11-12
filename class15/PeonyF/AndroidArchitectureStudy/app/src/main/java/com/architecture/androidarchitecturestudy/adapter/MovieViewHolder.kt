@@ -11,7 +11,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.architecture.androidarchitecturestudy.R
-import com.architecture.androidarchitecturestudy.model.Movie
+import com.architecture.androidarchitecturestudy.data.model.Movie
 import com.bumptech.glide.Glide
 
 @Suppress("DEPRECATION")

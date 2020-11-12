@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.architecture.androidarchitecturestudy.R
-import com.architecture.androidarchitecturestudy.model.Movie
+import com.architecture.androidarchitecturestudy.data.model.Movie
 
-class MovieAdapter() :
+class MovieAdapter :
     RecyclerView.Adapter<MovieViewHolder>() {
 
     private val modelList = ArrayList<Movie>()
