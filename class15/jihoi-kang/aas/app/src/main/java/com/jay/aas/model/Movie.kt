@@ -1,5 +1,8 @@
 package com.jay.aas.model
 
+import androidx.room.Entity
+
+@Entity(primaryKeys = [("title")])
 data class Movie(
     val actor: String,
     val director: String,
