@@ -1,4 +1,4 @@
-package kr.dktsudgg.androidarchitecturestudy.api.naver.data
+package kr.dktsudgg.androidarchitecturestudy.data.model
 
 /**
  * 네이버 영화 API 응답 데이터

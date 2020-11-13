@@ -1,6 +1,6 @@
 package kr.dktsudgg.androidarchitecturestudy.api.naver
 
-import kr.dktsudgg.androidarchitecturestudy.api.naver.data.NaverMovieResponse
+import kr.dktsudgg.androidarchitecturestudy.data.model.NaverMovieResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
