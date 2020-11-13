@@ -7,7 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class RemoteNaverDataSourceImpl : RemoteNaverDataSource {
+class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
     private val compositeDisposable = CompositeDisposable()
 
     override fun searchCinema(

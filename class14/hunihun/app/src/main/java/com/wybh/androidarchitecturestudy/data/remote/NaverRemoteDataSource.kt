@@ -2,7 +2,7 @@ package com.wybh.androidarchitecturestudy.data.remote
 
 import com.wybh.androidarchitecturestudy.model.ResponseCinemaData
 
-interface RemoteNaverDataSource {
+interface NaverRemoteDataSource {
     fun searchCinema(
         query: String,
         success: (ResponseCinemaData) -> Unit,
