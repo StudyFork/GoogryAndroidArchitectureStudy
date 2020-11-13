@@ -2,26 +2,26 @@ package com.example.androidarchitecturestudy.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.androidarchitecturestudy.R
-import com.example.androidarchitecturestudy.api.MovieResponse
-import com.example.androidarchitecturestudy.api.NaverMovieInterface
-import com.example.androidarchitecturestudy.model.Movie
+import com.example.androidarchitecturestudy.data.local.NaverLocalDataSourceImpl
+import com.example.androidarchitecturestudy.data.model.Movie
+import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImpl
+import com.example.androidarchitecturestudy.data.repository.NaverRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Call
-import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var movieAdapter: MovieAdapter
+    private var movieAdapter: MovieAdapter = MovieAdapter()
+    private val remoteMovieDataImpl = NaverRemoteDataSourceImpl()
+    private val localMovieDataImpl = NaverLocalDataSourceImpl()
+    private val repositoryMovieImpl = NaverRepositoryImpl(remoteMovieDataImpl, localMovieDataImpl)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         initRecyclerView()
 
         btn_search.setOnClickListener {
@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "검색을 원하시는 영화 제목을 입력해 주세요", Toast.LENGTH_SHORT).show()
             } else {
                 hideKeyboard(this)
+                progressBar.isVisible = true
                 requestMovieInfo(searchText)
             }
         }
@@ -41,31 +42,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        movieAdapter = MovieAdapter()
+        repositoryMovieImpl.getMovieData()?.let { movieAdapter.setMovieList(it) }
         rcv_result.adapter = movieAdapter
     }
 
     private fun requestMovieInfo(query: String) {
-        progressBar.isVisible = true
-        NaverMovieInterface.create().searchMovies(query).enqueue(object :
-            retrofit2.Callback<MovieResponse> {
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+        repositoryMovieImpl.getSearchMovieList(
+            query = query,
+            success = {
+                movieAdapter.setMovieList(it.items as ArrayList<Movie>)
+                repositoryMovieImpl.saveMovieData(it.items)
                 progressBar.isVisible = false
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        movieAdapter.setMovieList(it.items as ArrayList<Movie>)
-                        et_search.text?.clear()
-                    }
-                } else {
-                    Log.e("MainActivity", response.message())
-                }
-            }
-
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+            },
+            failed = {
+                Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show()
                 progressBar.isVisible = false
-                Toast.makeText(applicationContext, "다시 검색해 주세요", Toast.LENGTH_SHORT).show()
-            }
+            })
 
-        })
     }
 }
