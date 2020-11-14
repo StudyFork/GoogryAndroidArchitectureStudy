@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.showmiso.architecturestudy.api.MovieModel
 import kotlinx.android.synthetic.main.item_movie.view.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private val movies = mutableListOf<MovieModel.Movie>()
