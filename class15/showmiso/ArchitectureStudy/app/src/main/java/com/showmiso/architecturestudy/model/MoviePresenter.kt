@@ -1,15 +1,13 @@
 package com.showmiso.architecturestudy.model
 
-import com.showmiso.architecturestudy.api.MovieModel
 import com.showmiso.architecturestudy.data.repository.NaverRepository
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 
 class MoviePresenter(
-    private val naverRepository: NaverRepository,
-    private val view: MovieContract.View
+    private val view: MovieContract.View,
+    private val naverRepository: NaverRepository
 ) : MovieContract.Presenter {
 
     private val disposable = CompositeDisposable()
@@ -29,7 +27,7 @@ class MoviePresenter(
                     view.updateMovieList(it)
                 }
             }, {
-
+                view.throwError(it)
             }).addTo(disposable)
     }
 
