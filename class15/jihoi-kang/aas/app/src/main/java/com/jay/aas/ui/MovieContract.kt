@@ -14,8 +14,8 @@ interface MovieContract {
     }
 
     interface Presenter {
-        fun getMovies()
-        fun searchMovies(query: String)
+        suspend fun getMovies()
+        suspend fun searchMovies(query: String)
     }
 
 }
