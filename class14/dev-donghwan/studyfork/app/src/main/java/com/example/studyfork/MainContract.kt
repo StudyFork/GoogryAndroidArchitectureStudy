@@ -5,7 +5,8 @@ import com.example.studyfork.data.model.MovieSearchResponse
 interface MainContract {
     interface View {
         fun showQueryEmpty()
-        fun showEmptyMovie()
+        fun showMovieEmpty()
+        fun showMovieError()
         fun showMovieList(list: List<MovieSearchResponse.MovieItem>)
     }
 
