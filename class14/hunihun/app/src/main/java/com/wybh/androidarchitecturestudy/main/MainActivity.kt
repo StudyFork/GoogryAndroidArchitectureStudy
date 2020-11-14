@@ -1,22 +1,35 @@
-package com.wybh.androidarchitecturestudy
+package com.wybh.androidarchitecturestudy.main
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.wybh.androidarchitecturestudy.model.remote.NaverRemoteDataSourceImpl
-import com.wybh.androidarchitecturestudy.model.repository.RepositoryImpl
+import com.wybh.androidarchitecturestudy.CinemaAdapter
+import com.wybh.androidarchitecturestudy.CinemaItem
+import com.wybh.androidarchitecturestudy.R
 import io.reactivex.disposables.CompositeDisposable
 
 
-class MainActivity : AppCompatActivity() {
-    private val repository: RepositoryImpl by lazy {
-        val remoteNaverApi = NaverRemoteDataSourceImpl()
-        RepositoryImpl(remoteNaverApi)
+class MainActivity : AppCompatActivity(), MainContract.View {
+    override fun showToastFailMessage(message: String?) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showCinemaList(dataList: List<CinemaItem>) {
+        // adapter list clear
+        cinemaAdapter.dataClear()
+        cinemaAdapter.addList(dataList)
+        // recyclerview 갱신
+        cinemaAdapter.notifyDataSetChanged()
+
+        // 키보드 내리기
+        imm.hideSoftInputFromWindow(etSearchWord.windowToken, 0)
     }
     
     private lateinit var etSearchWord: EditText
@@ -25,7 +38,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imm: InputMethodManager
 
     private val compositeDisposable = CompositeDisposable()
-    private val cinemaAdapter: CinemaAdapter = CinemaAdapter()
+    private val presenter = MainPresenter(this)
+    private val cinemaAdapter: CinemaAdapter =
+        CinemaAdapter {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -56,29 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViewClickListener() {
         btnSearch.setOnClickListener {
-            repository.searchCinema(etSearchWord.text.toString(), {
-                // adapter list clear
-                cinemaAdapter.dataClear()
-                it.items.map { response ->
-                    val item = CinemaItem(
-                        response.image,
-                        response.title,
-                        response.actor,
-                        response.userRating,
-                        response.pubDate,
-                        response.link
-                    )
-                    cinemaAdapter.addItem(item)
-                }
-
-                // recyclerview 갱신
-                cinemaAdapter.notifyDataSetChanged()
-
-                // 키보드 내리기
-                imm.hideSoftInputFromWindow(etSearchWord.windowToken, 0)
-            }, {
-                Log.e("jsh", "error >>> ${it.message}")
-            })
+            presenter.searchCinema(etSearchWord.text.toString())
         }
     }
 }
