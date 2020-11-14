@@ -2,7 +2,7 @@ package com.example.androidarchitecturestudy.data.datasource
 
 import com.example.androidarchitecturestudy.data.GetMovieInfo
 
-interface RemoteMovieDataSource {
+interface MovieRemoteDataSource {
 
     fun getMovieSearchResult(
         movieName: String,

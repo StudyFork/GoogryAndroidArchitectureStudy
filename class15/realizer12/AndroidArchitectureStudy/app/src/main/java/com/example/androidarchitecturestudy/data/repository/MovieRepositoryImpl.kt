@@ -1,11 +1,11 @@
 package com.example.androidarchitecturestudy.data.repository
 
 import com.example.androidarchitecturestudy.data.GetMovieInfo
-import com.example.androidarchitecturestudy.data.datasource.RemoteMovieDataImpl
+import com.example.androidarchitecturestudy.data.datasource.MovieRemoteDataSourceImpl
 
 class MovieRepositoryImpl() :MovieRepository{
 
-    private val remoteMovieDataSource = RemoteMovieDataImpl()
+    private val remoteMovieDataSource = MovieRemoteDataSourceImpl()
 
     override fun getMovieSearchResult(
         movieName: String,
