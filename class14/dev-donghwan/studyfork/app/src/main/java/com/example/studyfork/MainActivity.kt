@@ -2,31 +2,39 @@ package com.example.studyfork
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.studyfork.model.Network
-import com.example.studyfork.model.toDomain
-import io.reactivex.android.schedulers.AndroidSchedulers
+import androidx.databinding.DataBindingUtil
+import com.example.studyfork.databinding.ActivityMainBinding
+import com.example.studyfork.model.RemoteDataSourceImpl
+import com.example.studyfork.model.RepositoryImpl
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    private val binding: ActivityMainBinding by lazy {
+        DataBindingUtil.setContentView(this, R.layout.activity_main)
+    }
+    private val repository by lazy {
+        RepositoryImpl(RemoteDataSourceImpl())
+    }
     private val recyclerAdapter by lazy { MovieRecyclerAdapter() }
+
     private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        rec_movie.adapter = recyclerAdapter
+        binding.recMovie.adapter = recyclerAdapter
 
-        btn_search.setOnClickListener {
-            edt_query.text?.run {
-                Network.naverApi.searchMovie(this.toString())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { response ->
-                        recyclerAdapter.itemChange(response.toDomain())
-                    }.addTo(compositeDisposable)
+        binding.btnSearch.setOnClickListener {
+            binding.edtQuery.text?.run {
+                repository.searchMovie(this.toString(),
+                    {
+                        it.items.run {
+                            recyclerAdapter.itemChange(this)
+                        }
+                    }, {
+                        it.printStackTrace()
+                    }).addTo(compositeDisposable)
             }
         }
     }
@@ -35,4 +43,5 @@ class MainActivity : AppCompatActivity() {
         compositeDisposable.clear()
         super.onDestroy()
     }
+
 }

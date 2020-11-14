@@ -2,10 +2,10 @@ package com.example.studyfork
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.studyfork.databinding.ItemMovieBinding
 import com.example.studyfork.model.MovieSearchResponse
 
 class MovieRecyclerAdapter : RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolder>() {
@@ -18,7 +18,12 @@ class MovieRecyclerAdapter : RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolde
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(parent)
+        ViewHolder(DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_movie,
+            parent,
+            false
+        ))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(items[position])
@@ -26,15 +31,12 @@ class MovieRecyclerAdapter : RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolde
 
     override fun getItemCount(): Int = items.size
 
-    inner class ViewHolder(parent: ViewGroup) : RecyclerView.ViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+    inner class ViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(
+        binding.root
     ) {
-        private val image: ImageView = itemView.findViewById(R.id.iv_image)
-        private val title: TextView = itemView.findViewById(R.id.tv_title)
-
         fun onBind(item: MovieSearchResponse.MovieItem) {
-            this.title.text = item.title
-            Glide.with(itemView).load(item.image).into(image)
+            binding.tvTitle.text = item.title
+            Glide.with(itemView).load(item.image).into(binding.ivImage)
         }
     }
 }
