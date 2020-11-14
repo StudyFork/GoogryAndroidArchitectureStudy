@@ -9,6 +9,8 @@ interface MovieContract {
         fun showEmptyQuery()
         fun showNoMovieResult()
         fun showMovieList()
+        fun updateMovieList(list: List<MovieModel.Movie>)
+
         fun showKeyboard()
         fun hideKeyboard()
         fun showProgress()
@@ -16,6 +18,7 @@ interface MovieContract {
     }
 
     interface Presenter {
-        fun getMovies(query: String): Single<MovieModel.MovieResponse>
+        fun getMovies(query: String)
+        fun clear()
     }
 }
