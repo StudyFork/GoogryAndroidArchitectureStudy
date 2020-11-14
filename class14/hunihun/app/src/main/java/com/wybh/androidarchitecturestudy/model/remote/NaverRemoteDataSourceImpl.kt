@@ -1,6 +1,6 @@
-package com.wybh.androidarchitecturestudy.data.remote
+package com.wybh.androidarchitecturestudy.model.remote
 
-import com.wybh.androidarchitecturestudy.model.ResponseCinemaData
+import com.wybh.androidarchitecturestudy.data.ResponseCinemaData
 import com.wybh.androidarchitecturestudy.retrofit.RetrofitCreator
 import com.wybh.androidarchitecturestudy.retrofit.RetrofitImpl
 import io.reactivex.android.schedulers.AndroidSchedulers

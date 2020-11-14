@@ -1,7 +1,7 @@
-package com.wybh.androidarchitecturestudy.data.repository
+package com.wybh.androidarchitecturestudy.model.repository
 
-import com.wybh.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImpl
-import com.wybh.androidarchitecturestudy.model.ResponseCinemaData
+import com.wybh.androidarchitecturestudy.data.ResponseCinemaData
+import com.wybh.androidarchitecturestudy.model.remote.NaverRemoteDataSourceImpl
 
 class RepositoryImpl(private val naverRemoteDataSource: NaverRemoteDataSourceImpl) : Repository {
 

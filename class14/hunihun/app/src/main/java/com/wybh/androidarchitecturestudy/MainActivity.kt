@@ -8,8 +8,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.wybh.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImpl
-import com.wybh.androidarchitecturestudy.data.repository.RepositoryImpl
+import com.wybh.androidarchitecturestudy.model.remote.NaverRemoteDataSourceImpl
+import com.wybh.androidarchitecturestudy.model.repository.RepositoryImpl
 import io.reactivex.disposables.CompositeDisposable
 
 

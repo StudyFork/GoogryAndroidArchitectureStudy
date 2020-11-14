@@ -1,4 +1,4 @@
-package com.wybh.androidarchitecturestudy.model
+package com.wybh.androidarchitecturestudy.data
 
 data class ResponseCinemaData(
     val display: Int,

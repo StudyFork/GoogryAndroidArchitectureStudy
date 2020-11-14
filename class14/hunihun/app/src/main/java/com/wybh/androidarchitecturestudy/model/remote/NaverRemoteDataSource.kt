@@ -1,6 +1,6 @@
-package com.wybh.androidarchitecturestudy.data.remote
+package com.wybh.androidarchitecturestudy.model.remote
 
-import com.wybh.androidarchitecturestudy.model.ResponseCinemaData
+import com.wybh.androidarchitecturestudy.data.ResponseCinemaData
 
 interface NaverRemoteDataSource {
     fun searchCinema(
