@@ -14,12 +14,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initView()
+        setUpUI()
+        setUpListener()
     }
 
-    private fun initView() {
+    private fun setUpUI() {
         main_recyclerview.setHasFixedSize(false)
         main_recyclerview.adapter = recyclerAdapter
+    }
+
+    private fun setUpListener() {
         main_btn_search.setOnClickListener {
             val searchText = main_edit_search.text
             if (searchText.isNotEmpty()) {
