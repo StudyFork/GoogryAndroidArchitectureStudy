@@ -30,7 +30,7 @@ class MainActivity :
     }
 
     override fun onDestroy() {
-        compositeDisposable.clear()
+        presenter.requestClearDisposable()
         super.onDestroy()
     }
 

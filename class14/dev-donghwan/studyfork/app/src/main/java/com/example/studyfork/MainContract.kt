@@ -11,6 +11,7 @@ interface MainContract {
     }
 
     interface Presenter {
+        fun requestClearDisposable()
         fun requestMovieList(query: String)
     }
 }
