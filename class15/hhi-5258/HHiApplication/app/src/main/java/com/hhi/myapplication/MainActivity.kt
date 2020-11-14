@@ -1,14 +1,15 @@
 package com.hhi.myapplication
 
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
     private val recyclerAdapter = RecyclerAdapter()
-    private val repositoryDataSourceImpl = NaverRepositoryDataSourceImpl()
+    private val mainPresenter = MainPresenter(this, NaverRepositoryDataSourceImpl())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,17 +26,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpListener() {
         main_btn_search.setOnClickListener {
-            val searchText = main_edit_search.text
-            if (searchText.isNotEmpty()) {
-                searchMovie(searchText.toString())
-            }
+            val searchText = main_edit_search.text.toString()
+            mainPresenter.searchMovie(searchText)
         }
     }
 
-    private fun searchMovie(query: String) {
-        repositoryDataSourceImpl.searchMovies(query,
-            success = { recyclerAdapter.setMovieList(it.items) },
-            failed = { Log.e("search_failed", it.toString()); }
-        )
+    override fun showMovies(items: ArrayList<MovieData.MovieItem>) {
+        recyclerAdapter.setMovieList(items)
+    }
+
+    override fun showEmptyQuery() {
+        Toast.makeText(this, "내용을 입력해 주세요.", Toast.LENGTH_SHORT).show()
     }
 }
