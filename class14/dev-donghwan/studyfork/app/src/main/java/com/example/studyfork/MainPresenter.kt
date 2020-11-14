@@ -19,6 +19,7 @@ class MainPresenter(
                 }
             },
             fail = {
+                view.showMovieError()
                 it.printStackTrace()
             })
     }
