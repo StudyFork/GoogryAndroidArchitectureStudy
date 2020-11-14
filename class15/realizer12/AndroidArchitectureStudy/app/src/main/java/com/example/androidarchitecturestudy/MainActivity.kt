@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 getMovieData(edit_main_search_movie.text.toString())
                 true
-            }else{
+            } else {
                 false
             }
         }
@@ -60,19 +60,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
-
     // 서버에  영화 데이터 받아옴
     // TODO: 2020/11/01 추후  코루틴 또는 Rx로 변경하기
     private fun getMovieData(searchQuery: String) {
         //영화 검색 실행
-        movieRepositoryImpl.getMovieSearchResult(searchQuery,{
-            it.movieList?.let { it->
+        movieRepositoryImpl.getMovieSearchResult(searchQuery, {
+            it.movieList?.let { it ->
                 updateRecyclerView(it)
             }
 
-        },{
+        }, {
             Log.v("check_log", it.message.toString())
         })
     }
