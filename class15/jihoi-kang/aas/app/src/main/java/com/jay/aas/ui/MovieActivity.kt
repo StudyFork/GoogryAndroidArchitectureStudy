@@ -1,6 +1,8 @@
 package com.jay.aas.ui
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -30,8 +32,8 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
         getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
     private val movieAdapter: MovieAdapter by lazy {
-        MovieAdapter {
-            // TODO: 2020/11/14 Start movie detail link
+        MovieAdapter { link ->
+            moviePresenter.openMovieDetail(link)
         }
     }
     private val movieRepository: MovieRepository by lazy {
@@ -100,6 +102,10 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
         binding.tvNoResult.isGone = true
         binding.rvMovie.isVisible = true
         movieAdapter.setMovies(movies)
+    }
+
+    override fun openMovieDetail(link: String) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
     }
 
 }

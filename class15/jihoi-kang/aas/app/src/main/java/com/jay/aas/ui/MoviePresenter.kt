@@ -37,4 +37,9 @@ class MoviePresenter(
             view.showSearchFailed()
         }
     }
+
+    override fun openMovieDetail(link: String) {
+        view.openMovieDetail(link)
+    }
+
 }
