@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerViewAdapter: MovieListRecyclerViewAdapter
 
 
-    private val movieRepositoryImp = MovieRepositoryImpl()
+    private val movieRepositoryImpl = MovieRepositoryImpl()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
     // TODO: 2020/11/01 추후  코루틴 또는 Rx로 변경하기
     private fun getMovieData(searchQuery: String) {
         //영화 검색 실행
-        movieRepositoryImp.getMovieSearchResult(searchQuery,{
+        movieRepositoryImpl.getMovieSearchResult(searchQuery,{
             it.movieList?.let { it->
                 updateRecyclerView(it)
             }
