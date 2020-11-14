@@ -1,40 +1,30 @@
 package com.example.studyfork
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import com.example.studyfork.databinding.ActivityMainBinding
+import com.example.studyfork.base.BaseActivity
+import com.example.studyfork.data.model.MovieSearchResponse
 import com.example.studyfork.data.remote.RemoteDataSourceImpl
 import com.example.studyfork.data.repository.RepositoryImpl
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
+import com.example.studyfork.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-    private val binding: ActivityMainBinding by lazy {
-        DataBindingUtil.setContentView(this, R.layout.activity_main)
-    }
-    private val repository by lazy {
+class MainActivity :
+    BaseActivity<ActivityMainBinding>(R.layout.activity_main),
+    MainContract.View {
+
+    private val presenter: MainContract.Presenter = MainPresenter(
+        this,
         RepositoryImpl(RemoteDataSourceImpl())
-    }
-    private val recyclerAdapter by lazy { MovieRecyclerAdapter() }
+    )
 
-    private val compositeDisposable = CompositeDisposable()
+    private val recyclerAdapter = MovieRecyclerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding.recMovie.adapter = recyclerAdapter
 
         binding.btnSearch.setOnClickListener {
-            binding.edtQuery.text?.run {
-                repository.searchMovie(this.toString(),
-                    {
-                        it.items.run {
-                            recyclerAdapter.itemChange(this)
-                        }
-                    }, {
-                        it.printStackTrace()
-                    }).addTo(compositeDisposable)
+            binding.edtQuery.text.toString().run {
+                presenter.requestMovieList(this)
             }
         }
     }
@@ -42,6 +32,22 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         compositeDisposable.clear()
         super.onDestroy()
+    }
+
+    override fun showQueryEmpty() {
+        showToast("검색어를 입력해주세요")
+    }
+
+    override fun showMovieEmpty() {
+        showToast("검색 결과가 없습니다.")
+    }
+
+    override fun showMovieError() {
+        showToast("데이터를 불러오는 중에 문가 발생했습니다.")
+    }
+
+    override fun showMovieList(list: List<MovieSearchResponse.MovieItem>) {
+        recyclerAdapter.itemChange(list)
     }
 
 }
