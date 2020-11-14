@@ -1,6 +1,6 @@
 package com.example.studyfork.api
 
-import com.example.studyfork.model.MovieSearchResponse
+import com.example.studyfork.data.model.MovieSearchResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

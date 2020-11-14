@@ -1,6 +1,6 @@
 package com.example.studyfork
 
-import com.example.studyfork.model.MovieSearchResponse
+import com.example.studyfork.data.model.MovieSearchResponse
 
 interface MainContract {
     interface View {

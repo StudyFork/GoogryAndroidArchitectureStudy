@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.studyfork.databinding.ActivityMainBinding
-import com.example.studyfork.model.RemoteDataSourceImpl
-import com.example.studyfork.model.RepositoryImpl
+import com.example.studyfork.data.remote.RemoteDataSourceImpl
+import com.example.studyfork.data.repository.RepositoryImpl
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 

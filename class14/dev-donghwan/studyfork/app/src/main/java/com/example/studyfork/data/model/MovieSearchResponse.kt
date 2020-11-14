@@ -1,4 +1,4 @@
-package com.example.studyfork.model
+package com.example.studyfork.data.model
 
 
 data class MovieSearchResponse(

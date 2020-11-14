@@ -1,9 +1,9 @@
-package com.example.studyfork.model
+package com.example.studyfork.data.repository
 
+import com.example.studyfork.data.model.MovieSearchResponse
+import com.example.studyfork.data.remote.RemoteDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.addTo
 
 class RepositoryImpl(private val remoteDataSource: RemoteDataSource) : Repository {
 

@@ -1,5 +1,6 @@
-package com.example.studyfork.model
+package com.example.studyfork.data.remote
 
+import com.example.studyfork.data.model.MovieSearchResponse
 import io.reactivex.Single
 
 interface RemoteDataSource {
