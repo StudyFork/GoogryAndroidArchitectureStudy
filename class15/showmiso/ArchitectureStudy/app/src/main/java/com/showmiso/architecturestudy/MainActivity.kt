@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.showmiso.architecturestudy.data.remote.RemoteDataSourceImpl
 import com.showmiso.architecturestudy.data.repository.NaverRepository
 import com.showmiso.architecturestudy.data.repository.NaverRepositoryImpl
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_main.*
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         naverRepository.getMoviesList(query)
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 if (it.isEmpty()) {
                     Toast.makeText(this, getString(R.string.msg_no_result), Toast.LENGTH_SHORT)
