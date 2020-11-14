@@ -1,4 +1,4 @@
-package com.hhi.myapplication.api
+package com.hhi.myapplication.data.model
 
 class MovieData {
     data class Response(

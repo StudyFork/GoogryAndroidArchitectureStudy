@@ -1,6 +1,7 @@
 package com.hhi.myapplication.api
 
 import com.hhi.myapplication.BuildConfig
+import com.hhi.myapplication.data.model.MovieData
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
