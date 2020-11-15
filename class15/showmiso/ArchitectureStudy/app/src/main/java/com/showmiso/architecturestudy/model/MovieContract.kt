@@ -10,7 +10,6 @@ interface MovieContract {
         fun updateMovieList(list: List<MovieModel.Movie>)
         fun throwError(it: Throwable)
 
-        fun showKeyboard()
         fun hideKeyboard()
         fun showProgress()
         fun hideProgress()

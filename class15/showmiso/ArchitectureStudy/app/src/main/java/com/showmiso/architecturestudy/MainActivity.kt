@@ -1,8 +1,11 @@
 package com.showmiso.architecturestudy
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.showmiso.architecturestudy.api.MovieModel
@@ -70,16 +73,18 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         Log.e(tag, "Failed", it)
     }
 
-    override fun showKeyboard() {
-    }
-
     override fun hideKeyboard() {
+        val imm: InputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(et_search.windowToken, 0)
     }
 
     override fun showProgress() {
+        progress_bar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
+        progress_bar.visibility = View.GONE
     }
 
     companion object {

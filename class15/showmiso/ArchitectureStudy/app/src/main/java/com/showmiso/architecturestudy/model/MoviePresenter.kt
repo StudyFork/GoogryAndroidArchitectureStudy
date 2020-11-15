@@ -17,16 +17,19 @@ class MoviePresenter(
             view.showEmptyQuery()
             return
         }
-
+        view.showProgress()
         naverRepository.getMoviesList(query)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                view.hideKeyboard()
+                view.hideProgress()
                 if (it.isEmpty()) {
                     view.showNoMovieResult()
                 } else {
                     view.updateMovieList(it)
                 }
             }, {
+                view.hideProgress()
                 view.throwError(it)
             }).addTo(disposable)
     }
