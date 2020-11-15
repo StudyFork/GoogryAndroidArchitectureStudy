@@ -1,8 +1,6 @@
 package com.example.hw2_project.data.remote
 
-import com.example.hw2_project.Movie
-import com.example.hw2_project.MovieList
-import com.example.hw2_project.data.repository.MovieRepositoryImpl
+import com.example.hw2_project.data.MovieList
 import com.google.gson.GsonBuilder
 import okhttp3.*
 import java.io.IOException

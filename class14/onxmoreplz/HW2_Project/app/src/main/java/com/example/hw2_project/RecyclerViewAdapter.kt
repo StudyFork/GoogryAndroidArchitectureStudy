@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.hw2_project.data.Movie
 
 class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
 
@@ -39,7 +40,7 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolde
         private val movie_pub = itemView.findViewById<TextView>(R.id.textview_movie_pubdate)
         private val movie_director = itemView.findViewById<TextView>(R.id.textview_movie_director)
 
-        fun bindItem( movie : Movie ){
+        fun bindItem( movie : Movie){
             if( movie.image != ""){
                 Glide.with(view.context).load(movie.image).into(movie_img)
             }else{ // 이미지가 없는 경우, movie_pic 안드로이드 기본 아이콘으로 설정

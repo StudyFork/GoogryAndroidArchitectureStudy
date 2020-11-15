@@ -1,7 +1,6 @@
 package com.example.hw2_project.data.repository
 
-import com.example.hw2_project.Movie
-import com.example.hw2_project.MovieList
+import com.example.hw2_project.data.MovieList
 
 interface MovieRepository {
 
