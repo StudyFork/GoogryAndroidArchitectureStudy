@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
 
-        //[검색] 버튼 클릭 리스너
+        presenter = Presenter(this, movieRepositoryImp)
         buttonSearch.setOnClickListener {
 
             //사용자가 EditTextView에 아무값도 넣지 않았을 때
