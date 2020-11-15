@@ -10,8 +10,8 @@ import java.net.URLEncoder
 class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
 
     //Naver 영화 검색 API 사용을 위한 App 등록
-    private val clienId = "fQFY7M9rMOVD2KDT8Aaq"
-    private val clientSecret = "v8aD8p_Ri0"
+    private val CLIENT_ID = "fQFY7M9rMOVD2KDT8Aaq"
+    private val CLIENT_SECRET = "v8aD8p_Ri0"
 
     // getMovie 재정의
     override fun getMovieFromRemote(
@@ -26,8 +26,8 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
 
         val request = Request.Builder()
             .url(url)
-            .addHeader("X-Naver-Client-Id", clienId)
-            .addHeader("X-Naver-Client-Secret", clientSecret)
+            .addHeader("X-Naver-Client-Id", CLIENT_ID)
+            .addHeader("X-Naver-Client-Secret", CLIENT_SECRET)
             .method("GET", null)
             .build()
 
