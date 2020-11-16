@@ -2,7 +2,7 @@ package com.example.googryandroidarchitecturestudy.ui
 
 import com.example.googryandroidarchitecturestudy.domain.Movie
 
-interface MainContract {
+interface MovieContract {
 
     interface View {
         fun showMovieList(items: List<Movie>)
@@ -14,7 +14,7 @@ interface MainContract {
     }
 
     interface Presenter {
-        fun queryMovieList(query: String)
+        suspend fun queryMovieList(query: String)
         fun selectMovieItem(item: Movie)
     }
 
