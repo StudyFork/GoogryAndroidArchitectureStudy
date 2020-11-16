@@ -11,7 +11,6 @@ import com.architecture.androidarchitecturestudy.adapter.MovieAdapter
 import com.architecture.androidarchitecturestudy.data.model.Movie
 import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSource
 import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
-import com.architecture.androidarchitecturestudy.data.repository.MovieRepository
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
 import com.architecture.androidarchitecturestudy.webservice.NetworkService
@@ -19,7 +18,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var networkService: NetworkService
-    private lateinit var movieRepository: MovieRepository
     private lateinit var movieRemoteDataSource: MovieRemoteDataSource
     private lateinit var movieAdapter: MovieAdapter
     private val presenter by lazy {
@@ -34,17 +32,9 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         setContentView(R.layout.activity_main)
 
         initRecyclerView()
-        initRepository()
-
         btn_main_search.setOnClickListener {
             findMovie(et_main_search.text.toString())
         }
-    }
-
-    private fun initRepository() {
-        networkService = ApiClient.NETWORK_SERVICE
-        movieRemoteDataSource = MovieRemoteDataSourceImpl(networkService)
-        movieRepository = MovieRepositoryImpl(movieRemoteDataSource)
     }
 
     private fun initRecyclerView() {
