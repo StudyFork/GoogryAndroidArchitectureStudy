@@ -3,7 +3,6 @@ package com.architecture.androidarchitecturestudy.ui
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.architecture.androidarchitecturestudy.R
@@ -30,7 +29,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         initRecyclerView()
         btn_main_search.setOnClickListener {
             findMovie(et_main_search.text.toString())
@@ -44,7 +42,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun removeKeyboard() =
         (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-            et_main_search.windowToken, 0
+            et_main_search.windowToken,
+            0
         )
 
     override fun updateMovieRecycler(items: List<Movie>) {
