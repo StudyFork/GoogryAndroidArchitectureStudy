@@ -8,12 +8,12 @@ import java.net.URL
 import java.net.URLEncoder
 
 class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
+    companion object{
+        //Naver 영화 검색 API 사용을 위한 App 등록
+        private const val CLIENT_ID = "fQFY7M9rMOVD2KDT8Aaq"
+        private const val CLIENT_SECRET = "v8aD8p_Ri0"
+    }
 
-    //Naver 영화 검색 API 사용을 위한 App 등록
-    private val CLIENT_ID = "fQFY7M9rMOVD2KDT8Aaq"
-    private val CLIENT_SECRET = "v8aD8p_Ri0"
-
-    // getMovie 재정의
     override fun getMovieFromRemote(
         query: String,
         success: (MovieList) -> Unit,
