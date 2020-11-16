@@ -17,11 +17,17 @@ import com.architecture.androidarchitecturestudy.webservice.ApiClient
 import com.architecture.androidarchitecturestudy.webservice.NetworkService
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var networkService: NetworkService
     private lateinit var movieRepository: MovieRepository
     private lateinit var movieRemoteDataSource: MovieRemoteDataSource
     private lateinit var movieAdapter: MovieAdapter
+    private val presenter by lazy {
+        networkService = ApiClient.NETWORK_SERVICE
+        movieRemoteDataSource = MovieRemoteDataSourceImpl(networkService)
+        val repositoryMovieDataImpl = MovieRepositoryImpl(movieRemoteDataSource)
+        MainPresenter(this, repositoryMovieDataImpl)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,4 +70,26 @@ class MainActivity : AppCompatActivity() {
         (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
             et_main_search.windowToken, 0
         )
+
+    override fun updateMovieRecycler(items: List<Movie>) {
+        movieAdapter.setItemList(items)
+    }
+
+    override fun failMovieGet(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun findMovie(keyword: String) {
+        presenter.findMovie(keyword)
+    }
+
+    override fun queryNone() {
+        Toast.makeText(this, getString(R.string.query_none), Toast.LENGTH_SHORT)
+            .show()
+    }
+
+    override fun resultNone() {
+        Toast.makeText(this, getString(R.string.result_none), Toast.LENGTH_SHORT)
+            .show()
+    }
 }
