@@ -5,6 +5,10 @@ import com.wybh.androidarchitecturestudy.model.remote.NaverRemoteDataSourceImpl
 import com.wybh.androidarchitecturestudy.model.repository.RepositoryImpl
 
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
+    override fun removeCompositeDisposable() {
+        repository.removeCompositeDisposable()
+    }
+
     private val repository: RepositoryImpl by lazy {
         val remoteNaverApi = NaverRemoteDataSourceImpl()
         RepositoryImpl(remoteNaverApi)

@@ -28,4 +28,8 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
                 })
         )
     }
+
+    fun removeCompositeDisposable() {
+        compositeDisposable.dispose()
+    }
 }

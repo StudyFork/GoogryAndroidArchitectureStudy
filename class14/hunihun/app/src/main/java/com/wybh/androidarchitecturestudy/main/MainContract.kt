@@ -10,5 +10,6 @@ interface MainContract {
 
     interface Presenter {
         fun searchCinema(query: String)
+        fun removeCompositeDisposable()
     }
 }

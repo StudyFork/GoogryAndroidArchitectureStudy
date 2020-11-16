@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wybh.androidarchitecturestudy.CinemaAdapter
 import com.wybh.androidarchitecturestudy.CinemaItem
 import com.wybh.androidarchitecturestudy.R
-import io.reactivex.disposables.CompositeDisposable
-
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     override fun showToastFailMessage(message: String?) {
@@ -37,7 +35,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var rvCinema: RecyclerView
     private lateinit var imm: InputMethodManager
 
-    private val compositeDisposable = CompositeDisposable()
     private val presenter = MainPresenter(this)
     private val cinemaAdapter: CinemaAdapter =
         CinemaAdapter {
@@ -53,7 +50,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun onDestroy() {
-        compositeDisposable.dispose()
+        presenter.removeCompositeDisposable()
         super.onDestroy()
     }
 

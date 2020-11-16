@@ -12,4 +12,8 @@ class RepositoryImpl(private val naverRemoteDataSource: NaverRemoteDataSourceImp
     ) {
         naverRemoteDataSource.searchCinema(query, success, fail)
     }
+
+    fun removeCompositeDisposable() {
+        naverRemoteDataSource.removeCompositeDisposable()
+    }
 }
