@@ -52,15 +52,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         rv_main_movie.adapter = movieAdapter
     }
 
-    private fun searchMovie(keyword: String) {
-        movieRepository.getMovieData(
-            keyword,
-            30,
-            onSuccess = { movieAdapter.setItemList(it.items as ArrayList<Movie>) },
-            onFailure = { Log.e("Api is fail", it.toString()) })
-    }
-
-    private fun removeKeyboard() =
+    override fun removeKeyboard() =
         (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
             et_main_search.windowToken, 0
         )
