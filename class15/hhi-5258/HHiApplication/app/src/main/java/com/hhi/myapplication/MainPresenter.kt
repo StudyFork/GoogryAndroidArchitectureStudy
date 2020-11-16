@@ -11,9 +11,16 @@ class MainPresenter(
         if (query.isEmpty()) {
             view.showEmptyQuery()
         } else {
+            view.showProgressBar()
             repositoryDataSourceImpl.searchMovies(query,
-                success = { view.showMovies(it.items) },
-                failed = { Log.e("search_failed", it.toString()); }
+                success = {
+                    view.showMovies(it.items)
+                    view.hideProgressBar()
+                },
+                failed = {
+                    Log.e("search_failed", it.toString())
+                    view.hideProgressBar()
+                }
             )
         }
     }

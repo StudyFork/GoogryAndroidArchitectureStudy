@@ -1,8 +1,10 @@
 package com.hhi.myapplication
 
 import android.os.Bundle
+import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,5 +39,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun showEmptyQuery() {
         Toast.makeText(this, "내용을 입력해 주세요.", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showProgressBar() {
+        main_progressbar.isVisible = true
+    }
+
+    override fun hideProgressBar() {
+        main_progressbar.isVisible = false
     }
 }

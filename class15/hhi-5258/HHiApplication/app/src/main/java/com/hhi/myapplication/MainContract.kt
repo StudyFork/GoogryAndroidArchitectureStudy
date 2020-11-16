@@ -6,6 +6,8 @@ interface MainContract {
     interface View {
         fun showMovies(items: ArrayList<MovieData.MovieItem>)
         fun showEmptyQuery()
+        fun showProgressBar()
+        fun hideProgressBar()
     }
 
     interface Presenter {
