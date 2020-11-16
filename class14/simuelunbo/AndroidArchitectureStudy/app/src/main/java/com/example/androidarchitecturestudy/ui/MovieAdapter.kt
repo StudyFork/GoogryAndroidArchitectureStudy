@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidarchitecturestudy.R
 import com.example.androidarchitecturestudy.data.model.Movie
 
-class MovieAdapter : RecyclerView.Adapter<MovieHolder>() {
+class MovieAdapter(
+    private val onItemClick: (String) -> Unit,
+) : RecyclerView.Adapter<MovieHolder>() {
     private val movies = ArrayList<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return MovieHolder(view)
+        return MovieHolder(view, onItemClick)
     }
 
     override fun onBindViewHolder(holder: MovieHolder, position: Int) {
