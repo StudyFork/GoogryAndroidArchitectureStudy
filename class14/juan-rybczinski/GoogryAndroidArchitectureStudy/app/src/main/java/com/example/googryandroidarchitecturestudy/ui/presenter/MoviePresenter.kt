@@ -3,18 +3,17 @@ package com.example.googryandroidarchitecturestudy.ui.presenter
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.domain.Movie
 import com.example.googryandroidarchitecturestudy.ui.MovieContract
-import java.lang.Exception
 
 class MoviePresenter(
     private val view: MovieContract.View,
     private val repository: MovieRepository
 ) : MovieContract.Presenter {
     override suspend fun queryMovieList(query: String) {
+        if (query.isEmpty()) {
+            view.showQueryEmpty()
+            return
+        }
         try {
-            if (query.isEmpty()) {
-                view.showQueryEmpty()
-                return
-            }
             val movieList = repository.searchMovies(query)
             if (movieList.isEmpty()) {
                 view.showNoMovieSearchResult()
@@ -23,7 +22,7 @@ class MoviePresenter(
             view.hideKeyboard()
             view.showMovieList(movieList)
         } catch (e: Exception) {
-            view.showMovieSearchFailed()
+            view.showMovieSearchFailed(e)
         }
     }
 

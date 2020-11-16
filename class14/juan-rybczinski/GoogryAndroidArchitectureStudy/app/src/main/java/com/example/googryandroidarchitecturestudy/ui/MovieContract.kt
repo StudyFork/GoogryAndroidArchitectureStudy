@@ -9,7 +9,7 @@ interface MovieContract {
         fun showQueryEmpty()
         fun showNoMovieSearchResult()
         fun showMovieDetail(item: Movie)
-        fun showMovieSearchFailed()
+        fun showMovieSearchFailed(e: Exception)
         fun hideKeyboard()
     }
 

@@ -18,16 +18,19 @@ import com.example.googryandroidarchitecturestudy.data.repository.MovieRepositor
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.example.googryandroidarchitecturestudy.database.MovieDatabase
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieBinding
+import com.example.googryandroidarchitecturestudy.domain.Movie
+import com.example.googryandroidarchitecturestudy.ui.MovieContract
+import com.example.googryandroidarchitecturestudy.ui.presenter.MoviePresenter
 import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 import kotlinx.coroutines.launch
 
-class MovieFragment : Fragment() {
+class MovieFragment : Fragment(), MovieContract.View {
 
     private val TAG = this::class.java.simpleName
 
     private val movieAdapter: MovieAdapter by lazy {
         MovieAdapter {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+            presenter.selectMovieItem(it)
         }
     }
 
@@ -43,6 +46,10 @@ class MovieFragment : Fragment() {
 
     private val inputMethodManager by lazy {
         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    }
+
+    private val presenter: MovieContract.Presenter by lazy {
+        MoviePresenter(this, movieRepository)
     }
 
     override fun onCreateView(
@@ -63,29 +70,8 @@ class MovieFragment : Fragment() {
         binding.movieList.adapter = movieAdapter
 
         binding.searchButton.setOnClickListener {
-            val query = binding.searchText.text.toString()
-            if (query.isEmpty()) {
-                toast(getString(R.string.no_keyword))
-                movieAdapter.setMovies(listOf())
-                return@setOnClickListener
-            }
             viewLifecycleOwner.lifecycleScope.launch {
-                try {
-                    val movieList = movieRepository.searchMovies(query)
-                    if (movieList.isEmpty()) {
-                        toast(getString(R.string.no_results))
-                        movieAdapter.setMovies(listOf())
-                        return@launch
-                    }
-                    inputMethodManager.hideSoftInputFromWindow(
-                        requireActivity().currentFocus?.windowToken,
-                        0
-                    )
-                    movieAdapter.setMovies(movieList)
-                } catch (e: Exception) {
-                    toast(getString(R.string.error_occurred))
-                    Log.e(TAG, e.message.toString())
-                }
+                presenter.queryMovieList(binding.searchText.text.toString())
             }
         }
     }
@@ -93,6 +79,36 @@ class MovieFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    override fun showMovieList(items: List<Movie>) {
+        movieAdapter.setMovies(items)
+    }
+
+    override fun showQueryEmpty() {
+        toast(getString(R.string.no_keyword))
+        movieAdapter.setMovies(listOf())
+    }
+
+    override fun showNoMovieSearchResult() {
+        toast(getString(R.string.no_results))
+        movieAdapter.setMovies(listOf())
+    }
+
+    override fun showMovieDetail(item: Movie) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
+    }
+
+    override fun showMovieSearchFailed(e: Exception) {
+        toast(getString(R.string.error_occurred))
+        Log.e(TAG, e.message.toString())
+    }
+
+    override fun hideKeyboard() {
+        inputMethodManager.hideSoftInputFromWindow(
+            requireActivity().currentFocus?.windowToken,
+            0
+        )
     }
 
 }
