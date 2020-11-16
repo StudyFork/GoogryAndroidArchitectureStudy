@@ -7,6 +7,7 @@ interface MovieRemoteDataSource {
         keyword: String,
         display: Int,
         onSuccess: (MovieResponse) -> Unit,
-        onFailure: (Throwable) -> Unit
+        onFailure: (Throwable) -> Unit,
+        onEmptyList: (String) -> Unit
     )
 }

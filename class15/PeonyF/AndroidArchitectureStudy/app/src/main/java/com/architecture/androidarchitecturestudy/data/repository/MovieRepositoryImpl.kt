@@ -10,13 +10,15 @@ class MovieRepositoryImpl(
         keyword: String,
         display: Int,
         onSuccess: (MovieResponse) -> Unit,
-        onFailure: (Throwable) -> Unit
+        onFailure: (Throwable) -> Unit,
+        onEmptyList: (String) -> Unit
     ) {
         return movieRemoteDataSource.getMovieData(
             keyword = keyword,
             display = display,
             onSuccess = onSuccess,
-            onFailure = onFailure
+            onFailure = onFailure,
+            onEmptyList = onEmptyList
         )
     }
 }
