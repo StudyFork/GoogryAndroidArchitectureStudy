@@ -3,6 +3,7 @@ package com.example.hw2_project
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.Vie
     }
 
     override fun showErrorRespondMsg(t: Throwable) {
-        Toast.makeText(this, "에러 메시지 : $t", Toast.LENGTH_LONG).show()
+        Log.e("showErrorRespondMsg",t.stackTraceToString())
     }
 
     private fun hideKeyboard() {
