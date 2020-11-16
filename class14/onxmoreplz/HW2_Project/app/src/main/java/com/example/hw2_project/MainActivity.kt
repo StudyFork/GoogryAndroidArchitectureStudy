@@ -44,10 +44,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.Vie
     }
 
     override fun showMovieList(movieList: MovieList) {
-        //키보드 내리기
-        val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editTextMovieName.windowToken, 0)
-
+        hideKeyboard()
         runOnUiThread{
             adapter.movieListChange(movieList.items)
         }
@@ -55,6 +52,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.Vie
 
     override fun showErrorRespondMsg(t: Throwable) {
         Toast.makeText(this, "에러 메시지 : $t", Toast.LENGTH_LONG).show()
+    }
+
+    private fun hideKeyboard() {
+        val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(editTextMovieName.windowToken, 0)
     }
 
 }
