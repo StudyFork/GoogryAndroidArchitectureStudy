@@ -1,7 +1,9 @@
 package com.hhi.myapplication
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View.VISIBLE
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -47,5 +49,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun hideProgressBar() {
         main_progressbar.isVisible = false
+    }
+
+    override fun hideKeyboard() {
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 }

@@ -8,6 +8,7 @@ interface MainContract {
         fun showEmptyQuery()
         fun showProgressBar()
         fun hideProgressBar()
+        fun hideKeyboard()
     }
 
     interface Presenter {

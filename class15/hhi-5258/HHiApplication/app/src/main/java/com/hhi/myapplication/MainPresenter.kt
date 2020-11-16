@@ -8,6 +8,7 @@ class MainPresenter(
     private val repositoryDataSourceImpl: NaverRepositoryDataSourceImpl
 ) : MainContract.Presenter {
     override fun searchMovie(query: String) {
+        view.hideKeyboard()
         if (query.isEmpty()) {
             view.showEmptyQuery()
         } else {
