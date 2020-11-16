@@ -1,29 +1,30 @@
 package com.example.googryandroidarchitecturestudy.ui.recycler
 
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.googryandroidarchitecturestudy.R
+import com.example.googryandroidarchitecturestudy.databinding.ItemMovieBinding
 import com.example.googryandroidarchitecturestudy.domain.Movie
 
-class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class MovieViewHolder(
+    private val binding: ItemMovieBinding,
+    private val onItemClick: (Movie) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
+    private lateinit var movie: Movie
 
-    private val image: ImageView = view.findViewById(R.id.movie_image)
-    private val title: TextView = view.findViewById(R.id.movie_title)
-    private val rating: TextView = view.findViewById(R.id.rating)
-    private val director: TextView = view.findViewById(R.id.director)
-    private val pubDate: TextView = view.findViewById(R.id.pub_date)
-    private val actor: TextView = view.findViewById(R.id.actor)
+    init {
+        binding.root.setOnClickListener {
+            onItemClick(movie)
+        }
+    }
 
     fun bind(movie: Movie) {
-        title.text = movie.title
-        pubDate.text = movie.pubDate
-        actor.text = movie.actor
-        director.text = movie.director
-        rating.text = movie.userRating
-        Glide.with(itemView.context).load(movie.image).into(image)
+        this.movie = movie
+        binding.movieTitle.text = movie.title
+        binding.pubDate.text = movie.pubDate
+        binding.actor.text = movie.actor
+        binding.director.text = movie.director
+        binding.rating.text = movie.userRating
+        Glide.with(itemView.context).load(movie.image).into(binding.movieImage)
     }
 
 }

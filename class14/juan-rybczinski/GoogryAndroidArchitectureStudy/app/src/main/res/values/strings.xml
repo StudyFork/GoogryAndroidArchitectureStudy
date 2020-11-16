@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">GoogryAndroidArchitectureStudy</string>
     <string name="search">Search</string>
+    <string name="no_keyword">No keywords.</string>
+    <string name="no_results">No results.</string>
+    <string name="error_occurred">Error occurred.</string>
 </resources>
