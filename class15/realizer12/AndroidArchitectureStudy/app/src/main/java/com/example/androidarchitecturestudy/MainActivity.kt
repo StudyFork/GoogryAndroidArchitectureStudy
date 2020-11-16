@@ -9,6 +9,7 @@ import com.example.androidarchitecturestudy.data.GetMovieInfo
 import com.example.androidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.example.androidarchitecturestudy.presenter.MovieContract
 import com.example.androidarchitecturestudy.presenter.MoviePresenter
+import com.example.androidarchitecturestudy.util.hideKeyboard
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
 
     override fun hideKeyBoard() {
+        hideKeyboard()
     }
 
     override fun showMovieResultEmpty() {
