@@ -41,11 +41,11 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolde
         private val movie_director = itemView.findViewById<TextView>(R.id.textview_movie_director)
 
         fun bindItem( movie : Movie){
-            if( movie.image != ""){
-                Glide.with(view.context).load(movie.image).into(movie_img)
-            }else{ // 이미지가 없는 경우, movie_pic 안드로이드 기본 아이콘으로 설정
-                movie_img?.setImageResource(R.mipmap.ic_launcher)
-            }
+            Glide.with(view.context)
+                .load(movie.image)
+                .error(R.mipmap.ic_launcher)
+                .into(movie_img)
+
             movie_title.text = movie.title
             movie_pub.text = movie.pubDate
             movie_director.text = movie.director
