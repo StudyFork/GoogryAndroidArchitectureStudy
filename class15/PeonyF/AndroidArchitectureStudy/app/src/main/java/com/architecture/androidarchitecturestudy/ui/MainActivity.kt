@@ -37,13 +37,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         initRepository()
 
         btn_main_search.setOnClickListener {
-            if (et_main_search.text.isEmpty()) {
-                Toast.makeText(this, "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            } else {
-                searchMovie(et_main_search.text.toString())
-                removeKeyboard()
-            }
+            findMovie(et_main_search.text.toString())
         }
     }
 
