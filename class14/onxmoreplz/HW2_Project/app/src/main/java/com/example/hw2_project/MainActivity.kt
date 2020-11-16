@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hw2_project.data.MovieList
 import com.example.hw2_project.data.repository.MovieRepositoryImpl
 
-class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.View {
+class MainActivity : AppCompatActivity(), MainContract.View {
 
     private lateinit var editTextMovieName : EditText
     private lateinit var buttonSearch : Button
@@ -22,9 +22,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main), MainContract.Vie
 
     private lateinit var presenter: Presenter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
         buttonSearch = findViewById<Button>(R.id.button_search)
         editTextMovieName = findViewById<EditText>(R.id.edittext_movie_name)
