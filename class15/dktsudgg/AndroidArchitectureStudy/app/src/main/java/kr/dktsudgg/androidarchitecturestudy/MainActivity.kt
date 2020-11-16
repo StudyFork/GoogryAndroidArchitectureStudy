@@ -3,24 +3,26 @@ package kr.dktsudgg.androidarchitecturestudy
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
-import kr.dktsudgg.androidarchitecturestudy.data.model.NaverMovieResponse
-import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepository
+import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepositoryImpl
 import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieListAdapter
+import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieContract
+import kr.dktsudgg.androidarchitecturestudy.view.ui.MoviePresenter
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, MovieContract.View {
 
-    private lateinit var naverMovieRepository: NaverMovieRepository
+    private lateinit var moviePresenter: MovieContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        naverMovieRepository = NaverMovieRepositoryImpl()
+        moviePresenter = MoviePresenter(NaverMovieRepositoryImpl(), this);
 
         /**
          * 영화 검색결과 리스트 보여주는 RecyclerView에 어댑터 연결 및 목록 구분선 추가
@@ -45,27 +47,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(clickedView: View?) {
         when (clickedView?.id) {
             R.id.movieSearchBtn -> {    // 검색 버튼 클릭 시, 검색어 입력한 내용을 가지고 검색 수행
-                Log.i("버튼 클릭", "검색 버튼 클릭")
                 val searchText = movieSearchEditText.text.toString()
-//                searchMovie(searchText)
-                naverMovieRepository.searchMovies(searchText, {
-                    refreshSearchedMovieList(it)
-                }, {
-                    refreshSearchedMovieList(null)
-                })
+                moviePresenter.searchMovies(searchText)
             }
             else -> {
             }
         }
     }
 
-    /**
-     * 영화 검색 결과 갱신 메소드
-     */
-    private fun refreshSearchedMovieList(data: NaverMovieResponse?) {
-        data?.items?.let {
-            (searchedMovieList.adapter as MovieListAdapter).refreshData(data.items)
-        }
+    override fun showSearchedMovieList(data: List<MovieItem>) {
+        (searchedMovieList.adapter as MovieListAdapter).refreshData(data)
+    }
+
+    override fun doFailureAction(message: String) {
+        // 실패 메세지 띄우기
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        // 빈 데이터로 갱신
+        (searchedMovieList.adapter as MovieListAdapter).refreshData(ArrayList<MovieItem>())
     }
 
 }
