@@ -42,7 +42,7 @@ class MovieFragment : Fragment(), MovieContract.View {
         MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource)
     }
 
-    private val inputMethodManager by lazy {
+    private val inputMethodManager by lazy(LazyThreadSafetyMode.NONE) {
         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
