@@ -40,11 +40,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         rv_main_movie.adapter = movieAdapter
     }
 
-    override fun removeKeyboard() =
+    override fun removeKeyboard() {
         (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
             et_main_search.windowToken,
             0
         )
+    }
 
     override fun updateMovieRecycler(items: List<Movie>) {
         movieAdapter.setItemList(items)
