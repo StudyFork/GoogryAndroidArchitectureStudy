@@ -1,12 +1,12 @@
 package com.example.hw2_project
 
-import com.example.hw2_project.data.MovieList
+import com.example.hw2_project.data.api.NaverMovieData
 
 interface MainContract {
 
     interface View {
         fun showErrorEmptyQuery()
-        fun showMovieList(movieList: MovieList)
+        fun showMovieList(movieList: NaverMovieData.NaverMovieResponse)
         fun showErrorRespondMsg(t: Throwable)
     }
 

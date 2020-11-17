@@ -1,7 +1,7 @@
 package com.example.hw2_project.data.remote
 
-import com.example.hw2_project.data.MovieList
-import com.google.gson.GsonBuilder
+import com.example.hw2_project.data.api.NaverMovieApi
+import com.example.hw2_project.data.api.NaverMovieData
 import okhttp3.*
 import java.io.IOException
 import java.net.URL
@@ -16,14 +16,14 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
 
     override fun getMovieFromRemote(
         query: String,
-        success: (MovieList) -> Unit,
+        success: (NaverMovieData.NaverMovieResponse) -> Unit,
         fail: (Throwable) -> Unit
     ) {
         //OkHttp로 요청
         val text = URLEncoder.encode(query, "UTF-8")
 
-        val url = URL("https://openapi.naver.com/v1/search/movie.json?query=${text}&display=10&start=1&genre=")
-
+            override fun onFailure(call: Call<NaverMovieData.NaverMovieResponse>, t: Throwable) {
+                fail(t)
         val request = Request.Builder()
             .url(url)
             .addHeader("X-Naver-Client-Id", CLIENT_ID)

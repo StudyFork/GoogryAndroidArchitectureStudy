@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hw2_project.data.MovieList
+import com.example.hw2_project.data.api.NaverMovieData
 import com.example.hw2_project.data.repository.MovieRepositoryImpl
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         Toast.makeText(this, "영화제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
     }
 
-    override fun showMovieList(movieList: MovieList) {
+    override fun showMovieList(movieList: NaverMovieData.NaverMovieResponse) {
         hideKeyboard()
         runOnUiThread{
             adapter.movieListChange(movieList.items)
