@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         setContentView(R.layout.activity_main)
         initRecyclerView()
         btn_main_search.setOnClickListener {
-            findMovie(et_main_search.text.toString())
+            presenter.findMovie(et_main_search.text.toString())
         }
     }
 
