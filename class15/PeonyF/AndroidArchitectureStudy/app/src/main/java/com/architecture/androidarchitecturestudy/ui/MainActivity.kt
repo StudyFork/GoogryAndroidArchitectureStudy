@@ -55,10 +55,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
-    override fun findMovie(keyword: String) {
-        presenter.findMovie(keyword)
-    }
-
     override fun queryNone() {
         Toast.makeText(this, getString(R.string.query_none), Toast.LENGTH_SHORT)
             .show()

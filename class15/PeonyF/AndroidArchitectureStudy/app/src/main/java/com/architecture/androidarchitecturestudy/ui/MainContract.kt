@@ -7,7 +7,6 @@ interface MainContract {
         fun removeKeyboard()
         fun updateMovieRecycler(items: List<Movie>)
         fun failMovieGet(msg: String)
-        fun findMovie(query: String)
         fun queryNone()
         fun resultNone()
     }
