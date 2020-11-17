@@ -1,6 +1,5 @@
 package com.example.hw2_project
 
-import com.example.hw2_project.data.repository.MovieRepository
 import com.example.hw2_project.data.repository.MovieRepositoryImpl
 
 class Presenter (
