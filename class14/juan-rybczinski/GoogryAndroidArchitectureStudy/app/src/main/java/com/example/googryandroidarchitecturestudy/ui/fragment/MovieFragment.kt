@@ -46,9 +46,7 @@ class MovieFragment : Fragment(), MovieContract.View {
         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
-    private val presenter: MovieContract.Presenter by lazy {
-        MoviePresenter(this, movieRepository)
-    }
+    private val presenter = MoviePresenter(this, movieRepository)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
