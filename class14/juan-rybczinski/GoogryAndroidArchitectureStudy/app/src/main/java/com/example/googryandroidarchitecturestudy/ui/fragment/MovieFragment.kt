@@ -28,10 +28,8 @@ class MovieFragment : Fragment(), MovieContract.View {
 
     private val TAG = this::class.java.simpleName
 
-    private val movieAdapter: MovieAdapter by lazy {
-        MovieAdapter {
-            presenter.selectMovieItem(it)
-        }
+    private val movieAdapter = MovieAdapter {
+        presenter.selectMovieItem(it)
     }
 
     private var _binding: FragmentMovieBinding? = null
