@@ -18,8 +18,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     // 리사이클러뷰 어뎁터
     private lateinit var recyclerViewAdapter: MovieListRecyclerViewAdapter
 
-    private val movieRepositoryImpl = MovieRepositoryImpl()
-    private val moviePresenter = MoviePresenter(this, movieRepositoryImpl)
+    private val moviePresenter = MoviePresenter(this, MovieRepositoryImpl())
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
