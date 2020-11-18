@@ -22,7 +22,7 @@ class MoviePresenter(
                     }
                 }
             }, {
-                Log.v("check_log", it.message.toString())
+                view.showError(it)
             })
         }
         view.hideKeyBoard()

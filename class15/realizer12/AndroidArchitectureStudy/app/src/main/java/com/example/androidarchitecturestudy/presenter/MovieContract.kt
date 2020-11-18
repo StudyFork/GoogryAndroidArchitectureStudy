@@ -9,6 +9,7 @@ interface MovieContract {
         fun showSearchQueryEmpty()
         fun hideKeyBoard()
         fun updateRecyclerView(movieList: List<GetMovieInfo.MovieData>)
+        fun showError(throwable: Throwable)
     }
 
     //프레젠터에서 할일

@@ -1,6 +1,7 @@
 package com.example.androidarchitecturestudy
 
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -50,6 +51,12 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
             adapter = recyclerViewAdapter
         }
     }
+
+    //에러 로그
+    override fun showError(throwable: Throwable) {
+        throwable.message?.let { Log.e("check_log", it) }
+    }
+
 
     // 리사이클러뷰 데이터 업데이트
     override fun updateRecyclerView(movieList: List<GetMovieInfo.MovieData>) {
