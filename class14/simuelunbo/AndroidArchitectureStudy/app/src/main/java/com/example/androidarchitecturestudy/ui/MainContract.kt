@@ -6,7 +6,7 @@ import com.example.androidarchitecturestudy.data.model.MovieData
 
 interface MainContract {
     interface View {
-        fun hideKeyboard(context: Context)
+        fun hideKeyboard()
         fun showLoadingBar()
         fun hideLoadingBar()
         fun showQueryEmpty()

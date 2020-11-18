@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         rcv_result.adapter = movieAdapter
     }
 
-    override fun hideKeyboard(context: Context) {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    override fun hideKeyboard() {
+        val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(et_search.windowToken, 0)
     }
 
