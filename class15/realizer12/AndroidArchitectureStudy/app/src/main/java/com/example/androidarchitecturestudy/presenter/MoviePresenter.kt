@@ -14,11 +14,11 @@ class MoviePresenter(
         } else {
             //영화 검색 실행
             repository.getMovieSearchResult(searchQuery, {
-                if (it.movieList?.size == 0) {
-                    view.showMovieResultEmpty()
-                    view.updateRecyclerView(emptyList())
-                } else {
-                    it.movieList?.let { movieList ->
+                it.movieList?.let { movieList ->
+                    if(movieList.isEmpty()) {
+                        view.showMovieResultEmpty()
+                        view.updateRecyclerView(emptyList())
+                    }else{
                         view.updateRecyclerView(movieList)
                     }
                 }
