@@ -17,7 +17,6 @@ class MoviePresenter(
                 it.movieList?.let { movieList ->
                     if(movieList.isEmpty()) {
                         view.showMovieResultEmpty()
-                        view.updateRecyclerView(emptyList())
                     }else{
                         view.updateRecyclerView(movieList)
                     }

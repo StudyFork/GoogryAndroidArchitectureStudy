@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     }
 
     override fun showMovieResultEmpty() {
+        updateRecyclerView(emptyList())
         Toast.makeText(this, R.string.main_no_search_result, Toast.LENGTH_SHORT).show();
     }
 
