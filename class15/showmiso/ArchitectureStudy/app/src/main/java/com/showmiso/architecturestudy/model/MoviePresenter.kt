@@ -34,7 +34,7 @@ class MoviePresenter(
             }).addTo(disposable)
     }
 
-    override fun clear() {
+    override fun clearObservable() {
         disposable.clear()
     }
 }

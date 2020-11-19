@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     }
 
     override fun onDestroy() {
-        presenter.clear()
+        presenter.clearObservable()
         super.onDestroy()
     }
 

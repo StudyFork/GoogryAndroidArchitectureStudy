@@ -17,6 +17,6 @@ interface MovieContract {
 
     interface Presenter {
         fun getMovies(query: String)
-        fun clear()
+        fun clearObservable()
     }
 }
