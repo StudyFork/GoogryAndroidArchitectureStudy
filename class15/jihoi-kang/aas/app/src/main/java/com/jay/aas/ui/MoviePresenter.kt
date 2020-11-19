@@ -1,11 +1,12 @@
 package com.jay.aas.ui
 
+import com.jay.aas.base.BasePresenter
 import com.jay.aas.data.MovieRepository
 
 class MoviePresenter(
     private val view: MovieContract.View,
     private val movieRepository: MovieRepository,
-) : MovieContract.Presenter {
+) : BasePresenter(), MovieContract.Presenter {
 
     override suspend fun getMovies() {
         val movies = movieRepository.getMovies()
@@ -22,9 +23,9 @@ class MoviePresenter(
 
         view.hideKeyboard()
         try {
-            view.showProgress()
+            view.showProgressBar()
             val movies = movieRepository.getSearchMovies(query)
-            view.hideProgress()
+            view.hideProgressBar()
 
             if (movies.isEmpty()) {
                 view.showNoResult()
@@ -33,7 +34,7 @@ class MoviePresenter(
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            view.hideProgress()
+            view.hideProgressBar()
             view.showSearchFailed()
         }
     }
