@@ -1,9 +1,10 @@
 package com.hhi.myapplication
 
+import com.hhi.myapplication.base.BaseContract
 import com.hhi.myapplication.data.model.MovieData
 
 interface MainContract {
-    interface View {
+    interface View : BaseContract.View {
         fun showMovies(items: ArrayList<MovieData.MovieItem>)
         fun showEmptyQuery()
         fun showProgressBar()
@@ -11,7 +12,7 @@ interface MainContract {
         fun hideKeyboard()
     }
 
-    interface Presenter {
+    interface Presenter : BaseContract.Presenter {
         fun searchMovie(query: String)
     }
 }
