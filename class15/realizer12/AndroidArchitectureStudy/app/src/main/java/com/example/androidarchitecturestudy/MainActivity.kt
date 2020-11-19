@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     //에러 로그
     override fun showError(throwable: Throwable) {
-        throwable.message?.let { Log.e("check_log", it) }
+        Log.e("check_log", "Failed", throwable)
     }
 
 
