@@ -1,12 +1,13 @@
 package com.hhi.myapplication
 
 import android.util.Log
+import com.hhi.myapplication.base.BasePresenter
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 
 class MainPresenter(
     private val view: MainContract.View,
     private val repositoryDataSourceImpl: NaverRepositoryDataSourceImpl
-) : MainContract.Presenter {
+) : MainContract.Presenter, BasePresenter(view) {
     override fun searchMovie(query: String) {
         view.hideKeyboard()
         if (query.isEmpty()) {
