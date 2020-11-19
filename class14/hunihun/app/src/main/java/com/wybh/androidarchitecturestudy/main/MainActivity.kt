@@ -63,9 +63,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
     
     private fun initAdapter() {
-        rvCinema.run {
-            adapter = cinemaAdapter
-        }
+        rvCinema.adapter = cinemaAdapter
     }
 
     private fun initViewClickListener() {

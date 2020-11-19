@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="38d8fdc5-4917-4166-b0f2-51fd7446088f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/main/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/main/MainActivity.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -112,7 +113,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
-    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4992908" visible="true" weight="0.26701915" />
