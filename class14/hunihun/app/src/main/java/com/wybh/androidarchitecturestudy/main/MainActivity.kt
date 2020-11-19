@@ -15,6 +15,17 @@ import com.wybh.androidarchitecturestudy.CinemaItem
 import com.wybh.androidarchitecturestudy.R
 
 class MainActivity : AppCompatActivity(), MainContract.View {
+    private lateinit var etSearchWord: EditText
+    private lateinit var btnSearch: Button
+    private lateinit var rvCinema: RecyclerView
+    private lateinit var imm: InputMethodManager
+
+    private val presenter = MainPresenter(this)
+    private val cinemaAdapter: CinemaAdapter =
+        CinemaAdapter {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
+        }
+
     override fun showToastFailMessage(message: String?) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
@@ -29,17 +40,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         // 키보드 내리기
         imm.hideSoftInputFromWindow(etSearchWord.windowToken, 0)
     }
-    
-    private lateinit var etSearchWord: EditText
-    private lateinit var btnSearch: Button
-    private lateinit var rvCinema: RecyclerView
-    private lateinit var imm: InputMethodManager
-
-    private val presenter = MainPresenter(this)
-    private val cinemaAdapter: CinemaAdapter =
-        CinemaAdapter {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it)))
-        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
