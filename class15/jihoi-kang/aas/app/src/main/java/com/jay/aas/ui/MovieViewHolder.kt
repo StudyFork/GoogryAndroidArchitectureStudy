@@ -13,8 +13,17 @@ class MovieViewHolder(
     private val onItemClick: (String) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
+    private var movie: Movie? = null
+
+    init {
+        binding.root.setOnClickListener {
+            movie?.link?.let(onItemClick)
+        }
+    }
+
     @Suppress("DEPRECATION")
     fun onBind(movie: Movie) {
+        this.movie = movie
         binding.tvPubDate.text = movie.pubDate
         binding.tvTitle.text =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -28,8 +37,6 @@ class MovieViewHolder(
         Glide.with(binding.root.context)
             .load(movie.image)
             .into(binding.ivPost)
-
-        binding.root.setOnClickListener { onItemClick(movie.link) }
     }
 
 }
