@@ -17,11 +17,10 @@ import com.example.androidarchitecturestudy.data.repository.NaverRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
-    private val remoteMovieDataImpl = NaverRemoteDataSourceImpl()
-    private val localMovieDataImpl = NaverLocalDataSourceImpl()
-    private val repositoryMovieImpl = NaverRepositoryImpl(remoteMovieDataImpl, localMovieDataImpl)
-
     private val mainPresenter by lazy {
+        val remoteMovieDataImpl = NaverRemoteDataSourceImpl()
+        val localMovieDataImpl = NaverLocalDataSourceImpl()
+        val repositoryMovieImpl = NaverRepositoryImpl(remoteMovieDataImpl, localMovieDataImpl)
         MainPresenter(this, repositoryMovieImpl)
     }
 
