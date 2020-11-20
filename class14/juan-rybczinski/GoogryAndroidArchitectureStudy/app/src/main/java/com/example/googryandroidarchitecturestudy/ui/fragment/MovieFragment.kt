@@ -21,9 +21,6 @@ import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 import kotlinx.coroutines.launch
 
 class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), MovieContract.View {
-
-    private val TAG = this::class.java.simpleName
-
     private val movieAdapter = MovieAdapter {
         presenter.selectUrlItem(it)
     }
@@ -60,17 +57,17 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), Movie
     }
 
     override fun showQueryEmpty() {
-        toast(getString(R.string.no_keyword))
+        super.showQueryEmpty()
         movieAdapter.setMovies(listOf())
     }
 
-    override fun showNoMovieSearchResult() {
-        toast(getString(R.string.no_results))
+    override fun showNoSearchResult() {
+        super.showNoSearchResult()
         movieAdapter.setMovies(listOf())
     }
 
-    override fun showMovieSearchFailed(e: Exception) {
-        toast(getString(R.string.error_occurred))
+    override fun showSearchFailed(e: Exception) {
+        super.showSearchFailed(e)
         Log.e(TAG, e.message.toString())
     }
 
@@ -79,4 +76,8 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), Movie
         container: ViewGroup?
     ): FragmentMovieBinding =
         FragmentMovieBinding.inflate(inflater, container, false)
+
+    companion object {
+        private val TAG = this::class.java.simpleName
+    }
 }

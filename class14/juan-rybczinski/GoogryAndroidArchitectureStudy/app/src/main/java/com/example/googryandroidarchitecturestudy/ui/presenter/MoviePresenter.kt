@@ -16,13 +16,13 @@ class MoviePresenter(
         try {
             val movieList = repository.searchMovies(query)
             if (movieList.isEmpty()) {
-                view.showNoMovieSearchResult()
+                view.showNoSearchResult()
                 return
             }
             view.hideKeyboard()
             view.showMovieList(movieList)
         } catch (e: Exception) {
-            view.showMovieSearchFailed(e)
+            view.showSearchFailed(e)
         }
     }
 }

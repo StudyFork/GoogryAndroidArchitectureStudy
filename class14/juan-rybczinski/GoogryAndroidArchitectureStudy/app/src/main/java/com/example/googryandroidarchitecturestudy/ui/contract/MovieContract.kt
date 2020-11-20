@@ -6,9 +6,6 @@ interface MovieContract {
 
     interface View : BaseContract.View {
         fun showMovieList(items: List<Movie>)
-        fun showQueryEmpty()
-        fun showNoMovieSearchResult()
-        fun showMovieSearchFailed(e: Exception)
     }
 
     interface Presenter : BaseContract.Presenter {

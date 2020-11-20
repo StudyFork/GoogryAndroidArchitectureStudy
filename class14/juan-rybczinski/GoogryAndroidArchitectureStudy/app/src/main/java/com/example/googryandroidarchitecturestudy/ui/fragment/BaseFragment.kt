@@ -54,4 +54,16 @@ abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), Ba
     override fun showInvalidUrl() {
         toast(getString(R.string.invalid_url))
     }
+
+    override fun showQueryEmpty() {
+        toast(getString(R.string.no_keyword))
+    }
+
+    override fun showNoSearchResult() {
+        toast(getString(R.string.no_results))
+    }
+
+    override fun showSearchFailed(e: Exception) {
+        toast(getString(R.string.error_occurred))
+    }
 }

@@ -7,6 +7,9 @@ interface BaseContract {
         fun hideKeyboard()
         fun showUrlResource(item: UrlResource)
         fun showInvalidUrl()
+        fun showQueryEmpty()
+        fun showNoSearchResult()
+        fun showSearchFailed(e: Exception)
     }
 
     interface Presenter {
