@@ -3,10 +3,11 @@ package com.architecture.androidarchitecturestudy.ui.main
 import android.util.Log
 import com.architecture.androidarchitecturestudy.data.model.Movie
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
+import com.architecture.androidarchitecturestudy.ui.base.BasePresenter
 
 class MainPresenter(
     private val view: MainContract.View, private val movieRepository: MovieRepositoryImpl
-) : MainContract.Presenter {
+) : BasePresenter(), MainContract.Presenter {
     override fun findMovie(keyword: String) {
         if (keyword.isEmpty()) {
             view.noQuery()
