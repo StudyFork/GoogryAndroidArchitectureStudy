@@ -6,7 +6,7 @@ import com.example.androidarchitecturestudy.data.repository.NaverRepository
 class MainPresenter(
     private val view: MainContract.View,
     private val naverRepository: NaverRepository
-) : MainContract.Presenter {
+) : BasePresenter(view, naverRepository), MainContract.Presenter {
 
     override fun requestMovieInfo(title: String) {
         view.hideKeyboard()

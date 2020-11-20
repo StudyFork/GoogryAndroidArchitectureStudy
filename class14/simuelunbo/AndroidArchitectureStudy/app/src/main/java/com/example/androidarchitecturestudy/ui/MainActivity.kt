@@ -6,8 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import com.example.androidarchitecturestudy.R
 import com.example.androidarchitecturestudy.data.local.NaverLocalDataSourceImpl
 import com.example.androidarchitecturestudy.data.model.Movie
@@ -16,7 +14,8 @@ import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImp
 import com.example.androidarchitecturestudy.data.repository.NaverRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
+    MainContract.View {
     private val mainPresenter by lazy {
         val remoteMovieDataImpl = NaverRemoteDataSourceImpl()
         val localMovieDataImpl = NaverLocalDataSourceImpl()
@@ -51,21 +50,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         imm.hideSoftInputFromWindow(et_search.windowToken, 0)
     }
 
-    override fun showLoadingBar() {
-        progressBar.isVisible = true
-    }
-
-    override fun hideLoadingBar() {
-        progressBar.isVisible = false
-    }
 
     override fun showQueryEmpty() {
         Toast.makeText(this, "검색어를 입력해주세요", Toast.LENGTH_SHORT).show()
     }
 
-    override fun showResultEmpty(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
-    }
 
     override fun showResult(movieData: MovieData) {
         movieAdapter.setMovieList(movieData.items as ArrayList<Movie>)
