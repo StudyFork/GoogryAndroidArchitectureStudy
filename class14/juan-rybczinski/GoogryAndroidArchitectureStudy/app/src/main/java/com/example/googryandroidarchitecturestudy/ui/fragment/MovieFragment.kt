@@ -1,6 +1,5 @@
 package com.example.googryandroidarchitecturestudy.ui.fragment
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,8 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.data.local.MovieLocalDataSourceImpl
@@ -20,20 +17,18 @@ import com.example.googryandroidarchitecturestudy.database.MovieDatabase
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieBinding
 import com.example.googryandroidarchitecturestudy.domain.Movie
 import com.example.googryandroidarchitecturestudy.ui.contract.MovieContract
+import com.example.googryandroidarchitecturestudy.ui.presenter.BasePresenter
 import com.example.googryandroidarchitecturestudy.ui.presenter.MoviePresenter
 import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 import kotlinx.coroutines.launch
 
-class MovieFragment : Fragment(), MovieContract.View {
+class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), MovieContract.View {
 
     private val TAG = this::class.java.simpleName
 
     private val movieAdapter = MovieAdapter {
         presenter.selectMovieItem(it)
     }
-
-    private var _binding: FragmentMovieBinding? = null
-    private val binding get() = _binding!!
 
     private val movieRepository: MovieRepository by lazy {
         val movieRemoteDataSource = MovieRemoteDataSourceImpl()
@@ -42,20 +37,8 @@ class MovieFragment : Fragment(), MovieContract.View {
         MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource)
     }
 
-    private val inputMethodManager by lazy(LazyThreadSafetyMode.NONE) {
-        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    }
-
-    private val presenter: MovieContract.Presenter by lazy {
+    override val presenter: MoviePresenter by lazy {
         MoviePresenter(this, movieRepository)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentMovieBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,11 +55,6 @@ class MovieFragment : Fragment(), MovieContract.View {
                 presenter.queryMovieList(binding.searchText.text.toString())
             }
         }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     override fun showMovieList(items: List<Movie>) {
@@ -102,11 +80,9 @@ class MovieFragment : Fragment(), MovieContract.View {
         Log.e(TAG, e.message.toString())
     }
 
-    override fun hideKeyboard() {
-        inputMethodManager.hideSoftInputFromWindow(
-            requireActivity().currentFocus?.windowToken,
-            0
-        )
-    }
-
+    override fun inflateViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentMovieBinding =
+        FragmentMovieBinding.inflate(inflater, container, false)
 }
