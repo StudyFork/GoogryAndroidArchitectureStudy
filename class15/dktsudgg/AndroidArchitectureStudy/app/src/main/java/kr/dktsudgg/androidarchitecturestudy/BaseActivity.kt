@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kr.dktsudgg.androidarchitecturestudy.view.ui.BaseContract
 import kr.dktsudgg.androidarchitecturestudy.view.ui.BasePresenter
 
-open class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseContract.View {
+abstract class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseContract.View {
     override fun doSuccessAction(message: String) {
         // 성공 메세지 띄우기
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
