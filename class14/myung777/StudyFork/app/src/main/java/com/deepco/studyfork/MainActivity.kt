@@ -1,20 +1,20 @@
 package com.deepco.studyfork
 
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.deepco.studyfork.api.RetrofitService
+import com.deepco.studyfork.data.model.Item
 import com.deepco.studyfork.data.remote.RemoteMovieDataImpl
-import com.deepco.studyfork.data.repository.RepositoryMovieData
 import com.deepco.studyfork.data.repository.RepositoryMovieDataImpl
+import com.deepco.studyfork.presenter.MainContract
+import com.deepco.studyfork.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
     private lateinit var api: RetrofitService
     private lateinit var recyclerAdapterMovie: RecyclerAdapterMovie
-    private val repositoryDataSourceImpl: RepositoryMovieData by lazy {
-        val remoteMovieDataImpl = RemoteMovieDataImpl(api)
-        RepositoryMovieDataImpl(remoteMovieDataImpl)
+    private val mainPresenter by lazy {
+        val repositoryMovieDataImpl = RepositoryMovieDataImpl(RemoteMovieDataImpl(api))
+        MainPresenter(this, repositoryMovieDataImpl)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,21 +24,17 @@ class MainActivity : AppCompatActivity() {
         api = RetrofitService.create()
         setRecyclerView()
         search_btn.setOnClickListener {
-            val text = movie_edit_text.text.toString()
-            if (text.isEmpty()) {
-                Toast.makeText(this, "영화 제목을 입력해주세요", Toast.LENGTH_SHORT).show()
-            } else {
-                repositoryDataSourceImpl.getMovieList(text, {
-                    recyclerAdapterMovie.setItemList(it)
-                }, {
-                    Toast.makeText(this, it, Toast.LENGTH_LONG).show()
-                })
-            }
+            val query = movie_edit_text.text.toString()
+            mainPresenter.queryMovie(query)
         }
     }
 
     private fun setRecyclerView() {
         recyclerAdapterMovie = RecyclerAdapterMovie()
         recycler_view.adapter = recyclerAdapterMovie
+    }
+
+    override fun setMovieList(list: List<Item>) {
+        recyclerAdapterMovie.setItemList(list)
     }
 }
