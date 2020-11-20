@@ -52,18 +52,8 @@ class MainActivity : BaseActivity<MoviePresenter>(), MovieContract.View, View.On
         }
     }
 
-    override fun showSearchedMovieList(data: List<MovieItem>) {
+    override fun updateSearchedMovieList(data: List<MovieItem>) {
         (searchedMovieList.adapter as MovieListAdapter).refreshData(data)
-    }
-
-    /**
-     * 영화 검색 실패 시, 영화검색결과 리스트를 비워주기 위해 doFailureAction 메소드 재정의
-     */
-    override fun doFailureAction(message: String) {
-        // 빈 데이터로 갱신
-        (searchedMovieList.adapter as MovieListAdapter).refreshData(ArrayList<MovieItem>())
-
-        super.doFailureAction(message)
     }
 
 }

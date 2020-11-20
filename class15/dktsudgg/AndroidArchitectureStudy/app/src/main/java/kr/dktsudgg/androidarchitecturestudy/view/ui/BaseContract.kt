@@ -3,19 +3,9 @@ package kr.dktsudgg.androidarchitecturestudy.view.ui
 interface BaseContract {
     interface View {
         /**
-         * 무언가 성공 시, 뷰에서 보여줄 처리 메소드
+         * 뷰에서 메세지를 보여주는 메소드
          */
-        fun doSuccessAction(message: String)
-
-        /**
-         * 무언가 실패 시, 뷰에서 보여줄 처리 메소드
-         */
-        fun doFailureAction(message: String)
-
-        /**
-         * 빈 데이터를 다루게 될 시, 뷰에서 보여줄 처리 메소드
-         */
-        fun doWhenUseEmptyData(message: String)
+        fun showToast(message: String)
     }
 
     interface Presenter {

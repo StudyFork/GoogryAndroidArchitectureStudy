@@ -8,7 +8,7 @@ interface MovieContract {
         /**
          * 영화 검색 결과 갱신 메소드
          */
-        fun showSearchedMovieList(data: List<MovieItem>)
+        fun updateSearchedMovieList(data: List<MovieItem>)
     }
 
     interface Presenter : BaseContract.Presenter {

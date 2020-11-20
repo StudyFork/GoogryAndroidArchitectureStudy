@@ -1,5 +1,6 @@
 package kr.dktsudgg.androidarchitecturestudy.view.ui
 
+import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 import kr.dktsudgg.androidarchitecturestudy.data.model.NaverMovieResponse
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepository
 
@@ -9,15 +10,18 @@ class MoviePresenter(
 ) : BasePresenter(), MovieContract.Presenter {
 
     override fun searchMovies(query: String) {
-        if (isEmptyData(query)) view.doWhenUseEmptyData("검색어를 입력하세요")
+        if (isEmptyData(query)) view.showToast("검색어를 입력하세요")
 
         naverMovieRepository.searchMovies(query, {
-            (it as NaverMovieResponse).items?.let { it1 ->
-                view.showSearchedMovieList(it1)
-                view.doSuccessAction("검색에 성공하였습니다.")
+            (it as NaverMovieResponse).items?.let { searchedMovieList ->
+                // 검색된 영화 데이터로 갱신
+                view.updateSearchedMovieList(searchedMovieList)
+                view.showToast("검색에 성공하였습니다.")
             }
         }, {
-            view.doFailureAction("검색에 실패하였습니다.")
+            // 빈 데이터로 갱신
+            view.updateSearchedMovieList(ArrayList<MovieItem>())
+            view.showToast("검색에 실패하였습니다.")
         })
     }
 }
