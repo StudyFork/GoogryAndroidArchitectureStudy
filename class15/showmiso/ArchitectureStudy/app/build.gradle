@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.showmiso.architecturestudy"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -32,10 +32,10 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     // retrofit2
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation('com.squareup.retrofit2:retrofit:2.6.2') {
+    implementation('com.squareup.retrofit2:retrofit:2.9.0') {
         exclude module: 'okhttp'
     }
-    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     // okhttp3
     implementation 'com.squareup.okhttp3:okhttp:4.2.2'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
@@ -49,7 +49,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
