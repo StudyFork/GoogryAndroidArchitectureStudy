@@ -55,12 +55,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
 
-    override fun queryNone() {
+    override fun noQuery() {
         Toast.makeText(this, getString(R.string.query_none), Toast.LENGTH_SHORT)
             .show()
     }
 
-    override fun resultNone() {
+    override fun noResult() {
         Toast.makeText(this, getString(R.string.result_none), Toast.LENGTH_SHORT)
             .show()
     }

@@ -9,12 +9,12 @@ class MainPresenter(
 ) : MainContract.Presenter {
     override fun findMovie(keyword: String) {
         if (keyword.isEmpty()) {
-            view.queryNone()
+            view.noQuery()
         } else {
             movieRepository.getMovieData(
                 keyword,
                 30,
-                onEmptyList = { view.resultNone() },
+                onEmptyList = { view.noResult() },
                 onSuccess = { view.updateMovieRecycler(it.items as ArrayList<Movie>) },
                 onFailure = { Log.e("Api is fail", it.toString()) })
         }

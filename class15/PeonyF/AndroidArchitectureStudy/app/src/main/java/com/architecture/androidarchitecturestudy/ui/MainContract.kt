@@ -7,8 +7,8 @@ interface MainContract {
         fun removeKeyboard()
         fun updateMovieRecycler(items: List<Movie>)
         fun failMovieGet(msg: String)
-        fun queryNone()
-        fun resultNone()
+        fun noQuery()
+        fun noResult()
     }
 
     interface Presenter {
