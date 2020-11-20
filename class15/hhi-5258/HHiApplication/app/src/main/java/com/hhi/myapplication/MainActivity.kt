@@ -7,11 +7,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import com.hhi.myapplication.base.BaseActivity
 import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
     private val recyclerAdapter = RecyclerAdapter()
     private val mainPresenter = MainPresenter(this, NaverRepositoryDataSourceImpl())
 
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showEmptyQuery() {
-        Toast.makeText(this, "내용을 입력해 주세요.", Toast.LENGTH_SHORT).show()
+        super.showToast("내용을 입력해 주세요")
     }
 
     override fun showProgressBar() {
