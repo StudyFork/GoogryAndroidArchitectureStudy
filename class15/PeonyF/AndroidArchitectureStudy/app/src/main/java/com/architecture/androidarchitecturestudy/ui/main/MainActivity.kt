@@ -1,7 +1,6 @@
 package com.architecture.androidarchitecturestudy.ui.main
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -11,11 +10,12 @@ import com.architecture.androidarchitecturestudy.data.model.Movie
 import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSource
 import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
+import com.architecture.androidarchitecturestudy.ui.base.BaseActivity
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
 import com.architecture.androidarchitecturestudy.webservice.NetworkService
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
     private lateinit var networkService: NetworkService
     private lateinit var movieRemoteDataSource: MovieRemoteDataSource
     private lateinit var movieAdapter: MovieAdapter
