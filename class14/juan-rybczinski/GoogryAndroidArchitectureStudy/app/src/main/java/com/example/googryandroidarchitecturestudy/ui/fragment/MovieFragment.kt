@@ -19,7 +19,7 @@ import com.example.googryandroidarchitecturestudy.data.repository.MovieRepositor
 import com.example.googryandroidarchitecturestudy.database.MovieDatabase
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieBinding
 import com.example.googryandroidarchitecturestudy.domain.Movie
-import com.example.googryandroidarchitecturestudy.ui.MovieContract
+import com.example.googryandroidarchitecturestudy.ui.contract.MovieContract
 import com.example.googryandroidarchitecturestudy.ui.presenter.MoviePresenter
 import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 import kotlinx.coroutines.launch

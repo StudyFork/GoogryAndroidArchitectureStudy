@@ -1,4 +1,4 @@
-package com.example.googryandroidarchitecturestudy.ui
+package com.example.googryandroidarchitecturestudy.ui.contract
 
 import com.example.googryandroidarchitecturestudy.domain.Movie
 
