@@ -1,8 +1,6 @@
 package com.deepco.studyfork
 
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.deepco.studyfork.api.RetrofitService
 import com.deepco.studyfork.data.model.Item
 import com.deepco.studyfork.data.remote.RemoteMovieDataImpl
@@ -11,7 +9,7 @@ import com.deepco.studyfork.presenter.MainContract
 import com.deepco.studyfork.presenter.MainPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.View {
+class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
     private lateinit var api: RetrofitService
     private lateinit var recyclerAdapterMovie: RecyclerAdapterMovie
     private val mainPresenter by lazy {
@@ -34,15 +32,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     private fun setRecyclerView() {
         recyclerAdapterMovie = RecyclerAdapterMovie()
         recycler_view.adapter = recyclerAdapterMovie
-    }
-
-    override fun showQueryEmpty() {
-        Toast.makeText(this, "영화 제목을 입력해주세요", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun showMovieEmpty(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
-
     }
 
     override fun setMovieList(list: List<Item>) {

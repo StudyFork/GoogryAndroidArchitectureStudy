@@ -3,13 +3,11 @@ package com.deepco.studyfork.presenter
 import com.deepco.studyfork.data.model.Item
 
 interface MainContract {
-    interface View {
-        fun showQueryEmpty()
-        fun showMovieEmpty(error: String)
+    interface View : BaseContract.View {
         fun setMovieList(list: List<Item>)
     }
 
-    interface Presenter {
+    interface Presenter : BaseContract.Presenter {
         fun queryMovie(query: String)
     }
 }
