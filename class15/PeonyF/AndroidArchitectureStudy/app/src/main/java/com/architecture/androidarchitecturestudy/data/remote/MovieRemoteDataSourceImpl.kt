@@ -15,7 +15,7 @@ class MovieRemoteDataSourceImpl(
         display: Int,
         onSuccess: (MovieResponse) -> Unit,
         onFailure: (Throwable) -> Unit,
-        onEmptyList: (String) -> Unit
+        onEmptyList: () -> Unit
     ) {
         network.getMovieSearch(keyword, display)
             .enqueue(object : Callback<MovieResponse> {
@@ -32,7 +32,7 @@ class MovieRemoteDataSourceImpl(
                         if (it.items!!.isNotEmpty() && response.isSuccessful) {
                             onSuccess(it)
                         } else {
-                            onEmptyList("$keyword 를 찾을 수 없습니다dcfdsf")
+                            onEmptyList()
                         }
                     }
                 }
