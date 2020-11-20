@@ -7,7 +7,7 @@ import com.example.googryandroidarchitecturestudy.ui.contract.MovieContract
 class MoviePresenter(
     private val view: MovieContract.View,
     private val repository: MovieRepository
-) : BasePresenter(), MovieContract.Presenter {
+) : BasePresenter(view), MovieContract.Presenter {
     override suspend fun queryMovieList(query: String) {
         if (query.isEmpty()) {
             view.showQueryEmpty()
@@ -24,9 +24,5 @@ class MoviePresenter(
         } catch (e: Exception) {
             view.showMovieSearchFailed(e)
         }
-    }
-
-    override fun selectMovieItem(item: Movie) {
-        view.showMovieDetail(item)
     }
 }

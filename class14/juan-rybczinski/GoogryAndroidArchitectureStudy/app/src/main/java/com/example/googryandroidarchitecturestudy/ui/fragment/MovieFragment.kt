@@ -1,7 +1,5 @@
 package com.example.googryandroidarchitecturestudy.ui.fragment
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -27,7 +25,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), Movie
     private val TAG = this::class.java.simpleName
 
     private val movieAdapter = MovieAdapter {
-        presenter.selectMovieItem(it)
+        presenter.selectUrlItem(it)
     }
 
     private val movieRepository: MovieRepository by lazy {
@@ -69,10 +67,6 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), Movie
     override fun showNoMovieSearchResult() {
         toast(getString(R.string.no_results))
         movieAdapter.setMovies(listOf())
-    }
-
-    override fun showMovieDetail(item: Movie) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
     }
 
     override fun showMovieSearchFailed(e: Exception) {

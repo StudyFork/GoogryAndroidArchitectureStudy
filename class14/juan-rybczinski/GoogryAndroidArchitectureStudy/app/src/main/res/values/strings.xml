@@ -4,4 +4,5 @@
     <string name="no_keyword">No keywords.</string>
     <string name="no_results">No results.</string>
     <string name="error_occurred">Error occurred.</string>
+    <string name="invalid_url">Invalid URL!</string>
 </resources>
