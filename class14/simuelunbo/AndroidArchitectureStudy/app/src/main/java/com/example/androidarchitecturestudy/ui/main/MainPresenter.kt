@@ -1,7 +1,8 @@
-package com.example.androidarchitecturestudy.ui
+package com.example.androidarchitecturestudy.ui.main
 
 import com.example.androidarchitecturestudy.data.model.Movie
 import com.example.androidarchitecturestudy.data.repository.NaverRepository
+import com.example.androidarchitecturestudy.ui.base.BasePresenter
 
 class MainPresenter(
     private val view: MainContract.View,

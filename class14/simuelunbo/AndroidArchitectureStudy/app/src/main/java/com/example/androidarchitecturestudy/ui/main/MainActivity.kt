@@ -1,4 +1,4 @@
-package com.example.androidarchitecturestudy.ui
+package com.example.androidarchitecturestudy.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -12,6 +12,8 @@ import com.example.androidarchitecturestudy.data.model.Movie
 import com.example.androidarchitecturestudy.data.model.MovieData
 import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImpl
 import com.example.androidarchitecturestudy.data.repository.NaverRepositoryImpl
+import com.example.androidarchitecturestudy.ui.MovieAdapter
+import com.example.androidarchitecturestudy.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),

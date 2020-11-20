@@ -1,6 +1,7 @@
-package com.example.androidarchitecturestudy.ui
+package com.example.androidarchitecturestudy.ui.main
 
 import com.example.androidarchitecturestudy.data.model.MovieData
+import com.example.androidarchitecturestudy.ui.base.BaseContract
 
 interface MainContract {
     interface View : BaseContract.View {

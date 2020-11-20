@@ -1,4 +1,4 @@
-package com.example.androidarchitecturestudy.ui
+package com.example.androidarchitecturestudy.ui.base
 
 import android.widget.Toast
 import androidx.annotation.LayoutRes

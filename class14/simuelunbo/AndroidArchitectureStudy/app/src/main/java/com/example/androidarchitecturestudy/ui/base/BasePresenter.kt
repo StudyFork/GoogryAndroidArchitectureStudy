@@ -1,4 +1,4 @@
-package com.example.androidarchitecturestudy.ui
+package com.example.androidarchitecturestudy.ui.base
 
 import com.example.androidarchitecturestudy.data.model.Movie
 import com.example.androidarchitecturestudy.data.repository.NaverRepository
