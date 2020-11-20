@@ -54,14 +54,4 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
     override fun failMovieGet(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
-
-    override fun noQuery() {
-        Toast.makeText(this, getString(R.string.query_none), Toast.LENGTH_SHORT)
-            .show()
-    }
-
-    override fun noResult() {
-        Toast.makeText(this, getString(R.string.result_none), Toast.LENGTH_SHORT)
-            .show()
-    }
 }
