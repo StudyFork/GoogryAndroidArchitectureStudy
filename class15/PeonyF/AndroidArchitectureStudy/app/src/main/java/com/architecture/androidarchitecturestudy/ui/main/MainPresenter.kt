@@ -10,12 +10,12 @@ class MainPresenter(
 ) : BasePresenter(), MainContract.Presenter {
     override fun findMovie(keyword: String) {
         if (keyword.isEmpty()) {
-            view.noQuery()
+            view.showErrorMessage("영화 제목을 입력해주세요")
         } else {
             movieRepository.getMovieData(
                 keyword,
                 30,
-                onEmptyList = { view.noResult() },
+                onEmptyList = { view.showErrorMessage("검색결과가 없습니다") },
                 onSuccess = { view.updateMovieRecycler(it.items as ArrayList<Movie>) },
                 onFailure = { Log.e("Api is fail", it.toString()) })
         }
