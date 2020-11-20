@@ -1,4 +1,4 @@
-package com.architecture.androidarchitecturestudy.ui
+package com.architecture.androidarchitecturestudy.ui.main
 
 import android.util.Log
 import com.architecture.androidarchitecturestudy.data.model.Movie

@@ -1,4 +1,4 @@
-package com.architecture.androidarchitecturestudy.ui
+package com.architecture.androidarchitecturestudy.ui.main
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
