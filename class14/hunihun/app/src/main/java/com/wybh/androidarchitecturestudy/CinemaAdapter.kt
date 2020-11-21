@@ -1,7 +1,5 @@
 package com.wybh.androidarchitecturestudy
 
-import android.content.Intent
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class CinemaAdapter : RecyclerView.Adapter<CinemaAdapter.CinemaViewHolder>() {
+class CinemaAdapter(private val itemClickListener: (link: String) -> Unit) :
+    RecyclerView.Adapter<CinemaAdapter.CinemaViewHolder>() {
     private val itemList: ArrayList<CinemaItem> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CinemaViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cinema_item, parent, false)
@@ -24,9 +23,9 @@ class CinemaAdapter : RecyclerView.Adapter<CinemaAdapter.CinemaViewHolder>() {
     override fun onBindViewHolder(holder: CinemaViewHolder, position: Int) {
         holder.bind(itemList[position])
     }
-    
-    fun addItem(item: CinemaItem) {
-        itemList.add(item)
+
+    fun addList(item: List<CinemaItem>) {
+        itemList.addAll(item)
     }
     
     fun dataClear() {
@@ -41,13 +40,11 @@ class CinemaAdapter : RecyclerView.Adapter<CinemaAdapter.CinemaViewHolder>() {
 
         init {
             itemView.setOnClickListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(itemList[adapterPosition].link))
-                itemView.context.startActivity(intent)
+                itemClickListener(itemList[adapterPosition].link)
             }
         }
 
         fun bind(item: CinemaItem) {
-
             Glide.with(itemView.context)
                 .load(item.thumnail)
                 .into(ivThumnail)

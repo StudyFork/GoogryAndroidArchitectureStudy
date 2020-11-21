@@ -1,6 +1,6 @@
 package com.wybh.androidarchitecturestudy.retrofit
 
-import com.wybh.androidarchitecturestudy.model.ResponseCinemaData
+import com.wybh.androidarchitecturestudy.data.ResponseCinemaData
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
