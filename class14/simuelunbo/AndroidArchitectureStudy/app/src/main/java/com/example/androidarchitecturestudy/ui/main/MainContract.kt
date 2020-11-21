@@ -9,6 +9,8 @@ interface MainContract {
         fun showQueryEmpty()
         fun showResult(movieData: MovieData)
         fun openMovieLink(link: String)
+        fun showLoadingBar()
+        fun hideLoadingBar()
     }
 
     interface Presenter : BaseContract.Presenter {

@@ -4,8 +4,6 @@ import com.example.androidarchitecturestudy.data.model.Movie
 
 interface BaseContract {
     interface View {
-        fun showLoadingBar()
-        fun hideLoadingBar()
         fun showResultEmpty(error: String)
         fun getMovieData(movie: List<Movie>)
     }

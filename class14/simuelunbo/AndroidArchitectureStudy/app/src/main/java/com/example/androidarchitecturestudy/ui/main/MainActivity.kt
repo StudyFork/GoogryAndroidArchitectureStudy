@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.example.androidarchitecturestudy.R
 import com.example.androidarchitecturestudy.data.local.NaverLocalDataSourceImpl
 import com.example.androidarchitecturestudy.data.model.Movie
@@ -69,6 +70,14 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
 
     override fun openMovieLink(link: String) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
+    }
+
+    override fun showLoadingBar() {
+        progressBar.isVisible = true
+    }
+
+    override fun hideLoadingBar() {
+        progressBar.isVisible = false
     }
 
 }
