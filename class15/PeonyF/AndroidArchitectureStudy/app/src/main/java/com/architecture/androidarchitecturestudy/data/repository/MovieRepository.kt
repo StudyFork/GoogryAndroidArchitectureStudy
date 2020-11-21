@@ -7,6 +7,6 @@ interface MovieRepository {
         keyword: String,
         display: Int,
         onSuccess: (MovieResponse) -> Unit,
-        onFailure: (Throwable) -> Unit
+        onFailure: (Throwable) -> Unit,
     )
 }

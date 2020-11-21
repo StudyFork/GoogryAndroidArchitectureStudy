@@ -26,7 +26,8 @@ class MovieRemoteDataSourceImpl(
                     call: Call<MovieResponse>,
                     response: Response<MovieResponse>
                 ) {
-                    response.body()?.let {
+                    val body = response.body()
+                    body?.let {
                         onSuccess(it)
                     }
                 }
