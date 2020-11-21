@@ -2,7 +2,7 @@ package com.architecture.androidarchitecturestudy.ui.base
 
 class BaseContract {
     interface View {
-        fun showErrorMessage(message: String)
+        fun showMessage(message: String)
     }
 
     interface Presenter {
