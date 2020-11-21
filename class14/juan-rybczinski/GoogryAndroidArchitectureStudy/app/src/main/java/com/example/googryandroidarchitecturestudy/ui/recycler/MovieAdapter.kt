@@ -1,19 +1,19 @@
 package com.example.googryandroidarchitecturestudy.ui.recycler
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.googryandroidarchitecturestudy.R
+import com.example.googryandroidarchitecturestudy.databinding.ItemMovieBinding
 import com.example.googryandroidarchitecturestudy.domain.Movie
 
-class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter(
+    private val onItemClick: (Movie) -> Unit
+) : RecyclerView.Adapter<MovieViewHolder>() {
     private val movies: MutableList<Movie> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(view)
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieViewHolder(binding, onItemClick)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
