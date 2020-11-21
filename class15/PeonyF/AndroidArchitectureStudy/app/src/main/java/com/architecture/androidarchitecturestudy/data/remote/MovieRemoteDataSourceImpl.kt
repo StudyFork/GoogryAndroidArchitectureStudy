@@ -28,11 +28,7 @@ class MovieRemoteDataSourceImpl(
                 ) {
                     val body = response.body()
                     body?.let {
-                        if (it.items!!.isNotEmpty() && response.isSuccessful) {
-                            onSuccess(it)
-                        } else {
-                            onEmptyList()
-                        }
+                        onSuccess(it)
                     }
                 }
             })
