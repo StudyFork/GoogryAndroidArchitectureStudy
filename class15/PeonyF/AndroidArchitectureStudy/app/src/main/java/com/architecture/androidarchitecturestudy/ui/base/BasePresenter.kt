@@ -1,4 +1,4 @@
 package com.architecture.androidarchitecturestudy.ui.base
 
-open class BasePresenter : BaseContract.Presenter {
+abstract class BasePresenter : BaseContract.Presenter {
 }
