@@ -8,6 +8,5 @@ interface MovieRepository {
         display: Int,
         onSuccess: (MovieResponse) -> Unit,
         onFailure: (Throwable) -> Unit,
-        onEmptyList: () -> Unit
     )
 }

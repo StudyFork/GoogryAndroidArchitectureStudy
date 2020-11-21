@@ -14,8 +14,7 @@ class MovieRemoteDataSourceImpl(
         keyword: String,
         display: Int,
         onSuccess: (MovieResponse) -> Unit,
-        onFailure: (Throwable) -> Unit,
-        onEmptyList: () -> Unit
+        onFailure: (Throwable) -> Unit
     ) {
         network.getMovieSearch(keyword, display)
             .enqueue(object : Callback<MovieResponse> {
