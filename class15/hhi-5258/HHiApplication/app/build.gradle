@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 def keys = new Properties()
 file("../key.properties").withInputStream {
@@ -42,6 +43,10 @@ android {
             variant.buildConfigField "String", "NAVER_CLIENT_ID", keys.NAVER_CLIENT_ID
             variant.buildConfigField "String", "NAVER_CLIENT_SECRET", keys.NAVER_CLIENT_SECRET
         }
+    }
+
+    buildFeatures {
+        dataBinding true
     }
 }
 

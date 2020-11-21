@@ -7,18 +7,21 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import com.hhi.myapplication.base.BaseActivity
 import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
+import com.hhi.myapplication.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainContract.Presenter>(), MainContract.View {
+    private lateinit var binding: ActivityMainBinding
     private val recyclerAdapter = RecyclerAdapter()
     private val mainPresenter = MainPresenter(this, NaverRepositoryDataSourceImpl())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setUpUI()
         setUpListener()
