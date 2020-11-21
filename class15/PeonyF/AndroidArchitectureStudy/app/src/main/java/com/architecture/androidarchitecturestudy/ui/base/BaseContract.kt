@@ -1,6 +1,6 @@
 package com.architecture.androidarchitecturestudy.ui.base
 
-class BaseContract {
+interface BaseContract {
     interface View {
         fun showMessage(message: String)
     }
