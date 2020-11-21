@@ -10,7 +10,10 @@ class MoviePresenter(
 ) : BasePresenter(), MovieContract.Presenter {
 
     override fun searchMovies(query: String) {
-        if (isEmptyData(query)) view.showToast("검색어를 입력하세요")
+        if (isEmptyData(query)) {
+            view.showToast("검색어를 입력하세요")
+            return
+        }
 
         naverMovieRepository.searchMovies(query, {
             (it as NaverMovieResponse).items?.let { searchedMovieList ->
