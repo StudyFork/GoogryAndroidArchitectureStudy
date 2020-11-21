@@ -19,6 +19,17 @@ class MainPresenter(
                 onSuccess = { view.updateMovieRecycler(it.items as ArrayList<Movie>) },
                 onFailure = { Log.e("Api is fail", it.toString()) })
         }
+        movieRepository.getMovieData(keyword, 30,
+            onSuccess = {
+                if (it.items == null) {
+                    view.showMessage("검색결과가 없습니다")
+                } else {
+                    view.updateMovieRecycler(it.items as ArrayList<Movie>)
+                }
+
+            },
+            onFailure = { Log.e("Api is fail", it.toString()) }
+        )
         view.removeKeyboard()
     }
 }
