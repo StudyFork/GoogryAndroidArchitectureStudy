@@ -14,7 +14,7 @@ class MainPresenter(
         }
         movieRepository.getMovieData(keyword, 30,
             onSuccess = {
-                if (it.items == null) {
+                if (it.items!!.isEmpty()) {
                     view.showMessage("검색결과가 없습니다")
                 } else {
                     view.updateMovieRecycler(it.items as ArrayList<Movie>)
