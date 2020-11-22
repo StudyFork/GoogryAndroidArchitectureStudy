@@ -4,6 +4,8 @@ import com.example.googryandroidarchitecturestudy.domain.UrlResource
 
 interface BaseContract {
     interface View {
+        fun showProgressBar()
+        fun hideProgressBar()
         fun hideKeyboard()
         fun showUrlResource(item: UrlResource)
         fun showInvalidUrl()

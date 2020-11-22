@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.googryandroidarchitecturestudy.R
@@ -18,6 +19,8 @@ import com.example.googryandroidarchitecturestudy.ui.presenter.BasePresenter
 abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), BaseContract.View {
     private var _binding: B? = null
     protected val binding get() = _binding!!
+
+    protected var progressBar: ProgressBar? = null
 
     protected abstract val presenter: P
 
@@ -65,5 +68,13 @@ abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), Ba
 
     override fun showSearchFailed(e: Exception) {
         toast(getString(R.string.error_occurred))
+    }
+
+    override fun showProgressBar() {
+        progressBar?.visibility = View.VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        progressBar?.visibility = View.GONE
     }
 }

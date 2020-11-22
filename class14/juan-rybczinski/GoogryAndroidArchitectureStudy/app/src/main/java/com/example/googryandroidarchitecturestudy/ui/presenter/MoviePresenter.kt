@@ -14,7 +14,9 @@ class MoviePresenter(
             return
         }
         try {
+            view.showProgressBar()
             val movieList = repository.searchMovies(query)
+            view.hideProgressBar()
             if (movieList.isEmpty()) {
                 view.showNoSearchResult()
                 return

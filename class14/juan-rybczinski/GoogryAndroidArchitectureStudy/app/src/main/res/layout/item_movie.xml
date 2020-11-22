@@ -61,15 +61,16 @@
         app:layout_constraintTop_toBottomOf="@+id/director"
         tools:text="카시이 유우|쿠보타 마사타카|카지와라 히카리|치요 쇼타|요코야마 메구미|카시와바라 슈지" />
 
-    <TextView
+    <RatingBar
         android:id="@+id/rating"
-        android:layout_width="0dp"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/default_margin"
-        app:layout_constraintBottom_toBottomOf="@+id/movie_image"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/movie_image"
-        app:layout_constraintTop_toBottomOf="@+id/actor"
-        tools:text="4.50" />
+        android:stepSize="0.1"
+        app:layout_constraintBottom_toBottomOf="@id/movie_image"
+        app:layout_constraintStart_toEndOf="@id/movie_image"
+        app:layout_constraintTop_toBottomOf="@id/actor"
+        tools:rating="4.1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

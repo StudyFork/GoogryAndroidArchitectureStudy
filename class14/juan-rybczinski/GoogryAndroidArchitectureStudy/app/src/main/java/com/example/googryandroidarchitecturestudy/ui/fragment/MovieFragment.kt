@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.data.local.MovieLocalDataSourceImpl
 import com.example.googryandroidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
@@ -43,6 +42,8 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), Movie
     }
 
     private fun setupUi() {
+        progressBar = binding.loading
+
         binding.movieList.adapter = movieAdapter
 
         binding.searchButton.setOnClickListener {
