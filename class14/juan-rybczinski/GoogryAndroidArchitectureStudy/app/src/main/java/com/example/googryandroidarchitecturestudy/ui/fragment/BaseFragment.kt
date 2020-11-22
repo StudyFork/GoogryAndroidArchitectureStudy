@@ -13,6 +13,7 @@ import androidx.viewbinding.ViewBinding
 import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.domain.UrlResource
 import com.example.googryandroidarchitecturestudy.ui.contract.BaseContract
+import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.presenter.BasePresenter
 
 abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), BaseContract.View {

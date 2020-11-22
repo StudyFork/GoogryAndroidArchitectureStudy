@@ -6,13 +6,18 @@
     <data>
 
         <variable
+            name="view"
+            type="com.example.googryandroidarchitecturestudy.ui.recycler.MovieViewHolder" />
+
+        <variable
             name="movie"
             type="com.example.googryandroidarchitecturestudy.domain.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> view.onItemClick.invoke(movie)}">
 
         <ImageView
             android:id="@+id/movie_image"
@@ -20,8 +25,11 @@
             android:layout_height="@dimen/movie_image"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
+            app:error="@{@drawable/ic_launcher_foreground}"
+            app:imageUrl="@{movie.image}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:placeholder="@{@drawable/ic_launcher_background}"
             tools:src="@mipmap/ic_launcher" />
 
         <TextView
@@ -29,6 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_margin"
+            app:fromHTML="@{movie.title}"
             app:layout_constraintBottom_toTopOf="@+id/pub_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/movie_image"
