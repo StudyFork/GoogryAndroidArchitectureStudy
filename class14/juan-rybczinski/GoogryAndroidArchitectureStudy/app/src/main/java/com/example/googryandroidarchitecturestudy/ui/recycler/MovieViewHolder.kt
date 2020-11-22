@@ -26,10 +26,7 @@ class MovieViewHolder(
         } else {
             HtmlCompat.fromHtml(movie.title, HtmlCompat.FROM_HTML_MODE_LEGACY)
         }
-        binding.pubDate.text = movie.pubDate
-        binding.actor.text = movie.actor
-        binding.director.text = movie.director
-        binding.rating.rating = movie.userRating / 2
+        binding.movie = movie
         Glide.with(itemView.context)
             .load(movie.image)
             .placeholder(R.drawable.ic_launcher_background)

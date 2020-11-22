@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="movie"
+            type="com.example.googryandroidarchitecturestudy.domain.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,6 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_margin"
+            android:text="@{movie.pubDate}"
             app:layout_constraintBottom_toTopOf="@+id/director"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/movie_image"
@@ -49,6 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_margin"
+            android:text="@{movie.director}"
             app:layout_constraintBottom_toTopOf="@+id/actor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/movie_image"
@@ -61,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_margin"
             android:lines="1"
+            android:text="@{movie.actor}"
             app:layout_constraintBottom_toTopOf="@+id/rating"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/movie_image"
@@ -73,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_margin"
+            android:rating="@{movie.userRating / 2}"
             android:stepSize="0.1"
             app:layout_constraintBottom_toBottomOf="@id/movie_image"
             app:layout_constraintStart_toEndOf="@id/movie_image"

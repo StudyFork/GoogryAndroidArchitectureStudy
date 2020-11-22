@@ -42,14 +42,13 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), Movie
     }
 
     private fun setupUi() {
-        progressBar = binding.loading
-
         binding.movieList.adapter = movieAdapter
+        binding.fragment = this
+    }
 
-        binding.searchButton.setOnClickListener {
-            viewLifecycleOwner.lifecycleScope.launch {
-                presenter.queryMovieList(binding.searchText.text.toString())
-            }
+    fun queryMovieList() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            presenter.queryMovieList(binding.searchText.text.toString())
         }
     }
 
