@@ -6,11 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import com.example.googryandroidarchitecturestudy.data.local.MovieLocalDataSourceImpl
-import com.example.googryandroidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
-import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
-import com.example.googryandroidarchitecturestudy.data.repository.MovieRepositoryImpl
-import com.example.googryandroidarchitecturestudy.database.MovieDatabase
+import androidx.navigation.fragment.findNavController
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieBinding
 import com.example.googryandroidarchitecturestudy.domain.Movie
 import com.example.googryandroidarchitecturestudy.ui.contract.MovieContract
@@ -22,13 +18,6 @@ import kotlinx.coroutines.launch
 class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), MovieContract.View {
     private val movieAdapter = MovieAdapter {
         presenter.selectUrlItem(it)
-    }
-
-    private val movieRepository: MovieRepository by lazy {
-        val movieRemoteDataSource = MovieRemoteDataSourceImpl()
-        val movieLocalDataSource =
-            MovieLocalDataSourceImpl(MovieDatabase.getInstance(requireContext()))
-        MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource)
     }
 
     override val presenter: MoviePresenter by lazy {
@@ -43,7 +32,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), Movie
 
     private fun setupUi() {
         binding.movieList.adapter = movieAdapter
-        binding.fragment = this
+        binding.view = this
     }
 
     fun queryMovieList() {
@@ -76,6 +65,11 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), Movie
         container: ViewGroup?
     ): FragmentMovieBinding =
         FragmentMovieBinding.inflate(inflater, container, false)
+
+    override fun navToRecentSearch() {
+        val action = MovieFragmentDirections.actionMovieFragmentToRecentFragment()
+        this.findNavController().navigate(action)
+    }
 
     companion object {
         private val TAG = this::class.java.simpleName

@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="fragment"
+            name="view"
             type="com.example.googryandroidarchitecturestudy.ui.fragment.MovieFragment" />
     </data>
 
@@ -31,8 +31,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            android:onClick="@{() -> fragment.queryMovieList()}"
+            android:onClick="@{() -> view.queryMovieList()}"
             android:text="@string/search"
+            app:layout_constraintEnd_toStartOf="@id/recent_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/recent_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:onClick="@{() -> view.navToRecentSearch()}"
+            android:text="@string/recent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +63,7 @@
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{fragment.onProgress}"
+            android:visibility="@{view.onProgress}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

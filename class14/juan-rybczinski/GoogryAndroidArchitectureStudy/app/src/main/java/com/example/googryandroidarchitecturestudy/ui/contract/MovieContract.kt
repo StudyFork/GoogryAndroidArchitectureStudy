@@ -6,6 +6,7 @@ interface MovieContract {
 
     interface View : BaseContract.View {
         fun showMovieList(items: List<Movie>)
+        fun navToRecentSearch()
     }
 
     interface Presenter : BaseContract.Presenter {

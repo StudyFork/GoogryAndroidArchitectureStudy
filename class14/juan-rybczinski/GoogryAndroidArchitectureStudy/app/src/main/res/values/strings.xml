@@ -5,4 +5,7 @@
     <string name="no_results">No results.</string>
     <string name="error_occurred">Error occurred.</string>
     <string name="invalid_url">Invalid URL!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recent">Recent</string>
 </resources>

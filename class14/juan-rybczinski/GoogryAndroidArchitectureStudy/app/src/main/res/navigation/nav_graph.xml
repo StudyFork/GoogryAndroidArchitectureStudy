@@ -9,5 +9,14 @@
         android:id="@+id/movieFragment"
         android:name="com.example.googryandroidarchitecturestudy.ui.fragment.MovieFragment"
         android:label="fragment_movie"
-        tools:layout="@layout/fragment_movie" />
+        tools:layout="@layout/fragment_movie">
+        <action
+            android:id="@+id/action_movieFragment_to_recentFragment"
+            app:destination="@id/recentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recentFragment"
+        android:name="com.example.googryandroidarchitecturestudy.ui.fragment.RecentFragment"
+        android:label="fragment_recent"
+        tools:layout="@layout/fragment_recent" />
 </navigation>
