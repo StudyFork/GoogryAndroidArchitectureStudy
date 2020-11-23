@@ -1,7 +1,6 @@
 package com.jay.aas.base
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.ProgressBar
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,6 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.viewbinding.ViewBinding
 
 abstract class BaseActivity<B : ViewDataBinding, P : BaseContract.Presenter>(
     @LayoutRes private val layoutResId: Int
@@ -20,8 +18,6 @@ abstract class BaseActivity<B : ViewDataBinding, P : BaseContract.Presenter>(
     protected var progressBar: ProgressBar? = null
 
     protected abstract val presenter: P
-
-    protected abstract fun inflateViewBinding(inflater: LayoutInflater): B
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -54,7 +54,7 @@
                 android:id="@+id/iv_history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> activity.getSearchHistories()}"
+                android:onClick="@{() -> activity.searchHistories()}"
                 android:padding="@dimen/space_small"
                 android:src="@drawable/ic_history_black" />
 

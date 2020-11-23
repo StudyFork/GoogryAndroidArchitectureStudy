@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -20,6 +18,8 @@ import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivityMovieBinding
 import com.jay.aas.model.Movie
 import com.jay.aas.room.AppDatabase
+import com.jay.aas.ui.history.SearchHistoryActivity
+import com.jay.aas.ui.history.SearchHistoryActivity.Companion.EXTRA_QUERY_TEXT
 import com.jay.aas.util.toast
 import kotlinx.coroutines.launch
 
@@ -50,15 +50,22 @@ class MovieActivity :
         MoviePresenter(this, movieRepository)
     }
 
-    override fun inflateViewBinding(inflater: LayoutInflater): ActivityMovieBinding =
-        ActivityMovieBinding.inflate(inflater)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupUi()
 
         lifecycleScope.launch {
             presenter.getMovies()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQ_CODE_SEARCH_HISTORY && resultCode == RESULT_OK) {
+            data?.getStringExtra(EXTRA_QUERY_TEXT)?.let { query ->
+                searchMovies(query)
+            }
         }
     }
 
@@ -74,11 +81,8 @@ class MovieActivity :
         }
     }
 
-    fun getSearchHistories() {
-        val test = movieRepository.getSearchHistories()
-        test.forEach {
-            Log.e(TAG, "it.queryText: ${it.queryText}")
-        }
+    fun searchHistories() {
+        startActivityForResult(SearchHistoryActivity.getIntent(this), REQ_CODE_SEARCH_HISTORY)
     }
 
     override fun hideKeyboard() {
@@ -102,6 +106,12 @@ class MovieActivity :
 
     override fun openMovieDetail(link: String) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
+    }
+
+    companion object {
+
+        private const val REQ_CODE_SEARCH_HISTORY = 1001
+
     }
 
 }

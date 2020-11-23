@@ -5,5 +5,7 @@
     <string name="text_search">Search</string>
     <string name="msg_no_result">No search results found.</string>
     <string name="msg_search_failed">Search failed.</string>
+    <string name="text_latest_search">Latest Search</string>
+    <string name="msg_no_latest_search">No latest search results found.</string>
 
 </resources>
