@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.studyfork.databinding.ItemMovieBinding
-import com.example.studyfork.model.MovieSearchResponse
+import com.example.studyfork.data.model.MovieSearchResponse
 
 class MovieRecyclerAdapter : RecyclerView.Adapter<MovieRecyclerAdapter.ViewHolder>() {
     private val items: ArrayList<MovieSearchResponse.MovieItem> = ArrayList()

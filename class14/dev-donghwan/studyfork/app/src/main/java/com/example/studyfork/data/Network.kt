@@ -1,4 +1,4 @@
-package com.example.studyfork.model
+package com.example.studyfork.data
 
 import com.example.studyfork.api.NaverApi
 import io.reactivex.schedulers.Schedulers
