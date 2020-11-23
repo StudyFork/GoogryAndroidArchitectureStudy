@@ -1,6 +1,6 @@
 package com.jay.aas.base
 
-abstract class BaseContract {
+interface BaseContract {
 
     interface View {
 
