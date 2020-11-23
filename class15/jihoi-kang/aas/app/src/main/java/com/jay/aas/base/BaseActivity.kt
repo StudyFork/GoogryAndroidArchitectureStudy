@@ -3,12 +3,17 @@ package com.jay.aas.base
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.ProgressBar
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseActivity<B : ViewBinding, P : BaseContract.Presenter> : AppCompatActivity(),
+abstract class BaseActivity<B : ViewDataBinding, P : BaseContract.Presenter>(
+    @LayoutRes private val layoutResId: Int
+) : AppCompatActivity(layoutResId),
     BaseContract.View {
 
     protected lateinit var binding: B
@@ -20,8 +25,7 @@ abstract class BaseActivity<B : ViewBinding, P : BaseContract.Presenter> : AppCo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = inflateViewBinding(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, layoutResId)
     }
 
     override fun onDestroy() {

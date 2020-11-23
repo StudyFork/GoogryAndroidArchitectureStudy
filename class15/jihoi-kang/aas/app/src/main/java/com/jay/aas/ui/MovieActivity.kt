@@ -23,7 +23,8 @@ import com.jay.aas.room.AppDatabase
 import com.jay.aas.util.toast
 import kotlinx.coroutines.launch
 
-class MovieActivity : BaseActivity<ActivityMovieBinding, MovieContract.Presenter>(),
+class MovieActivity :
+    BaseActivity<ActivityMovieBinding, MovieContract.Presenter>(R.layout.activity_movie),
     MovieContract.View {
 
     private val TAG = this::class.java.simpleName
