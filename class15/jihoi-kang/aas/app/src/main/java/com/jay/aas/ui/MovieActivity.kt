@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isGone
@@ -38,7 +39,11 @@ class MovieActivity :
     }
     private val movieRepository: MovieRepository by lazy {
         val remoteDataSource = MovieRemoteDataSourceImpl(RetrofitHelper.movieService)
-        val localDataSource = MovieLocalDataSourceImpl(AppDatabase.getInstance(this).movieDao())
+        val appDatabase = AppDatabase.getInstance(this)
+        val localDataSource = MovieLocalDataSourceImpl(
+            appDatabase.movieDao(),
+            appDatabase.searchHistoryDao()
+        )
         MovieRepositoryImpl(remoteDataSource, localDataSource)
     }
     override val presenter: MovieContract.Presenter by lazy {
@@ -66,6 +71,13 @@ class MovieActivity :
     fun searchMovies(query: String) {
         lifecycleScope.launch {
             presenter.searchMovies(query)
+        }
+    }
+
+    fun getSearchHistories() {
+        val test = movieRepository.getSearchHistories()
+        test.forEach {
+            Log.e(TAG, "it.queryText: ${it.queryText}")
         }
     }
 

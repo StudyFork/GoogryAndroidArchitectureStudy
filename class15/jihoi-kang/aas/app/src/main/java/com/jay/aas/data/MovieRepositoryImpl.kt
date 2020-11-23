@@ -1,6 +1,7 @@
 package com.jay.aas.data
 
 import com.jay.aas.model.Movie
+import com.jay.aas.model.SearchHistory
 
 class MovieRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource,
@@ -11,11 +12,15 @@ class MovieRepositoryImpl(
 
     override suspend fun getSearchMovies(query: String): List<Movie> {
         val movies = movieRemoteDataSource.getSearchMovies(query)
-        movieLocalDataSource.insertMovies(movies)
+        movieLocalDataSource.insertMovies(query, movies)
 
         return movies
     }
 
     override suspend fun getMovies(): List<Movie> =
         movieLocalDataSource.getMovies()
+
+    override fun getSearchHistories(): List<SearchHistory> =
+        movieLocalDataSource.getSearchHistories()
+
 }
