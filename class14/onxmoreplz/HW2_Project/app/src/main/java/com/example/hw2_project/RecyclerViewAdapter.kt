@@ -7,12 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.hw2_project.data.api.NaverMovieData
 
 class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
 
-    private val arrListOfMovie :ArrayList<Movie> = ArrayList()
+    private val arrListOfMovie :ArrayList<NaverMovieData.NaverMovie> = ArrayList()
 
-    fun movieListChange(movies : List<Movie>){
+    fun movieListChange(movies : List<NaverMovieData.NaverMovie>){
         this.arrListOfMovie.clear()
         this.arrListOfMovie.addAll(movies)
         notifyDataSetChanged()
@@ -39,12 +40,12 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolde
         private val movie_pub = itemView.findViewById<TextView>(R.id.textview_movie_pubdate)
         private val movie_director = itemView.findViewById<TextView>(R.id.textview_movie_director)
 
-        fun bindItem( movie : Movie ){
-            if( movie.image != ""){
-                Glide.with(view.context).load(movie.image).into(movie_img)
-            }else{ // 이미지가 없는 경우, movie_pic 안드로이드 기본 아이콘으로 설정
-                movie_img?.setImageResource(R.mipmap.ic_launcher)
-            }
+        fun bindItem( movie : NaverMovieData.NaverMovie){
+            Glide.with(view.context)
+                .load(movie.image)
+                .error(R.mipmap.ic_launcher)
+                .into(movie_img)
+
             movie_title.text = movie.title
             movie_pub.text = movie.pubDate
             movie_director.text = movie.director

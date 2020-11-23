@@ -1,13 +1,12 @@
 package com.example.hw2_project.data.repository
 
-import com.example.hw2_project.Movie
-import com.example.hw2_project.MovieList
+import com.example.hw2_project.data.api.NaverMovieData
 
 interface MovieRepository {
 
     fun getMovieList(
         query : String,
-        success : (MovieList) -> Unit,
+        success : (NaverMovieData.NaverMovieResponse) -> Unit,
         fail : (Throwable) -> Unit
     )
 }
