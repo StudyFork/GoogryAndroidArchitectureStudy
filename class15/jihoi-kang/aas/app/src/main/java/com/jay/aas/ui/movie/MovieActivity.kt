@@ -1,4 +1,4 @@
-package com.jay.aas.ui
+package com.jay.aas.ui.movie
 
 import android.content.Context
 import android.content.Intent

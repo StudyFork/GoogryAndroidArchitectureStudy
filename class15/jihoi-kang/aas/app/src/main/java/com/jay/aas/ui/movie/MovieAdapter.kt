@@ -1,4 +1,4 @@
-package com.jay.aas.ui
+package com.jay.aas.ui.movie
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

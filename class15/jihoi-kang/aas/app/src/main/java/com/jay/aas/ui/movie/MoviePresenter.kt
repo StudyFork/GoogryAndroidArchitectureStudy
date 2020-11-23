@@ -1,4 +1,4 @@
-package com.jay.aas.ui
+package com.jay.aas.ui.movie
 
 import com.jay.aas.base.BasePresenter
 import com.jay.aas.data.MovieRepository

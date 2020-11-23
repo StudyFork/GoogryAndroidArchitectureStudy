@@ -8,14 +8,14 @@
 
         <variable
             name="activity"
-            type="com.jay.aas.ui.MovieActivity" />
+            type="com.jay.aas.ui.movie.MovieActivity" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.MovieActivity">
+        tools:context=".ui.movie.MovieActivity">
 
         <LinearLayout
             android:id="@+id/ll_search"

@@ -1,4 +1,4 @@
-package com.jay.aas.ui
+package com.jay.aas.ui.movie
 
 import androidx.recyclerview.widget.RecyclerView
 import com.jay.aas.databinding.ItemMovieBinding
