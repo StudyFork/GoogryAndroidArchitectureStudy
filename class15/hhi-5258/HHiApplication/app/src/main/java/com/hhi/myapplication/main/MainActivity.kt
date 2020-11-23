@@ -1,6 +1,7 @@
 package com.hhi.myapplication.main
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
@@ -10,6 +11,7 @@ import com.hhi.myapplication.base.BaseActivity
 import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 import com.hhi.myapplication.databinding.ActivityMainBinding
+import com.hhi.myapplication.recentSearch.RecentSearchActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainContract.Presenter>(),
@@ -24,7 +26,8 @@ class MainActivity : BaseActivity<MainContract.Presenter>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,
+        binding = DataBindingUtil.setContentView(
+            this,
             R.layout.activity_main
         )
 
@@ -35,12 +38,20 @@ class MainActivity : BaseActivity<MainContract.Presenter>(),
     private fun setUpUI() {
         main_recyclerview.setHasFixedSize(false)
         main_recyclerview.adapter = recyclerAdapter
+
+        if (intent.hasExtra("query")) {
+            mainPresenter.searchMovie(intent.getStringExtra("query"))
+        }
     }
 
     private fun setUpListener() {
         main_btn_search.setOnClickListener {
             val searchText = main_edit_search.text.toString()
             mainPresenter.searchMovie(searchText)
+        }
+        main_btn_recent_search.setOnClickListener {
+            val intent = Intent(this, RecentSearchActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -61,7 +72,8 @@ class MainActivity : BaseActivity<MainContract.Presenter>(),
     }
 
     override fun hideKeyboard() {
-        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 }

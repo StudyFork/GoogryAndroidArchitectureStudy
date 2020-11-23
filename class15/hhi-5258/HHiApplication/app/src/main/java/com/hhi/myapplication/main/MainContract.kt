@@ -14,5 +14,6 @@ interface MainContract {
 
     interface Presenter : BaseContract.Presenter {
         fun searchMovie(query: String)
+        fun saveQuery(query: String)
     }
 }

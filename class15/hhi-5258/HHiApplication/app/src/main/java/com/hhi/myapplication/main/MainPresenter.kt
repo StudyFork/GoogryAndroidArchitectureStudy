@@ -13,6 +13,8 @@ class MainPresenter(
         if (query.isEmpty()) {
             view.showEmptyQuery()
         } else {
+            saveQuery(query)
+
             view.showProgressBar()
             repositoryDataSourceImpl.searchMovies(query,
                 success = {
@@ -25,5 +27,9 @@ class MainPresenter(
                 }
             )
         }
+    }
+
+    override fun saveQuery(query: String) {
+        repositoryDataSourceImpl.saveQuery(query)
     }
 }
