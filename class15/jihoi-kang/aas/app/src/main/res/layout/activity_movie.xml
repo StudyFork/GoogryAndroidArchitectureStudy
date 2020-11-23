@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="activity"
+            type="com.jay.aas.ui.MovieActivity" />
 
     </data>
 
@@ -34,12 +39,14 @@
                 android:inputType="text"
                 android:paddingStart="@dimen/space_small"
                 android:paddingEnd="@dimen/space_small"
-                android:singleLine="true" />
+                android:singleLine="true"
+                bind:onEditorEnterAction="@{() -> activity.searchMovies(evSearch.getText().toString())}" />
 
             <ImageView
                 android:id="@+id/iv_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> activity.searchMovies(evSearch.getText().toString())}"
                 android:padding="@dimen/space_small"
                 android:src="@drawable/ic_search_black" />
 

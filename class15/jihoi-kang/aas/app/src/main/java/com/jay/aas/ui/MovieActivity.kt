@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -59,22 +58,14 @@ class MovieActivity :
     }
 
     private fun setupUi() {
+        binding.activity = this
         progressBar = binding.pbLoading
         binding.rvMovie.adapter = movieAdapter
+    }
 
-        binding.evSearch.setOnEditorActionListener { v, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                lifecycleScope.launch {
-                    presenter.searchMovies(v.text.toString())
-                }
-                return@setOnEditorActionListener true
-            }
-            return@setOnEditorActionListener false
-        }
-        binding.ivSearch.setOnClickListener {
-            lifecycleScope.launch {
-                presenter.searchMovies(binding.evSearch.text.toString())
-            }
+    fun searchMovies(query: String) {
+        lifecycleScope.launch {
+            presenter.searchMovies(query)
         }
     }
 
