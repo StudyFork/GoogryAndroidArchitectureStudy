@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"
-        tools:context=".MainActivity">
+        tools:context=".main.MainActivity">
 
         <EditText
             android:id="@+id/main_edit_search"
@@ -28,6 +28,16 @@
             android:layout_height="wrap_content"
             android:text="검색"
             app:layout_constraintLeft_toRightOf="@id/main_edit_search"
+            app:layout_constraintRight_toLeftOf="@id/main_btn_recent_search"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/main_btn_recent_search"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="최근 검색"
+            app:layout_constraintLeft_toRightOf="@id/main_btn_search"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

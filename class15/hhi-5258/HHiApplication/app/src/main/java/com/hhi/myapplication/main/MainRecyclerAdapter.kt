@@ -1,14 +1,15 @@
-package com.hhi.myapplication
+package com.hhi.myapplication.main
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.hhi.myapplication.R
 import com.hhi.myapplication.data.model.MovieData
 import kotlinx.android.synthetic.main.main_recycler_item.view.*
 
-class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>() {
     private val movieList: ArrayList<MovieData.MovieItem> = ArrayList()
 
     fun setMovieList(list: ArrayList<MovieData.MovieItem>) {
@@ -17,10 +18,10 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v =
             LayoutInflater.from(parent.context).inflate(R.layout.main_recycler_item, parent, false)
-        return RecyclerAdapter.ViewHolder(v)
+        return ViewHolder(v)
     }
 
     override fun getItemCount(): Int {

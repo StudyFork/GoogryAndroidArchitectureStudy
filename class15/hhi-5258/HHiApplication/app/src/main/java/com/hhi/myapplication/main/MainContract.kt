@@ -1,4 +1,4 @@
-package com.hhi.myapplication
+package com.hhi.myapplication.main
 
 import com.hhi.myapplication.base.BaseContract
 import com.hhi.myapplication.data.model.MovieData

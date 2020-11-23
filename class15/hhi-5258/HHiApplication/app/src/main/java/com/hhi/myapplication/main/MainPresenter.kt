@@ -1,4 +1,4 @@
-package com.hhi.myapplication
+package com.hhi.myapplication.main
 
 import android.util.Log
 import com.hhi.myapplication.base.BasePresenter
