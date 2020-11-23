@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="item"
+            type="com.jay.aas.model.Movie" />
 
     </data>
 
@@ -20,6 +25,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            bind:loadUrl="@{item.image}"
             tools:src="@drawable/ic_launcher_foreground" />
 
         <TextView
@@ -27,6 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_small"
+            android:text="@{item.pubDate}"
             android:textColor="@color/movie_pub_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_post"
@@ -44,6 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_post"
             app:layout_constraintTop_toBottomOf="@id/tv_pub_date"
+            bind:htmlText="@{item.title}"
             tools:text="Mulan" />
 
         <LinearLayout
@@ -56,7 +64,8 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_post"
-            app:layout_constraintTop_toBottomOf="@id/tv_title">
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            bind:isVisible="@{!item.userRating.equals(`0.00`)}">
 
             <ImageView
                 android:layout_width="@dimen/icon_size_small"
@@ -68,6 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_x_small"
+                android:text="@{item.userRating}"
                 tools:text="7.4" />
 
         </LinearLayout>
@@ -79,6 +89,7 @@
             android:layout_marginStart="@dimen/space_small"
             android:layout_marginTop="@dimen/space_x_small"
             android:lineSpacingExtra="@dimen/line_spacing_default"
+            android:text="@{item.actor}"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_post"
