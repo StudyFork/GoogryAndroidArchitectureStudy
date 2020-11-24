@@ -49,6 +49,7 @@
                 android:id="@+id/btn_history"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:onClick="onClickHistory"
                 android:text="@string/label_history" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>

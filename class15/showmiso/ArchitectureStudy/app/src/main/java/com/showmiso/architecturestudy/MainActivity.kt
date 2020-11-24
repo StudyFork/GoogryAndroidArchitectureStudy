@@ -1,6 +1,7 @@
 package com.showmiso.architecturestudy
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -54,6 +55,13 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         }
     }
 
+    fun onClickHistory(view: View) {
+        startActivityForResult(
+            Intent(this@MainActivity, HistoryActivity::class.java),
+            Constants.REQUEST_CODE
+        )
+    }
+
     override fun onDestroy() {
         presenter.clearObservable()
         super.onDestroy()
@@ -89,8 +97,19 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         progress_bar.visibility = View.GONE
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Constants.REQUEST_CODE) {
+                val result = data?.getStringExtra(Constants.RESULT)
+                result?.let {
+                    presenter.getMovies(it)
+                }
+            }
+        }
+    }
+
     companion object {
         private val tag = MainActivity::class.java.simpleName
     }
-
 }
