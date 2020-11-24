@@ -21,15 +21,17 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
     private val adapter = MovieAdapter()
-    private val presenter = MoviePresenter(
-        view = this,
-        naverRepository = run {
-            NaverRepositoryImpl(
-                RemoteDataSourceImpl(),
-                LocalDataSourceImpl(this@MainActivity)
-            )
-        }
-    )
+    private val presenter by lazy {
+        MoviePresenter(
+            view = this,
+            naverRepository = run {
+                NaverRepositoryImpl(
+                    RemoteDataSourceImpl(),
+                    LocalDataSourceImpl(this@MainActivity)
+                )
+            }
+        )
+    }
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +106,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
                 val result = data?.getStringExtra(Constants.RESULT)
                 result?.let {
                     presenter.getMovies(it)
+
                 }
             }
         }
