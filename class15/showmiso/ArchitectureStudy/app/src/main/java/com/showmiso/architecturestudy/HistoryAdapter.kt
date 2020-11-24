@@ -31,6 +31,11 @@ class HistoryAdapter(
         }
     }
 
+    fun clearHistoryList() {
+        historyList.clear()
+        notifyDataSetChanged()
+    }
+
     inner class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(text: String) {
             itemView.tv_index.text = (adapterPosition + 1).toString()

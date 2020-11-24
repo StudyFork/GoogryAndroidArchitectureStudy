@@ -30,4 +30,8 @@ class NaverRepositoryImpl(
     override fun removeHistory(query: String) {
         localDataSource.removeHistory(query)
     }
+
+    override fun removeAll() {
+        localDataSource.removeAll()
+    }
 }

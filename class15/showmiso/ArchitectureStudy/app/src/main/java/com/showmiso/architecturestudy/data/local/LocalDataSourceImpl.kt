@@ -35,4 +35,8 @@ class LocalDataSourceImpl(context: Context) : LocalDataSource {
             result
         }
     }
+
+    override fun removeAll() {
+        data = ""
+    }
 }

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.showmiso.architecturestudy.data.local.LocalDataSourceImpl
@@ -27,18 +28,20 @@ class HistoryActivity : AppCompatActivity(), HistoryContact.View,
             }
         )
     }
+    private val adapter = HistoryAdapter(this)
+
     private lateinit var binding: ActivityHistoryBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_history)
         binding.presenter = presenter
+        binding.activity = this
 
         initUi()
     }
 
     private fun initUi() {
-        val adapter = HistoryAdapter(this)
         adapter.setHistoryList(presenter.getHistory())
         rcv_history.adapter = adapter
     }
@@ -60,5 +63,11 @@ class HistoryActivity : AppCompatActivity(), HistoryContact.View,
 
     override fun onDeleteItem(text: String) {
         presenter.removeHistory(text)
+    }
+
+    override fun removeAll() {
+        presenter.removeAll()
+        adapter.clearHistoryList()
+        Toast.makeText(this, getString(R.string.msg_delete_all), Toast.LENGTH_SHORT).show()
     }
 }

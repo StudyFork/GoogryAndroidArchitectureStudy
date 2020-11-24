@@ -9,6 +9,9 @@
             name="presenter"
             type="com.showmiso.architecturestudy.model.HistoryPresenter" />
 
+        <variable
+            name="activity"
+            type="com.showmiso.architecturestudy.HistoryActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,6 +29,18 @@
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_delete_all"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_item"
+            android:onClick="@{() -> activity.removeAll()}"
+            android:text="@string/label_delete_all"
+            app:layout_constraintBottom_toBottomOf="@id/iv_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_back" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_history"

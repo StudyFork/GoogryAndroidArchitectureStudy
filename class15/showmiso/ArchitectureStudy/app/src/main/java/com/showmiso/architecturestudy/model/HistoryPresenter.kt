@@ -14,4 +14,8 @@ class HistoryPresenter(
     override fun removeHistory(query: String) {
         naverRepository.removeHistory(query)
     }
+
+    override fun removeAll() {
+        naverRepository.removeAll()
+    }
 }
