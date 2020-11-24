@@ -3,4 +3,7 @@
     <string name="search">검색</string>
     <string name="director">감독 :</string>
     <string name="movie_score">평점 :</string>
+    <string name="search_list">검색 목록</string>
+    <string name="close">닫기</string>
+    <string name="history">기록</string>
 </resources>
