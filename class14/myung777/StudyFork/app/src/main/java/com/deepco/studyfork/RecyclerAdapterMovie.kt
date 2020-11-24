@@ -2,8 +2,10 @@ package com.deepco.studyfork
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.deepco.studyfork.data.model.Item
+import com.deepco.studyfork.databinding.MovieItemBinding
 
 class RecyclerAdapterMovie :
     RecyclerView.Adapter<MyViewHolder>() {
@@ -11,9 +13,14 @@ class RecyclerAdapterMovie :
     private var modelList = ArrayList<Item>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-        )
+        val binding =
+            DataBindingUtil.inflate<MovieItemBinding>(
+                LayoutInflater.from(parent.context),
+                R.layout.movie_item,
+                parent,
+                false
+            )
+        return MyViewHolder(binding)
     }
 
     override fun getItemCount() = modelList.count()
