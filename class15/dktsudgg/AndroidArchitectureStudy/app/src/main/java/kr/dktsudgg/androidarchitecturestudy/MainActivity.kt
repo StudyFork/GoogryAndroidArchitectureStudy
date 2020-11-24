@@ -2,22 +2,25 @@ package kr.dktsudgg.androidarchitecturestudy
 
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepositoryImpl
+import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMainBinding
 import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieListAdapter
 import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieContract
 import kr.dktsudgg.androidarchitecturestudy.view.ui.MoviePresenter
 
 class MainActivity : BaseActivity<MoviePresenter>(), MovieContract.View, View.OnClickListener {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var moviePresenter: MovieContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         moviePresenter = MoviePresenter(NaverMovieRepositoryImpl(), this);
 
