@@ -15,7 +15,12 @@ class LocalDataSourceImpl(context: Context) : LocalDataSource {
     private val regex = ","
 
     override fun addHistory(query: String) {
-        data = data + regex + query
+        val temp = data
+        temp?.let {
+            if (!it.contains(query)) {
+                data = it + regex + query
+            }
+        }
     }
 
     override fun getHistory(): List<String>? {

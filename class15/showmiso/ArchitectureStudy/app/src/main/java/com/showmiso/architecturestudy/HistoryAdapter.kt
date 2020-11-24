@@ -46,7 +46,7 @@ class HistoryAdapter(
             itemView.iv_delete.setOnClickListener {
                 listener.onDeleteItem(text)
                 historyList.remove(text)
-                notifyItemRemoved(adapterPosition)
+                notifyDataSetChanged()
             }
         }
     }
