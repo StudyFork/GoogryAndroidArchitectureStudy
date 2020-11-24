@@ -2,14 +2,10 @@ package kr.dktsudgg.androidarchitecturestudy.view.adapter
 
 import android.text.Html
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.movie_info_layout.view.*
-import kr.dktsudgg.androidarchitecturestudy.R
 import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
+import kr.dktsudgg.androidarchitecturestudy.databinding.MovieInfoLayoutBinding
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
@@ -20,9 +16,9 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.movie_info_layout, parent, false)
-        return ViewHolder(itemView)
+        val binding =
+            MovieInfoLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -55,32 +51,23 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
         return inputStr.replace(targetReplaceStr, "")
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(val binding: MovieInfoLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bindData(item: MovieItem) {
-            // 영화 제목. HTML태그 제거 및 클릭 시 링크주소를 Toast
-            itemView.title.text = stripHtml(item.title)
-            itemView.title.setOnClickListener {
-                Toast.makeText(itemView.context, "링크는 " + item.link, Toast.LENGTH_SHORT)
-                    .show()
-            }
-            // 영화 소제목
-            itemView.subtitle.text = item.subtitle
-            // 영화 감독. 맨 마지막에 파이프(|)문자가 삽입된 부분을 제거
-            itemView.director.text = stripSpecificString(item.director, "|")
-            // 영화 출연진 목록
-            itemView.actor.text = item.actor
-            // 영화 개봉년도
-            itemView.pubDate.text = item.pubDate
-            // 영화 평점
-            itemView.userRating.text = item.userRating
-            // 영화 커버 이미지. Glide 사용하여 이미지 로딩
-            Glide
-                .with(itemView.context)
-                .load(item.image)
-                .centerInside()
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .into(itemView.image)
+            /**
+             * 원본 MovieItem을 적절히 가공하여 바인딩 데이터로 사용
+             */
+            binding.movieItem = MovieItem(
+                stripHtml(item.title),
+                stripHtml(item.subtitle),
+                stripSpecificString(item.director, "|"),
+                item.actor,
+                item.userRating,
+                item.image,
+                item.link,
+                item.pubDate
+            )
         }
     }
 

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="movieItem"
+            type="kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +28,8 @@
                 <ImageView
                     android:id="@+id/image"
                     android:layout_width="200dp"
-                    android:layout_height="200dp" />
+                    android:layout_height="200dp"
+                    app:bindImageUrlToImageView="@{movieItem.image}" />
 
                 <View
                     android:layout_width="5dp"
@@ -40,12 +45,14 @@
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@{movieItem.title}"
                         android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/subtitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@{movieItem.subtitle}"
                         android:textSize="10sp" />
 
                     <View
@@ -61,7 +68,8 @@
                     <TextView
                         android:id="@+id/director"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@{movieItem.director}" />
 
                     <TextView
                         android:id="@+id/actor"
@@ -82,7 +90,8 @@
                     <TextView
                         android:id="@+id/pubDate"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@{movieItem.pubDate}" />
 
                     <View
                         android:layout_width="0dp"
@@ -97,7 +106,8 @@
                     <TextView
                         android:id="@+id/userRating"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@{movieItem.userRating}" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
