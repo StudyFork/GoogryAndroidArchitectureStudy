@@ -22,8 +22,8 @@
             android:layout_height="48dp"
             android:layout_marginStart="@dimen/margin_item"
             android:layout_marginTop="@dimen/margin_item"
-            android:src="@drawable/ic_back"
             android:onClick="onClick"
+            android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +35,8 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_back" />
+            app:layout_constraintTop_toBottomOf="@id/iv_back"
+            tools:listitem="@layout/item_history" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
