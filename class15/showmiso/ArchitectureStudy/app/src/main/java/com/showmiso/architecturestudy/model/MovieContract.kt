@@ -18,5 +18,7 @@ interface MovieContract {
     interface Presenter {
         fun getMovies(query: String)
         fun clearObservable()
+        fun getHistory(): List<String>?
+        fun removeHistory(query: String)
     }
 }
