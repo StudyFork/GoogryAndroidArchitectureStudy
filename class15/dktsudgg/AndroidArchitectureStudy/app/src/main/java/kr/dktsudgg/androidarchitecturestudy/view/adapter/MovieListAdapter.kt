@@ -2,8 +2,11 @@ package kr.dktsudgg.androidarchitecturestudy.view.adapter
 
 import android.text.Html
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import kr.dktsudgg.androidarchitecturestudy.R
 import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 import kr.dktsudgg.androidarchitecturestudy.databinding.MovieInfoLayoutBinding
 
@@ -54,11 +57,13 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: MovieInfoLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        private lateinit var movieItem: MovieItem
+
         fun bindData(item: MovieItem) {
             /**
              * 원본 MovieItem을 적절히 가공하여 바인딩 데이터로 사용
              */
-            binding.movieItem = MovieItem(
+            movieItem = MovieItem(
                 stripHtml(item.title),
                 stripHtml(item.subtitle),
                 stripSpecificString(item.director, "|"),
@@ -68,7 +73,26 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
                 item.link,
                 item.pubDate
             )
+
+            binding.movieItem = movieItem
+            binding.viewHolder = this
+
         }
+
+        fun click(clickedView: View) {
+            when (clickedView.id) {
+                R.id.title -> {    // 타이틀 클릭 시, 링크내용 토스트
+                    Toast.makeText(
+                        binding.title.context,
+                        "\"" + movieItem.title + "\"" + "의 링크는 " + movieItem.link,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                }
+            }
+        }
+
     }
 
 }

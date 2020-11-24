@@ -8,6 +8,11 @@
         <variable
             name="movieItem"
             type="kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem" />
+        
+        <variable
+            name="viewHolder"
+            type="kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieListAdapter.ViewHolder" />
+        
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,6 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{movieItem.title}"
+                        android:onClick="@{(v)-> viewHolder.click(v)}"
                         android:textSize="18sp" />
 
                     <TextView
