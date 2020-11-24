@@ -5,4 +5,5 @@
     <string name="label_search">검색</string>
     <string name="msg_no_result">검색결과가 없습니다</string>
     <string name="msg_request_text">텍스트를 입력해주세요.</string>
+    <string name="label_history">히스토리</string>
 </resources>
