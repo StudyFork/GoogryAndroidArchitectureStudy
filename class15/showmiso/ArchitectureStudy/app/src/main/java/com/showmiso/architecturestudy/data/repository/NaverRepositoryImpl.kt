@@ -9,16 +9,21 @@ class NaverRepositoryImpl(
     private val remoteDataSource: RemoteDataSource
 ) : NaverRepository {
 
-    override fun getMovies(query: String): Single<MovieModel.MovieResponse> {
-        return remoteDataSource.getMovies(query)
-            .subscribeOn(Schedulers.io())
-    }
-
     override fun getMoviesList(query: String): Single<List<MovieModel.Movie>> {
         return remoteDataSource.getMovies(query)
             .subscribeOn(Schedulers.io())
             .map {
                 it.items ?: listOf()
             }
+    }
+
+    override fun addHistory(query: String) {
+    }
+
+    override fun getHistory(): List<String> {
+        return listOf()
+    }
+
+    override fun removeHistory(query: String) {
     }
 }
