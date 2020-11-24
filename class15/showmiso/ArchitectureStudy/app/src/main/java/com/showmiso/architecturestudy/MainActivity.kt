@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
                 val result = data?.getStringExtra(Constants.RESULT)
                 result?.let {
                     presenter.getMovies(it)
-
+                    et_search.setText(it)
                 }
             }
         }
