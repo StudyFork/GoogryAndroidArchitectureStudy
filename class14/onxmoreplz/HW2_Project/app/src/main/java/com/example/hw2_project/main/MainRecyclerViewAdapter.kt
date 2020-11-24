@@ -1,13 +1,14 @@
-package com.example.hw2_project
+package com.example.hw2_project.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hw2_project.R
 import com.example.hw2_project.data.api.NaverMovieData
 import com.example.hw2_project.databinding.MovieItemBinding
 
-class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>(){
+class MainRecyclerViewAdapter() : RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder>(){
 
     private val arrListOfMovie :ArrayList<NaverMovieData.NaverMovie> = ArrayList()
 
@@ -18,7 +19,8 @@ class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolde
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = DataBindingUtil.inflate<MovieItemBinding>(LayoutInflater.from(parent.context), R.layout.movie_item, parent, false)
+        val binding = DataBindingUtil.inflate<MovieItemBinding>(LayoutInflater.from(parent.context),
+            R.layout.movie_item, parent, false)
         return ViewHolder(binding)
     }
 

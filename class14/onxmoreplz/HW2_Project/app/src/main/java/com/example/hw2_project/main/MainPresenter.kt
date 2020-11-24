@@ -1,8 +1,8 @@
-package com.example.hw2_project
+package com.example.hw2_project.main
 
 import com.example.hw2_project.data.repository.MovieRepositoryImpl
 
-class Presenter (
+class MainPresenter (
     private val view : MainContract.View,
     private val repositoryImpl: MovieRepositoryImpl
 ) : MainContract.Presenter {

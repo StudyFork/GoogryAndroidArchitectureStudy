@@ -1,4 +1,4 @@
-package com.example.hw2_project
+package com.example.hw2_project.main
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.example.hw2_project.R
 import com.example.hw2_project.data.api.NaverMovieData
 import com.example.hw2_project.data.repository.MovieRepositoryImpl
 import com.example.hw2_project.databinding.ActivityMainBinding
@@ -17,11 +15,11 @@ import com.example.hw2_project.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var binding : ActivityMainBinding
 
-    private val adapter = RecyclerViewAdapter()
+    private val adapter = MainRecyclerViewAdapter()
 
     private val movieRepositoryImp = MovieRepositoryImpl()
 
-    private lateinit var presenter : Presenter
+    private lateinit var mainPresenter : MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +29,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = adapter
 
-        presenter = Presenter(this, movieRepositoryImp)
-
+        mainPresenter = MainPresenter(this, movieRepositoryImp)
     }
+
     fun clickSearchBtn() {
         hideKeyboard()
-        presenter.requestMovieListToRepo(binding.etMovieName.text.toString())
+        mainPresenter.requestMovieListToRepo(binding.etMovieName.text.toString())
+    }
+
+    fun showRecentSearchMovie() {
     }
 
     override fun showErrorEmptyQuery() {
