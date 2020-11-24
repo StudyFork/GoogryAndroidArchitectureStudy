@@ -6,38 +6,37 @@ import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.hw2_project.data.api.NaverMovieData
 import com.example.hw2_project.data.repository.MovieRepositoryImpl
+import com.example.hw2_project.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MainContract.View {
-
-    private lateinit var editTextMovieName : EditText
-    private lateinit var buttonSearch : Button
-    private lateinit var recyclerView : RecyclerView
+    private lateinit var binding : ActivityMainBinding
 
     private val adapter = RecyclerViewAdapter()
 
     private val movieRepositoryImp = MovieRepositoryImpl()
 
-    private lateinit var presenter: Presenter
+    private lateinit var presenter : Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
+        binding.mainActivity = this@MainActivity
 
-        buttonSearch = findViewById<Button>(R.id.button_search)
-        editTextMovieName = findViewById<EditText>(R.id.edittext_movie_name)
-
-        recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = adapter
+        binding.recyclerView.setHasFixedSize(true)
+        binding.recyclerView.adapter = adapter
 
         presenter = Presenter(this, movieRepositoryImp)
 
-        buttonSearch.findViewById<Button>(R.id.button_search).setOnClickListener {
-            presenter.requestMovieListToRepo(editTextMovieName.text.toString())
-        }
+    }
+    fun clickSearchBtn() {
+        hideKeyboard()
+        presenter.requestMovieListToRepo(binding.etMovieName.text.toString())
     }
 
     override fun showErrorEmptyQuery() {
@@ -45,9 +44,8 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showMovieList(movieList: NaverMovieData.NaverMovieResponse) {
-        hideKeyboard()
         runOnUiThread{
-            adapter.movieListChange(movieList.items)
+            adapter.updateMovieList(movieList.items)
         }
     }
 
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private fun hideKeyboard() {
         val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editTextMovieName.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.etMovieName.windowToken, 0)
     }
 
 }
