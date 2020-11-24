@@ -8,4 +8,8 @@ interface RepositoryMovieData {
         success: (List<Item>) -> Unit,
         failed: (String) -> Unit
     )
+
+    fun saveQuery(query: String)
+
+    fun getQueryList(): List<String>
 }
