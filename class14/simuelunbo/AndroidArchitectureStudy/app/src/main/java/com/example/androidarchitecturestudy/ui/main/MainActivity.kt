@@ -13,11 +13,14 @@ import com.example.androidarchitecturestudy.data.model.Movie
 import com.example.androidarchitecturestudy.data.model.MovieData
 import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImpl
 import com.example.androidarchitecturestudy.data.repository.NaverRepositoryImpl
+import com.example.androidarchitecturestudy.databinding.ActivityMainBinding
 import com.example.androidarchitecturestudy.ui.MovieAdapter
+import com.example.androidarchitecturestudy.ui.TitleFragmentDialog
 import com.example.androidarchitecturestudy.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main),
+class MainActivity :
+    BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
     MainContract.View {
     private val mainPresenter by lazy {
         val remoteMovieDataImpl = NaverRemoteDataSourceImpl()
@@ -34,18 +37,22 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding.activity = this
         initRecyclerView()
+    }
 
-        btn_search.setOnClickListener {
-            val searchText = et_search.text.toString()
-            mainPresenter.requestMovieInfo(searchText)
-        }
+    fun searchMovies() {
+        val searchText = et_search.text.toString()
+        mainPresenter.requestMovieInfo(searchText)
+    }
+
+    fun showHistory(){
+        TitleFragmentDialog().show(supportFragmentManager,"title_history")
     }
 
     private fun initRecyclerView() {
         mainPresenter.requestLocalMovieData()
-        rcv_result.adapter = movieAdapter
+        binding.rcvResult.adapter = movieAdapter
     }
 
     override fun hideKeyboard() {
@@ -73,11 +80,11 @@ class MainActivity : BaseActivity<MainContract.Presenter>(R.layout.activity_main
     }
 
     override fun showLoadingBar() {
-        progressBar.isVisible = true
+        binding.progressBar.isVisible = true
     }
 
     override fun hideLoadingBar() {
-        progressBar.isVisible = false
+        binding.progressBar.isVisible = false
     }
 
 }

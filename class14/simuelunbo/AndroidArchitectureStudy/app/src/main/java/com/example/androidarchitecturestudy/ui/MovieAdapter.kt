@@ -2,17 +2,25 @@ package com.example.androidarchitecturestudy.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidarchitecturestudy.R
 import com.example.androidarchitecturestudy.data.model.Movie
+import com.example.androidarchitecturestudy.databinding.ItemMovieBinding
 
 class MovieAdapter(
     private val onItemClick: (String) -> Unit,
 ) : RecyclerView.Adapter<MovieHolder>() {
+
     private val movies = ArrayList<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+        val view = DataBindingUtil.inflate<ItemMovieBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.item_movie,
+            parent,
+            false
+        )
         return MovieHolder(view, onItemClick)
     }
 
