@@ -14,7 +14,10 @@ class NaverRepositoryImpl(
         success: (MovieData) -> Unit,
         failed: (String) -> Unit
     ) {
-        naverRemoteDataSource.getSearchMovieList(query, success, failed)
+        naverRemoteDataSource.getSearchMovieList(query, {
+            success(it)
+            saveMovieTitle(query)
+        }, failed)
     }
 
     override fun saveMovieData(movie: List<Movie>) {
@@ -24,5 +27,14 @@ class NaverRepositoryImpl(
     override fun getMovieData(): List<Movie>? {
         return naverLocalDataSource.getMovieData()
     }
+
+    override fun saveMovieTitle(title: String) {
+        naverLocalDataSource.saveMovieTitle(title)
+    }
+
+    override fun getMovieTitleList(): List<String>? {
+        return naverLocalDataSource.getMovieTitleList()
+    }
+
 
 }

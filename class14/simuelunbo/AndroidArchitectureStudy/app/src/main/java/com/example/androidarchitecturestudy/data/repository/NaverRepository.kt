@@ -15,4 +15,8 @@ interface NaverRepository {
 
     fun getMovieData(): List<Movie>?
 
+    fun saveMovieTitle(title: String)
+
+    fun getMovieTitleList(): List<String>?
+
 }
