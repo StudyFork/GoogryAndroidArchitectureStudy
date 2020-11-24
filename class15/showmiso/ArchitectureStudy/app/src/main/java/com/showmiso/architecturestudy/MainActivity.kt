@@ -42,14 +42,10 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     private fun initUi() {
         rcv_result.adapter = adapter
-        btn_search.setOnClickListener {
-            val text = et_search.text.toString()
-            updateMovieList(text)
-        }
         et_search.setOnEditorActionListener { textView, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val text = textView.text.toString()
-                updateMovieList(text)
+                presenter.getMovies(text)
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
@@ -59,10 +55,6 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     override fun onDestroy() {
         presenter.clearObservable()
         super.onDestroy()
-    }
-
-    private fun updateMovieList(query: String) {
-        presenter.getMovies(query)
     }
 
     override fun showEmptyQuery() {

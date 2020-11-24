@@ -42,6 +42,7 @@
                 android:id="@+id/btn_search"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> presenter.getMovies(etSearch.getText().toString())}"
                 android:text="@string/label_search" />
 
             <Button
