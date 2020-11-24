@@ -8,9 +8,11 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.showmiso.architecturestudy.api.MovieModel
 import com.showmiso.architecturestudy.data.remote.RemoteDataSourceImpl
 import com.showmiso.architecturestudy.data.repository.NaverRepositoryImpl
+import com.showmiso.architecturestudy.databinding.ActivityMainBinding
 import com.showmiso.architecturestudy.model.MovieContract
 import com.showmiso.architecturestudy.model.MoviePresenter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,10 +27,16 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
             )
         }
     )
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.presenter = presenter
+        binding.activity = this
+
         initUi()
     }
 
