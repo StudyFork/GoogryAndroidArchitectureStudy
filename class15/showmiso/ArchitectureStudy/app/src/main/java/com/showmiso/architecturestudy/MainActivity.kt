@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.showmiso.architecturestudy.api.MovieModel
+import com.showmiso.architecturestudy.data.local.LocalDataSourceImpl
 import com.showmiso.architecturestudy.data.remote.RemoteDataSourceImpl
 import com.showmiso.architecturestudy.data.repository.NaverRepositoryImpl
 import com.showmiso.architecturestudy.databinding.ActivityMainBinding
@@ -23,7 +24,8 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         view = this,
         naverRepository = run {
             NaverRepositoryImpl(
-                RemoteDataSourceImpl()
+                RemoteDataSourceImpl(),
+                LocalDataSourceImpl(this@MainActivity)
             )
         }
     )
