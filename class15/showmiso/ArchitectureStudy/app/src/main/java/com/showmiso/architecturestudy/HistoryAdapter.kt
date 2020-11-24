@@ -33,6 +33,7 @@ class HistoryAdapter(
 
     inner class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(text: String) {
+            itemView.tv_index.text = (adapterPosition + 1).toString()
             itemView.tv_text.text = text
             itemView.setOnClickListener {
                 listener.onItemClick(text)
