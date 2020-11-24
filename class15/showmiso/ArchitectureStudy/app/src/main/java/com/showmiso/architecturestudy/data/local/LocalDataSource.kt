@@ -4,7 +4,7 @@ interface LocalDataSource {
 
     fun addHistory(query: String)
 
-    fun getHistory(): List<String>
+    fun getHistory(): List<String>?
 
     fun removeHistory(query: String)
 }

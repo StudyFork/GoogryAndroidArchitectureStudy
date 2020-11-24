@@ -1,13 +1,38 @@
 package com.showmiso.architecturestudy.data.local
 
-class LocalDataSourceImpl : LocalDataSource {
+import android.content.Context
+import com.showmiso.architecturestudy.Constants
+
+class LocalDataSourceImpl(context: Context) : LocalDataSource {
+
+    private val prefs =
+        context.getSharedPreferences(Constants.PREF_HISTORY_KEY, Context.MODE_PRIVATE)
+
+    private var data: String?
+        get() = prefs.getString(Constants.PREF_HISTORY_DATA, null)
+        set(value) = prefs.edit().putString(Constants.PREF_HISTORY_DATA, value).apply()
+
+    private val regex = ","
+
     override fun addHistory(query: String) {
+        data = data + regex + query
     }
 
-    override fun getHistory(): List<String> {
-        return listOf()
+    override fun getHistory(): List<String>? {
+        val temp = data
+        return temp?.split(regex)?.filter {
+            it.isNotEmpty()
+        }
     }
 
     override fun removeHistory(query: String) {
+        val temp = data
+        data = temp?.let {
+            var result = it
+            if (it.contains(query)) {
+                result = it.replace(query, "")
+            }
+            result
+        }
     }
 }
