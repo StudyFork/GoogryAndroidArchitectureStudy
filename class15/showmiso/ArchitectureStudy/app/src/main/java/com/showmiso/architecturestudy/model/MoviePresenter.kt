@@ -38,12 +38,4 @@ class MoviePresenter(
     override fun clearObservable() {
         disposable.clear()
     }
-
-    override fun getHistory(): List<String>? {
-        return naverRepository.getHistory()
-    }
-
-    override fun removeHistory(query: String) {
-        naverRepository.removeHistory(query)
-    }
 }
