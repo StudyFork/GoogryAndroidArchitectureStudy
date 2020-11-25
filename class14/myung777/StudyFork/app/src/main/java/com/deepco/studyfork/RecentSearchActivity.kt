@@ -16,7 +16,7 @@ class RecentSearchActivity :
     RecentSearchContract.View {
     private lateinit var recentSearchRecyclerAdapter: RecentSearchRecyclerAdapter
     private lateinit var api: RetrofitService
-    private val mainPresenter by lazy {
+    private val recentSearchPresenter by lazy {
         val repositoryMovieDataImpl = RepositoryMovieDataImpl(
             RemoteMovieDataImpl(api),
             LocalMovieDataImpl()
@@ -30,12 +30,12 @@ class RecentSearchActivity :
         api = RetrofitService.create()
 
         setRecyclerView()
-        mainPresenter.setRecentSearchList()
+        recentSearchPresenter.setRecentSearchList()
     }
 
     private fun setRecyclerView() {
         recentSearchRecyclerAdapter = RecentSearchRecyclerAdapter { query ->
-            mainPresenter.getRecentSearchMovie(query)
+            recentSearchPresenter.getRecentSearchMovie(query)
         }
         recycler_view.adapter = recentSearchRecyclerAdapter
     }
