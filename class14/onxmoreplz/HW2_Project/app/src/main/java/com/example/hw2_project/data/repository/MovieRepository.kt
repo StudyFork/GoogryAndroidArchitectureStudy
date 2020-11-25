@@ -9,4 +9,8 @@ interface MovieRepository {
         success : (NaverMovieData.NaverMovieResponse) -> Unit,
         fail : (Throwable) -> Unit
     )
+
+    fun saveQuery(query: String)
+
+    fun getSavedQuery() : List<String>
 }
