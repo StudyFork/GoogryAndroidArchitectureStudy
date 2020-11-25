@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">AndroidArchitectureStudy</string>
     <string name="movie_search_autofill_hints">검색어를 입력하세요</string>
+
+    <string name="movie_preference_file_key">MOVIE_DATA</string>
+    <string name="movie_search_history">MOVIE_SEARCH_HISTORY</string>
 </resources>
