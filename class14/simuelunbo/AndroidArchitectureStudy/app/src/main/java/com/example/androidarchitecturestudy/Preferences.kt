@@ -18,7 +18,7 @@ class Preferences(context: Context) {
     private var editor = preferences.edit()
 
     fun getMovieTitleList(): ArrayList<String> {
-        val str = preferences.getString("titleList", null)
+        val str = preferences.getString(TITLE_LIST, null)
         val titleList = arrayListOf<String>()
 
         if (str != null) {
@@ -39,23 +39,28 @@ class Preferences(context: Context) {
             titleList.removeAt(0)
         }
         val jsonArray = JSONArray(titleList)
-        editor.putString("titleList", jsonArray.toString())
+        editor.putString(TITLE_LIST, jsonArray.toString())
         editor.commit()
     }
 
     fun saveMovieList(data: List<Movie>) {
         var movie = gson.toJson(data)
-        editor.putString("MovieList", movie)
+        editor.putString(MOVIE_LIST, movie)
         editor.commit()
     }
 
     fun getMovieList(): List<Movie>? {
-        var movie = preferences.getString("MovieList", null)
+        var movie = preferences.getString(MOVIE_LIST, null)
         var movieList = listOf<Movie>()
         val type = object : TypeToken<List<Movie?>?>() {}.type
         if (movie != null) {
             movieList = gson.fromJson(movie, type)
         }
         return movieList
+    }
+
+    companion object{
+        const val TITLE_LIST = "titleList"
+        const val MOVIE_LIST = "MovieList"
     }
 }
