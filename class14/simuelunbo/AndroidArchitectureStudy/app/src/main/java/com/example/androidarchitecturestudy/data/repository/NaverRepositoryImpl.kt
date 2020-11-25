@@ -3,6 +3,7 @@ package com.example.androidarchitecturestudy.data.repository
 import com.example.androidarchitecturestudy.data.local.NaverLocalDataSource
 import com.example.androidarchitecturestudy.data.model.Movie
 import com.example.androidarchitecturestudy.data.model.MovieData
+import com.example.androidarchitecturestudy.data.model.QueryHistory
 import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSource
 
 class NaverRepositoryImpl(
@@ -16,7 +17,7 @@ class NaverRepositoryImpl(
     ) {
         naverRemoteDataSource.getSearchMovieList(query, {
             success(it)
-            saveMovieTitle(query)
+            saveMovieQuery(query)
         }, failed)
     }
 
@@ -28,12 +29,12 @@ class NaverRepositoryImpl(
         return naverLocalDataSource.getMovieData()
     }
 
-    override fun saveMovieTitle(title: String) {
-        naverLocalDataSource.saveMovieTitle(title)
+    override fun saveMovieQuery(title: String) {
+        naverLocalDataSource.saveMovieQuery(title)
     }
 
-    override fun getMovieTitleList(): List<String>? {
-        return naverLocalDataSource.getMovieTitleList()
+    override fun getMovieQueryList(): List<QueryHistory>? {
+        return naverLocalDataSource.getMovieQueryList()
     }
 
 

@@ -2,6 +2,7 @@ package com.example.androidarchitecturestudy.data.repository
 
 import com.example.androidarchitecturestudy.data.model.Movie
 import com.example.androidarchitecturestudy.data.model.MovieData
+import com.example.androidarchitecturestudy.data.model.QueryHistory
 
 interface NaverRepository {
 
@@ -15,8 +16,8 @@ interface NaverRepository {
 
     fun getMovieData(): List<Movie>?
 
-    fun saveMovieTitle(title: String)
+    fun saveMovieQuery(title: String)
 
-    fun getMovieTitleList(): List<String>?
+    fun getMovieQueryList(): List<QueryHistory>?
 
 }

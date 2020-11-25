@@ -1,13 +1,14 @@
 package com.example.androidarchitecturestudy.data.local
 
 import com.example.androidarchitecturestudy.data.model.Movie
+import com.example.androidarchitecturestudy.data.model.QueryHistory
 
 interface NaverLocalDataSource {
     fun saveMovieData(movie: List<Movie>)
 
     fun getMovieData(): List<Movie>?
 
-    fun saveMovieTitle(title: String)
+    fun saveMovieQuery(title: String)
 
-    fun getMovieTitleList(): List<String>
+    fun getMovieQueryList(): List<QueryHistory>
 }
