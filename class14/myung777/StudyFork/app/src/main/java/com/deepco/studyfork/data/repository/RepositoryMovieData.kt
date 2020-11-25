@@ -1,6 +1,7 @@
 package com.deepco.studyfork.data.repository
 
 import com.deepco.studyfork.data.model.Item
+import com.deepco.studyfork.data.model.RecentSearchData
 
 interface RepositoryMovieData {
     fun getMovieList(
@@ -11,5 +12,5 @@ interface RepositoryMovieData {
 
     fun saveQuery(query: String)
 
-    fun getQueryList(): List<String>
+    fun getQueryList(): List<RecentSearchData>
 }

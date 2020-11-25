@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.deepco.studyfork.data.model.RecentSearchData
 import com.deepco.studyfork.databinding.RecentSearchItemBinding
 
 class RecentSearchRecyclerAdapter(
@@ -11,7 +12,7 @@ class RecentSearchRecyclerAdapter(
 ) :
     RecyclerView.Adapter<RecentSearchViewHolder>() {
 
-    private var queryItem = ArrayList<String>()
+    private var queryItem = ArrayList<RecentSearchData>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentSearchViewHolder {
         val binding =
             DataBindingUtil.inflate<RecentSearchItemBinding>(
@@ -29,11 +30,11 @@ class RecentSearchRecyclerAdapter(
         holder.bind(this.queryItem[position])
 
         holder.itemView.setOnClickListener {
-            this.queryItem[position].let(onItemClick)
+            this.queryItem[position].recentSearchTitle.let(onItemClick)
         }
     }
 
-    fun setItemList(queryItem: List<String>) {
+    fun setItemList(queryItem: List<RecentSearchData>) {
         this.queryItem.clear()
         this.queryItem.addAll(queryItem)
         notifyDataSetChanged()

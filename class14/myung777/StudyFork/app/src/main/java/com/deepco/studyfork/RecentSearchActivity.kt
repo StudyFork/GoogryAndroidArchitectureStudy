@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.deepco.studyfork.api.RetrofitService
 import com.deepco.studyfork.data.local.LocalMovieDataImpl
+import com.deepco.studyfork.data.model.RecentSearchData
 import com.deepco.studyfork.data.remote.RemoteMovieDataImpl
 import com.deepco.studyfork.data.repository.RepositoryMovieDataImpl
 import com.deepco.studyfork.databinding.ActivityRecentSearchBinding
@@ -40,7 +41,7 @@ class RecentSearchActivity :
         recycler_view.adapter = recentSearchRecyclerAdapter
     }
 
-    override fun setRecentSearchList(list: List<String>) {
+    override fun setRecentSearchList(list: List<RecentSearchData>) {
         recentSearchRecyclerAdapter.setItemList(list)
     }
 

@@ -2,6 +2,7 @@ package com.deepco.studyfork.data.repository
 
 import com.deepco.studyfork.data.local.LocalMovieDataImpl
 import com.deepco.studyfork.data.model.Item
+import com.deepco.studyfork.data.model.RecentSearchData
 import com.deepco.studyfork.data.remote.RemoteMovieDataImpl
 
 class RepositoryMovieDataImpl(
@@ -23,7 +24,7 @@ class RepositoryMovieDataImpl(
         localMovieDataImpl.saveQuery(query)
     }
 
-    override fun getQueryList(): List<String> {
+    override fun getQueryList(): List<RecentSearchData> {
         return localMovieDataImpl.getQueryList()
     }
 }
