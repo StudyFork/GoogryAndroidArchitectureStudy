@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.androidarchitecturestudy.data.model.Movie
+import com.example.androidarchitecturestudy.data.model.QueryHistory
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONArray
@@ -11,35 +12,32 @@ import org.json.JSONArray
 
 class Preferences(context: Context) {
     private val preferences: SharedPreferences = context.getSharedPreferences(
-        "movieList",
+        MOVIE_LIST,
         Activity.MODE_PRIVATE
     )
     private var gson = Gson()
     private var editor = preferences.edit()
 
-    fun getMovieTitleList(): ArrayList<String> {
-        val str = preferences.getString(TITLE_LIST, null)
-        val titleList = arrayListOf<String>()
+    fun getMovieQueryList(): ArrayList<QueryHistory> {
+        val prefsTitle = preferences.getString(TITLE_LIST, null)
+        var titleList = arrayListOf<QueryHistory>()
 
-        if (str != null) {
-            if (str.isNotBlank()) {
-                val jsonArray = JSONArray(str)
-                for (i in 0 until jsonArray.length()) {
-                    titleList.add(jsonArray[i].toString())
-                }
-            }
+        if (prefsTitle != null) {
+            val jsonArray = JSONArray(prefsTitle)
+            val type = object : TypeToken<ArrayList<QueryHistory?>?>() {}.type
+            titleList = gson.fromJson(prefsTitle, type)
         }
         return titleList
     }
 
-    fun saveMovieTitle(title: String) {
-        val titleList = getMovieTitleList()
-        titleList.add(title)
+    fun saveMovieQuery(title: String) {
+        val titleList = getMovieQueryList()
+        titleList.add(QueryHistory(title))
         if (titleList.size > 5) {
             titleList.removeAt(0)
         }
-        val jsonArray = JSONArray(titleList)
-        editor.putString(TITLE_LIST, jsonArray.toString())
+        var query = gson.toJson(titleList)
+        editor.putString(TITLE_LIST, query.toString())
         editor.commit()
     }
 
@@ -59,7 +57,7 @@ class Preferences(context: Context) {
         return movieList
     }
 
-    companion object{
+    companion object {
         const val TITLE_LIST = "titleList"
         const val MOVIE_LIST = "MovieList"
     }
