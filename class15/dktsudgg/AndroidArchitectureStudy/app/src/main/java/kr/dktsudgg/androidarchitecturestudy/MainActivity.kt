@@ -62,4 +62,8 @@ class MainActivity : BaseActivity<MoviePresenter>(), MovieContract.View, View.On
         (searchedMovieList.adapter as MovieListAdapter).refreshData(data)
     }
 
+    override fun updateMovieSearchHistoryList(data: List<String>) {
+        TODO("Not yet implemented")
+    }
+
 }

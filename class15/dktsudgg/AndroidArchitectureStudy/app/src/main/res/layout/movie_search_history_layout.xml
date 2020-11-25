@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="textItem"
+            type="String" />
+
+        <variable
+            name="viewHolder"
+            type="kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieSearchHistoryListAdapter.ViewHolder" />
+
+    </data>
+
+    <TextView
+        android:id="@+id/usedKeyword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{(v)->viewHolder.click(v)}"
+        android:text="@{textItem}" />
+
+</layout>
