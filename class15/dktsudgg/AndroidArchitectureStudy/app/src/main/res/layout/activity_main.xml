@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="activity"
+            type="kr.dktsudgg.androidarchitecturestudy.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,10 +33,19 @@
                     android:inputType="text" />
 
                 <Button
-                    android:id="@+id/movieSearchBtn"
+                    android:id="@+id/showMovieSearchHistoryBtn"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="2"
+                    android:onClick="@{(v)-> activity.onClick(v)}"
+                    android:text="최근검색이력" />
+
+                <Button
+                    android:id="@+id/movieSearchBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:onClick="@{(v)-> activity.onClick(v)}"
                     android:text="검색" />
             </LinearLayout>
 
