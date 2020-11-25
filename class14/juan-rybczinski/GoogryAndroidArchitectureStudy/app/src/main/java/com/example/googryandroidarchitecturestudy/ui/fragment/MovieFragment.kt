@@ -8,18 +8,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieBinding
-import com.example.googryandroidarchitecturestudy.domain.Movie
 import com.example.googryandroidarchitecturestudy.ui.contract.MovieContract
 import com.example.googryandroidarchitecturestudy.ui.presenter.BasePresenter
 import com.example.googryandroidarchitecturestudy.ui.presenter.MoviePresenter
-import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 import kotlinx.coroutines.launch
 
 class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), MovieContract.View {
-    private val movieAdapter = MovieAdapter {
-        presenter.selectUrlItem(it)
-    }
-
     override val presenter: MoviePresenter by lazy {
         MoviePresenter(this, movieRepository)
     }
@@ -39,10 +33,6 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), Movie
         viewLifecycleOwner.lifecycleScope.launch {
             presenter.queryMovieList(binding.searchText.text.toString())
         }
-    }
-
-    override fun showMovieList(items: List<Movie>) {
-        movieAdapter.setMovies(items)
     }
 
     override fun showQueryEmpty() {

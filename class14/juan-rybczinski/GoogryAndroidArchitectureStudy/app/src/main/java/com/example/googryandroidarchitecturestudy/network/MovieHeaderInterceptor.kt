@@ -11,7 +11,10 @@ class MovieHeaderInterceptor : Interceptor {
             request()
                 .newBuilder()
                 .addHeader("X-Naver-Client-Id", App.instance.getString(R.string.naver_client_id))
-                .addHeader("X-Naver-Client-Secret", App.instance.getString(R.string.naver_client_secret))
+                .addHeader(
+                    "X-Naver-Client-Secret",
+                    App.instance.getString(R.string.naver_client_secret)
+                )
                 .build()
         )
     }
