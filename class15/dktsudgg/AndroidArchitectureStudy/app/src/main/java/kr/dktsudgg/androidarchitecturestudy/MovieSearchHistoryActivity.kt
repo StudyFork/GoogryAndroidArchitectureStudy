@@ -1,13 +1,10 @@
 package kr.dktsudgg.androidarchitecturestudy
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_movie_search_history.*
-import kotlinx.android.synthetic.main.movie_search_history_layout.view.*
 import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepositoryImpl
 import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMovieSearchHistoryBinding
@@ -15,7 +12,7 @@ import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieSearchHistoryListA
 import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieContract
 import kr.dktsudgg.androidarchitecturestudy.view.ui.MoviePresenter
 
-class MovieSearchHistoryActivity : BaseActivity<MoviePresenter>(), MovieContract.View, View.OnClickListener {
+class MovieSearchHistoryActivity : BaseActivity<MoviePresenter>(), MovieContract.View {
 
     private lateinit var binding: ActivityMovieSearchHistoryBinding
     private lateinit var moviePresenter: MovieContract.Presenter
@@ -43,16 +40,6 @@ class MovieSearchHistoryActivity : BaseActivity<MoviePresenter>(), MovieContract
         moviePresenter.showMovieSearchHistory()
     }
 
-    override fun onClick(clickedView: View?) {
-        when (clickedView?.id) {
-            R.id.text -> {    // 클릭 시, 내용을 반환
-                Toast.makeText(this, clickedView.usedKeyword.text.toString(), Toast.LENGTH_SHORT).show()
-            }
-            else -> {
-            }
-        }
-    }
-
     override fun updateMovieSearchHistoryList(data: List<String>) {
         (movieSearchHistoryList.adapter as MovieSearchHistoryListAdapter).refreshData(data)
     }
@@ -60,7 +47,6 @@ class MovieSearchHistoryActivity : BaseActivity<MoviePresenter>(), MovieContract
     override fun updateSearchedMovieList(data: List<MovieItem>) {
         TODO("Not yet implemented")
     }
-
 
 
 }
