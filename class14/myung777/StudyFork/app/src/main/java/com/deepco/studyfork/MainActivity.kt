@@ -37,6 +37,7 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(R.layout.a
         if (requestCode == REQ_CODE_RECENT_SEARCH && resultCode == RESULT_OK) {
             data?.getStringExtra(EXTRA_MOVIE_TITLE)?.let { query ->
                 mainPresenter.queryMovie(query)
+                binding.movieEditText.setText(query)
             }
         }
     }
