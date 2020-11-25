@@ -12,4 +12,10 @@ interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(movies: List<DatabaseMovie>)
+
+    @Query("SELECT * FROM databaserecentsearch ORDER BY searchDate DESC LIMIT :limit")
+    fun searchRecentUpTo(limit: Int): List<DatabaseRecentSearch>
+
+    @Insert
+    fun insertRecentSearch(recentSearch: DatabaseRecentSearch)
 }

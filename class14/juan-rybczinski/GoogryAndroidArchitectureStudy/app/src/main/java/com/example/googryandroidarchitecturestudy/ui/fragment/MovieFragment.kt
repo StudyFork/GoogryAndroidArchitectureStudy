@@ -72,6 +72,6 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), Movie
     }
 
     companion object {
-        private val TAG = this::class.java.simpleName
+        private val TAG = MovieFragment::class.java.simpleName
     }
 }

@@ -2,7 +2,9 @@ package com.example.googryandroidarchitecturestudy.ui.presenter
 
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.domain.Movie
+import com.example.googryandroidarchitecturestudy.domain.RecentSearch
 import com.example.googryandroidarchitecturestudy.ui.contract.MovieContract
+import java.util.*
 
 class MoviePresenter(
     private val view: MovieContract.View,
@@ -15,6 +17,10 @@ class MoviePresenter(
         }
         try {
             view.showProgressBar()
+            repository.insertRecent(RecentSearch(
+                Date(System.currentTimeMillis()),
+                query
+            ))
             val movieList = repository.searchMovies(query)
             view.hideProgressBar()
             if (movieList.isEmpty()) {
