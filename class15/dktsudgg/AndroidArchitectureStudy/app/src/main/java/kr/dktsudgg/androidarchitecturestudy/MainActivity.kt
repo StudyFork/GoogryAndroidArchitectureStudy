@@ -49,13 +49,27 @@ class MainActivity : BaseActivity<MoviePresenter>(), MovieContract.View, View.On
                 moviePresenter.searchMovies(searchText)
             }
             R.id.showMovieSearchHistoryBtn -> { // 최근검색이력 버튼 클릭 시, 영화검색이력을 보여주는 액티비티로 이동
-                startActivity(
-                    Intent(this, MovieSearchHistoryActivity::class.java)
+                startActivityForResult(
+                    Intent(this, MovieSearchHistoryActivity::class.java), ACTIVITY_REQ_CODE
                 )
             }
             else -> {
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            ACTIVITY_REQ_CODE -> {  // 반환된 내용을 가지고 EditText에 세팅 및 검색버튼 클릭 수행
+                movieSearchEditText.setText(
+                    data?.getStringExtra("selectedKeyword") ?: ""
+                )
+                movieSearchBtn.performClick()
+            }
+            else -> {
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun updateSearchedMovieList(data: List<MovieItem>) {
@@ -64,6 +78,10 @@ class MainActivity : BaseActivity<MoviePresenter>(), MovieContract.View, View.On
 
     override fun updateMovieSearchHistoryList(data: List<String>) {
         TODO("Not yet implemented")
+    }
+
+    companion object {
+        private const val ACTIVITY_REQ_CODE = 12335
     }
 
 }

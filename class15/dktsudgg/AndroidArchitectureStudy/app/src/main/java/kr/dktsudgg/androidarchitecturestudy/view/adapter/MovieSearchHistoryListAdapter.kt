@@ -1,10 +1,11 @@
 package kr.dktsudgg.androidarchitecturestudy.view.adapter
 
 import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kr.dktsudgg.androidarchitecturestudy.R
 import kr.dktsudgg.androidarchitecturestudy.databinding.MovieSearchHistoryLayoutBinding
@@ -13,7 +14,6 @@ class MovieSearchHistoryListAdapter :
     RecyclerView.Adapter<MovieSearchHistoryListAdapter.ViewHolder>() {
 
     private val textList: MutableList<String> = mutableListOf()
-    lateinit var clickedKeyword: String
 
     override fun getItemCount(): Int {
         return textList.size
@@ -52,9 +52,11 @@ class MovieSearchHistoryListAdapter :
 
         fun click(clickedView: View) {
             when (clickedView.id) {
-                R.id.usedKeyword -> {    // 클릭 시, 내용을 반환
-                    clickedKeyword = clickedView.toString()
-                    Toast.makeText(binding.root.context, binding.textItem, Toast.LENGTH_SHORT).show()
+                R.id.usedKeyword -> {    // 클릭 시, 선택한 내용을 이전 액티비티에 반환
+                    (binding.root.context as Activity).setResult(
+                        RESULT_OK,
+                        Intent().putExtra("selectedKeyword", binding.textItem)
+                    )
                     (binding.root.context as Activity).finish()
                 }
                 else -> {
