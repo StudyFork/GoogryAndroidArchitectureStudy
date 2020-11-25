@@ -10,4 +10,6 @@ interface NaverMovieRepository {
         failureCallback: (t: Throwable) -> Unit
     )
 
+    fun getMovieSearchHistory(): List<String>
+
 }

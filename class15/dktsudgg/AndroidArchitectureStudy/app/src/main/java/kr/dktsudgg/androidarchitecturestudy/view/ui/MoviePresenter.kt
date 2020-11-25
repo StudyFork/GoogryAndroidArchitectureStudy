@@ -27,4 +27,10 @@ class MoviePresenter(
             view.showToast("검색에 실패하였습니다.")
         })
     }
+
+    override fun showMovieSearchHistory() {
+        view.updateMovieSearchHistoryList(
+            naverMovieRepository.getMovieSearchHistory()
+        )
+    }
 }

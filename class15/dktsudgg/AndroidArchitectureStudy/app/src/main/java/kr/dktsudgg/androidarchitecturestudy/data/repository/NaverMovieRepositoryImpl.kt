@@ -22,4 +22,8 @@ class NaverMovieRepositoryImpl : NaverMovieRepository {
         if(query != "")
             naverMovieLocalDataSource.putMovieSearchHistory(query)
     }
+
+    override fun getMovieSearchHistory(): List<String> {
+        return naverMovieLocalDataSource.getMovieSearchHistory()
+    }
 }
