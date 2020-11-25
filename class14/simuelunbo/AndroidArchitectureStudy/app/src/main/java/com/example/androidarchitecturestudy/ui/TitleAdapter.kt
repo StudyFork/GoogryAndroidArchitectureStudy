@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidarchitecturestudy.R
+import com.example.androidarchitecturestudy.data.model.QueryHistory
 import com.example.androidarchitecturestudy.databinding.ItemMovieTitleBinding
 
 class TitleAdapter : RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
 
-    private val list = ArrayList<String>()
+    private val list = ArrayList<QueryHistory>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,7 +31,7 @@ class TitleAdapter : RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
 
     override fun getItemCount(): Int = list.count()
 
-    fun setTitleList(titleList: ArrayList<String>) {
+    fun setTitleList(titleList: ArrayList<QueryHistory>) {
         list.clear()
         list.addAll(titleList)
         notifyDataSetChanged()
@@ -39,8 +40,8 @@ class TitleAdapter : RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
     class TitleViewHolder(private val binding: ItemMovieTitleBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(title: String) {
-            binding.tvTitle.text = title
+        fun bind(query: QueryHistory) {
+            binding.item = query
             binding.executePendingBindings()
         }
     }

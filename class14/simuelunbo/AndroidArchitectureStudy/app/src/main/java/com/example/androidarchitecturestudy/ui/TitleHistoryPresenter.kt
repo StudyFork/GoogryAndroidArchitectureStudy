@@ -1,5 +1,6 @@
 package com.example.androidarchitecturestudy.ui
 
+import com.example.androidarchitecturestudy.data.model.QueryHistory
 import com.example.androidarchitecturestudy.data.repository.NaverRepository
 
 class TitleHistoryPresenter(
@@ -7,7 +8,7 @@ class TitleHistoryPresenter(
     private val repositoryImpl: NaverRepository
 ) : TitleHistoryContract.Presenter {
     override fun getRecentTitleList() {
-        val titleList = repositoryImpl.getMovieTitleList()
-        titleList?.let { view.setTitleList(it as ArrayList<String>) }
+        val titleList = repositoryImpl.getMovieQueryList()
+        titleList?.let { view.setTitleList(it as ArrayList<QueryHistory>) }
     }
 }
