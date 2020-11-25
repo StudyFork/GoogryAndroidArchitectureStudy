@@ -6,11 +6,14 @@ import com.deepco.studyfork.api.RetrofitService
 import com.deepco.studyfork.data.local.LocalMovieDataImpl
 import com.deepco.studyfork.data.remote.RemoteMovieDataImpl
 import com.deepco.studyfork.data.repository.RepositoryMovieDataImpl
+import com.deepco.studyfork.databinding.ActivityRecentSearchBinding
 import com.deepco.studyfork.presenter.RecentSearchContract
 import com.deepco.studyfork.presenter.RecentSearchPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class RecentSearchActivity : BaseActivity<RecentSearchPresenter>(), RecentSearchContract.View {
+class RecentSearchActivity :
+    BaseActivity<RecentSearchPresenter, ActivityRecentSearchBinding>(R.layout.activity_recent_search),
+    RecentSearchContract.View {
     private lateinit var recentSearchRecyclerAdapter: RecentSearchRecyclerAdapter
     private lateinit var api: RetrofitService
     private val mainPresenter by lazy {
@@ -23,7 +26,7 @@ class RecentSearchActivity : BaseActivity<RecentSearchPresenter>(), RecentSearch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recent_search)
+        binding.activity = this
         api = RetrofitService.create()
 
         setRecyclerView()
