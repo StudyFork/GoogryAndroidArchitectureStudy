@@ -1,24 +1,23 @@
 package com.wybh.androidarchitecturestudy.main
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
 import com.wybh.androidarchitecturestudy.CinemaAdapter
 import com.wybh.androidarchitecturestudy.CinemaItem
 import com.wybh.androidarchitecturestudy.R
+import com.wybh.androidarchitecturestudy.databinding.ActivityMainBinding
+import com.wybh.androidarchitecturestudy.history.RecentSearchWord
 
 class MainActivity : AppCompatActivity(), MainContract.View {
-    private lateinit var etSearchWord: EditText
-    private lateinit var btnSearch: Button
-    private lateinit var rvCinema: RecyclerView
     private lateinit var imm: InputMethodManager
+    private lateinit var binding: ActivityMainBinding
 
     private val presenter = MainPresenter(this)
     private val cinemaAdapter: CinemaAdapter =
@@ -38,15 +37,15 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         cinemaAdapter.notifyDataSetChanged()
 
         // 키보드 내리기
-        imm.hideSoftInputFromWindow(etSearchWord.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.etSearchWord.windowToken, 0)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.view = this
 
         initView()
         initAdapter()
-        initViewClickListener()
     }
 
     override fun onDestroy() {
@@ -55,20 +54,40 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     private fun initView() {
-        etSearchWord = findViewById(R.id.et_searchWord)
-        btnSearch = findViewById(R.id.btn_search)
-        rvCinema = findViewById(R.id.rv_cinema)
-
         imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
-    
+
     private fun initAdapter() {
-        rvCinema.adapter = cinemaAdapter
+        binding.rvCinema.adapter = cinemaAdapter
     }
 
-    private fun initViewClickListener() {
-        btnSearch.setOnClickListener {
-            presenter.searchCinema(etSearchWord.text.toString())
+    fun search() {
+        presenter.searchCinema(binding.etSearchWord.text.toString())
+        presenter.saveSearchWord(binding.etSearchWord.text.toString())
+    }
+
+    fun recentSearch() {
+        startActivityForResult(
+            Intent(this, RecentSearchWord::class.java),
+            REQUEST_HISTORY_WORD
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK) {
+            return
         }
+        when (requestCode) {
+            REQUEST_HISTORY_WORD -> {
+                presenter.searchCinema(data?.getStringExtra("SEARCH_WORD")!!)
+                presenter.saveSearchWord(data.getStringExtra("SEARCH_WORD")!!)
+            }
+        }
+
+    }
+
+    companion object {
+        const val REQUEST_HISTORY_WORD = 200
     }
 }

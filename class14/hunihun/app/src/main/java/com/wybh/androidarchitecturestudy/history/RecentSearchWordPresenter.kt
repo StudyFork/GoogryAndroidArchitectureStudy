@@ -1,4 +1,4 @@
-package com.wybh.androidarchitecturestudy.main
+package com.wybh.androidarchitecturestudy.history
 
 import com.wybh.androidarchitecturestudy.CinemaItem
 import com.wybh.androidarchitecturestudy.data.ResponseCinemaData
@@ -9,7 +9,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
+class RecentSearchWordPresenter(private val view: RecentSearchWordContract.View) :
+    RecentSearchWordContract.Presenter {
     private val composeDisposable = CompositeDisposable()
     private val repository: RepositoryImpl by lazy {
         val remoteNaverDataSource = NaverRemoteDataSourceImpl()
@@ -17,14 +18,12 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
         RepositoryImpl(remoteNaverDataSource, localNaverDataSource)
     }
 
-    override fun removeCompositeDisposable() {
-        composeDisposable.dispose()
+    override fun getSearchWord() {
+        val wordList = repository.getSearchWord()
+        view.setSearchHistoryWord(wordList!!.split(","))
     }
 
     override fun searchCinema(query: String) {
-        if (query.isEmpty()) {
-            return
-        }
         composeDisposable.add(
             repository.searchCinema(query)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -47,13 +46,6 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
                     view.showToastFailMessage(error.message)
                 })
         )
-    }
-
-    override fun saveSearchWord(word: String) {
-        if (word.isEmpty()) {
-            return
-        }
-        repository.saveSearchWord(word)
     }
 
 }
