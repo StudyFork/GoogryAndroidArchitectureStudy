@@ -1,37 +1,24 @@
 package com.example.androidarchitecturestudy.ui
 
-import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.androidarchitecturestudy.data.model.Movie
-import kotlinx.android.synthetic.main.item_movie.view.*
+import com.example.androidarchitecturestudy.databinding.ItemMovieBinding
 
 class MovieHolder(
-    itemView: View,
+    private val binding: ItemMovieBinding,
     onItemClick: (String) -> Unit
-    ) : RecyclerView.ViewHolder(itemView) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
     private var movie: Movie? = null
 
     init {
-        itemView.setOnClickListener {
+        binding.root.setOnClickListener {
             movie?.link?.let(onItemClick)
         }
     }
     fun bind(movie: Movie) {
         this.movie = movie
-        itemView.tv_movie_title.text = removeUselessTitle(movie.title)
-        itemView.tv_pub_date.text = movie.pubDate
-        itemView.tv_director_name.text = removeUselessDirector(movie.director)
-        itemView.tv_movie_rate.text = movie.userRating
-        Glide.with(itemView).load(movie.image).into(itemView.iv_movie)
-    }
-
-    private fun removeUselessTitle(title: String?): String? {
-        return title?.replace("<b>", "")?.replace("</b>", "")
-    }
-
-    private fun removeUselessDirector(director: String?): String? {
-        return director?.replace("|", "")
+        binding.movie = movie
+        binding.executePendingBindings()
     }
 }
