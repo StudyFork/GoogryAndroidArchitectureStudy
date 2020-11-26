@@ -4,12 +4,12 @@ import android.app.Application
 import com.hhi.myapplication.data.local.SharedPreferenceUtil
 
 class App : Application() {
-    companion object {
-        lateinit var prefs: SharedPreferenceUtil
+    override fun onCreate() {
+        super.onCreate()
+        prefs = SharedPreferenceUtil(applicationContext)
     }
 
-    override fun onCreate() {
-        prefs = SharedPreferenceUtil(applicationContext)
-        super.onCreate()
+    companion object {
+        lateinit var prefs: SharedPreferenceUtil
     }
 }
