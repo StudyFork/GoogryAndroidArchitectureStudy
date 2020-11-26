@@ -25,4 +25,10 @@ class MainPresenter(
         )
         view.removeKeyboard()
     }
+
+    override fun setSearchHistory(keyword: String) {
+        if (keyword.isNotEmpty()) {
+            movieRepository.saveSearchHistory(keyword)
+        }
+    }
 }

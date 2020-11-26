@@ -6,11 +6,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.architecture.androidarchitecturestudy.R
 import com.architecture.androidarchitecturestudy.adapter.MovieAdapter
+import com.architecture.androidarchitecturestudy.data.local.MovieLocalDataSourceImpl
 import com.architecture.androidarchitecturestudy.data.model.Movie
 import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSource
 import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.architecture.androidarchitecturestudy.ui.base.BaseActivity
+import com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryActivity
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
 import com.architecture.androidarchitecturestudy.webservice.NetworkService
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,10 +21,14 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
     private lateinit var networkService: NetworkService
     private lateinit var movieRemoteDataSource: MovieRemoteDataSource
     private lateinit var movieAdapter: MovieAdapter
-    private val presenter by lazy {
-        networkService = ApiClient.NETWORK_SERVICE
-        movieRemoteDataSource = MovieRemoteDataSourceImpl(networkService)
-        val repositoryMovieDataImpl = MovieRepositoryImpl(movieRemoteDataSource)
+    private lateinit var mainBinding: ActivityMainBinding
+
+    private val mainPresenter by lazy {
+        val repositoryMovieDataImpl =
+            MovieRepositoryImpl(
+                MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE),
+                MovieLocalDataSourceImpl()
+            )
         MainPresenter(this, repositoryMovieDataImpl)
     }
 
@@ -37,7 +43,12 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
 
     private fun initRecyclerView() {
         movieAdapter = MovieAdapter()
-        rv_main_movie.adapter = movieAdapter
+        mainBinding.rvMainMovie.adapter = movieAdapter
+    }
+
+    fun findMovie() {
+        mainPresenter.findMovie(mainBinding.etMainSearch.text.toString())
+        mainPresenter.setSearchHistory(mainBinding.etMainSearch.text.toString())
     }
 
     override fun removeKeyboard() {
