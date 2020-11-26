@@ -10,7 +10,6 @@ import com.deepco.studyfork.data.repository.RepositoryMovieDataImpl
 import com.deepco.studyfork.databinding.ActivityRecentSearchBinding
 import com.deepco.studyfork.presenter.RecentSearchContract
 import com.deepco.studyfork.presenter.RecentSearchPresenter
-import kotlinx.android.synthetic.main.activity_main.*
 
 class RecentSearchActivity :
     BaseActivity<RecentSearchPresenter, ActivityRecentSearchBinding>(R.layout.activity_recent_search),
@@ -38,7 +37,7 @@ class RecentSearchActivity :
         recentSearchRecyclerAdapter = RecentSearchRecyclerAdapter { query ->
             recentSearchPresenter.getRecentSearchMovie(query)
         }
-        recycler_view.adapter = recentSearchRecyclerAdapter
+        binding.recyclerView.adapter = recentSearchRecyclerAdapter
     }
 
     override fun setRecentSearchList(list: List<RecentSearchData>) {
