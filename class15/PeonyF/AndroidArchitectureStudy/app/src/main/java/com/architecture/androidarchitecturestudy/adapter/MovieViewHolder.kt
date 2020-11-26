@@ -12,7 +12,7 @@ class MovieViewHolder(private val binding: MovieItemBinding) :
 
     init {
         itemView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(tempData.link))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(binding.movie.link))
             this.itemView.context.startActivity(intent)
         }
     }

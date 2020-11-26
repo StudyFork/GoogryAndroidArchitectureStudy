@@ -38,7 +38,7 @@ class SearchHistoryActivity :
         searchHistoryAdapter = SearchHistoryAdapter { keyword ->
             searchPresenter.getSearchHistoryMovie(keyword)
         }
-        rv_search_list.adapter = searchHistoryAdapter
+        searchBinding.rvSearchList.adapter = searchHistoryAdapter
     }
 
     override fun setSearchHistoryList(list: List<SearchHistoryEntity>) {
