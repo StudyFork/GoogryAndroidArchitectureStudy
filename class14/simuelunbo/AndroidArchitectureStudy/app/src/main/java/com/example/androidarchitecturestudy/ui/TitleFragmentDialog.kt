@@ -34,10 +34,13 @@ class TitleFragmentDialog : DialogFragment(), TitleHistoryContract.View {
         savedInstanceState: Bundle?
     ): View? {
         binding = TitleDialogFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.dialog = this
         initRecyclerView()
-
-        return binding.root
     }
 
     private fun initRecyclerView() {
