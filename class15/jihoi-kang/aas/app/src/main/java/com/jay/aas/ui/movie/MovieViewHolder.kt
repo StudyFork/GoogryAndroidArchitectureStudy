@@ -9,16 +9,13 @@ class MovieViewHolder(
     private val onItemClick: (String) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private var movie: Movie? = null
-
     init {
         binding.root.setOnClickListener {
-            movie?.link?.let(onItemClick)
+            binding.item?.link?.let(onItemClick)
         }
     }
 
     fun onBind(movie: Movie) {
-        this.movie = movie
         binding.item = movie
         binding.executePendingBindings()
     }
