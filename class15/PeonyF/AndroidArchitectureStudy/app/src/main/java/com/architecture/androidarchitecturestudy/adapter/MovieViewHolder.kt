@@ -21,12 +21,3 @@ class MovieViewHolder(private val binding: MovieItemBinding) :
         binding.movie = movieData
     }
 }
-
-    private fun htmlVersionCheck(movieData: Movie): Spanned? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(movieData.title, Html.FROM_HTML_MODE_LEGACY)
-        } else {
-            Html.fromHtml(movieData.title)
-        }
-    }
-}

@@ -38,4 +38,35 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
         this.modelList.addAll(processMovieItemString(items))
         notifyDataSetChanged()
     }
+
+    private fun processMovieItemString(movies: List<Movie>): List<Movie> {
+        return movies.map {
+            it.copy(
+                title = it.title?.htmlToString(),
+                director = it.director?.addCommas("감독 : "),
+                actor = it.actor?.addCommas("출연진 : "),
+            )
+        }
+    }
+
+    private fun String.htmlToString(): String {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Html.fromHtml(this, Html.FROM_HTML_MODE_LEGACY).toString()
+        } else {
+            Html.fromHtml(this).toString()
+        }
+    }
+
+    private fun String.addCommas(prefix: String): String {
+        return if (this.isNotBlank()) {
+            this.substring(0, this.length - 1)
+                .split("|")
+                .joinToString(
+                    prefix = prefix,
+                    separator = ", "
+                )
+        } else {
+            this
+        }
+    }
 }
