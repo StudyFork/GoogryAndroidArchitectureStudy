@@ -28,9 +28,4 @@ class MovieSearchPresenter(
         })
     }
 
-    override fun showMovieSearchHistory() {
-        view.updateMovieSearchHistoryList(
-            naverMovieRepository.getMovieSearchHistory()
-        )
-    }
 }

@@ -76,10 +76,6 @@ class MainActivity : BaseActivity<MovieSearchPresenter>(), MovieSearchContract.V
         (searchedMovieList.adapter as MovieListAdapter).refreshData(data)
     }
 
-    override fun updateMovieSearchHistoryList(data: List<String>) {
-        TODO("Not yet implemented")
-    }
-
     companion object {
         private const val ACTIVITY_REQ_CODE = 12335
     }
