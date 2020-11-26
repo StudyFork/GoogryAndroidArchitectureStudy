@@ -10,8 +10,8 @@ import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSour
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.architecture.androidarchitecturestudy.databinding.ActivitySearchHistoryBinding
 import com.architecture.androidarchitecturestudy.ui.base.BaseActivity
+import com.architecture.androidarchitecturestudy.ui.main.MainActivity
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
-import kotlinx.android.synthetic.main.activity_search_history.*
 
 class SearchHistoryActivity :
     BaseActivity<SearchHistoryContract.Presenter>(), SearchHistoryContract.View {
@@ -29,7 +29,7 @@ class SearchHistoryActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         searchBinding = DataBindingUtil.setContentView(this, R.layout.activity_search_history)
-        searchBinding.activity = this
+        searchBinding.searchActivity = this
         initRecyclerView()
         searchPresenter.setSearchHistoryList()
     }
@@ -47,7 +47,7 @@ class SearchHistoryActivity :
 
     override fun onSearchHistoryMovie(keyword: String) {
         setResult(RESULT_OK, Intent().apply {
-            putExtra(MOVIE_KEYWORD, keyword)
+            putExtra(MainActivity.MOVIE_KEYWORD, keyword)
         })
         finish()
     }

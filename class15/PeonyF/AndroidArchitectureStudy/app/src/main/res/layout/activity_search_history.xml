@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="activity"
+            name="searchActivity"
             type="com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryActivity" />
 
     </data>
