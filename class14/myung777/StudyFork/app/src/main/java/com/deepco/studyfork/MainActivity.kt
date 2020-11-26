@@ -2,7 +2,6 @@ package com.deepco.studyfork
 
 import android.content.Intent
 import android.os.Bundle
-import com.deepco.studyfork.api.RetrofitService
 import com.deepco.studyfork.data.local.LocalMovieDataImpl
 import com.deepco.studyfork.data.model.Item
 import com.deepco.studyfork.data.remote.RemoteMovieDataImpl
@@ -14,11 +13,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(R.layout.activity_main),
     MainContract.View {
-    private lateinit var api: RetrofitService
     private lateinit var recyclerAdapterMovie: RecyclerAdapterMovie
     private val mainPresenter by lazy {
         val repositoryMovieDataImpl = RepositoryMovieDataImpl(
-            RemoteMovieDataImpl(api),
+            RemoteMovieDataImpl(),
             LocalMovieDataImpl()
         )
         MainPresenter(this, repositoryMovieDataImpl)
@@ -27,7 +25,6 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(R.layout.a
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.activity = this
-        api = RetrofitService.create()
         setRecyclerView()
     }
 

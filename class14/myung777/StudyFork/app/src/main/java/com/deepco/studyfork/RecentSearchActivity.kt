@@ -19,7 +19,7 @@ class RecentSearchActivity :
     private lateinit var api: RetrofitService
     private val recentSearchPresenter by lazy {
         val repositoryMovieDataImpl = RepositoryMovieDataImpl(
-            RemoteMovieDataImpl(api),
+            RemoteMovieDataImpl(),
             LocalMovieDataImpl()
         )
         RecentSearchPresenter(this, repositoryMovieDataImpl)
