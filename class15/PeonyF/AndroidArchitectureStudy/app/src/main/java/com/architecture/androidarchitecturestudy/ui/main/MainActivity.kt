@@ -67,7 +67,7 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
     }
 
     override fun updateMovieRecycler(items: List<Movie>) {
-        movieAdapter.setItemList(items)
+        movieAdapter.setItems(items)
     }
 
     override fun failMovieGet(msg: String) {
