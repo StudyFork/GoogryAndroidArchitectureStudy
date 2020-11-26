@@ -8,11 +8,10 @@ import com.architecture.androidarchitecturestudy.databinding.MovieItemBinding
 
 class MovieViewHolder(private val binding: MovieItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    lateinit var tempData: Movie
 
     init {
         itemView.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(binding.movie.link))
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(binding.movie?.link))
             this.itemView.context.startActivity(intent)
         }
     }
