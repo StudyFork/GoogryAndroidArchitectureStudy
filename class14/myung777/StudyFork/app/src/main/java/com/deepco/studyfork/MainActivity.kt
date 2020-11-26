@@ -61,4 +61,9 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(R.layout.a
     override fun setMovieList(list: List<Item>) {
         recyclerAdapterMovie.setItemList(list)
     }
+
+    companion object {
+        const val REQ_CODE_RECENT_SEARCH = 1001
+        const val EXTRA_MOVIE_TITLE = "movie_title"
+    }
 }

@@ -47,7 +47,7 @@ class RecentSearchActivity :
 
     override fun onRecentSearchMovie(query: String) {
         setResult(RESULT_OK, Intent().apply {
-            putExtra(EXTRA_MOVIE_TITLE, query)
+            putExtra(MainActivity.EXTRA_MOVIE_TITLE, query)
         })
         finish()
     }

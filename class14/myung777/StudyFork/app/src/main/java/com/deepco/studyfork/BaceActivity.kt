@@ -21,8 +21,4 @@ abstract class BaseActivity<presenter : BaseContract.Presenter, B : ViewDataBind
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    companion object {
-        const val REQ_CODE_RECENT_SEARCH = 1001
-        const val EXTRA_MOVIE_TITLE = "movie_title"
-    }
 }
