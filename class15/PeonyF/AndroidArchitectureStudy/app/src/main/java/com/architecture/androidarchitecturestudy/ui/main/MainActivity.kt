@@ -20,8 +20,6 @@ import com.architecture.androidarchitecturestudy.webservice.NetworkService
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
-    private lateinit var networkService: NetworkService
-    private lateinit var movieRemoteDataSource: MovieRemoteDataSource
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var mainBinding: ActivityMainBinding
 
