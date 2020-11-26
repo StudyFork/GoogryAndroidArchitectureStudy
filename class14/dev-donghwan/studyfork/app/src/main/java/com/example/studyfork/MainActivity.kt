@@ -20,6 +20,8 @@ class MainActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.activity = this
+
         binding.recMovie.adapter = recyclerAdapter
 
         binding.btnSearch.setOnClickListener {

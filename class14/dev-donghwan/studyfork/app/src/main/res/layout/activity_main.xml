@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="activity"
+            type="com.example.studyfork.MainActivity" />
+
     </data>
 
     <LinearLayout
