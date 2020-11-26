@@ -1,4 +1,4 @@
-package com.example.studyfork
+package com.example.studyfork.main
 
 import com.example.studyfork.data.repository.Repository
 import io.reactivex.disposables.CompositeDisposable

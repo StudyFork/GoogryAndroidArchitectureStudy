@@ -1,6 +1,8 @@
-package com.example.studyfork
+package com.example.studyfork.main
 
 import android.os.Bundle
+import com.example.studyfork.MovieRecyclerAdapter
+import com.example.studyfork.R
 import com.example.studyfork.base.BaseActivity
 import com.example.studyfork.data.model.MovieSearchResponse
 import com.example.studyfork.data.remote.RemoteDataSourceImpl

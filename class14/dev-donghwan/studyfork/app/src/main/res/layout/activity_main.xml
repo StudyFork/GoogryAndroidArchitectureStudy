@@ -7,7 +7,7 @@
 
         <variable
             name="activity"
-            type="com.example.studyfork.MainActivity" />
+            type="com.example.studyfork.main.MainActivity" />
 
     </data>
 
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".main.MainActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
