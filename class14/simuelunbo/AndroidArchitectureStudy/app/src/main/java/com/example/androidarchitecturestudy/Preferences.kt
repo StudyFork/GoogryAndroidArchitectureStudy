@@ -30,13 +30,8 @@ class Preferences(context: Context) {
         return titleList
     }
 
-    fun saveMovieQuery(title: String) {
-        val titleList = getMovieQueryList()
-        titleList.add(QueryHistory(title))
-        if (titleList.size > 5) {
-            titleList.removeAt(0)
-        }
-        var query = gson.toJson(titleList)
+    fun saveMovieQuery(titleList: ArrayList<QueryHistory>) {
+        val query = gson.toJson(titleList)
         editor.putString(TITLE_LIST, query.toString())
         editor.commit()
     }
