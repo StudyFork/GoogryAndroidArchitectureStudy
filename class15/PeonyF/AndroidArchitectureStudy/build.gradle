@@ -21,6 +21,8 @@ buildscript {
         androidxTest = '1.1.2'
         espressoVersion = '3.3.0'
 
+        room_version = '2.2.5'
+
     }
 
 
