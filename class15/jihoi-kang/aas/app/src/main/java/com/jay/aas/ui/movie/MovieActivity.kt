@@ -19,7 +19,6 @@ import com.jay.aas.databinding.ActivityMovieBinding
 import com.jay.aas.model.Movie
 import com.jay.aas.room.AppDatabase
 import com.jay.aas.ui.history.SearchHistoryActivity
-import com.jay.aas.ui.history.SearchHistoryActivity.Companion.EXTRA_QUERY_TEXT
 import com.jay.aas.util.toast
 import kotlinx.coroutines.launch
 
@@ -63,7 +62,7 @@ class MovieActivity :
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQ_CODE_SEARCH_HISTORY && resultCode == RESULT_OK) {
-            data?.getStringExtra(EXTRA_QUERY_TEXT)?.let { query ->
+            data?.getStringExtra(SearchHistoryActivity.EXTRA_QUERY_TEXT)?.let { query ->
                 searchMovies(query)
             }
         }
