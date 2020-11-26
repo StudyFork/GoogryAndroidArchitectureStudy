@@ -36,6 +36,12 @@
                 android:onClick="@{ () -> activity.searchMovie() }"
                 android:text="검색" />
 
+            <Button
+                android:id="@+id/btn_recent_search_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최근검색기록" />
+
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
