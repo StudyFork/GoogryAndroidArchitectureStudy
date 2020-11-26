@@ -78,4 +78,9 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
         val intent = Intent(this, SearchHistoryActivity::class.java)
         startActivityForResult(intent, REQ_CODE_SEARCH_HISTORY)
     }
+
+    companion object {
+        const val REQ_CODE_SEARCH_HISTORY = 101
+        const val MOVIE_KEYWORD = "movie_keyword"
+    }
 }
