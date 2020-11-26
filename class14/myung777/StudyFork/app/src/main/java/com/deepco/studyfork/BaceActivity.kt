@@ -8,9 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.deepco.studyfork.presenter.BaseContract
 
-abstract class BaseActivity<presenter : BaseContract.Presenter, binding : ViewDataBinding>(@LayoutRes val layoutResId: Int) :
+abstract class BaseActivity<presenter : BaseContract.Presenter, B : ViewDataBinding>(@LayoutRes val layoutResId: Int) :
     AppCompatActivity(), BaseContract.View {
-    protected lateinit var binding: binding
+    protected lateinit var binding: B
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
