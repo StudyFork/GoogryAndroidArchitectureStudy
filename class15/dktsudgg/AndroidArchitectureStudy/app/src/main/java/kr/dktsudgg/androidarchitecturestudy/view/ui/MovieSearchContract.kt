@@ -2,7 +2,7 @@ package kr.dktsudgg.androidarchitecturestudy.view.ui
 
 import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 
-interface MovieContract {
+interface MovieSearchContract {
 
     interface View : BaseContract.View {
         /**
