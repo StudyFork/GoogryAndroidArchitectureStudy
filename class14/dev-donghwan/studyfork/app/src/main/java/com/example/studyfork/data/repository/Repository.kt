@@ -9,4 +9,9 @@ interface Repository {
         success: (MovieSearchResponse) -> Unit,
         fail: (Throwable) -> Unit,
     ): Disposable
+
+    fun putRecentSearchList(item: String)
+
+    fun getRecentSearchList(): List<String>
+
 }
