@@ -29,13 +29,24 @@
                 android:ems="10"
                 android:inputType="textPersonName" />
 
-            <Button
-                android:id="@+id/btn_main_search"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/search" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/btn_main_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->mainActivity.findMovie()}"
+            android:text="@string/search"
+            app:layout_constraintEnd_toStartOf="@+id/btn_recent_search"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/btn_recent_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> mainActivity.searchHistory()}"
+            android:text="@string/history"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_main_movie"

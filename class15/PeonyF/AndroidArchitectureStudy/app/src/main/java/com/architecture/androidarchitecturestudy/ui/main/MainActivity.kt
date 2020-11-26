@@ -1,6 +1,8 @@
 package com.architecture.androidarchitecturestudy.ui.main
 
 import android.content.Context
+import android.content.Intent
+
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -36,8 +38,15 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initRecyclerView()
-        btn_main_search.setOnClickListener {
-            presenter.findMovie(et_main_search.text.toString())
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQ_CODE_SEARCH_HISTORY && resultCode == RESULT_OK) {
+            data?.getStringExtra(MOVIE_KEYWORD)?.let { keyword ->
+                mainPresenter.findMovie(keyword)
+                mainBinding.etMainSearch.setText(keyword)
+            }
         }
     }
 
@@ -64,5 +73,10 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
 
     override fun failMovieGet(msg: String) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    fun searchHistory() {
+        val intent = Intent(this, SearchHistoryActivity::class.java)
+        startActivityForResult(intent, REQ_CODE_SEARCH_HISTORY)
     }
 }
