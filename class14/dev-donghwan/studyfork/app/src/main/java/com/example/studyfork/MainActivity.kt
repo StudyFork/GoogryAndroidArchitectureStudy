@@ -23,11 +23,11 @@ class MainActivity :
         binding.activity = this
 
         binding.recMovie.adapter = recyclerAdapter
+    }
 
-        binding.btnSearch.setOnClickListener {
-            binding.edtQuery.text.toString().run {
-                presenter.requestMovieList(this)
-            }
+    fun searchMovie() {
+        binding.edtQuery.text.toString().run {
+            presenter.requestMovieList(this)
         }
     }
 
