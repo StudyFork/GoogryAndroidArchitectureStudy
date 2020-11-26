@@ -19,5 +19,6 @@ class MovieViewHolder(private val binding: MovieItemBinding) :
 
     fun onBind(movieData: Movie) {
         binding.movie = movieData
+        binding.executePendingBindings()
     }
 }
