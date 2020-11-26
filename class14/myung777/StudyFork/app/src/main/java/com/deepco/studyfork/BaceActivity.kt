@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.deepco.studyfork.presenter.BaseContract
 
-open class BaseActivity<presenter : BaseContract.Presenter, binding : ViewDataBinding>(@LayoutRes val layoutResId: Int) :
+abstract class BaseActivity<presenter : BaseContract.Presenter, binding : ViewDataBinding>(@LayoutRes val layoutResId: Int) :
     AppCompatActivity(), BaseContract.View {
     protected lateinit var binding: binding
 
