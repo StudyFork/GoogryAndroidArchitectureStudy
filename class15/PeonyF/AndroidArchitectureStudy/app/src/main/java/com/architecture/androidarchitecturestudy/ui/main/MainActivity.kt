@@ -6,17 +6,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.architecture.androidarchitecturestudy.R
 import com.architecture.androidarchitecturestudy.adapter.MovieAdapter
 import com.architecture.androidarchitecturestudy.data.local.MovieLocalDataSourceImpl
 import com.architecture.androidarchitecturestudy.data.model.Movie
-import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSource
 import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
+import com.architecture.androidarchitecturestudy.databinding.ActivityMainBinding
 import com.architecture.androidarchitecturestudy.ui.base.BaseActivity
 import com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryActivity
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
-import com.architecture.androidarchitecturestudy.webservice.NetworkService
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
@@ -34,7 +34,8 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        mainBinding.mainActivity = this
         initRecyclerView()
     }
 
