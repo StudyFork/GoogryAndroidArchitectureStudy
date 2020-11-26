@@ -8,10 +8,7 @@ class SearchHistoryViewHolder(
     private val binding: SearchHistoryItemBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private var searchHistoryEntity: SearchHistoryEntity? = null
-
     fun onBind(searchHistory: SearchHistoryEntity) {
-        this.searchHistoryEntity = searchHistory
         binding.item = searchHistory
         binding.executePendingBindings()
     }
