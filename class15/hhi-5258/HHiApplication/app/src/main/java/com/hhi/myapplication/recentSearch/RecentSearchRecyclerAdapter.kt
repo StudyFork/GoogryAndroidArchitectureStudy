@@ -13,8 +13,10 @@ class RecentSearchRecyclerAdapter : RecyclerView.Adapter<RecentSearchRecyclerAda
     private val queryList = mutableListOf<String>()
 
     fun setQueryList(list: List<String>) {
-        this.queryList.clear()
-        this.queryList.addAll(list.asReversed())
+        with(this.queryList){
+            clear()
+            addAll(list.asReversed())
+        }
         notifyDataSetChanged()
     }
 
