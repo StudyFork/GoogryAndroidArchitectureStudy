@@ -1,7 +1,6 @@
 package kr.dktsudgg.androidarchitecturestudy
 
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_movie_search_history.*
@@ -11,14 +10,14 @@ import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieSearchHistoryListA
 import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieHistoryContract
 import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieHistoryPresenter
 
-class MovieSearchHistoryActivity : BaseActivity<MovieHistoryPresenter>(), MovieHistoryContract.View {
+class MovieSearchHistoryActivity :
+    BaseActivity<MovieHistoryPresenter, ActivityMovieSearchHistoryBinding>(R.layout.activity_movie_search_history),
+    MovieHistoryContract.View {
 
-    private lateinit var binding: ActivityMovieSearchHistoryBinding
     private lateinit var movieHistoryPresenter: MovieHistoryContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_search_history)
 
         movieHistoryPresenter = MovieHistoryPresenter(NaverMovieRepositoryImpl(), this)
 

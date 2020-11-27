@@ -14,14 +14,13 @@ import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieListAdapter
 import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieSearchContract
 import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieSearchPresenter
 
-class MainActivity : BaseActivity<MovieSearchPresenter>(), MovieSearchContract.View, View.OnClickListener {
+class MainActivity : BaseActivity<MovieSearchPresenter, ActivityMainBinding>(R.layout.activity_main), MovieSearchContract.View, View.OnClickListener {
 
-    private lateinit var binding: ActivityMainBinding
     private lateinit var movieSearchPresenter: MovieSearchContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
         binding.activity = this@MainActivity
 
         movieSearchPresenter = MovieSearchPresenter(NaverMovieRepositoryImpl(), this);
