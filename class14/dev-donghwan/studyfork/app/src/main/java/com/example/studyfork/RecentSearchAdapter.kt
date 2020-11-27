@@ -9,6 +9,12 @@ import com.example.studyfork.databinding.ItemRecentSearchBinding
 class RecentSearchAdapter : RecyclerView.Adapter<RecentSearchAdapter.ViewHolder>() {
     private val itemList: ArrayList<String> = ArrayList()
 
+    fun setItems(items: List<String>) {
+        this.itemList.clear()
+        this.itemList.addAll(items)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
