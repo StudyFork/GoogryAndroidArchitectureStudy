@@ -12,13 +12,12 @@ import com.architecture.androidarchitecturestudy.databinding.MovieItemBinding
 
 class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
     private val modelList = ArrayList<Movie>()
-    private lateinit var binding: MovieItemBinding
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): MovieViewHolder {
-        binding = DataBindingUtil.inflate(
+        val binding = DataBindingUtil.inflate<MovieItemBinding>(
             LayoutInflater.from(parent.context),
             R.layout.movie_item,
             parent,
