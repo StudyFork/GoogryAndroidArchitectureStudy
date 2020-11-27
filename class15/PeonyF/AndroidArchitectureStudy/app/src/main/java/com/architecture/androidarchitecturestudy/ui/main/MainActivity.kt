@@ -56,7 +56,6 @@ class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
 
     fun findMovie() {
         mainPresenter.findMovie(mainBinding.etMainSearch.text.toString())
-        mainPresenter.setSearchHistory(mainBinding.etMainSearch.text.toString())
     }
 
     override fun removeKeyboard() {

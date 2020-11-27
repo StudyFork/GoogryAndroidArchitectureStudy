@@ -12,6 +12,5 @@ interface MainContract {
 
     interface Presenter : BaseContract.Presenter {
         fun findMovie(keyword: String)
-        fun setSearchHistory(keyword: String)
     }
 }

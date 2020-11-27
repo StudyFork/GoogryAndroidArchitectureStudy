@@ -17,8 +17,10 @@ class MovieRepositoryImpl(
     ) {
         return movieRemoteDataSourceImpl.getMovieData(
             keyword = keyword,
-            display = display,
-            onSuccess = onSuccess,
+            display = display, {
+                onSuccess(it)
+                saveSearchHistory(keyword)
+            },
             onFailure = onFailure
         )
     }
