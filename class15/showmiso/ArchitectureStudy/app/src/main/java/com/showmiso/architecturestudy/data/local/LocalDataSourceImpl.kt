@@ -1,12 +1,11 @@
 package com.showmiso.architecturestudy.data.local
 
-import android.content.Context
+import android.content.SharedPreferences
 import com.showmiso.architecturestudy.Constants
 
-class LocalDataSourceImpl(context: Context) : LocalDataSource {
-
-    private val prefs =
-        context.getSharedPreferences(Constants.PREF_HISTORY_KEY, Context.MODE_PRIVATE)
+class LocalDataSourceImpl(
+    private val prefs: SharedPreferences
+) : LocalDataSource {
 
     private var searchHistoryText: String?
         get() = prefs.getString(Constants.PREF_HISTORY_DATA, null)
