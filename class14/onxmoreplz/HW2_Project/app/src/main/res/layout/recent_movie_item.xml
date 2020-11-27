@@ -4,9 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="recentMovie"
-            type="com.example.hw2_project.data.api.NaverMovieData.NaverMovie" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

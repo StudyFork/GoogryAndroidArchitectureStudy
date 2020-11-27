@@ -4,10 +4,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hw2_project.R
+import com.example.hw2_project.databinding.RecentMovieItemBinding
 import com.example.hw2_project.main.MainActivity
-import kotlinx.android.synthetic.main.recent_movie_item.view.*
 
 class RecentSearchRecyclerViewAdapter : RecyclerView.Adapter<RecentSearchRecyclerViewAdapter.ViewHolder>() {
 
@@ -25,8 +26,9 @@ class RecentSearchRecyclerViewAdapter : RecyclerView.Adapter<RecentSearchRecycle
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recent_movie_item, parent, false)
-        return ViewHolder(view)
+        val binding = DataBindingUtil.inflate<RecentMovieItemBinding>(LayoutInflater.from(parent.context),
+            R.layout.recent_movie_item, parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -46,11 +48,11 @@ class RecentSearchRecyclerViewAdapter : RecyclerView.Adapter<RecentSearchRecycle
         holder.bind(query, listener)
     }
 
-    inner class ViewHolder(recentMovieItemView: View) : RecyclerView.ViewHolder(recentMovieItemView){
-
+    inner class ViewHolder(private val recentMovieItemBinding: RecentMovieItemBinding) : RecyclerView.ViewHolder(recentMovieItemBinding.root){
         fun bind(query: String, listener: View.OnClickListener){
-            itemView.recent_item_text_title.text = query
-            itemView.recent_item_text_title.setOnClickListener(listener)
+            recentMovieItemBinding.recentItemTextTitle.text = query
+            recentMovieItemBinding.recentItemTextTitle.setOnClickListener(listener)
+            recentMovieItemBinding.executePendingBindings()
         }
     }
 
