@@ -8,7 +8,6 @@ object Constants {
     const val PREF_HISTORY_KEY = "prefs-history-key"
     const val PREF_HISTORY_DATA = "prefs-history-data"
 
-    const val RESULT = "result"
+    const val INTENT_KEY_HISTORY = "result"
 
-    const val REQUEST_CODE = 0x01
 }

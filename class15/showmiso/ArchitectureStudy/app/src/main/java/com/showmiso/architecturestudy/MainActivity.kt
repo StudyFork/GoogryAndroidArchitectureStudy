@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     fun onClickHistory(view: View) {
         startActivityForResult(
             Intent(this@MainActivity, HistoryActivity::class.java),
-            Constants.REQUEST_CODE
+            REQUEST_CODE_HISTORY
         )
     }
 
@@ -102,8 +102,8 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == Constants.REQUEST_CODE) {
-                val result = data?.getStringExtra(Constants.RESULT)
+            if (requestCode == REQUEST_CODE_HISTORY) {
+                val result = data?.getStringExtra(Constants.INTENT_KEY_HISTORY)
                 result?.let {
                     presenter.getMovies(it)
                     et_search.setText(it)
@@ -114,5 +114,6 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     companion object {
         private val tag = MainActivity::class.java.simpleName
+        private const val REQUEST_CODE_HISTORY = 0x01
     }
 }

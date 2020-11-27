@@ -56,7 +56,7 @@ class HistoryActivity : AppCompatActivity(), HistoryContact.View,
 
     override fun onItemClick(text: String) {
         val intent = Intent()
-        intent.putExtra(Constants.RESULT, text)
+        intent.putExtra(Constants.INTENT_KEY_HISTORY, text)
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
