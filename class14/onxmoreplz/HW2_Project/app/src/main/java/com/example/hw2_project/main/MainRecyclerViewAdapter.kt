@@ -8,19 +8,21 @@ import com.example.hw2_project.R
 import com.example.hw2_project.data.api.NaverMovieData
 import com.example.hw2_project.databinding.MovieItemBinding
 
-class MainRecyclerViewAdapter() : RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder>(){
+class MainRecyclerViewAdapter() : RecyclerView.Adapter<MainRecyclerViewAdapter.ViewHolder>() {
 
-    private val arrListOfMovie :ArrayList<NaverMovieData.NaverMovie> = ArrayList()
+    private val arrListOfMovie: ArrayList<NaverMovieData.NaverMovie> = ArrayList()
 
-    fun updateMovieList(movies : List<NaverMovieData.NaverMovie>){
+    fun updateMovieList(movies: List<NaverMovieData.NaverMovie>) {
         this.arrListOfMovie.clear()
         this.arrListOfMovie.addAll(movies)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = DataBindingUtil.inflate<MovieItemBinding>(LayoutInflater.from(parent.context),
-            R.layout.movie_item, parent, false)
+        val binding = DataBindingUtil.inflate<MovieItemBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.movie_item, parent, false
+        )
         return ViewHolder(binding)
     }
 
@@ -32,9 +34,10 @@ class MainRecyclerViewAdapter() : RecyclerView.Adapter<MainRecyclerViewAdapter.V
         return arrListOfMovie.size
     }
 
-    class ViewHolder(private val movieItemBinding: MovieItemBinding) : RecyclerView.ViewHolder(movieItemBinding.root){
+    class ViewHolder(private val movieItemBinding: MovieItemBinding) :
+        RecyclerView.ViewHolder(movieItemBinding.root) {
 
-        fun bindItem( movie : NaverMovieData.NaverMovie){
+        fun bindItem(movie: NaverMovieData.NaverMovie) {
             movieItemBinding.movieItem = movie
             movieItemBinding.executePendingBindings()
         }

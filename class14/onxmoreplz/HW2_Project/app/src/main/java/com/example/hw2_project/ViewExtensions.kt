@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable
 
 @BindingAdapter("imageUrl")
 fun ImageView.loadImage(url: String?) {
-    if(url != null) {
+    if (url != null) {
         Glide.with(this.context)
             .load(url)
             .centerCrop()
@@ -24,6 +24,6 @@ fun ImageView.loadImage(url: String?) {
 }
 
 @BindingAdapter("directorName")
-fun TextView.setDirectorName(@Nullable directorName : String) {
+fun TextView.setDirectorName(@Nullable directorName: String) {
     this.text = directorName?.replace("|", "")
 }

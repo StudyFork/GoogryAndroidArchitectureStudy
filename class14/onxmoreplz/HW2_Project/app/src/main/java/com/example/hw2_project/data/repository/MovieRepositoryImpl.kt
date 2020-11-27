@@ -4,7 +4,7 @@ import com.example.hw2_project.data.api.NaverMovieData
 import com.example.hw2_project.data.local.MovieLocalDataSourceImpl
 import com.example.hw2_project.data.remote.MovieRemoteDataSourceImpl
 
-class MovieRepositoryImpl : MovieRepository{
+class MovieRepositoryImpl : MovieRepository {
 
     private val remoteMovieDataSourceImp = MovieRemoteDataSourceImpl()
     private val localMovieLocalDataSourceImpl = MovieLocalDataSourceImpl()

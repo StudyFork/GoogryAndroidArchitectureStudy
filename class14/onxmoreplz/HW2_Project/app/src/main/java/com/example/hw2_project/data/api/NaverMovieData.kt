@@ -1,7 +1,7 @@
 package com.example.hw2_project.data.api
 
 class NaverMovieData {
-    data class NaverMovieResponse (
+    data class NaverMovieResponse(
         val display: Int,
         val items: List<NaverMovie>,
         val lastBuildDate: String,

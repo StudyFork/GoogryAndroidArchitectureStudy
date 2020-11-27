@@ -16,13 +16,13 @@ interface NaverMovieApi {
         @Query("query") query: String
     ): Call<NaverMovieData.NaverMovieResponse>
 
-    companion object{
+    companion object {
         private const val NAVER_MOVIE_BASE_URL = "https://openapi.naver.com"
 
         private const val NAVER_CLIENT_ID = "fQFY7M9rMOVD2KDT8Aaq"
         private const val NAVER_CLIENT_SECRET = "v8aD8p_Ri0"
 
-        fun create() : NaverMovieApi {
+        fun create(): NaverMovieApi {
 
             val httpLoggingInterceptor = HttpLoggingInterceptor()
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

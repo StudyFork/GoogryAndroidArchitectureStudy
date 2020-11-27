@@ -10,11 +10,12 @@ import com.example.hw2_project.R
 import com.example.hw2_project.databinding.RecentMovieItemBinding
 import com.example.hw2_project.main.MainActivity
 
-class RecentSearchRecyclerViewAdapter : RecyclerView.Adapter<RecentSearchRecyclerViewAdapter.ViewHolder>() {
+class RecentSearchRecyclerViewAdapter :
+    RecyclerView.Adapter<RecentSearchRecyclerViewAdapter.ViewHolder>() {
 
     private val queryList = mutableListOf<String>()
 
-    fun updateMovieList(list : List<String>?){
+    fun updateMovieList(list: List<String>?) {
         list?.run {
             queryList.clear()
             queryList.addAll(this)
@@ -26,8 +27,10 @@ class RecentSearchRecyclerViewAdapter : RecyclerView.Adapter<RecentSearchRecycle
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = DataBindingUtil.inflate<RecentMovieItemBinding>(LayoutInflater.from(parent.context),
-            R.layout.recent_movie_item, parent, false)
+        val binding = DataBindingUtil.inflate<RecentMovieItemBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.recent_movie_item, parent, false
+        )
         return ViewHolder(binding)
     }
 
@@ -36,7 +39,8 @@ class RecentSearchRecyclerViewAdapter : RecyclerView.Adapter<RecentSearchRecycle
     }
 
     override fun onBindViewHolder(
-        holder: RecentSearchRecyclerViewAdapter.ViewHolder, position: Int) {
+        holder: RecentSearchRecyclerViewAdapter.ViewHolder, position: Int
+    ) {
         val query = queryList[position]
         val listener = View.OnClickListener {
             val intent = Intent(it.context, MainActivity::class.java)
@@ -48,8 +52,9 @@ class RecentSearchRecyclerViewAdapter : RecyclerView.Adapter<RecentSearchRecycle
         holder.bind(query, listener)
     }
 
-    inner class ViewHolder(private val recentMovieItemBinding: RecentMovieItemBinding) : RecyclerView.ViewHolder(recentMovieItemBinding.root){
-        fun bind(query: String, listener: View.OnClickListener){
+    inner class ViewHolder(private val recentMovieItemBinding: RecentMovieItemBinding) :
+        RecyclerView.ViewHolder(recentMovieItemBinding.root) {
+        fun bind(query: String, listener: View.OnClickListener) {
             recentMovieItemBinding.recentItemTextTitle.text = query
             recentMovieItemBinding.recentItemTextTitle.setOnClickListener(listener)
             recentMovieItemBinding.executePendingBindings()

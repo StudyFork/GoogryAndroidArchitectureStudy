@@ -4,14 +4,15 @@ import android.content.Context
 import android.content.SharedPreferences
 import org.json.JSONArray
 
-class SharedPreferenceUtil( context : Context) {
-    private val preference : SharedPreferences = context.getSharedPreferences("recentSearchedMovie", 0) //"prefs"
+class SharedPreferenceUtil(context: Context) {
+    private val preference: SharedPreferences =
+        context.getSharedPreferences("recentSearchedMovie", 0) //"prefs"
 
-    fun saveQuery(query : String) {
+    fun saveQuery(query: String) {
         val queryList = getSavedQueryList().toMutableList()
         queryList.add(query)
 
-        if(queryList.size > 5) {
+        if (queryList.size > 5) {
             queryList.removeAt(0)
         }
 
@@ -19,13 +20,13 @@ class SharedPreferenceUtil( context : Context) {
 
     }
 
-    fun getSavedQueryList() : List<String> {
+    fun getSavedQueryList(): List<String> {
         val json = preference.getString("pref_query_list", null)
         val queryList = mutableListOf<String>()
 
         json?.let {
             val jsonArray = JSONArray(it)
-            for(i in 0 until jsonArray.length()) {
+            for (i in 0 until jsonArray.length()) {
                 queryList.add(jsonArray[i].toString())
             }
         }

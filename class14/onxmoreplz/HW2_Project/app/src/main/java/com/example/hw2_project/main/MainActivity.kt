@@ -15,13 +15,13 @@ import com.example.hw2_project.databinding.ActivityMainBinding
 import com.example.hw2_project.recentSearch.RecentSearchActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     private val mainAdapter = MainRecyclerViewAdapter()
 
     private val movieRepositoryImp = MovieRepositoryImpl()
 
-    private lateinit var mainPresenter : MainPresenter
+    private lateinit var mainPresenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,13 +50,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showMovieList(movieList: NaverMovieData.NaverMovieResponse) {
-        runOnUiThread{
+        runOnUiThread {
             mainAdapter.updateMovieList(movieList.items)
         }
     }
 
     override fun showErrorRespondMsg(t: Throwable) {
-        Log.e("showErrorRespondMsg",t.stackTraceToString())
+        Log.e("showErrorRespondMsg", t.stackTraceToString())
     }
 
     private fun hideKeyboard() {

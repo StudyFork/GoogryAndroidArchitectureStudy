@@ -11,11 +11,11 @@ import com.example.hw2_project.databinding.ActivityRecentSearchBinding
 import com.example.hw2_project.main.MainActivity
 
 class RecentSearchActivity : AppCompatActivity(), RecentSearchContract.View {
-    private lateinit var binding : ActivityRecentSearchBinding
+    private lateinit var binding: ActivityRecentSearchBinding
 
     private val recentSearchAdapter = RecentSearchRecyclerViewAdapter()
 
-    private val recentSearchPresenter =  RecentSearchPresenter(
+    private val recentSearchPresenter = RecentSearchPresenter(
         this,
         MovieRepositoryImpl()
     )
