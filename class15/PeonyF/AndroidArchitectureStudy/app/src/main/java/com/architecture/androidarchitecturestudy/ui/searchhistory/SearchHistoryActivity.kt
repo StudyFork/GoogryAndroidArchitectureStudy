@@ -52,10 +52,3 @@ class SearchHistoryActivity :
         finish()
     }
 }
-
-
-
-
-
-
-

@@ -16,4 +16,3 @@ class SearchHistoryPresenter(
         view.onSearchHistoryMovie(keyword)
     }
 }
-

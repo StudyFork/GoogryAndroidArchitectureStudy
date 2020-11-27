@@ -31,4 +31,3 @@ class MovieRepositoryImpl(
         return movieLocalDataSourceImpl.getSearchHistoryList()
     }
 }
-

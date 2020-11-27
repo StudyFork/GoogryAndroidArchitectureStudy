@@ -25,5 +25,4 @@ class MovieLocalDataSourceImpl : MovieLocalDataSource {
 
     override fun getSearchHistoryList(): List<SearchHistoryEntity> =
         App.prefs.getSearchHistoryList()
-
 }

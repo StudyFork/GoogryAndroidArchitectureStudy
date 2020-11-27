@@ -5,8 +5,8 @@ import com.architecture.androidarchitecturestudy.data.local.SharedPreferenceUtil
 
 class App : Application() {
     override fun onCreate() {
-        prefs = SharedPreferenceUtil(applicationContext)
         super.onCreate()
+        prefs = SharedPreferenceUtil(applicationContext)
     }
 
     companion object {
