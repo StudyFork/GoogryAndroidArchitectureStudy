@@ -6,7 +6,7 @@ import com.example.googryandroidarchitecturestudy.ui.contract.RecentContract
 class RecentPresenter(
     private val view: RecentContract.View,
     private val repository: MovieRepository
-) : BasePresenter(view, repository), RecentContract.Presenter {
+) : MovieListPresenter(view, repository), RecentContract.Presenter {
     override suspend fun getRecentSearch() {
         val recentList = repository.searchRecent()
         view.showRecentChips(recentList)

@@ -13,7 +13,7 @@ import com.example.googryandroidarchitecturestudy.ui.presenter.BasePresenter
 import com.example.googryandroidarchitecturestudy.ui.presenter.MoviePresenter
 import kotlinx.coroutines.launch
 
-class MovieFragment : BaseFragment<FragmentMovieBinding, BasePresenter>(), MovieContract.View {
+class MovieFragment : MovieListFragment<FragmentMovieBinding, BasePresenter>(), MovieContract.View {
     override val presenter: MoviePresenter by lazy {
         MoviePresenter(this, movieRepository)
     }

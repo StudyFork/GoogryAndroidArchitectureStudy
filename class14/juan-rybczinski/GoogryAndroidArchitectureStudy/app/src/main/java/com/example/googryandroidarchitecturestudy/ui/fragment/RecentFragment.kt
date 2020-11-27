@@ -14,7 +14,8 @@ import com.example.googryandroidarchitecturestudy.ui.presenter.RecentPresenter
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
 
-class RecentFragment : BaseFragment<FragmentRecentBinding, BasePresenter>(), RecentContract.View {
+class RecentFragment : MovieListFragment<FragmentRecentBinding, BasePresenter>(),
+    RecentContract.View {
     override val presenter: RecentPresenter by lazy {
         RecentPresenter(this, movieRepository)
     }

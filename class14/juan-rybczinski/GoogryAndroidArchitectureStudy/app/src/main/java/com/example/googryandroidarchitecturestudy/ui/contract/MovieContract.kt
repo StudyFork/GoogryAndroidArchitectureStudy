@@ -2,11 +2,11 @@ package com.example.googryandroidarchitecturestudy.ui.contract
 
 interface MovieContract {
 
-    interface View : BaseContract.View {
+    interface View : MovieListContract.View {
         fun navToRecentSearch()
     }
 
-    interface Presenter : BaseContract.Presenter {
+    interface Presenter : MovieListContract.Presenter {
 
     }
 

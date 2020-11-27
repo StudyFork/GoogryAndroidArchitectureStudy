@@ -16,20 +16,16 @@ import com.example.googryandroidarchitecturestudy.data.remote.MovieRemoteDataSou
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.example.googryandroidarchitecturestudy.database.MovieDatabase
-import com.example.googryandroidarchitecturestudy.domain.Movie
 import com.example.googryandroidarchitecturestudy.domain.UrlResource
 import com.example.googryandroidarchitecturestudy.ui.contract.BaseContract
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.presenter.BasePresenter
-import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 
 abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), BaseContract.View {
     private var _binding: B? = null
     protected val binding get() = _binding!!
 
     var onProgress = View.INVISIBLE
-
-    protected abstract val presenter: P
 
     protected val movieRepository: MovieRepository by lazy {
         val movieRemoteDataSource = MovieRemoteDataSourceImpl()
@@ -40,10 +36,6 @@ abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), Ba
 
     private val inputMethodManager by lazy(LazyThreadSafetyMode.NONE) {
         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    }
-
-    protected val movieAdapter = MovieAdapter {
-        presenter.selectUrlItem(it)
     }
 
     protected abstract fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup?): B
@@ -94,9 +86,5 @@ abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), Ba
 
     override fun hideProgressBar() {
         onProgress = View.INVISIBLE
-    }
-
-    override fun showMovieList(items: List<Movie>) {
-        movieAdapter.setMovies(items)
     }
 }

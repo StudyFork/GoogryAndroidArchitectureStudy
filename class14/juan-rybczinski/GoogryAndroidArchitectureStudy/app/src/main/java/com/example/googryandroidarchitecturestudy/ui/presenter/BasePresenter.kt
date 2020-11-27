@@ -16,30 +16,4 @@ abstract class BasePresenter(
             view.showUrlResource(item)
         }
     }
-
-    override suspend fun queryMovieList(query: String) {
-        if (query.isEmpty()) {
-            view.showQueryEmpty()
-            return
-        }
-        try {
-            view.showProgressBar()
-            repository.insertRecent(
-                RecentSearch(
-                    Date(System.currentTimeMillis()),
-                    query
-                )
-            )
-            val movieList = repository.searchMovies(query)
-            view.hideProgressBar()
-            if (movieList.isEmpty()) {
-                view.showNoSearchResult()
-                return
-            }
-            view.hideKeyboard()
-            view.showMovieList(movieList)
-        } catch (e: Exception) {
-            view.showSearchFailed(e)
-        }
-    }
 }
