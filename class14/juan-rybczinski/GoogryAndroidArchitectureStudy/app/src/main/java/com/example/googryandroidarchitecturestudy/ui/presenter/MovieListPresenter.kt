@@ -1,6 +1,6 @@
 package com.example.googryandroidarchitecturestudy.ui.presenter
 
-import android.content.Context
+import androidx.fragment.app.Fragment
 import com.example.googryandroidarchitecturestudy.data.local.MovieLocalDataSourceImpl
 import com.example.googryandroidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
@@ -11,13 +11,12 @@ import com.example.googryandroidarchitecturestudy.ui.contract.MovieListContract
 import java.util.*
 
 abstract class MovieListPresenter(
-    private val view: MovieListContract.View,
-    private val context: Context
+    private val view: MovieListContract.View
 ) : BasePresenter(view), MovieListContract.Presenter {
     protected val repository: MovieRepository by lazy {
         val movieRemoteDataSource = MovieRemoteDataSourceImpl()
         val movieLocalDataSource =
-            MovieLocalDataSourceImpl(MovieDatabase.getInstance(context))
+            MovieLocalDataSourceImpl(MovieDatabase.getInstance((view as Fragment).requireContext()))
         MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource)
     }
 

@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class MovieFragment : MovieListFragment<FragmentMovieBinding, BasePresenter>(), MovieContract.View {
     override val presenter: MoviePresenter by lazy {
-        MoviePresenter(this, requireContext())
+        MoviePresenter(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
