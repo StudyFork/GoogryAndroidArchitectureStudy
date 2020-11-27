@@ -15,6 +15,7 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
         }
 
         App.prefs.setString(JSONArray(queryList).toString(), PREF_QUERY_LIST)
+
     }
 
     override fun getQueryList(): List<String> {
@@ -24,10 +25,9 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
         queryListJSONString?.let {
             val jsonArray = JSONArray(it)
             for (i in 0 until jsonArray.length()) {
-                queryList.add(jsonArray[i].toString())
+                queryList.add(jsonArray.getString(i))
             }
         }
-
         return queryList
     }
 }
