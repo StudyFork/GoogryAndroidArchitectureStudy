@@ -3,7 +3,7 @@ package kr.dktsudgg.androidarchitecturestudy
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.databinding.DataBindingUtil
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,7 +14,9 @@ import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieListAdapter
 import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieSearchContract
 import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieSearchPresenter
 
-class MainActivity : BaseActivity<MovieSearchPresenter, ActivityMainBinding>(R.layout.activity_main), MovieSearchContract.View, View.OnClickListener {
+class MainActivity :
+    BaseActivity<MovieSearchPresenter, ActivityMainBinding>(R.layout.activity_main),
+    MovieSearchContract.View, View.OnClickListener {
 
     private lateinit var movieSearchPresenter: MovieSearchContract.Presenter
 
@@ -60,10 +62,18 @@ class MainActivity : BaseActivity<MovieSearchPresenter, ActivityMainBinding>(R.l
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             ACTIVITY_REQ_CODE -> {  // 반환된 내용을 가지고 EditText에 세팅 및 검색버튼 클릭 수행
-                movieSearchEditText.setText(
-                    data?.getStringExtra("selectedKeyword") ?: ""
-                )
-                movieSearchBtn.performClick()
+                if (resultCode == RESULT_OK) {
+                    movieSearchEditText.setText(
+                        data?.getStringExtra("selectedKeyword") ?: ""
+                    )
+                    movieSearchBtn.performClick()
+                } else {
+                    Toast.makeText(
+                        this,
+                        "MovieSearchHistoryActivity에서 데이터를 반환하지 않았습니다.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
             else -> {
             }
