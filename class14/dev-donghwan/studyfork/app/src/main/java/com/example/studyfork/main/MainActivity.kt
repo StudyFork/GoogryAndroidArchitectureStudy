@@ -16,10 +16,12 @@ class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     MainContract.View {
 
-    private val presenter: MainContract.Presenter by lazy { MainPresenter(
-        this,
-        RepositoryImpl(RemoteDataSourceImpl(), LocalDataSourceImpl(this.applicationContext))
-    ) }
+    private val presenter: MainContract.Presenter by lazy {
+        MainPresenter(
+            this,
+            RepositoryImpl(RemoteDataSourceImpl(), LocalDataSourceImpl(this.applicationContext))
+        )
+    }
 
     private val requestCode = 100
 
@@ -68,6 +70,7 @@ class MainActivity :
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == this.requestCode) {
+            if (resultCode != RESULT_OK) return
             data?.run {
                 presenter.requestMovieList(this.getStringExtra(SEARCH_ITEM) ?: "")
             }

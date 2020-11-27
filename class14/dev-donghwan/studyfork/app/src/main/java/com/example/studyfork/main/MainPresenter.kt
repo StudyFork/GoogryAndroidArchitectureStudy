@@ -20,6 +20,8 @@ class MainPresenter(
             return
         }
 
+        repository.putRecentSearchList(query)
+
         this.repository.searchMovie(
             query = query,
             success = {

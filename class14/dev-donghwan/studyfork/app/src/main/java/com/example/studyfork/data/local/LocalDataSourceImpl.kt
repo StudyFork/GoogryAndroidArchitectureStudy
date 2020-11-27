@@ -20,9 +20,9 @@ class LocalDataSourceImpl(context: Context) : LocalDataSource {
             a.put(items[i])
         }
         if (items.isNotEmpty()) {
-            pref.edit().putString(RECENT_SEARCH_LIST, a.toString())
+            pref.edit().putString(RECENT_SEARCH_LIST, a.toString()).apply()
         } else {
-            pref.edit().putString(RECENT_SEARCH_LIST, null)
+            pref.edit().putString(RECENT_SEARCH_LIST, null).apply()
         }
     }
 
