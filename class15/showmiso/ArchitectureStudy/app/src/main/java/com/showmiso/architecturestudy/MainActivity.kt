@@ -100,8 +100,8 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_CODE_HISTORY) {
+        if (requestCode == REQUEST_CODE_HISTORY) {
+            if (resultCode == Activity.RESULT_OK) {
                 val result = data?.getStringExtra(Constants.INTENT_KEY_HISTORY)
                 result?.let {
                     presenter.getMovies(it)
