@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_item"
-            android:onClick="@{() -> activity.removeAll()}"
+            android:onClick="@{() -> activity.removeAllHistory()}"
             android:text="@string/label_delete_all"
             app:layout_constraintBottom_toBottomOf="@id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"

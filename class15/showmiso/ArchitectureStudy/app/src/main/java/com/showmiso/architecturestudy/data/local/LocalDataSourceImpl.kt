@@ -41,7 +41,7 @@ class LocalDataSourceImpl(context: Context) : LocalDataSource {
         }
     }
 
-    override fun removeAll() {
+    override fun removeAllHistory() {
         data = ""
     }
 }

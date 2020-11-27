@@ -65,8 +65,8 @@ class HistoryActivity : AppCompatActivity(), HistoryContact.View,
         presenter.removeHistory(text)
     }
 
-    override fun removeAll() {
-        presenter.removeAll()
+    override fun removeAllHistory() {
+        presenter.removeAllHistory()
         adapter.clearHistoryList()
         Toast.makeText(this, getString(R.string.msg_delete_all), Toast.LENGTH_SHORT).show()
     }

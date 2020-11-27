@@ -13,5 +13,5 @@ interface NaverRepository {
 
     fun removeHistory(query: String)
 
-    fun removeAll()
+    fun removeAllHistory()
 }

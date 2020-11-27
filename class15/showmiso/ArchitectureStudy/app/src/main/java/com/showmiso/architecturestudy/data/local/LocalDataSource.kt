@@ -8,5 +8,5 @@ interface LocalDataSource {
 
     fun removeHistory(query: String)
 
-    fun removeAll()
+    fun removeAllHistory()
 }
