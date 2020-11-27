@@ -46,14 +46,6 @@ class HistoryActivity : AppCompatActivity(), HistoryContact.View,
         rcv_history.adapter = adapter
     }
 
-    fun onClick(view: View) {
-        when (view.id) {
-            R.id.iv_back -> {
-                onBackPressed()
-            }
-        }
-    }
-
     override fun onItemClick(text: String) {
         val intent = Intent()
         intent.putExtra(Constants.INTENT_KEY_HISTORY, text)
