@@ -1,11 +1,9 @@
 package kr.dktsudgg.androidarchitecturestudy.view.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.dktsudgg.androidarchitecturestudy.BaseActivity
-import kr.dktsudgg.androidarchitecturestudy.R
 import kr.dktsudgg.androidarchitecturestudy.databinding.MovieSearchHistoryLayoutBinding
 
 class MovieSearchHistoryListAdapter :
@@ -48,17 +46,12 @@ class MovieSearchHistoryListAdapter :
             binding.viewHolder = this
         }
 
-        fun click(clickedView: View) {
-            when (clickedView.id) {
-                R.id.usedKeyword -> {    // 클릭 시, 선택한 내용을 이전 액티비티에 반환
-                    (binding.root.context as BaseActivity<*, *>).doActivityResult(
-                        "selectedKeyword",
-                        binding.textItem
-                    )
-                }
-                else -> {
-                }
-            }
+        fun returnDataToPreviousActivity() {
+            // 선택한 내용을 이전 액티비티에 반환
+            (binding.root.context as BaseActivity<*, *>).doActivityResult(
+                "selectedKeyword",
+                binding.textItem
+            )
         }
 
     }

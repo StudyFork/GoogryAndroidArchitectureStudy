@@ -17,7 +17,7 @@
         android:id="@+id/usedKeyword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{(v)->viewHolder.click(v)}"
+        android:onClick="@{()->viewHolder.returnDataToPreviousActivity()}"
         android:text="@{textItem}" />
 
 </layout>
