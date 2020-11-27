@@ -14,6 +14,7 @@ class MovieViewHolder(
 
     fun bind(movie: Movie) {
         binding.movie = movie
+        binding.executePendingBindings()
     }
 
 }
