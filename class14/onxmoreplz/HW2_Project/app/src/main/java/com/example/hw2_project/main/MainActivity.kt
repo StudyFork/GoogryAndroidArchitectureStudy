@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     private val mainAdapter = MainRecyclerViewAdapter()
 
-    private val movieRepositoryImp = MovieRepositoryImpl()
+    private val movieRepository = MovieRepositoryImpl()
 
     private lateinit var mainPresenter: MainPresenter
 
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = mainAdapter
 
-        mainPresenter = MainPresenter(this, movieRepositoryImp)
+        mainPresenter = MainPresenter(this, movieRepository)
         intentCheck()
     }
 
