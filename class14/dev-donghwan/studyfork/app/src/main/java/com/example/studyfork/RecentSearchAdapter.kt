@@ -6,7 +6,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyfork.databinding.ItemRecentSearchBinding
 
-class RecentSearchAdapter : RecyclerView.Adapter<RecentSearchAdapter.ViewHolder>() {
+class RecentSearchAdapter(
+    private val onClick: (String) -> Unit
+) : RecyclerView.Adapter<RecentSearchAdapter.ViewHolder>() {
     private val itemList: ArrayList<String> = ArrayList()
 
     fun setItems(items: List<String>) {
@@ -40,6 +42,9 @@ class RecentSearchAdapter : RecyclerView.Adapter<RecentSearchAdapter.ViewHolder>
     ) {
         fun onBind(item: String) {
             binding.tvTitle.text = item
+            binding.root.setOnClickListener{
+                onClick
+            }
         }
     }
 }

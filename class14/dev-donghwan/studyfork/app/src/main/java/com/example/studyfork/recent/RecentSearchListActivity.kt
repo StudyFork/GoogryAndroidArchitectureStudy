@@ -1,5 +1,6 @@
 package com.example.studyfork.recent
 
+import android.content.Intent
 import android.os.Bundle
 import com.example.studyfork.R
 import com.example.studyfork.RecentSearchAdapter
@@ -8,20 +9,27 @@ import com.example.studyfork.data.local.LocalDataSourceImpl
 import com.example.studyfork.data.remote.RemoteDataSourceImpl
 import com.example.studyfork.data.repository.RepositoryImpl
 import com.example.studyfork.databinding.ActivityRecentSearchListBinding
-import kotlin.concurrent.thread
+import com.example.studyfork.main.MainActivity.Companion.SEARCH_ITEM
 
 class RecentSearchListActivity :
     BaseActivity<ActivityRecentSearchListBinding>(R.layout.activity_recent_search_list),
     RecentSearchListContract.View {
 
-    private val presenter:RecentSearchListContract.Presenter by lazy {
+    private val presenter: RecentSearchListContract.Presenter by lazy {
         RecentSearchListPresenter(
             this,
             RepositoryImpl(RemoteDataSourceImpl(), LocalDataSourceImpl(applicationContext))
         )
     }
 
-    private val adapter = RecentSearchAdapter()
+    private val adapter = RecentSearchAdapter(
+        onClick = { s ->
+            Intent().putExtra(SEARCH_ITEM, s).apply {
+                setResult(RESULT_OK, this )
+            }
+            finish()
+        }
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
