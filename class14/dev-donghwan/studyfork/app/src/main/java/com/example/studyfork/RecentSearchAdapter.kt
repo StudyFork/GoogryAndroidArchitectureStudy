@@ -43,7 +43,7 @@ class RecentSearchAdapter(
         fun onBind(item: String) {
             binding.tvTitle.text = item
             binding.root.setOnClickListener{
-                onClick
+                onClick(item)
             }
         }
     }

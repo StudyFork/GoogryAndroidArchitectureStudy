@@ -11,7 +11,7 @@ class LocalDataSourceImpl(context: Context) : LocalDataSource {
 
     override fun putRecentSearchList(item: String) {
         val items = ArrayList(getRecentSearchList())
-        if (items.size > 5) {
+        if (items.size >= 5) {
             items.removeAt(0)
         }
         items.add(item)
