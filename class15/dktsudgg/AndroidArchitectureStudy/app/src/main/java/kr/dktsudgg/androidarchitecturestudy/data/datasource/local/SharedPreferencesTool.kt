@@ -11,20 +11,20 @@ object SharedPreferencesTool {
         appCtx = applicationContext
     }
 
-    fun putData(prefFileKeyResId: Int, putKey: Int, data: String) {
+    fun putData(prefFileKey: String, putKey: String, data: String) {
         appCtx.getSharedPreferences(
-            appCtx.getString(prefFileKeyResId),
+            prefFileKey,
             Context.MODE_PRIVATE
         ).edit().putString(
-            appCtx.getString(putKey), data
+            putKey, data
         ).commit()
     }
 
-    fun getData(prefFileKeyResId: Int, getKey: Int): String {
+    fun getData(prefFileKey: String, getKey: String): String {
         return appCtx.getSharedPreferences(
-            appCtx.getString(prefFileKeyResId),
+            prefFileKey,
             Context.MODE_PRIVATE
-        ).getString(appCtx.getString(getKey), null)
+        ).getString(getKey, null)
             ?: ""
     }
 
