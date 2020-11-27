@@ -11,11 +11,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.example.googryandroidarchitecturestudy.R
-import com.example.googryandroidarchitecturestudy.data.local.MovieLocalDataSourceImpl
-import com.example.googryandroidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
-import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
-import com.example.googryandroidarchitecturestudy.data.repository.MovieRepositoryImpl
-import com.example.googryandroidarchitecturestudy.database.MovieDatabase
 import com.example.googryandroidarchitecturestudy.domain.UrlResource
 import com.example.googryandroidarchitecturestudy.ui.contract.BaseContract
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
@@ -26,13 +21,6 @@ abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), Ba
     protected val binding get() = _binding!!
 
     var onProgress = View.INVISIBLE
-
-    protected val movieRepository: MovieRepository by lazy {
-        val movieRemoteDataSource = MovieRemoteDataSourceImpl()
-        val movieLocalDataSource =
-            MovieLocalDataSourceImpl(MovieDatabase.getInstance(requireContext()))
-        MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource)
-    }
 
     private val inputMethodManager by lazy(LazyThreadSafetyMode.NONE) {
         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
