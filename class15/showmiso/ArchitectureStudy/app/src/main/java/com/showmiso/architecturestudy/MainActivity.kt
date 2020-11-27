@@ -17,7 +17,6 @@ import com.showmiso.architecturestudy.data.repository.NaverRepositoryImpl
 import com.showmiso.architecturestudy.databinding.ActivityMainBinding
 import com.showmiso.architecturestudy.model.MovieContract
 import com.showmiso.architecturestudy.model.MoviePresenter
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
     private val adapter = MovieAdapter()
@@ -46,8 +45,8 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     }
 
     private fun initUi() {
-        rcv_result.adapter = adapter
-        et_search.setOnEditorActionListener { textView, actionId, _ ->
+        binding.rcvResult.adapter = adapter
+        binding.etSearch.setOnEditorActionListener { textView, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val text = textView.text.toString()
                 presenter.getMovies(text)
@@ -88,15 +87,15 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     override fun hideKeyboard() {
         val imm: InputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(et_search.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
     }
 
     override fun showProgress() {
-        progress_bar.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        progress_bar.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -106,7 +105,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
                 val result = data?.getStringExtra(Constants.INTENT_KEY_HISTORY)
                 result?.let {
                     presenter.getMovies(it)
-                    et_search.setText(it)
+                    binding.etSearch.setText(it)
                 }
             }
         }

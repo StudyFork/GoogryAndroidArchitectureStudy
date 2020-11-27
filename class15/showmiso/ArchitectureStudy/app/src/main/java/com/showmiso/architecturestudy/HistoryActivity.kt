@@ -3,7 +3,6 @@ package com.showmiso.architecturestudy
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -13,7 +12,6 @@ import com.showmiso.architecturestudy.data.repository.NaverRepositoryImpl
 import com.showmiso.architecturestudy.databinding.ActivityHistoryBinding
 import com.showmiso.architecturestudy.model.HistoryContact
 import com.showmiso.architecturestudy.model.HistoryPresenter
-import kotlinx.android.synthetic.main.activity_history.*
 
 class HistoryActivity : AppCompatActivity(), HistoryContact.View,
     HistoryAdapter.OnHistoryClickListener {
@@ -43,7 +41,7 @@ class HistoryActivity : AppCompatActivity(), HistoryContact.View,
 
     private fun initUi() {
         adapter.setHistoryList(presenter.getHistory())
-        rcv_history.adapter = adapter
+        binding.rcvHistory.adapter = adapter
     }
 
     override fun onItemClick(text: String) {
