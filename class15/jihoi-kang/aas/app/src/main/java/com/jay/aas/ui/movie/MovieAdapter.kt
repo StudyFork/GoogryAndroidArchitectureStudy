@@ -1,8 +1,10 @@
-package com.jay.aas.ui
+package com.jay.aas.ui.movie
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.jay.aas.R
 import com.jay.aas.databinding.ItemMovieBinding
 import com.jay.aas.model.Movie
 
@@ -20,7 +22,12 @@ class MovieAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding =
-            ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            DataBindingUtil.inflate<ItemMovieBinding>(
+                LayoutInflater.from(parent.context),
+                R.layout.item_movie,
+                parent,
+                false
+            )
         return MovieViewHolder(binding, onItemClick)
     }
 

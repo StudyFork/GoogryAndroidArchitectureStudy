@@ -1,11 +1,9 @@
-package com.jay.aas.ui
+package com.jay.aas.ui.movie
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -20,10 +18,12 @@ import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivityMovieBinding
 import com.jay.aas.model.Movie
 import com.jay.aas.room.AppDatabase
+import com.jay.aas.ui.history.SearchHistoryActivity
 import com.jay.aas.util.toast
 import kotlinx.coroutines.launch
 
-class MovieActivity : BaseActivity<ActivityMovieBinding, MovieContract.Presenter>(),
+class MovieActivity :
+    BaseActivity<ActivityMovieBinding, MovieContract.Presenter>(R.layout.activity_movie),
     MovieContract.View {
 
     private val TAG = this::class.java.simpleName
@@ -38,15 +38,16 @@ class MovieActivity : BaseActivity<ActivityMovieBinding, MovieContract.Presenter
     }
     private val movieRepository: MovieRepository by lazy {
         val remoteDataSource = MovieRemoteDataSourceImpl(RetrofitHelper.movieService)
-        val localDataSource = MovieLocalDataSourceImpl(AppDatabase.getInstance(this).movieDao())
+        val appDatabase = AppDatabase.getInstance(this)
+        val localDataSource = MovieLocalDataSourceImpl(
+            appDatabase.movieDao(),
+            appDatabase.searchHistoryDao()
+        )
         MovieRepositoryImpl(remoteDataSource, localDataSource)
     }
     override val presenter: MovieContract.Presenter by lazy {
         MoviePresenter(this, movieRepository)
     }
-
-    override fun inflateViewBinding(inflater: LayoutInflater): ActivityMovieBinding =
-        ActivityMovieBinding.inflate(inflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,24 +58,30 @@ class MovieActivity : BaseActivity<ActivityMovieBinding, MovieContract.Presenter
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQ_CODE_SEARCH_HISTORY && resultCode == RESULT_OK) {
+            data?.getStringExtra(SearchHistoryActivity.EXTRA_QUERY_TEXT)?.let { query ->
+                searchMovies(query)
+            }
+        }
+    }
+
     private fun setupUi() {
+        binding.activity = this
         progressBar = binding.pbLoading
         binding.rvMovie.adapter = movieAdapter
+    }
 
-        binding.evSearch.setOnEditorActionListener { v, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                lifecycleScope.launch {
-                    presenter.searchMovies(v.text.toString())
-                }
-                return@setOnEditorActionListener true
-            }
-            return@setOnEditorActionListener false
+    fun searchMovies(query: String) {
+        lifecycleScope.launch {
+            presenter.searchMovies(query)
         }
-        binding.ivSearch.setOnClickListener {
-            lifecycleScope.launch {
-                presenter.searchMovies(binding.evSearch.text.toString())
-            }
-        }
+    }
+
+    fun searchHistories() {
+        startActivityForResult(SearchHistoryActivity.getIntent(this), REQ_CODE_SEARCH_HISTORY)
     }
 
     override fun hideKeyboard() {
@@ -98,6 +105,12 @@ class MovieActivity : BaseActivity<ActivityMovieBinding, MovieContract.Presenter
 
     override fun openMovieDetail(link: String) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
+    }
+
+    companion object {
+
+        private const val REQ_CODE_SEARCH_HISTORY = 1001
+
     }
 
 }
