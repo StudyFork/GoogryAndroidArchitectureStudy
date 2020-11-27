@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import org.json.JSONArray
 
 class SharedPreferenceUtil( context : Context) {
-    private val preference : SharedPreferences = context.getSharedPreferences("prefs", 0)
+    private val preference : SharedPreferences = context.getSharedPreferences("recentSearchedMovie", 0) //"prefs"
 
     fun saveQuery(query : String) {
         val queryList = getSavedQueryList().toMutableList()
