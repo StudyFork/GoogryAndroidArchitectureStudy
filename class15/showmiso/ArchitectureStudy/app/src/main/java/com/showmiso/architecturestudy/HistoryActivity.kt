@@ -50,17 +50,21 @@ class HistoryActivity : AppCompatActivity(), HistoryContact.View,
     }
 
     override fun showNoHistory() {
+        binding.tvNoHistory.visibility = View.VISIBLE
         binding.rcvHistory.visibility = View.GONE
         Toast.makeText(this, getString(R.string.label_no_history), Toast.LENGTH_SHORT).show()
     }
 
     override fun updateHistoryList(list: List<String>?) {
         binding.tvNoHistory.visibility = View.GONE
+        binding.rcvHistory.visibility = View.VISIBLE
         adapter.setHistoryList(list)
     }
 
     override fun showRemoveAllHistory() {
         adapter.clearHistoryList()
+        binding.tvNoHistory.visibility = View.VISIBLE
+        binding.rcvHistory.visibility = View.GONE
         Toast.makeText(this, getString(R.string.msg_delete_all), Toast.LENGTH_SHORT).show()
     }
 

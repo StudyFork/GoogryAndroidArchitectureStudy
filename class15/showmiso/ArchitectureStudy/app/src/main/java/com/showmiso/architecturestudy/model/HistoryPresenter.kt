@@ -20,6 +20,12 @@ class HistoryPresenter(
 
     override fun removeHistory(query: String) {
         naverRepository.removeHistory(query)
+        val list = naverRepository.getHistory()
+        list?.let {
+            if (it.isEmpty()) {
+                view.showNoHistory()
+            }
+        }
     }
 
     override fun removeAllHistory() {
