@@ -44,6 +44,7 @@ class MovieSearchHistoryListAdapter :
         fun bindData(item: String) {
             binding.textItem = item
             binding.viewHolder = this
+            binding.executePendingBindings()
         }
 
         fun returnDataToPreviousActivity() {

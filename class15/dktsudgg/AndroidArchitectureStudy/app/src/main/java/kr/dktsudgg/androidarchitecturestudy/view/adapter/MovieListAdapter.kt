@@ -76,7 +76,7 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.ViewHolder>() {
 
             binding.movieItem = movieItem
             binding.viewHolder = this
-
+            binding.executePendingBindings()
         }
 
         fun click(clickedView: View) {
