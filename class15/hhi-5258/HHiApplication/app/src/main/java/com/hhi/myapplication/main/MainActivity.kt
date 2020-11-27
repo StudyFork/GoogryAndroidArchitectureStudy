@@ -1,11 +1,11 @@
 package com.hhi.myapplication.main
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import com.hhi.myapplication.R
 import com.hhi.myapplication.base.BaseActivity
 import com.hhi.myapplication.data.model.MovieData
@@ -14,8 +14,10 @@ import com.hhi.myapplication.databinding.ActivityMainBinding
 import com.hhi.myapplication.recentSearch.RecentSearchActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
+class MainActivity :
+    BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
     MainContract.View {
+    private val RC_ACTIVITY_FOR_RESULT: Int = 100
     private val recyclerAdapter =
         MainRecyclerAdapter()
     private val mainPresenter = MainPresenter(
@@ -33,10 +35,6 @@ class MainActivity : BaseActivity<MainContract.Presenter, ActivityMainBinding>(R
     private fun setUpUi() {
         main_recyclerview.setHasFixedSize(false)
         main_recyclerview.adapter = recyclerAdapter
-
-        if (intent.hasExtra("query")) {
-            mainPresenter.searchMovie(intent.getStringExtra("query"))
-        }
     }
 
     private fun setUpListener() {
@@ -46,7 +44,7 @@ class MainActivity : BaseActivity<MainContract.Presenter, ActivityMainBinding>(R
         }
         main_btn_recent_search.setOnClickListener {
             val intent = Intent(this, RecentSearchActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, RC_ACTIVITY_FOR_RESULT)
         }
     }
 
@@ -70,5 +68,14 @@ class MainActivity : BaseActivity<MainContract.Presenter, ActivityMainBinding>(R
         val inputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                RC_ACTIVITY_FOR_RESULT -> mainPresenter.searchMovie(data!!.getStringExtra("query"))
+            }
+        }
     }
 }

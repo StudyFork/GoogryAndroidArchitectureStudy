@@ -1,15 +1,13 @@
 package com.hhi.myapplication.recentSearch
 
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hhi.myapplication.databinding.RecentSearchRecyclerItemBinding
-import com.hhi.myapplication.main.MainActivity
-import kotlinx.android.synthetic.main.recent_search_recycler_item.view.*
 
-class RecentSearchRecyclerAdapter : RecyclerView.Adapter<RecentSearchRecyclerAdapter.ViewHolder>() {
+class RecentSearchRecyclerAdapter(
+    private val onClick: (String) -> Unit
+) : RecyclerView.Adapter<RecentSearchRecyclerAdapter.ViewHolder>() {
     private val queryList = mutableListOf<String>()
 
     fun setQueryList(list: List<String>) {
@@ -38,20 +36,16 @@ class RecentSearchRecyclerAdapter : RecyclerView.Adapter<RecentSearchRecyclerAda
 
     override fun onBindViewHolder(holder: RecentSearchRecyclerAdapter.ViewHolder, position: Int) {
         val query = queryList[position]
-        val listener = View.OnClickListener {
-            val intent = Intent(it.context, MainActivity::class.java)
-            intent.putExtra("query", query)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            it.context.startActivity(intent)
-        }
-        holder.bind(listener, query)
+        holder.bind(query)
     }
 
-    class ViewHolder(private val binding: RecentSearchRecyclerItemBinding) :
+    inner class ViewHolder(
+        private val binding: RecentSearchRecyclerItemBinding
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(listener: View.OnClickListener, query: String) {
+        fun bind(query: String) {
             binding.recentItemTextTitle.text = query
-            binding.recentItemTextTitle.setOnClickListener(listener)
+            binding.root.setOnClickListener { onClick(query) }
         }
     }
 }

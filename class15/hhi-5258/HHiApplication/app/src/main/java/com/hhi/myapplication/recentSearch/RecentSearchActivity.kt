@@ -1,5 +1,7 @@
 package com.hhi.myapplication.recentSearch
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import com.hhi.myapplication.R
 import com.hhi.myapplication.base.BaseActivity
@@ -10,7 +12,15 @@ import kotlinx.android.synthetic.main.activity_recent_search.*
 class RecentSearchActivity :
     BaseActivity<RecentSearchContract.Presenter, ActivityRecentSearchBinding>(R.layout.activity_recent_search),
     RecentSearchContract.View {
-    private val recyclerAdapter = RecentSearchRecyclerAdapter()
+    private val recyclerAdapter = RecentSearchRecyclerAdapter(
+        onClick = { query ->
+            val intent = Intent()
+            intent.putExtra("query", query)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
+    )
+
     private val recentSearchPresenter = RecentSearchPresenter(
         this,
         NaverRepositoryDataSourceImpl()
