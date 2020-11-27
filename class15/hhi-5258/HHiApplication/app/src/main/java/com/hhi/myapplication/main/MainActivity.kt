@@ -14,9 +14,8 @@ import com.hhi.myapplication.databinding.ActivityMainBinding
 import com.hhi.myapplication.recentSearch.RecentSearchActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<MainContract.Presenter>(),
+class MainActivity : BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
     MainContract.View {
-    private lateinit var binding: ActivityMainBinding
     private val recyclerAdapter =
         MainRecyclerAdapter()
     private val mainPresenter = MainPresenter(
@@ -26,16 +25,12 @@ class MainActivity : BaseActivity<MainContract.Presenter>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_main
-        )
 
-        setUpUI()
+        setUpUi()
         setUpListener()
     }
 
-    private fun setUpUI() {
+    private fun setUpUi() {
         main_recyclerview.setHasFixedSize(false)
         main_recyclerview.adapter = recyclerAdapter
 
