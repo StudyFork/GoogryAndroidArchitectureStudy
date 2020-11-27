@@ -41,10 +41,10 @@ class HistoryAdapter(
             itemView.tv_index.text = (adapterPosition + 1).toString()
             itemView.tv_text.text = text
             itemView.setOnClickListener {
-                listener.onItemClick(text)
+                listener.onHistoryItemClick(text)
             }
             itemView.iv_delete.setOnClickListener {
-                listener.onDeleteItem(text)
+                listener.onHistoryItemClickToDelete(text)
                 historyList.remove(text)
                 notifyDataSetChanged()
             }
@@ -52,7 +52,7 @@ class HistoryAdapter(
     }
 
     interface OnHistoryClickListener {
-        fun onItemClick(text: String)
-        fun onDeleteItem(text: String)
+        fun onHistoryItemClick(text: String)
+        fun onHistoryItemClickToDelete(text: String)
     }
 }

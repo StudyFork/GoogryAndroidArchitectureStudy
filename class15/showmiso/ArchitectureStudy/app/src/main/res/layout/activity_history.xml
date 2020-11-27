@@ -17,7 +17,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HistoryActivity">
+        tools:context=".HistoryActivity"
+        android:background="@android:color/white">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_back"
@@ -42,11 +43,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_back" />
 
+        <TextView
+            android:id="@+id/tv_no_history"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="0dp"
+            android:layout_height="500dp"
+            android:gravity="center"
+            android:text="@string/label_no_history"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_back" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_history"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_item"
+            android:background="@android:color/white"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

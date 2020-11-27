@@ -3,6 +3,7 @@ package com.showmiso.architecturestudy
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -40,24 +41,37 @@ class HistoryActivity : AppCompatActivity(), HistoryContact.View,
     }
 
     private fun initUi() {
-        adapter.setHistoryList(presenter.getHistory())
         binding.rcvHistory.adapter = adapter
+        presenter.initSearchHistory()
     }
 
-    override fun onItemClick(text: String) {
+    fun removeAllHistory() {
+        presenter.removeAllHistory()
+    }
+
+    override fun showNoHistory() {
+        binding.rcvHistory.visibility = View.GONE
+        Toast.makeText(this, getString(R.string.label_no_history), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun updateHistoryList(list: List<String>?) {
+        binding.tvNoHistory.visibility = View.GONE
+        adapter.setHistoryList(list)
+    }
+
+    override fun showRemoveAllHistory() {
+        adapter.clearHistoryList()
+        Toast.makeText(this, getString(R.string.msg_delete_all), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onHistoryItemClick(text: String) {
         val intent = Intent()
         intent.putExtra(Constants.INTENT_KEY_HISTORY, text)
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
 
-    override fun onDeleteItem(text: String) {
+    override fun onHistoryItemClickToDelete(text: String) {
         presenter.removeHistory(text)
-    }
-
-    override fun removeAllHistory() {
-        presenter.removeAllHistory()
-        adapter.clearHistoryList()
-        Toast.makeText(this, getString(R.string.msg_delete_all), Toast.LENGTH_SHORT).show()
     }
 }

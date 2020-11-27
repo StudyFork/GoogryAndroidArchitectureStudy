@@ -7,8 +7,15 @@ class HistoryPresenter(
     private val naverRepository: NaverRepository
 ) : HistoryContact.Presenter {
 
-    override fun getHistory(): List<String>? {
-        return naverRepository.getHistory()
+    override fun initSearchHistory() {
+        val list = naverRepository.getHistory()
+        list?.let {
+            if (it.isEmpty()) {
+                view.showNoHistory()
+            } else {
+                view.updateHistoryList(list)
+            }
+        }
     }
 
     override fun removeHistory(query: String) {
@@ -17,5 +24,6 @@ class HistoryPresenter(
 
     override fun removeAllHistory() {
         naverRepository.removeAllHistory()
+        view.showRemoveAllHistory()
     }
 }
