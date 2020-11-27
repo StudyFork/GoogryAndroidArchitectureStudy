@@ -8,31 +8,31 @@ class LocalDataSourceImpl(context: Context) : LocalDataSource {
     private val prefs =
         context.getSharedPreferences(Constants.PREF_HISTORY_KEY, Context.MODE_PRIVATE)
 
-    private var data: String?
+    private var searchHistoryText: String?
         get() = prefs.getString(Constants.PREF_HISTORY_DATA, null)
         set(value) = prefs.edit().putString(Constants.PREF_HISTORY_DATA, value).apply()
 
     private val regex = ","
 
     override fun addHistory(query: String) {
-        val temp = data
+        val temp = searchHistoryText
         temp?.let {
             if (!it.contains(query)) {
-                data = it + regex + query
+                searchHistoryText = it + regex + query
             }
         }
     }
 
     override fun getHistory(): List<String>? {
-        val temp = data
+        val temp = searchHistoryText
         return temp?.split(regex)?.filter {
             it.isNotEmpty()
         }
     }
 
     override fun removeHistory(query: String) {
-        val temp = data
-        data = temp?.let {
+        val temp = searchHistoryText
+        searchHistoryText = temp?.let {
             var result = it
             if (it.contains(query)) {
                 result = it.replace(query, "")
@@ -42,6 +42,6 @@ class LocalDataSourceImpl(context: Context) : LocalDataSource {
     }
 
     override fun removeAllHistory() {
-        data = ""
+        searchHistoryText = ""
     }
 }
