@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.hhi.myapplication.R
+import com.hhi.myapplication.databinding.RecentSearchRecyclerItemBinding
 import com.hhi.myapplication.main.MainActivity
 import kotlinx.android.synthetic.main.recent_search_recycler_item.view.*
 
@@ -13,7 +13,7 @@ class RecentSearchRecyclerAdapter : RecyclerView.Adapter<RecentSearchRecyclerAda
     private val queryList = mutableListOf<String>()
 
     fun setQueryList(list: List<String>) {
-        with(this.queryList){
+        with(this.queryList) {
             clear()
             addAll(list.asReversed())
         }
@@ -24,9 +24,12 @@ class RecentSearchRecyclerAdapter : RecyclerView.Adapter<RecentSearchRecyclerAda
         parent: ViewGroup,
         viewType: Int
     ): RecentSearchRecyclerAdapter.ViewHolder {
-        val v = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recent_search_recycler_item, parent, false)
-        return ViewHolder(v)
+        val binding = RecentSearchRecyclerItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -44,10 +47,11 @@ class RecentSearchRecyclerAdapter : RecyclerView.Adapter<RecentSearchRecyclerAda
         holder.bind(listener, query)
     }
 
-    class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
+    class ViewHolder(private val binding: RecentSearchRecyclerItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(listener: View.OnClickListener, query: String) {
-            itemView.recent_item_text_title.text = query
-            itemView.recent_item_text_title.setOnClickListener(listener)
+            binding.recentItemTextTitle.text = query
+            binding.recentItemTextTitle.setOnClickListener(listener)
         }
     }
 }

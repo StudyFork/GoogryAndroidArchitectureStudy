@@ -1,12 +1,12 @@
 package com.hhi.myapplication.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hhi.myapplication.R
 import com.hhi.myapplication.data.model.MovieData
+import com.hhi.myapplication.databinding.MainRecyclerItemBinding
 import kotlinx.android.synthetic.main.main_recycler_item.view.*
 
 class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>() {
@@ -19,9 +19,9 @@ class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v =
-            LayoutInflater.from(parent.context).inflate(R.layout.main_recycler_item, parent, false)
-        return ViewHolder(v)
+        val binding =
+            MainRecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -32,17 +32,18 @@ class MainRecyclerAdapter : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>
         holder.bind(movieList[position])
     }
 
-    class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
+    class ViewHolder(private val binding: MainRecyclerItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: MovieData.MovieItem) {
             Glide
-                .with(itemView.context).load(data.image)
+                .with(binding.root).load(data.image)
                 .error(R.drawable.ic_launcher_foreground)
-                .into(itemView.item_img_image)
+                .into(binding.itemImgImage)
 
-            itemView.item_text_director.text =
+            binding.itemTextDirector.text =
                 if (data.director.isEmpty()) "" else "감독 : " + data.director
-            itemView.item_text_actors.text = if (data.actor.isEmpty()) "" else "출연 : " + data.actor
-            itemView.item_text_title.text = data.title.replace("<b>", "").replace("</b>", "")
+            binding.itemTextActors.text = if (data.actor.isEmpty()) "" else "출연 : " + data.actor
+            binding.itemTextTitle.text = data.title.replace("<b>", "").replace("</b>", "")
         }
     }
 }
