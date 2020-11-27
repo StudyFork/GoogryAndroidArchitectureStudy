@@ -13,11 +13,12 @@ class RecentSearchListActivity :
     BaseActivity<ActivityRecentSearchListBinding>(R.layout.activity_recent_search_list),
     RecentSearchListContract.View {
 
-    private val presenter:RecentSearchListContract.Presenter =
+    private val presenter:RecentSearchListContract.Presenter by lazy {
         RecentSearchListPresenter(
             this,
             RepositoryImpl(RemoteDataSourceImpl(), LocalDataSourceImpl(applicationContext))
         )
+    }
 
     private val adapter = RecentSearchAdapter()
 

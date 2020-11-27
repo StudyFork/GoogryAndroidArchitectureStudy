@@ -40,6 +40,7 @@
                 android:id="@+id/btn_recent_search_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{ () -> activity.showRecentSearchListActivity()}"
                 android:text="최근검색기록" />
 
         </LinearLayout>

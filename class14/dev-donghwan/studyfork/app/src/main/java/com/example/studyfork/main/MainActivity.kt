@@ -16,10 +16,10 @@ class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main),
     MainContract.View {
 
-    private val presenter: MainContract.Presenter = MainPresenter(
+    private val presenter: MainContract.Presenter by lazy { MainPresenter(
         this,
-        RepositoryImpl(RemoteDataSourceImpl(), LocalDataSourceImpl(applicationContext))
-    )
+        RepositoryImpl(RemoteDataSourceImpl(), LocalDataSourceImpl(this.applicationContext))
+    ) }
 
     private val requestCode = 100
 
@@ -57,7 +57,7 @@ class MainActivity :
 
     override fun showRecentSearchListActivity() {
         Intent(this, RecentSearchListActivity::class.java).apply {
-            startActivityForResult(intent, requestCode)
+            startActivityForResult(this, requestCode)
         }
     }
 
