@@ -4,10 +4,10 @@ import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 import kr.dktsudgg.androidarchitecturestudy.data.model.NaverMovieResponse
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepository
 
-class MoviePresenter(
+class MovieSearchPresenter(
     private val naverMovieRepository: NaverMovieRepository,
-    private val view: MovieContract.View
-) : BasePresenter(), MovieContract.Presenter {
+    private val view: MovieSearchContract.View
+) : BasePresenter(), MovieSearchContract.Presenter {
 
     override fun searchMovies(query: String) {
         if (isEmptyData(query)) {
@@ -27,4 +27,5 @@ class MoviePresenter(
             view.showToast("검색에 실패하였습니다.")
         })
     }
+
 }
