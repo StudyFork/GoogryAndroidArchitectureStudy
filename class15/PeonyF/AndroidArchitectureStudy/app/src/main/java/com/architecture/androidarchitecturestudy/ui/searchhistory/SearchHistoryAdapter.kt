@@ -20,22 +20,22 @@ class SearchHistoryAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchHistoryViewHolder {
-        val binding =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        SearchHistoryViewHolder(
             DataBindingUtil.inflate<SearchHistoryItemBinding>(
                 LayoutInflater.from(parent.context),
                 R.layout.search_history_item,
                 parent,
                 false
             )
-        return SearchHistoryViewHolder(binding)
-    }
+        ).apply {
+            itemView.setOnClickListener {
+                onItemClick(searchHistory[adapterPosition].searchHistoryKeyword)
+            }
+        }
 
     override fun onBindViewHolder(holder: SearchHistoryViewHolder, position: Int) {
         holder.onBind(searchHistory[position])
-        holder.itemView.setOnClickListener {
-            this.searchHistory[position].searchHistoryKeyword.let(onItemClick)
-        }
     }
 
     override fun getItemCount(): Int = searchHistory.size
