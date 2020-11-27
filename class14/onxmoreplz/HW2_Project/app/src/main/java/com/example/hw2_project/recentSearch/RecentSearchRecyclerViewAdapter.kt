@@ -15,9 +15,9 @@ class RecentSearchRecyclerViewAdapter : RecyclerView.Adapter<RecentSearchRecycle
     private val queryList = mutableListOf<String>()
 
     fun updateMovieList(list : List<String>?){
-        list?.let {
-            this.queryList.clear()
-            this.queryList.addAll(it)
+        list?.run {
+            queryList.clear()
+            queryList.addAll(this)
             notifyDataSetChanged()
         }
     }
