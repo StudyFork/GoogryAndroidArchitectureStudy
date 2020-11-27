@@ -20,9 +20,9 @@ class MovieLocalDataSourceImpl : MovieLocalDataSource {
     }
 
     private fun saveSearchHistoryList(keyword: List<SearchHistoryEntity>) {
-        App.prefs.saveSearchHistory(keyword)
+        SharedPreferenceUtil(App.context).saveSearchHistory(keyword)
     }
 
     override fun getSearchHistoryList(): List<SearchHistoryEntity> =
-        App.prefs.getSearchHistoryList()
+        SharedPreferenceUtil(App.context).getSearchHistoryList()
 }

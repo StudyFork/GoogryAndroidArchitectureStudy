@@ -1,15 +1,15 @@
 package com.architecture.androidarchitecturestudy.util
 
 import android.app.Application
-import com.architecture.androidarchitecturestudy.data.local.SharedPreferenceUtil
+import android.content.Context
 
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        prefs = SharedPreferenceUtil(applicationContext)
+        context = applicationContext
     }
 
     companion object {
-        lateinit var prefs: SharedPreferenceUtil
+        lateinit var context: Context
     }
 }
