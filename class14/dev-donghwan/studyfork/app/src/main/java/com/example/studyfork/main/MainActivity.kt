@@ -1,13 +1,16 @@
 package com.example.studyfork.main
 
+import android.content.Intent
 import android.os.Bundle
 import com.example.studyfork.MovieRecyclerAdapter
 import com.example.studyfork.R
 import com.example.studyfork.base.BaseActivity
+import com.example.studyfork.data.local.LocalDataSourceImpl
 import com.example.studyfork.data.model.MovieSearchResponse
 import com.example.studyfork.data.remote.RemoteDataSourceImpl
 import com.example.studyfork.data.repository.RepositoryImpl
 import com.example.studyfork.databinding.ActivityMainBinding
+import com.example.studyfork.recent.RecentSearchListActivity
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main),
@@ -15,8 +18,10 @@ class MainActivity :
 
     private val presenter: MainContract.Presenter = MainPresenter(
         this,
-        RepositoryImpl(RemoteDataSourceImpl())
+        RepositoryImpl(RemoteDataSourceImpl(), LocalDataSourceImpl(applicationContext))
     )
+
+    private val requestCode = 100
 
     private val recyclerAdapter = MovieRecyclerAdapter()
 
@@ -27,7 +32,7 @@ class MainActivity :
         binding.recMovie.adapter = recyclerAdapter
     }
 
-    fun searchMovie() {
+    override fun searchMovie() {
         binding.edtQuery.text.toString().run {
             presenter.requestMovieList(this)
         }
@@ -50,8 +55,26 @@ class MainActivity :
         showToast("데이터를 불러오는 중에 문가 발생했습니다.")
     }
 
+    override fun showRecentSearchListActivity() {
+        Intent(this, RecentSearchListActivity::class.java).apply {
+            startActivityForResult(intent, requestCode)
+        }
+    }
+
     override fun showMovieList(list: List<MovieSearchResponse.MovieItem>) {
         recyclerAdapter.itemChange(list)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == this.requestCode) {
+            data?.run {
+                presenter.requestMovieList(this.getStringExtra(SEARCH_ITEM) ?: "")
+            }
+        }
+    }
+
+    companion object {
+        const val SEARCH_ITEM = "SEARCH_ITEM"
+    }
 }
