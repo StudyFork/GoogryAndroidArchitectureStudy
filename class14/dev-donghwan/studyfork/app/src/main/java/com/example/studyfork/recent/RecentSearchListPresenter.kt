@@ -9,6 +9,11 @@ class RecentSearchListPresenter(
     RecentSearchListContract.Presenter {
 
     override fun getRecentSearchList() {
-        view.showRecentSearchList(repository.getRecentSearchList())
+        val result = repository.getRecentSearchList()
+        if (result.isEmpty()) {
+            view.showListIsEmpty()
+        } else {
+            view.showRecentSearchList(result)
+        }
     }
 }
