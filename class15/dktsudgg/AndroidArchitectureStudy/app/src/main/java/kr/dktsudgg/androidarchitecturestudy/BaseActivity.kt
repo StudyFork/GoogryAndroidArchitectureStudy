@@ -29,10 +29,11 @@ abstract class BaseActivity<P : BasePresenter, B : ViewDataBinding>(@LayoutRes v
      * 액티비티 종료 시, 이전 액티비티에 데이터 전달을 하기 위한 메소드
      */
     fun doActivityResult(returnKey: String?, returnData: String?) {
-        if (returnKey != null && returnData != null)
+        if (returnKey != null && returnData != null) {
             setResult(RESULT_OK, Intent().putExtra(returnKey, returnData))
-        else
+        } else {
             setResult(RESULT_OK)
+        }
 
         finish()
     }
