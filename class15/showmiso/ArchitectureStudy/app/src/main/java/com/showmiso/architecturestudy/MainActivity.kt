@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
             naverRepository = run {
                 NaverRepositoryImpl(
                     RemoteDataSourceImpl(),
-                    LocalDataSourceImpl(this@MainActivity)
+                    LocalDataSourceImpl()
                 )
             }
         )
