@@ -33,8 +33,10 @@ class MovieSearchHistoryListAdapter :
      * 아이탬 목록을 갱신하는 메소드
      */
     fun refreshData(txtList: List<String>) {
-        textList.clear()
-        textList.addAll(txtList)
+        textList.run {
+            clear()
+            addAll(txtList)
+        }
         notifyDataSetChanged()
     }
 
