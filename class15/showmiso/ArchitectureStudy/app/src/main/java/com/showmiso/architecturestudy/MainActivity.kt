@@ -1,6 +1,7 @@
 package com.showmiso.architecturestudy
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -24,9 +25,12 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
         MoviePresenter(
             view = this,
             naverRepository = run {
+                val prefs = getSharedPreferences(Constants.PREF_HISTORY_KEY, Context.MODE_PRIVATE)
+                val localDataSourceImpl = LocalDataSourceImpl(prefs)
+                val remoteDataSourceImpl = RemoteDataSourceImpl()
                 NaverRepositoryImpl(
-                    RemoteDataSourceImpl(),
-                    LocalDataSourceImpl()
+                    remoteDataSource = remoteDataSourceImpl,
+                    localDataSource = localDataSourceImpl
                 )
             }
         )

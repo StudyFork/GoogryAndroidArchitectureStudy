@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import com.showmiso.architecturestudy.Constants
 
 class LocalDataSourceImpl(
-    private val prefs: SharedPreferences? = null
+    private val prefs: SharedPreferences?
 ) : LocalDataSource {
 
     private var searchHistoryText: String?
@@ -16,8 +16,7 @@ class LocalDataSourceImpl(
     private val regex = ","
 
     override fun addHistory(query: String) {
-        val temp = searchHistoryText
-        temp?.let {
+        searchHistoryText?.let {
             if (!it.contains(query)) {
                 searchHistoryText = it + regex + query
             }
@@ -25,15 +24,13 @@ class LocalDataSourceImpl(
     }
 
     override fun getHistory(): List<String>? {
-        val temp = searchHistoryText
-        return temp?.split(regex)?.filter {
+        return searchHistoryText?.split(regex)?.filter {
             it.isNotEmpty()
         }
     }
 
     override fun removeHistory(query: String) {
-        val temp = searchHistoryText
-        searchHistoryText = temp?.let {
+        searchHistoryText = searchHistoryText?.let {
             var result = it
             if (it.contains(query)) {
                 result = it.replace(query, "")
