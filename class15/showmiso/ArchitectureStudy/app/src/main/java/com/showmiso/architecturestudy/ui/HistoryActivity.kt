@@ -1,4 +1,4 @@
-package com.showmiso.architecturestudy
+package com.showmiso.architecturestudy.ui
 
 import android.app.Activity
 import android.content.Context
@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.showmiso.architecturestudy.Constants
+import com.showmiso.architecturestudy.R
 import com.showmiso.architecturestudy.data.local.LocalDataSourceImpl
 import com.showmiso.architecturestudy.data.remote.RemoteDataSourceImpl
 import com.showmiso.architecturestudy.data.repository.NaverRepositoryImpl

@@ -1,4 +1,4 @@
-package com.showmiso.architecturestudy
+package com.showmiso.architecturestudy.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -46,7 +46,7 @@ class HistoryAdapter(
                 historyList.remove(text)
                 notifyDataSetChanged()
             }
-            // TODO : 전체 클릭시 onHistoryItemClick 호출 
+            // TODO : 전체 클릭시 onHistoryItemClick 호출
         }
     }
 

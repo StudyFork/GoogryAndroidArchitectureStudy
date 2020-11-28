@@ -1,4 +1,4 @@
-package com.showmiso.architecturestudy
+package com.showmiso.architecturestudy.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

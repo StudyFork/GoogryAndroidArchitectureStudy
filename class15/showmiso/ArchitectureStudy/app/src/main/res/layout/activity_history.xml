@@ -11,13 +11,13 @@
 
         <variable
             name="activity"
-            type="com.showmiso.architecturestudy.HistoryActivity" />
+            type="com.showmiso.architecturestudy.ui.HistoryActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HistoryActivity"
+        tools:context=".ui.HistoryActivity"
         android:background="@android:color/white">
 
         <androidx.appcompat.widget.AppCompatImageView

@@ -1,4 +1,4 @@
-package com.showmiso.architecturestudy
+package com.showmiso.architecturestudy.ui
 
 import android.app.Activity
 import android.content.Context
@@ -11,6 +11,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.showmiso.architecturestudy.Constants
+import com.showmiso.architecturestudy.R
 import com.showmiso.architecturestudy.api.MovieModel
 import com.showmiso.architecturestudy.data.local.LocalDataSourceImpl
 import com.showmiso.architecturestudy.data.remote.RemoteDataSourceImpl
