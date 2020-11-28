@@ -10,15 +10,11 @@
         <variable
             name="position"
             type="Integer" />
-        <variable
-            name="listener"
-            type="com.showmiso.architecturestudy.HistoryAdapter.OnHistoryClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="@{() -> listener.onHistoryItemClick(tvText.text)}">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_index"

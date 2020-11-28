@@ -46,6 +46,7 @@ class HistoryAdapter(
                 historyList.remove(text)
                 notifyDataSetChanged()
             }
+            // TODO : 전체 클릭시 onHistoryItemClick 호출 
         }
     }
 
