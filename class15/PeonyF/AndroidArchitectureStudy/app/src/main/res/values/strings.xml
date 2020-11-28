@@ -5,4 +5,8 @@
     <string name="directors">감독|</string>
     <string name="pubDate">2020</string>
     <string name="movieTitle">영화제목</string>
+    <string name="movieLink">movieLink</string>
+    <string name="noResult">No latest search results found</string>
+    <string name="search_history">Search History</string>
+    <string name="history">검색 기록</string>
 </resources>
