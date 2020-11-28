@@ -1,5 +1,6 @@
 package com.example.androidarchitecturestudy
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -24,7 +25,6 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     private val moviePresenter = MoviePresenter(this, MovieRepositoryImpl())
 
     private lateinit var binding:ActivityMainBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +75,11 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     //영화 검색
     fun searchMovie(view : View){
         moviePresenter.getMovieData(edit_main_search_movie.text.toString())
+    }
+
+
+    fun showRecentSearchList(view: View){
+        startActivityForResult(Intent(this,RecentSearchActivity::class.java),RECENT_SEARCH_REQUEST_CODE)
     }
 
 }

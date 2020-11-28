@@ -27,7 +27,7 @@
             android:imeOptions="actionSearch"
             bind:activity="@{thisActivity}"
             android:paddingStart="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_main_search_movie"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlSymmetry" />
@@ -38,8 +38,20 @@
             android:layout_height="0dp"
             android:onClick="@{thisActivity::searchMovie}"
             android:text="@string/main_btn_search"
+            app:layout_constraintEnd_toStartOf="@id/btn_main_recent_search_movie_list"
+            app:layout_constraintBottom_toBottomOf="@id/edit_main_search_movie"
+            app:layout_constraintStart_toEndOf="@id/edit_main_search_movie"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_main_recent_search_movie_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{thisActivity::showRecentSearchList}"
+            android:text="@string/main_btn_recent_search"
             app:layout_constraintBottom_toBottomOf="@id/edit_main_search_movie"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_main_search_movie"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView

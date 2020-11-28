@@ -4,4 +4,5 @@
     <string name="main_edit_hint">영화를 검색해주세요!</string>
     <string name="main_no_search_query">검색어를 입력하세요!</string>
     <string name="main_no_search_result">검색 결과가 없습니다!</string>
+    <string name="main_btn_recent_search">최근검색</string>
 </resources>
