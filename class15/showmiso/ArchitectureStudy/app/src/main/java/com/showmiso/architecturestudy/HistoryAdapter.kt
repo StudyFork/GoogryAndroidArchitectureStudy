@@ -1,10 +1,9 @@
 package com.showmiso.architecturestudy
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_history.view.*
+import com.showmiso.architecturestudy.databinding.ItemHistoryBinding
 
 class HistoryAdapter(
     private val listener: OnHistoryClickListener
@@ -12,8 +11,8 @@ class HistoryAdapter(
     private val historyList = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
-        return HistoryViewHolder(view)
+        val binding = ItemHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return HistoryViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
@@ -36,14 +35,13 @@ class HistoryAdapter(
         notifyDataSetChanged()
     }
 
-    inner class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class HistoryViewHolder(
+        private val binding: ItemHistoryBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(text: String) {
-            itemView.tv_index.text = (adapterPosition + 1).toString()
-            itemView.tv_text.text = text
-            itemView.setOnClickListener {
-                listener.onHistoryItemClick(text)
-            }
-            itemView.iv_delete.setOnClickListener {
+            binding.item = text
+            binding.position = adapterPosition + 1
+            binding.ivDelete.setOnClickListener {
                 listener.onHistoryItemClickToDelete(text)
                 historyList.remove(text)
                 notifyDataSetChanged()
