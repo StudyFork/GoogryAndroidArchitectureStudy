@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity :
     BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
     MainContract.View {
-    private val RC_ACTIVITY_FOR_RESULT: Int = 100
     private val recyclerAdapter =
         MainRecyclerAdapter()
     private val mainPresenter = MainPresenter(
@@ -77,5 +76,9 @@ class MainActivity :
                 RC_ACTIVITY_FOR_RESULT -> mainPresenter.searchMovie(data!!.getStringExtra("query"))
             }
         }
+    }
+
+    companion object {
+        private const val RC_ACTIVITY_FOR_RESULT: Int = 100
     }
 }

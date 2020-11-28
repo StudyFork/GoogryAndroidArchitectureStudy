@@ -3,8 +3,6 @@ package com.hhi.myapplication.data.local
 import com.hhi.myapplication.App
 import org.json.JSONArray
 
-private const val PREF_QUERY_LIST: String = "pref_query_list"
-
 class NaverLocalDataSourceImpl : NaverLocalDataSource {
     override fun saveQuery(query: String) {
         val queryList = getQueryList().toMutableList()
@@ -29,5 +27,9 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
             }
         }
         return queryList
+    }
+
+    companion object {
+        private const val PREF_QUERY_LIST: String = "pref_query_list"
     }
 }

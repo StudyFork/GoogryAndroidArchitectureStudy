@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_recent_search.*
 class RecentSearchActivity :
     BaseActivity<RecentSearchContract.Presenter, ActivityRecentSearchBinding>(R.layout.activity_recent_search),
     RecentSearchContract.View {
-<<<<<<< HEAD
     private val recyclerAdapter = RecentSearchRecyclerAdapter(
         onClick = { query ->
             val intent = Intent()
@@ -22,9 +21,6 @@ class RecentSearchActivity :
         }
     )
 
-=======
-    private val recyclerAdapter = RecentSearchRecyclerAdapter()
->>>>>>> cb66eda56bd7bdeca386021dd2af7fcf23335b4f
     private val recentSearchPresenter = RecentSearchPresenter(
         this,
         NaverRepositoryDataSourceImpl()
