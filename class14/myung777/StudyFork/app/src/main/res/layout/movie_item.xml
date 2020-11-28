@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/movie_image_view"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/movie_title"
-        android:layout_width="wrap_content"
+        <variable
+            name="movie"
+            type="com.deepco.studyfork.data.model.Item" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/movie_image_view"
-        app:layout_constraintTop_toTopOf="@+id/movie_image_view" />
+        android:padding="8dp">
 
-    <TextView
-        android:id="@+id/movie_director"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/movie_image_view"
-        app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+        <ImageView
+            android:id="@+id/movie_image_view"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadUrl="@{movie.image}" />
 
-    <TextView
-        android:id="@+id/movie_pub_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@+id/movie_image_view"
-        app:layout_constraintTop_toBottomOf="@+id/movie_director" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/movie_image_view"
+            app:layout_constraintTop_toTopOf="@+id/movie_image_view"
+            app:titleFormat="@{movie.title}" />
+
+        <TextView
+            android:id="@+id/movie_director"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:directorFormat="@{movie.director}"
+            app:layout_constraintStart_toEndOf="@+id/movie_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+
+        <TextView
+            android:id="@+id/movie_pub_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{movie.pubDate}"
+            app:layout_constraintStart_toEndOf="@+id/movie_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/movie_director" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

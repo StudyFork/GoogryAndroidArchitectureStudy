@@ -9,5 +9,6 @@ interface MainContract {
 
     interface Presenter : BaseContract.Presenter {
         fun queryMovie(query: String)
+        fun setRecentSearch(query: String)
     }
 }

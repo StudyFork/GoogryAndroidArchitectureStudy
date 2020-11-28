@@ -7,9 +7,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RemoteMovieDataImpl(
-    private val api: RetrofitService
-) : RemoteMovieData {
+class RemoteMovieDataImpl : RemoteMovieData {
+    private var api: RetrofitService = RetrofitService.create()
     override fun getMovieList(
         title: String,
         success: (List<Item>) -> Unit,

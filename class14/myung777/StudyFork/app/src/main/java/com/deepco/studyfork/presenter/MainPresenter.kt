@@ -18,4 +18,12 @@ class MainPresenter(
             })
         }
     }
+
+    override fun setRecentSearch(query: String) {
+        if (query.isNotEmpty()) {
+            repositoryMovieDataImpl.saveQuery(query)
+        }
+    }
+
+
 }
