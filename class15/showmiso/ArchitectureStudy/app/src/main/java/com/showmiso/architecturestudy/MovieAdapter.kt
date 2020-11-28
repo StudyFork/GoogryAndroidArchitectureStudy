@@ -1,20 +1,17 @@
 package com.showmiso.architecturestudy
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.showmiso.architecturestudy.api.MovieModel
-import kotlinx.android.synthetic.main.item_movie.view.*
+import com.showmiso.architecturestudy.databinding.ItemMovieBinding
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private val movies = mutableListOf<MovieModel.Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(view)
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -32,29 +29,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         return movies.size
     }
 
-    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MovieViewHolder(
+        private val binding: ItemMovieBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: MovieModel.Movie) {
-            itemView.tv_title.text = getTitleString(movie.title)
-            itemView.tv_sub_title.text = movie.subtitle
-            itemView.tv_pub_date.text = movie.pubDate
-            itemView.tv_director.text = getDirectorString(movie.director)
-            Glide.with(itemView)
-                .load(movie.image)
-                .into(itemView.img_photo)
-        }
-
-        private fun getTitleString(title: String?): String? {
-            return title?.replace("<b>", "")?.replace("</b>", "")
-        }
-
-        private fun getDirectorString(director: String?): String? {
-            return director?.let {
-                if (it.isEmpty()) {
-                    ""
-                } else {
-                    it.substring(0, director.length - 1).replace("|", ", ")
-                }
-            }
+            binding.movie = movie
+            binding.executePendingBindings()
         }
     }
 
