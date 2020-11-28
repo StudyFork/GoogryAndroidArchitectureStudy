@@ -1,4 +1,4 @@
-package com.hhi.myapplication
+package com.hhi.myapplication.main
 
 import android.util.Log
 import com.hhi.myapplication.base.BasePresenter
@@ -13,6 +13,8 @@ class MainPresenter(
         if (query.isEmpty()) {
             view.showEmptyQuery()
         } else {
+            saveQuery(query)
+
             view.showProgressBar()
             repositoryDataSourceImpl.searchMovies(query,
                 success = {
@@ -25,5 +27,9 @@ class MainPresenter(
                 }
             )
         }
+    }
+
+    override fun saveQuery(query: String) {
+        repositoryDataSourceImpl.saveQuery(query)
     }
 }

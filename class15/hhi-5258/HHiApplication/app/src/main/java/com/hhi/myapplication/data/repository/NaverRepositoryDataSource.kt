@@ -8,4 +8,8 @@ interface NaverRepositoryDataSource {
         success: (MovieData.Response) -> Unit,
         failed: (Throwable) -> Unit
     )
+
+    fun saveQuery(query: String)
+
+    fun getQueryList(): List<String>
 }

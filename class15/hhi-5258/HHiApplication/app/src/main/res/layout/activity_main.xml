@@ -1,49 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <EditText
-        android:id="@+id/main_edit_search"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/main_btn_search"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <Button
-        android:id="@+id/main_btn_search"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="검색"
-        app:layout_constraintLeft_toRightOf="@id/main_edit_search"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_recyclerview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_edit_search" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        tools:context=".main.MainActivity">
 
-    <ProgressBar
-        android:id="@+id/main_progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/main_edit_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/main_btn_search"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/main_btn_search"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="검색"
+            app:layout_constraintLeft_toRightOf="@id/main_edit_search"
+            app:layout_constraintRight_toLeftOf="@id/main_btn_recent_search"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/main_btn_recent_search"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="최근 검색"
+            app:layout_constraintLeft_toRightOf="@id/main_btn_search"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_edit_search" />
+
+        <ProgressBar
+            android:id="@+id/main_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
