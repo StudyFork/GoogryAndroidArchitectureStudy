@@ -1,6 +1,8 @@
 package com.showmiso.architecturestudy
 
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,53 +10,66 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.showmiso.architecturestudy.api.MovieModel
+import com.showmiso.architecturestudy.data.local.LocalDataSourceImpl
 import com.showmiso.architecturestudy.data.remote.RemoteDataSourceImpl
 import com.showmiso.architecturestudy.data.repository.NaverRepositoryImpl
+import com.showmiso.architecturestudy.databinding.ActivityMainBinding
 import com.showmiso.architecturestudy.model.MovieContract
 import com.showmiso.architecturestudy.model.MoviePresenter
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
     private val adapter = MovieAdapter()
-    private val presenter = MoviePresenter(
-        view = this,
-        naverRepository = run {
-            NaverRepositoryImpl(
-                RemoteDataSourceImpl()
-            )
-        }
-    )
+    private val presenter by lazy {
+        MoviePresenter(
+            view = this,
+            naverRepository = run {
+                val prefs = getSharedPreferences(Constants.PREF_HISTORY_KEY, Context.MODE_PRIVATE)
+                val localDataSourceImpl = LocalDataSourceImpl(prefs)
+                val remoteDataSourceImpl = RemoteDataSourceImpl()
+                NaverRepositoryImpl(
+                    remoteDataSource = remoteDataSourceImpl,
+                    localDataSource = localDataSourceImpl
+                )
+            }
+        )
+    }
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.presenter = presenter
+        binding.activity = this
+
         initUi()
     }
 
     private fun initUi() {
-        rcv_result.adapter = adapter
-        btn_search.setOnClickListener {
-            val text = et_search.text.toString()
-            updateMovieList(text)
-        }
-        et_search.setOnEditorActionListener { textView, actionId, _ ->
+        binding.rcvResult.adapter = adapter
+        binding.etSearch.setOnEditorActionListener { textView, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val text = textView.text.toString()
-                updateMovieList(text)
+                presenter.getMovies(text)
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
         }
     }
 
+    fun onClickHistory(view: View) {
+        startActivityForResult(
+            Intent(this@MainActivity, HistoryActivity::class.java),
+            REQUEST_CODE_HISTORY
+        )
+    }
+
     override fun onDestroy() {
         presenter.clearObservable()
         super.onDestroy()
-    }
-
-    private fun updateMovieList(query: String) {
-        presenter.getMovies(query)
     }
 
     override fun showEmptyQuery() {
@@ -76,19 +91,32 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     override fun hideKeyboard() {
         val imm: InputMethodManager =
             getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(et_search.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
     }
 
     override fun showProgress() {
-        progress_bar.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgress() {
-        progress_bar.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_HISTORY) {
+            if (resultCode == Activity.RESULT_OK) {
+                val result = data?.getStringExtra(Constants.INTENT_KEY_HISTORY)
+                result?.let {
+                    presenter.getMovies(it)
+                    binding.etSearch.setText(it)
+                }
+            }
+        }
     }
 
     companion object {
         private val tag = MainActivity::class.java.simpleName
+        private const val REQUEST_CODE_HISTORY = 0x01
     }
-
 }

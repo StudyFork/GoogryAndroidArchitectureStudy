@@ -18,6 +18,7 @@ class MoviePresenter(
             return
         }
         view.showProgress()
+        naverRepository.addHistory(query)
         naverRepository.getMoviesList(query)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

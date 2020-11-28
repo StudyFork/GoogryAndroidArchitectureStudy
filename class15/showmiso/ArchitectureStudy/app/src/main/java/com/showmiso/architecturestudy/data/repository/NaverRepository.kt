@@ -4,8 +4,14 @@ import com.showmiso.architecturestudy.api.MovieModel
 import io.reactivex.Single
 
 interface NaverRepository {
-    fun getMovies(query: String): Single<MovieModel.MovieResponse>
 
     fun getMoviesList(query: String): Single<List<MovieModel.Movie>>
 
+    fun addHistory(query: String)
+
+    fun getHistory(): List<String>?
+
+    fun removeHistory(query: String)
+
+    fun removeAllHistory()
 }
