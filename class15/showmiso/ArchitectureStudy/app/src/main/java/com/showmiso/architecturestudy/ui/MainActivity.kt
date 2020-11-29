@@ -6,21 +6,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import com.showmiso.architecturestudy.Constants
 import com.showmiso.architecturestudy.R
-import com.showmiso.architecturestudy.api.MovieModel
 import com.showmiso.architecturestudy.data.local.LocalDataSourceImpl
 import com.showmiso.architecturestudy.data.remote.RemoteDataSourceImpl
 import com.showmiso.architecturestudy.data.repository.NaverRepositoryImpl
 import com.showmiso.architecturestudy.databinding.ActivityMainBinding
-import com.showmiso.architecturestudy.model.MovieContract
-import com.showmiso.architecturestudy.model.MoviePresenter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -53,31 +48,40 @@ class MainActivity : AppCompatActivity() {
         binding.rcvResult.adapter = adapter
 
         // update movieList
-        movieViewModel.movieList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        movieViewModel.movieList.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 movieViewModel.movieList.get()?.let(adapter::setMovieList)
             }
         })
 
-        movieViewModel.showDataIsEmpty.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        movieViewModel.showDataIsEmpty.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(this@MainActivity, getString(R.string.msg_no_result), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@MainActivity,
+                    getString(R.string.msg_no_result),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
 
-        movieViewModel.showThrowError.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        movieViewModel.showThrowError.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 Log.e(tag, "Failed", movieViewModel.showThrowError.get())
             }
         })
 
-        movieViewModel.showProgress.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        movieViewModel.showProgress.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 binding.progressBar.visibility = View.VISIBLE
             }
         })
 
-        movieViewModel.hideProgress.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        movieViewModel.hideProgress.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 binding.progressBar.visibility = View.GONE
             }

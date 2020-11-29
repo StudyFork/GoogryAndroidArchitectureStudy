@@ -4,24 +4,21 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import com.showmiso.architecturestudy.Constants
 import com.showmiso.architecturestudy.R
 import com.showmiso.architecturestudy.data.local.LocalDataSourceImpl
 import com.showmiso.architecturestudy.data.remote.RemoteDataSourceImpl
 import com.showmiso.architecturestudy.data.repository.NaverRepositoryImpl
 import com.showmiso.architecturestudy.databinding.ActivityHistoryBinding
-import com.showmiso.architecturestudy.model.HistoryContact
-import com.showmiso.architecturestudy.model.HistoryPresenter
 
-class HistoryActivity : AppCompatActivity(), HistoryContact.View,
-    HistoryAdapter.OnHistoryClickListener {
-    private val presenter by lazy {
-        HistoryPresenter(
-            view = this,
+class HistoryActivity : AppCompatActivity(), HistoryAdapter.OnHistoryClickListener {
+    private lateinit var binding: ActivityHistoryBinding
+    private val historyViewModel by lazy {
+        HistoryViewModel(
             naverRepository = run {
                 val prefs = getSharedPreferences(Constants.PREF_HISTORY_KEY, Context.MODE_PRIVATE)
                 val localDataSourceImpl = LocalDataSourceImpl(prefs)
@@ -35,12 +32,10 @@ class HistoryActivity : AppCompatActivity(), HistoryContact.View,
     }
     private val adapter = HistoryAdapter(this)
 
-    private lateinit var binding: ActivityHistoryBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_history)
-        binding.presenter = presenter
+        binding.vm = historyViewModel
         binding.activity = this
 
         initUi()
@@ -48,32 +43,28 @@ class HistoryActivity : AppCompatActivity(), HistoryContact.View,
 
     private fun initUi() {
         binding.rcvHistory.adapter = adapter
-        presenter.initSearchHistory()
-    }
+        historyViewModel.updateHistoryList()
 
-    fun removeAllHistory() {
-        presenter.removeAllHistory()
-    }
+        historyViewModel.historyList.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                adapter.setHistoryList(historyViewModel.historyList.get())
+            }
+        })
 
-    override fun showNoHistory() {
-        binding.tvNoHistory.visibility = View.VISIBLE
-        binding.rcvHistory.visibility = View.GONE
-        Toast.makeText(this, getString(R.string.label_no_history), Toast.LENGTH_SHORT).show()
-    }
+        historyViewModel.showNoHistory.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(this@HistoryActivity, getString(R.string.label_no_history), Toast.LENGTH_SHORT).show()
+            }
+        })
 
-    override fun updateHistoryList(list: List<String>?) {
-        binding.tvNoHistory.visibility = View.GONE
-        binding.rcvHistory.visibility = View.VISIBLE
-        adapter.setHistoryList(list)
+        historyViewModel.showRemoveAllHistory.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                adapter.clearHistoryList()
+                Toast.makeText(this@HistoryActivity, getString(R.string.msg_delete_all), Toast.LENGTH_SHORT).show()
+            }
+        })
     }
-
-    override fun showRemoveAllHistory() {
-        adapter.clearHistoryList()
-        binding.tvNoHistory.visibility = View.VISIBLE
-        binding.rcvHistory.visibility = View.GONE
-        Toast.makeText(this, getString(R.string.msg_delete_all), Toast.LENGTH_SHORT).show()
-    }
-
+    
     override fun onHistoryItemClick(text: String) {
         val intent = Intent()
         intent.putExtra(Constants.INTENT_KEY_HISTORY, text)
@@ -82,6 +73,6 @@ class HistoryActivity : AppCompatActivity(), HistoryContact.View,
     }
 
     override fun onHistoryItemClickToDelete(text: String) {
-        presenter.removeHistory(text)
+        historyViewModel.removeHistory(text)
     }
 }

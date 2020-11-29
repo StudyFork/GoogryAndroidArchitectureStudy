@@ -5,9 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
-            name="presenter"
-            type="com.showmiso.architecturestudy.model.HistoryPresenter" />
+            name="vm"
+            type="com.showmiso.architecturestudy.ui.HistoryViewModel" />
 
         <variable
             name="activity"
@@ -17,8 +19,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.HistoryActivity"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        tools:context=".ui.HistoryActivity">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_back"
@@ -37,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_item"
-            android:onClick="@{() -> activity.removeAllHistory()}"
+            android:onClick="@{() -> vm.removeAllHistory()}"
             android:text="@string/label_delete_all"
             app:layout_constraintBottom_toBottomOf="@id/iv_back"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +52,7 @@
             android:layout_height="500dp"
             android:gravity="center"
             android:text="@string/label_no_history"
+            android:visibility="@{vm.historyList.size() > 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_back" />
@@ -60,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_item"
             android:background="@android:color/white"
+            android:visibility="@{vm.historyList.size() > 0 ? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
