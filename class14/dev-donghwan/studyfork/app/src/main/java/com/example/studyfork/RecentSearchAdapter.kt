@@ -45,6 +45,7 @@ class RecentSearchAdapter(
             binding.root.setOnClickListener{
                 onClick(item)
             }
+            binding.executePendingBindings()
         }
     }
 }
