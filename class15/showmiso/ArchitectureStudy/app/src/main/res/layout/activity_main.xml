@@ -7,12 +7,9 @@
     <data>
 
         <variable
-            name="presenter"
-            type="com.showmiso.architecturestudy.model.MoviePresenter" />
+            name="vm"
+            type="com.showmiso.architecturestudy.ui.MovieViewModel" />
 
-        <variable
-            name="activity"
-            type="com.showmiso.architecturestudy.ui.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,17 +31,18 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:imeOptions="actionSearch"
-                bind:onEditorEnter="@{() -> presenter.getMovies(etSearch.getText().toString())}"
+                bind:onEditorEnter="@{() -> vm.searchMovie(etSearch.getText().toString())}"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="10dp"
+
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> presenter.getMovies(etSearch.getText().toString())}"
+                android:onClick="@{() -> vm.searchMovie(etSearch.getText().toString())}"
                 android:text="@string/label_search" />
 
             <Button
