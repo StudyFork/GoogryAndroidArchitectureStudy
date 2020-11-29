@@ -1,4 +1,4 @@
-package com.example.hw2_project
+package com.example.hw2_project.main
 
 import com.example.hw2_project.data.api.NaverMovieData
 

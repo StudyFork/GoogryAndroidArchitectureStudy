@@ -1,17 +1,17 @@
-package com.example.hw2_project
+package com.example.hw2_project.main
 
-import com.example.hw2_project.data.repository.MovieRepositoryImpl
+import com.example.hw2_project.data.repository.MovieRepository
 
-class Presenter (
-    private val view : MainContract.View,
-    private val repositoryImpl: MovieRepositoryImpl
+class MainPresenter(
+    private val view: MainContract.View,
+    private val repository: MovieRepository
 ) : MainContract.Presenter {
 
     override fun requestMovieListToRepo(query: String) {
-        if(query.isEmpty()) {
+        if (query.isEmpty()) {
             view.showErrorEmptyQuery()
-        }else {
-            repositoryImpl.getMovieList(
+        } else {
+            repository.getMovieList(
                 query,
                 success = {
                     view.showMovieList(it)
