@@ -11,7 +11,6 @@ class MainPresenter(
         if (query.isEmpty()) {
             view.showErrorEmptyQuery()
         } else {
-            repository.saveQuery(query)
             repository.getMovieList(
                 query,
                 success = {

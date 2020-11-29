@@ -14,6 +14,7 @@ class MovieRepositoryImpl : MovieRepository {
         success: (NaverMovieData.NaverMovieResponse) -> Unit,
         fail: (Throwable) -> Unit
     ) {
+        this.saveQuery(query)
         remoteMovieDataSourceImp.getMovieFromRemote(
             query,
             success,
