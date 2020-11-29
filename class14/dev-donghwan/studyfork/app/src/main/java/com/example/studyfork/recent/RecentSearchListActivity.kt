@@ -22,19 +22,20 @@ class RecentSearchListActivity :
         )
     }
 
-    private val adapter = RecentSearchAdapter(
-        onClick = { s ->
-            Intent().putExtra(SEARCH_ITEM, s).apply {
-                setResult(RESULT_OK, this )
-            }
-            finish()
-        }
-    )
+    private lateinit var adapter: RecentSearchAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.activity = this
+        adapter =  RecentSearchAdapter(
+            onClick = { s ->
+                Intent().putExtra(SEARCH_ITEM, s).apply {
+                    setResult(RESULT_OK, this )
+                }
+                finish()
+            }
+        )
 
+        binding.activity = this
         binding.rvRecentSearch.adapter = adapter
     }
 
