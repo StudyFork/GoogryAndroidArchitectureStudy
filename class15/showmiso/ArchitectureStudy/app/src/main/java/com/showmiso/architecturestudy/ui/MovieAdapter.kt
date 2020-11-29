@@ -10,7 +10,9 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private val movies = mutableListOf<MovieModel.Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMovieBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return MovieViewHolder(binding)
     }
 

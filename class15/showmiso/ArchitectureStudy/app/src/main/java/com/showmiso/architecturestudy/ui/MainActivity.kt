@@ -52,14 +52,6 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     private fun initUi() {
         binding.rcvResult.adapter = adapter
-        binding.etSearch.setOnEditorActionListener { textView, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val text = textView.text.toString()
-                presenter.getMovies(text)
-                return@setOnEditorActionListener true
-            }
-            return@setOnEditorActionListener false
-        }
     }
 
     fun onClickHistory(view: View) {

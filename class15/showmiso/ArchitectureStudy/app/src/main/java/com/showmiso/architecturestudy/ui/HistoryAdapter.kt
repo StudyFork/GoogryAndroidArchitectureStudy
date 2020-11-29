@@ -11,7 +11,9 @@ class HistoryAdapter(
     private val historyList = mutableListOf<String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
-        val binding = ItemHistoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemHistoryBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
         return HistoryViewHolder(binding)
     }
 
@@ -46,7 +48,9 @@ class HistoryAdapter(
                 historyList.remove(text)
                 notifyDataSetChanged()
             }
-            // TODO : 전체 클릭시 onHistoryItemClick 호출
+            binding.root.setOnClickListener {
+                listener.onHistoryItemClick(text)
+            }
         }
     }
 

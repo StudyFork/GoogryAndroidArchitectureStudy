@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -33,6 +34,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:imeOptions="actionSearch"
+                bind:onEditorEnter="@{() -> presenter.getMovies(etSearch.getText().toString())}"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="10dp"
