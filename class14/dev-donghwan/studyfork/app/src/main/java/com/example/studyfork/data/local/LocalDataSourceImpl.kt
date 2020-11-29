@@ -1,13 +1,11 @@
 package com.example.studyfork.data.local
 
-import android.content.Context
-import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import org.json.JSONArray
 import org.json.JSONException
 
 
-class LocalDataSourceImpl(context: Context) : LocalDataSource {
-    private val pref = context.getSharedPreferences("local", MODE_PRIVATE)
+class LocalDataSourceImpl(private val pref: SharedPreferences) : LocalDataSource {
 
     override fun putRecentSearchList(item: String) {
         val items = ArrayList(getRecentSearchList())

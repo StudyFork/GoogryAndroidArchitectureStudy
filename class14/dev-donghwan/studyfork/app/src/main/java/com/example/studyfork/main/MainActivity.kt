@@ -19,7 +19,10 @@ class MainActivity :
     private val presenter: MainContract.Presenter by lazy {
         MainPresenter(
             this,
-            RepositoryImpl(RemoteDataSourceImpl(), LocalDataSourceImpl(this.applicationContext))
+            RepositoryImpl(
+                RemoteDataSourceImpl(),
+                LocalDataSourceImpl(getSharedPreferences("local", MODE_PRIVATE))
+            )
         )
     }
 

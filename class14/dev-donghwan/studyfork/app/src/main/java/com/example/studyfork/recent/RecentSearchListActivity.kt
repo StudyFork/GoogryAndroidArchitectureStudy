@@ -18,7 +18,10 @@ class RecentSearchListActivity :
     private val presenter: RecentSearchListContract.Presenter by lazy {
         RecentSearchListPresenter(
             this,
-            RepositoryImpl(RemoteDataSourceImpl(), LocalDataSourceImpl(applicationContext))
+            RepositoryImpl(
+                RemoteDataSourceImpl(),
+                LocalDataSourceImpl(getSharedPreferences("local", MODE_PRIVATE))
+            )
         )
     }
 
@@ -26,10 +29,10 @@ class RecentSearchListActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter =  RecentSearchAdapter(
+        adapter = RecentSearchAdapter(
             onClick = { s ->
                 Intent().putExtra(SEARCH_ITEM, s).apply {
-                    setResult(RESULT_OK, this )
+                    setResult(RESULT_OK, this)
                 }
                 finish()
             }
