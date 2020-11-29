@@ -23,6 +23,7 @@ class RecentSearchActivity : AppCompatActivity(), RecentSearchContract.View,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recent_search)
+        binding.recentSearchActivity = this
         binding.rvRecentList.setHasFixedSize(true)
         binding.rvRecentList.adapter = recentSearchAdapter
 
