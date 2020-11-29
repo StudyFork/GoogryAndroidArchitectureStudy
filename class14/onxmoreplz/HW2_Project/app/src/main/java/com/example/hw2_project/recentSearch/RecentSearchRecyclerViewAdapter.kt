@@ -10,8 +10,9 @@ import com.example.hw2_project.R
 import com.example.hw2_project.databinding.RecentMovieItemBinding
 import com.example.hw2_project.main.MainActivity
 
-class RecentSearchRecyclerViewAdapter :
-    RecyclerView.Adapter<RecentSearchRecyclerViewAdapter.ViewHolder>() {
+class RecentSearchRecyclerViewAdapter(
+    private val clickListener: SavedMovieClickListener
+) : RecyclerView.Adapter<RecentSearchRecyclerViewAdapter.ViewHolder>() {
 
     private val queryList = mutableListOf<String>()
 
@@ -42,23 +43,22 @@ class RecentSearchRecyclerViewAdapter :
         holder: RecentSearchRecyclerViewAdapter.ViewHolder, position: Int
     ) {
         val query = queryList[position]
-        val listener = View.OnClickListener {
-            val intent = Intent(it.context, MainActivity::class.java)
-            intent.putExtra("query", query)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            it.context.startActivity(intent)
-        }
-
-        holder.bind(query, listener)
+        holder.bind(query)
     }
 
     inner class ViewHolder(private val recentMovieItemBinding: RecentMovieItemBinding) :
         RecyclerView.ViewHolder(recentMovieItemBinding.root) {
-        fun bind(query: String, listener: View.OnClickListener) {
+        fun bind(query: String) {
             recentMovieItemBinding.recentItemTextTitle.text = query
-            recentMovieItemBinding.recentItemTextTitle.setOnClickListener(listener)
+            recentMovieItemBinding.recentItemTextTitle.setOnClickListener {
+                clickListener.clickSavedMovie(query)
+            }
             recentMovieItemBinding.executePendingBindings()
         }
+    }
+
+    interface SavedMovieClickListener {
+        fun clickSavedMovie(movie: String)
     }
 
 }

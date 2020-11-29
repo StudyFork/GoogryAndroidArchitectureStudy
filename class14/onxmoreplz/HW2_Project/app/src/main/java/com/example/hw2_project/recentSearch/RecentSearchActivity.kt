@@ -1,19 +1,19 @@
 package com.example.hw2_project.recentSearch
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.hw2_project.R
 import com.example.hw2_project.data.repository.MovieRepositoryImpl
 import com.example.hw2_project.databinding.ActivityRecentSearchBinding
-import com.example.hw2_project.main.MainActivity
 
-class RecentSearchActivity : AppCompatActivity(), RecentSearchContract.View {
+class RecentSearchActivity : AppCompatActivity(), RecentSearchContract.View,
+    RecentSearchRecyclerViewAdapter.SavedMovieClickListener {
     private lateinit var binding: ActivityRecentSearchBinding
 
-    private val recentSearchAdapter = RecentSearchRecyclerViewAdapter()
+    private val recentSearchAdapter = RecentSearchRecyclerViewAdapter(this)
 
     private val recentSearchPresenter = RecentSearchPresenter(
         this,
@@ -23,7 +23,6 @@ class RecentSearchActivity : AppCompatActivity(), RecentSearchContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recent_search)
-
         binding.rvRecentList.setHasFixedSize(true)
         binding.rvRecentList.adapter = recentSearchAdapter
 
@@ -36,5 +35,12 @@ class RecentSearchActivity : AppCompatActivity(), RecentSearchContract.View {
 
     fun clickBackBtn() {
         this.finish()
+    }
+
+    override fun clickSavedMovie(movie: String) {
+        val intent = Intent()
+        intent.putExtra("recentMovie", movie)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 }
