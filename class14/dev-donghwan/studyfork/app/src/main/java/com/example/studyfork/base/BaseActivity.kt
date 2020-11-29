@@ -14,7 +14,6 @@ abstract class BaseActivity<T : ViewDataBinding>
     protected lateinit var binding: T
     protected val compositeDisposable = CompositeDisposable()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutResId)

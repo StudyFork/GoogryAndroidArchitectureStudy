@@ -1,4 +1,4 @@
-package com.example.studyfork
+package com.example.studyfork.main
 
 import com.example.studyfork.data.repository.Repository
 import io.reactivex.disposables.CompositeDisposable
@@ -19,6 +19,8 @@ class MainPresenter(
             view.showQueryEmpty()
             return
         }
+
+        repository.putRecentSearchList(query)
 
         this.repository.searchMovie(
             query = query,

@@ -5,13 +5,17 @@
 
     <data>
 
+        <variable
+            name="activity"
+            type="com.example.studyfork.main.MainActivity" />
+
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".main.MainActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,10 +30,18 @@
                 android:layout_weight="1" />
 
             <Button
-                android:text="검색"
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> activity.searchMovie() }"
+                android:text="검색" />
+
+            <Button
+                android:id="@+id/btn_recent_search_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{ () -> activity.showRecentSearchListActivity()}"
+                android:text="최근검색기록" />
 
         </LinearLayout>
 
