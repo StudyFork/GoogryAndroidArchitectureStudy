@@ -8,16 +8,15 @@ import com.wybh.androidarchitecturestudy.databinding.HistoryItemBinding
 
 class HistoryAdapter(private val itemClickListener: (link: String) -> Unit) :
     RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
-    private lateinit var binding: HistoryItemBinding
     private val wordList: ArrayList<String> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
-        binding = DataBindingUtil.inflate(
+        val binding = DataBindingUtil.inflate<HistoryItemBinding>(
             LayoutInflater.from(parent.context),
             R.layout.history_item,
             parent,
             false
         )
-        return HistoryViewHolder(binding)
+        return HistoryViewHolder(binding, itemClickListener)
     }
 
     override fun getItemCount(): Int {
@@ -33,11 +32,16 @@ class HistoryAdapter(private val itemClickListener: (link: String) -> Unit) :
         notifyDataSetChanged()
     }
 
-    inner class HistoryViewHolder(private val binding: HistoryItemBinding) :
+    class HistoryViewHolder(
+        private val binding: HistoryItemBinding,
+        private val itemClickListener: (link: String) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
+        private var query = ""
+
         init {
             itemView.setOnClickListener {
-                itemClickListener(wordList[adapterPosition])
+                itemClickListener(query)
             }
         }
 
@@ -46,6 +50,7 @@ class HistoryAdapter(private val itemClickListener: (link: String) -> Unit) :
                 data = word
                 executePendingBindings()
             }
+            query = word
         }
     }
 }

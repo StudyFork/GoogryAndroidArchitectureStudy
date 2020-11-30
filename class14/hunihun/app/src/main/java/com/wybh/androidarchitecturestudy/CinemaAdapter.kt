@@ -1,7 +1,6 @@
 package com.wybh.androidarchitecturestudy
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -9,16 +8,15 @@ import com.wybh.androidarchitecturestudy.databinding.CinemaItemBinding
 
 class CinemaAdapter(private val itemClickListener: (link: String) -> Unit) :
     RecyclerView.Adapter<CinemaAdapter.CinemaViewHolder>() {
-    private lateinit var binding: CinemaItemBinding
     private val itemList: ArrayList<CinemaItem> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CinemaViewHolder {
-        binding = DataBindingUtil.inflate(
+        val binding = DataBindingUtil.inflate<CinemaItemBinding>(
             LayoutInflater.from(parent.context),
             R.layout.cinema_item,
             parent,
             false
         )
-        return CinemaViewHolder(binding.root)
+        return CinemaViewHolder(binding, itemClickListener)
     }
 
     override fun getItemCount(): Int {
@@ -29,24 +27,21 @@ class CinemaAdapter(private val itemClickListener: (link: String) -> Unit) :
         holder.bind(itemList[position])
     }
 
-    fun addList(item: List<CinemaItem>) {
-        itemList.addAll(item)
-    }
-
-    fun dataClear() {
-        itemList.clear()
-    }
-
     fun dataClearAndSetting(item: List<CinemaItem>) {
         itemList.clear()
         itemList.addAll(item)
         notifyDataSetChanged()
     }
 
-    inner class CinemaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class CinemaViewHolder(
+        private val binding: CinemaItemBinding,
+        private val itemClickListener: (link: String) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+        private var link = ""
+
         init {
             itemView.setOnClickListener {
-                itemClickListener(itemList[adapterPosition].link)
+                itemClickListener(link)
             }
         }
 
@@ -55,6 +50,7 @@ class CinemaAdapter(private val itemClickListener: (link: String) -> Unit) :
                 item = cinemaItem
                 executePendingBindings()
             }
+            link = cinemaItem.link
         }
     }
 }
