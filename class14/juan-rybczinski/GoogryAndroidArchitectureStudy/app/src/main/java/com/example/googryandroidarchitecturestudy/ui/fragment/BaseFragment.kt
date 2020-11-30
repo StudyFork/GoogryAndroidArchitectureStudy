@@ -9,18 +9,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.example.googryandroidarchitecturestudy.R
-import com.example.googryandroidarchitecturestudy.domain.UrlResource
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.viewmodel.BaseViewModel
+import com.example.googryandroidarchitecturestudy.ui.viewmodel.BaseViewModel.Companion.INVALID_URL
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     private val layoutId: Int
 ) : Fragment() {
     private var _binding: B? = null
     protected val binding get() = _binding!!
+
+    abstract val viewModel: VM
 
     private val inputMethodManager by lazy(LazyThreadSafetyMode.NONE) {
         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -31,7 +34,31 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(layoutInflater, layoutId, container, false)
+
+        setupBaseUi()
         return binding.root
+    }
+
+    private fun setupBaseUi() {
+        viewModel.apply {
+            hideKeyboardEvent.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    hideKeyboard()
+                }
+            })
+
+            selectedUrl.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    if (!selectedUrl.equals(INVALID_URL)) {
+                        selectedUrl.get()?.let { showUrlResource(it) }
+                    } else {
+                        showInvalidUrl()
+                    }
+                }
+            })
+        }
     }
 
     override fun onDestroyView() {
@@ -39,18 +66,18 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         super.onDestroyView()
     }
 
-    fun hideKeyboard() {
+    private fun hideKeyboard() {
         inputMethodManager.hideSoftInputFromWindow(
             requireActivity().currentFocus?.windowToken,
             0
         )
     }
 
-    fun showUrlResource(item: UrlResource) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
+    private fun showUrlResource(url: String) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
-    fun showInvalidUrl() {
+    private fun showInvalidUrl() {
         toast(getString(R.string.invalid_url))
     }
 }

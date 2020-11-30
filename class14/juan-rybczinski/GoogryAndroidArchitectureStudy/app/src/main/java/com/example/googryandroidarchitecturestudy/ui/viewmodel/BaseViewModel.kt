@@ -6,11 +6,18 @@ import com.example.googryandroidarchitecturestudy.domain.UrlResource
 
 abstract class BaseViewModel {
     val selectedUrl = ObservableField("")
+    val hideKeyboardEvent = ObservableField<Unit>()
 
     fun selectUrlItem(item: UrlResource) {
         if (URLUtil.isValidUrl(item.link)) {
             selectedUrl.set(item.link)
-            // TODO: 2020/11/30 Check same url case?
+            selectedUrl.notifyChange()
+        } else {
+            selectedUrl.set(INVALID_URL)
         }
+    }
+
+    companion object {
+        const val INVALID_URL = "INVALID_URL"
     }
 }

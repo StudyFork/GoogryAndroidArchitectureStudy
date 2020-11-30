@@ -39,11 +39,12 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
+            app:children="@{vm.recentList}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recent_keyword"
             app:singleLine="true"
             app:singleSelection="true" />
-        <!--        app:addChildren="@{recentList}"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

@@ -3,17 +3,19 @@ package com.example.googryandroidarchitecturestudy.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.databinding.Observable
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieRecentBinding
-import com.example.googryandroidarchitecturestudy.domain.RecentSearch
+import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieRecentViewModel
-import com.google.android.material.chip.Chip
+import com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieRecentViewModel.Companion.showMovieSearchEvent
 import kotlinx.coroutines.launch
 
 class MovieRecentFragment :
     BaseFragment<FragmentMovieRecentBinding, MovieRecentViewModel>(R.layout.fragment_movie_recent) {
-    private val viewModel by lazy {
+    override val viewModel by lazy {
         MovieRecentViewModel(requireContext())
     }
 
@@ -27,28 +29,41 @@ class MovieRecentFragment :
         binding.v = this
         binding.vm = viewModel
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            try {
-                viewModel.getRecentKeywords()
-            } catch (e: Exception) {
-                Log.e(TAG, "Getting recent search keywords failed: ${e.message.toString()}")
-            }
-        }
+        viewModel.apply {
+            showSearchRecentFailedEvent.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    showSearchRecentFailedEvent.get()?.let { showSearchRecentFailed(it) }
+                }
+            })
 
-    }
-
-    fun showRecentChips(recentList: List<RecentSearch>) {
-        recentList.forEach {
-            binding.recentChipGroup.addView(Chip(requireContext()).apply {
-                text = it.query
-                isCheckable = true
-//                setOnClickListener {
-//                    viewLifecycleOwner.lifecycleScope.launch {
-//                        presenter.queryMovieList(this@apply.text.toString())
-//                    }
-//                }
+            showMovieSearchEvent.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    if (showMovieSearchEvent.get() != "") {
+                        navToMovieSearch()
+                    }
+                }
             })
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.getRecentKeywords()
+        }
+    }
+
+    private fun navToMovieSearch() {
+        val action =
+            MovieRecentFragmentDirections.actionMovieRecentFragmentToMovieSearchFragment(
+                showMovieSearchEvent.get()
+            )
+        this@MovieRecentFragment.findNavController().navigate(action)
+        viewModel.showMovieSearchEventCompleted()
+    }
+
+    private fun showSearchRecentFailed(e: Exception) {
+        toast(getString(R.string.error_occurred))
+        Log.e(TAG, "Getting recent search keywords failed: ${e.message.toString()}")
     }
 
     companion object {

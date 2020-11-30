@@ -10,14 +10,16 @@ import java.util.*
 class MovieSearchViewModel(
     private val context: Context
 ) : MovieViewModel(context) {
-    val movieList = ObservableField<List<Movie>>()
+    val movieList = ObservableField<List<Movie>>(emptyList())
     val loading = ObservableField(View.GONE)
 
     val showQueryEmptyEvent = ObservableField<Unit>()
     val showNoSearchResultEvent = ObservableField<Unit>()
-    val hideKeyboardEvent = ObservableField<Unit>()
+
     val showSearchMovieFailedEvent = ObservableField<Exception>()
     val showSaveRecentFailedEvent = ObservableField<Exception>()
+
+    val showRecentKeywordsEvent = ObservableField(false)
 
     suspend fun queryMovieList(query: String) {
         if (query.isEmpty()) {
@@ -42,10 +44,17 @@ class MovieSearchViewModel(
                 }
                 hideKeyboardEvent.notifyChange()
                 movieList.set(movies)
-                // TODO: 2020/11/30 Check same movies case 
             } catch (e: Exception) {
                 showSearchMovieFailedEvent.notifyChange()
             }
         }
+    }
+
+    fun clickRecentButton() {
+        showRecentKeywordsEvent.set(true)
+    }
+
+    fun clickRecentButtonCompleted() {
+        showRecentKeywordsEvent.set(false)
     }
 }
