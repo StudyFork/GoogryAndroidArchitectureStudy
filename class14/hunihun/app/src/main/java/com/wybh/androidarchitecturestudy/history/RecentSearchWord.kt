@@ -38,7 +38,7 @@ class RecentSearchWord : AppCompatActivity(), RecentSearchWordContract.View {
     private fun initAdapter() {
         binding.rvHistory.run {
             adapter = historyAdapter
-            addItemDecoration(VerticalSpaceItemDecoration(20))
+            addItemDecoration(HorizontalSpaceItemDecoration(20))
             layoutManager = LinearLayoutManager(this@RecentSearchWord).also {
                 it.orientation = LinearLayoutManager.HORIZONTAL
             }
