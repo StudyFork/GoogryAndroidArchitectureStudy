@@ -2,30 +2,20 @@ package com.deepco.studyfork
 
 import android.content.Intent
 import android.os.Bundle
-import com.deepco.studyfork.data.local.LocalMovieDataImpl
-import com.deepco.studyfork.data.model.Item
-import com.deepco.studyfork.data.remote.RemoteMovieDataImpl
-import com.deepco.studyfork.data.repository.RepositoryMovieDataImpl
+import androidx.databinding.Observable
 import com.deepco.studyfork.databinding.ActivityMainBinding
-import com.deepco.studyfork.presenter.MainContract
-import com.deepco.studyfork.presenter.MainPresenter
-import kotlinx.android.synthetic.main.activity_main.*
+import com.deepco.studyfork.viewmodel.MainViewModel
 
-class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(R.layout.activity_main),
-    MainContract.View {
-    private lateinit var recyclerAdapterMovie: RecyclerAdapterMovie
-    private val mainPresenter by lazy {
-        val repositoryMovieDataImpl = RepositoryMovieDataImpl(
-            RemoteMovieDataImpl(),
-            LocalMovieDataImpl()
-        )
-        MainPresenter(this, repositoryMovieDataImpl)
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+    private val mainViewModel by lazy {
+        MainViewModel()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.activity = this
-        setRecyclerView()
+        binding.viewModel = mainViewModel
+        setObserver()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -33,8 +23,8 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(R.layout.a
 
         if (requestCode == REQ_CODE_RECENT_SEARCH && resultCode == RESULT_OK) {
             data?.getStringExtra(EXTRA_MOVIE_TITLE)?.let { query ->
-                mainPresenter.queryMovie(query)
                 binding.movieEditText.setText(query)
+                mainViewModel.queryMovie()
             }
         }
     }
@@ -44,19 +34,13 @@ class MainActivity : BaseActivity<MainPresenter, ActivityMainBinding>(R.layout.a
         startActivityForResult(intent, REQ_CODE_RECENT_SEARCH)
     }
 
-    fun searchMovie() {
-        val query = movie_edit_text.text.toString()
-        mainPresenter.queryMovie(query)
-        mainPresenter.setRecentSearch(query)
-    }
-
-    private fun setRecyclerView() {
-        recyclerAdapterMovie = RecyclerAdapterMovie()
-        recycler_view.adapter = recyclerAdapterMovie
-    }
-
-    override fun setMovieList(list: List<Item>) {
-        recyclerAdapterMovie.setItemList(list)
+    private fun setObserver() {
+        mainViewModel.message.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showEmptyMessage(mainViewModel.message.get().toString())
+            }
+        })
     }
 
     companion object {
