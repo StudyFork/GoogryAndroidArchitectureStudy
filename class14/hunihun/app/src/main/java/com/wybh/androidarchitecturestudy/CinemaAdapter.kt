@@ -44,8 +44,11 @@ class CinemaAdapter(private val itemClickListener: (link: String) -> Unit) :
             }
         }
 
-        fun bind(item: CinemaItem) {
-            binding.item = item
+        fun bind(cinemaItem: CinemaItem) {
+            binding.run {
+                item = cinemaItem
+                executePendingBindings()
+            }
         }
     }
 }

@@ -42,7 +42,10 @@ class HistoryAdapter(private val itemClickListener: (link: String) -> Unit) :
         }
 
         fun bind(word: String) {
-            binding.data = word
+            binding.run {
+                data = word
+                executePendingBindings()
+            }
         }
     }
 }
