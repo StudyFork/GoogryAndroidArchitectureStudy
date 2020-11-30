@@ -11,11 +11,8 @@ class RepositoryImpl(
 ) : Repository {
 
     override fun searchCinema(query: String): Single<ResponseCinemaData> {
+        naverLocalDataSource.saveSearchWord(query)
         return naverRemoteDataSource.searchCinema(query)
-    }
-
-    override fun saveSearchWord(word: String) {
-        return naverLocalDataSource.saveSearchWord(word)
     }
 
     override fun getSearchWord(): String? {

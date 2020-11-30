@@ -55,7 +55,6 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
         if (word.isEmpty()) {
             return
         }
-        repository.saveSearchWord(word)
     }
 
 }
