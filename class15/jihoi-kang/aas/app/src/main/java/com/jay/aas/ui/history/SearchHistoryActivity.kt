@@ -16,23 +16,14 @@ import com.jay.aas.model.SearchHistory
 import com.jay.aas.room.AppDatabase
 
 class SearchHistoryActivity :
-    BaseActivity<ActivitySearchHistoryBinding, SearchHistoryContract.Presenter>(
+    BaseActivity<ActivitySearchHistoryBinding>(
         R.layout.activity_search_history
-    ), SearchHistoryContract.View {
+    ) {
 
     private val searchHistoryAdapter: SearchHistoryAdapter by lazy {
         SearchHistoryAdapter { query ->
             presenter.searchMovies(query)
         }
-    }
-
-    override val presenter: SearchHistoryContract.Presenter by lazy {
-        val appDatabase = AppDatabase.getInstance(this)
-        val movieRepository = MovieRepositoryImpl(
-            MovieRemoteDataSourceImpl(RetrofitHelper.movieService),
-            MovieLocalDataSourceImpl(appDatabase.movieDao(), appDatabase.searchHistoryDao())
-        )
-        SearchHistoryPresenter(this, movieRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

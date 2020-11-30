@@ -23,8 +23,7 @@ import com.jay.aas.util.toast
 import kotlinx.coroutines.launch
 
 class MovieActivity :
-    BaseActivity<ActivityMovieBinding, MovieContract.Presenter>(R.layout.activity_movie),
-    MovieContract.View {
+    BaseActivity<ActivityMovieBinding>(R.layout.activity_movie) {
 
     private val TAG = this::class.java.simpleName
 
@@ -44,9 +43,6 @@ class MovieActivity :
             appDatabase.searchHistoryDao()
         )
         MovieRepositoryImpl(remoteDataSource, localDataSource)
-    }
-    override val presenter: MovieContract.Presenter by lazy {
-        MoviePresenter(this, movieRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
