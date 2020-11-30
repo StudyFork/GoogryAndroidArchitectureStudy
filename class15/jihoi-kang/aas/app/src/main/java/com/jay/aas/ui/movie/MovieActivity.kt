@@ -9,6 +9,7 @@ import androidx.databinding.Observable
 import com.jay.aas.R
 import com.jay.aas.base.BaseActivity
 import com.jay.aas.databinding.ActivityMovieBinding
+import com.jay.aas.ui.history.SearchHistoryActivity
 import com.jay.aas.util.toast
 
 class MovieActivity :
@@ -37,9 +38,9 @@ class MovieActivity :
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQ_CODE_SEARCH_HISTORY && resultCode == RESULT_OK) {
-//            data?.getStringExtra(SearchHistoryActivity.EXTRA_QUERY_TEXT)?.let { query ->
-//                viewModel.searchMovies(query)
-//            }
+            data?.getStringExtra(SearchHistoryActivity.EXTRA_QUERY_TEXT)?.let { query ->
+                viewModel.searchMovies(query)
+            }
         }
     }
 
@@ -68,6 +69,15 @@ class MovieActivity :
                             Intent.ACTION_VIEW,
                             Uri.parse(viewModel.movieDetailLink.get())
                         )
+                    )
+                }
+            })
+        viewModel.startSearchHistoryEvent
+            .addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    startActivityForResult(
+                        SearchHistoryActivity.getIntent(this@MovieActivity),
+                        REQ_CODE_SEARCH_HISTORY
                     )
                 }
             })

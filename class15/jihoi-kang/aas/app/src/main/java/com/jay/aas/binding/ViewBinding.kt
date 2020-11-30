@@ -7,11 +7,12 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jay.aas.model.Movie
+import com.jay.aas.model.SearchHistory
+import com.jay.aas.ui.history.SearchHistoryAdapter
 import com.jay.aas.ui.movie.MovieAdapter
 
 @BindingAdapter("onEditorEnterAction")
@@ -42,9 +43,12 @@ fun ImageView.loadUrl(url: String) {
         .into(this)
 }
 
-@BindingAdapter("listItem")
-fun RecyclerView.bindListItem(items: List<Any>) {
-    (adapter as MovieAdapter).setMovies(items as List<Movie>)
+@BindingAdapter("items")
+fun RecyclerView.bindItems(items: List<Any>) {
+    when (adapter) {
+        is MovieAdapter -> (adapter as MovieAdapter).setMovies(items as List<Movie>)
+        is SearchHistoryAdapter -> (adapter as SearchHistoryAdapter).setSearchHistories(items as List<SearchHistory>)
+    }
 }
 
 @BindingAdapter(value = ["visible"])

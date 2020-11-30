@@ -13,12 +13,11 @@ class MovieViewModel(
 
     val movieItems = ObservableField<List<Movie>>(emptyList())
 
-    val hideKeyboardEvent = ObservableField<Unit>()
-
-    val showSearchFailedEvent = ObservableField<Unit>()
-
     val movieDetailLink = ObservableField<String>()
 
+    val hideKeyboardEvent = ObservableField<Unit>()
+    val showSearchFailedEvent = ObservableField<Unit>()
+    val startSearchHistoryEvent = ObservableField<Unit>()
 
     fun getMovies() {
         viewModelScope.launch {
@@ -46,9 +45,7 @@ class MovieViewModel(
     }
 
     fun searchHistories() {
-//        startActivityForResult(SearchHistoryActivity.getIntent(this),
-//            MovieActivity.REQ_CODE_SEARCH_HISTORY
-//        )
+        startSearchHistoryEvent.notifyChange()
     }
 
     fun openMovieDetail(link: String) {
