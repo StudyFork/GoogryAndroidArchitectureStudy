@@ -6,17 +6,12 @@ import android.os.Bundle
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import com.jay.aas.R
-import com.jay.aas.api.RetrofitHelper
 import com.jay.aas.base.BaseActivity
-import com.jay.aas.data.MovieLocalDataSourceImpl
-import com.jay.aas.data.MovieRemoteDataSourceImpl
-import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivitySearchHistoryBinding
 import com.jay.aas.model.SearchHistory
-import com.jay.aas.room.AppDatabase
 
 class SearchHistoryActivity :
-    BaseActivity<ActivitySearchHistoryBinding>(
+    BaseActivity<ActivitySearchHistoryBinding, SearchHistoryViewModel>(
         R.layout.activity_search_history
     ) {
 

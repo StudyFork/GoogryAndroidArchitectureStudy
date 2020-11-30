@@ -23,7 +23,7 @@ import com.jay.aas.util.toast
 import kotlinx.coroutines.launch
 
 class MovieActivity :
-    BaseActivity<ActivityMovieBinding>(R.layout.activity_movie) {
+    BaseActivity<ActivityMovieBinding, MovieViewModel>(R.layout.activity_movie) {
 
     private val TAG = this::class.java.simpleName
 
