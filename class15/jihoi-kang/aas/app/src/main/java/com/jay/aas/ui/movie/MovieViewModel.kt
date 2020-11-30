@@ -12,7 +12,6 @@ class MovieViewModel(
 ) : BaseViewModel() {
 
     val movieItems = ObservableField<List<Movie>>(emptyList())
-
     val movieDetailLink = ObservableField<String>()
 
     val hideKeyboardEvent = ObservableField<Unit>()

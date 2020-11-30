@@ -35,14 +35,18 @@ class SearchHistoryActivity :
         viewModel.finishEvent
             .addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    viewModel.finishEvent.get()?.let { query ->
-                        setResult(RESULT_OK, Intent().apply {
-                            putExtra(EXTRA_QUERY_TEXT, query)
-                        })
-                    }
                     finish()
                 }
+            })
 
+        viewModel.searchQuery
+            .addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    setResult(RESULT_OK, Intent().apply {
+                        putExtra(EXTRA_QUERY_TEXT, viewModel.searchQuery.get())
+                    })
+                    finish()
+                }
             })
     }
 

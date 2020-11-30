@@ -20,11 +20,13 @@ class SearchHistoryViewModel(
         }
     }
 
-    val finishEvent = ObservableField<String?>(null)
+    val searchQuery = ObservableField<String>()
 
     fun searchMovies(query: String) {
-        finishEvent.set(query)
+        searchQuery.set(query)
     }
+
+    val finishEvent = ObservableField<Unit>()
 
     fun finish() {
         finishEvent.notifyChange()

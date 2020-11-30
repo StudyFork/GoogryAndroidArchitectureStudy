@@ -16,7 +16,7 @@ import com.jay.aas.ui.history.SearchHistoryAdapter
 import com.jay.aas.ui.movie.MovieAdapter
 
 @BindingAdapter("onEditorEnterAction")
-fun EditText.onEditorEnterAction(action: (() -> Unit)? = null) {
+fun EditText.bindOnEditorEnterAction(action: (() -> Unit)? = null) {
     setOnEditorActionListener { _, actionId, _ ->
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             action?.invoke()
@@ -28,7 +28,7 @@ fun EditText.onEditorEnterAction(action: (() -> Unit)? = null) {
 
 @Suppress("DEPRECATION")
 @BindingAdapter("htmlText")
-fun TextView.htmlText(text: String) {
+fun TextView.bindHtmlText(text: String) {
     this.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
     } else {
@@ -37,7 +37,7 @@ fun TextView.htmlText(text: String) {
 }
 
 @BindingAdapter("loadUrl")
-fun ImageView.loadUrl(url: String) {
+fun ImageView.bindLoadUrl(url: String) {
     Glide.with(this)
         .load(url)
         .into(this)

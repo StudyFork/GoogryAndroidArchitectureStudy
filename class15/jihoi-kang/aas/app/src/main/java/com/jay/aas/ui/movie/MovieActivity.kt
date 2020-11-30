@@ -13,7 +13,9 @@ import com.jay.aas.ui.history.SearchHistoryActivity
 import com.jay.aas.util.toast
 
 class MovieActivity :
-    BaseActivity<ActivityMovieBinding, MovieViewModel>(R.layout.activity_movie) {
+    BaseActivity<ActivityMovieBinding, MovieViewModel>(
+        R.layout.activity_movie
+    ) {
 
     private val TAG = this::class.java.simpleName
 
