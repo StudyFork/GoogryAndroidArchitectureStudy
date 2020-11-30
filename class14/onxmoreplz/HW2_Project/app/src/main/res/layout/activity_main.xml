@@ -2,8 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="mainActivity"
-            type="com.example.hw2_project.main.MainActivity" />
+            name="vm"
+            type="com.example.hw2_project.main.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -38,7 +38,7 @@
                 android:text="검색"
                 android:textSize="8pt"
                 android:layout_weight="1"
-                android:onClick="@{() -> mainActivity.clickSearchBtn()}"/>
+                android:onClick="@{() -> vm.getMovieFromRepository(etMovieName.getText().toString())}"/>
 
             <Button
                 android:id="@+id/btn_recentSearch"
@@ -48,7 +48,7 @@
                 android:textSize="8pt"
                 android:layout_marginLeft="3dp"
                 android:layout_weight="1"
-                android:onClick="@{() -> mainActivity.showRecentSearchMovie()}"/>
+                android:onClick="@{() -> vm.clickRecentBtn()}"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
