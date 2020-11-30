@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/movieFragment"
-        android:name="com.example.googryandroidarchitecturestudy.ui.fragment.MovieFragment"
+        android:name="com.example.googryandroidarchitecturestudy.ui.fragment.MovieSearchFragment"
         android:label="fragment_movie"
-        tools:layout="@layout/fragment_movie">
+        tools:layout="@layout/fragment_movie_search">
         <action
             android:id="@+id/action_movieFragment_to_recentFragment"
             app:destination="@id/recentFragment" />
     </fragment>
     <fragment
         android:id="@+id/recentFragment"
-        android:name="com.example.googryandroidarchitecturestudy.ui.fragment.RecentFragment"
+        android:name="com.example.googryandroidarchitecturestudy.ui.fragment.MovieRecentFragment"
         android:label="fragment_recent"
-        tools:layout="@layout/fragment_recent" />
+        tools:layout="@layout/fragment_movie_recent" />
 </navigation>

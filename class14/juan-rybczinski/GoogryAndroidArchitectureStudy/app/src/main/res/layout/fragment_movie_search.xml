@@ -5,42 +5,51 @@
 
     <data>
 
-        <import type="java.util.List" />
+        <variable
+            name="v"
+            type="com.example.googryandroidarchitecturestudy.ui.fragment.MovieSearchFragment" />
 
         <variable
-            name="recentList"
-            type="List&lt;com.example.googryandroidarchitecturestudy.domain.RecentSearch>" />
-
-        <variable
-            name="view"
-            type="com.example.googryandroidarchitecturestudy.ui.fragment.RecentFragment" />
+            name="vm"
+            type="com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieSearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/recent_keyword"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/search_text"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
-            android:text="@string/recent_keywords"
+            android:inputType="text"
+            app:layout_constraintEnd_toStartOf="@+id/search_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/recent_chip_group"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recent_keyword"
-            app:singleLine="true"
-            app:singleSelection="true" />
-        <!--        app:addChildren="@{recentList}"-->
+            android:layout_marginEnd="@dimen/default_margin"
+            android:onClick="@{() -> v.queryMovieList()}"
+            android:text="@string/search"
+            app:layout_constraintEnd_toStartOf="@id/recent_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/recent_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:onClick="@{() -> v.navToRecentSearch()}"
+            android:text="@string/recent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_list"
@@ -51,14 +60,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recent_chip_group"
+            app:layout_constraintTop_toBottomOf="@+id/search_text"
             tools:listitem="@layout/item_movie" />
 
         <ProgressBar
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{view.onProgress}"
+            android:visibility="@{vm.loading}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

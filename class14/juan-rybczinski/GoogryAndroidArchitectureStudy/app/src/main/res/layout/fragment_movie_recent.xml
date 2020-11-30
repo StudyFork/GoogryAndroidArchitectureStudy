@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="java.util.List" />
+
+        <variable
+            name="recentList"
+            type="List&lt;com.example.googryandroidarchitecturestudy.domain.RecentSearch>" />
+
+        <variable
+            name="v"
+            type="com.example.googryandroidarchitecturestudy.ui.fragment.MovieRecentFragment" />
+
+        <variable
+            name="vm"
+            type="com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieRecentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/recent_keyword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:text="@string/recent_keywords"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/recent_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recent_keyword"
+            app:singleLine="true"
+            app:singleSelection="true" />
+        <!--        app:addChildren="@{recentList}"-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

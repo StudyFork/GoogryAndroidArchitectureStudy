@@ -1,24 +1,23 @@
 package com.example.googryandroidarchitecturestudy.ui.viewmodel
 
 import android.content.Context
+import android.view.View
 import androidx.databinding.ObservableField
-import androidx.fragment.app.Fragment
 import com.example.googryandroidarchitecturestudy.domain.Movie
 import com.example.googryandroidarchitecturestudy.domain.RecentSearch
-import java.lang.Exception
 import java.util.*
 
 class MovieSearchViewModel(
-    context: Context
+    private val context: Context
 ) : MovieViewModel(context) {
     val movieList = ObservableField<List<Movie>>()
-    val loading = ObservableField(false)
+    val loading = ObservableField(View.GONE)
 
     val showQueryEmptyEvent = ObservableField<Unit>()
     val showNoSearchResultEvent = ObservableField<Unit>()
     val hideKeyboardEvent = ObservableField<Unit>()
-    val showSaveRecentFailedEvent = ObservableField<Unit>()
-    val showSearchMovieFailedEvent = ObservableField<Unit>()
+    val showSearchMovieFailedEvent = ObservableField<Exception>()
+    val showSaveRecentFailedEvent = ObservableField<Exception>()
 
     suspend fun queryMovieList(query: String) {
         if (query.isEmpty()) {
@@ -27,7 +26,7 @@ class MovieSearchViewModel(
         }
 
         try {
-            loading.set(true)
+            loading.set(View.VISIBLE)
             repository.insertRecent(
                 RecentSearch(Date(System.currentTimeMillis()), query)
             )
@@ -36,7 +35,7 @@ class MovieSearchViewModel(
         } finally {
             try {
                 val movies = repository.searchMovies(query)
-                loading.set(false)
+                loading.set(View.GONE)
                 if (movies.isEmpty()) {
                     showNoSearchResultEvent.notifyChange()
                     return
