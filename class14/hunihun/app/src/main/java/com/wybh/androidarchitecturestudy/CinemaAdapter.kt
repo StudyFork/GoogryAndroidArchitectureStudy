@@ -32,9 +32,15 @@ class CinemaAdapter(private val itemClickListener: (link: String) -> Unit) :
     fun addList(item: List<CinemaItem>) {
         itemList.addAll(item)
     }
-    
+
     fun dataClear() {
         itemList.clear()
+    }
+
+    fun dataClearAndSetting(item: List<CinemaItem>) {
+        itemList.clear()
+        itemList.addAll(item)
+        notifyDataSetChanged()
     }
 
     inner class CinemaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

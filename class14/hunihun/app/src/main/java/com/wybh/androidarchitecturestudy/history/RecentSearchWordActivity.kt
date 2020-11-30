@@ -48,11 +48,7 @@ class RecentSearchWordActivity : AppCompatActivity(), RecentSearchWordContract.V
     }
 
     override fun showCinemaList(dataList: List<CinemaItem>) {
-        // adapter list clear
-        cinemaAdapter.dataClear()
-        cinemaAdapter.addList(dataList)
-        // recyclerview 갱신
-        cinemaAdapter.notifyDataSetChanged()
+        cinemaAdapter.dataClearAndSetting(dataList)
     }
 
     override fun setSearchHistoryWord(wordList: List<String>) {

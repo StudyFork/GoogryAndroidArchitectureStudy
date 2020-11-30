@@ -30,11 +30,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showCinemaList(dataList: List<CinemaItem>) {
-        // adapter list clear
-        cinemaAdapter.dataClear()
-        cinemaAdapter.addList(dataList)
-        // recyclerview 갱신
-        cinemaAdapter.notifyDataSetChanged()
+        cinemaAdapter.dataClearAndSetting(dataList)
 
         // 키보드 내리기
         imm.hideSoftInputFromWindow(binding.etSearchWord.windowToken, 0)
