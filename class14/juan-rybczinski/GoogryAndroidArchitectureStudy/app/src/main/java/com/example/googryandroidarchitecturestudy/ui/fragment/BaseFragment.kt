@@ -13,13 +13,14 @@ import androidx.viewbinding.ViewBinding
 import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.domain.UrlResource
 import com.example.googryandroidarchitecturestudy.ui.contract.BaseContract
+import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.presenter.BasePresenter
 
 abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), BaseContract.View {
     private var _binding: B? = null
     protected val binding get() = _binding!!
 
-    protected abstract val presenter: P
+    var onProgress = View.INVISIBLE
 
     private val inputMethodManager by lazy(LazyThreadSafetyMode.NONE) {
         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -65,5 +66,13 @@ abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), Ba
 
     override fun showSearchFailed(e: Exception) {
         toast(getString(R.string.error_occurred))
+    }
+
+    override fun showProgressBar() {
+        onProgress = View.VISIBLE
+    }
+
+    override fun hideProgressBar() {
+        onProgress = View.INVISIBLE
     }
 }

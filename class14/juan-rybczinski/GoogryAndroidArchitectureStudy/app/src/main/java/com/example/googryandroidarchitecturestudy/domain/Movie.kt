@@ -8,5 +8,5 @@ data class Movie(
     val pubDate: String,
     val director: String,
     val actor: String,
-    val userRating: String
+    val userRating: Float
 ) : UrlResource

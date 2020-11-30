@@ -14,7 +14,7 @@ data class DatabaseMovie(
     val pubDate: String,
     val director: String,
     val actor: String,
-    val userRating: String
+    val userRating: Float
 )
 
 // Database object to domain object

@@ -1,4 +1,4 @@
-package com.example.googryandroidarchitecturestudy.ui.fragment
+package com.example.googryandroidarchitecturestudy.ui.extension
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment
