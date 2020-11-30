@@ -6,7 +6,7 @@
 
         <variable
             name="view"
-            type="com.wybh.androidarchitecturestudy.history.RecentSearchWord" />
+            type="com.wybh.androidarchitecturestudy.history.RecentSearchWordActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

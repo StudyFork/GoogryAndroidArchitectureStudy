@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wybh.androidarchitecturestudy.*
 import com.wybh.androidarchitecturestudy.databinding.ActivityRecentSearchWordBinding
 
-class RecentSearchWord : AppCompatActivity(), RecentSearchWordContract.View {
+class RecentSearchWordActivity : AppCompatActivity(), RecentSearchWordContract.View {
     private lateinit var binding: ActivityRecentSearchWordBinding
     private val presenter = RecentSearchWordPresenter(this)
     private val historyAdapter = HistoryAdapter {
@@ -39,7 +39,7 @@ class RecentSearchWord : AppCompatActivity(), RecentSearchWordContract.View {
         binding.rvHistory.run {
             adapter = historyAdapter
             addItemDecoration(HorizontalSpaceItemDecoration(20))
-            layoutManager = LinearLayoutManager(this@RecentSearchWord).also {
+            layoutManager = LinearLayoutManager(this@RecentSearchWordActivity).also {
                 it.orientation = LinearLayoutManager.HORIZONTAL
             }
         }

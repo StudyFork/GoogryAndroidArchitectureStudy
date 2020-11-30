@@ -19,7 +19,7 @@
         </activity>
 
         <activity
-            android:name=".history.RecentSearchWord"
+            android:name=".history.RecentSearchWordActivity"
             android:theme="@style/AppTheme" />
 
     </application>

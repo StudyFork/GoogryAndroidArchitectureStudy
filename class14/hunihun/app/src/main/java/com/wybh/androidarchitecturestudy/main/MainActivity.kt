@@ -13,7 +13,7 @@ import com.wybh.androidarchitecturestudy.CinemaAdapter
 import com.wybh.androidarchitecturestudy.CinemaItem
 import com.wybh.androidarchitecturestudy.R
 import com.wybh.androidarchitecturestudy.databinding.ActivityMainBinding
-import com.wybh.androidarchitecturestudy.history.RecentSearchWord
+import com.wybh.androidarchitecturestudy.history.RecentSearchWordActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var imm: InputMethodManager
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     fun recentSearch() {
         startActivityForResult(
-            Intent(this, RecentSearchWord::class.java),
+            Intent(this, RecentSearchWordActivity::class.java),
             REQUEST_HISTORY_WORD
         )
     }
