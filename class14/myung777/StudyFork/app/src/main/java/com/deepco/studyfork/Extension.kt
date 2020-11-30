@@ -3,7 +3,9 @@ package com.deepco.studyfork
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.deepco.studyfork.data.model.Item
 
 @BindingAdapter("loadUrl")
 fun ImageView.loadImageView(imageUrl: String) {
@@ -27,4 +29,21 @@ fun TextView.setDirectorString(director: String) {
             it.substring(0, director.length - 1).replace("|", ", ")
         }
     }
+}
+
+@BindingAdapter("setMovieList")
+fun RecyclerView.setMovieList(list: List<Item>?) {
+
+    if (list == null) return
+
+    val movieAdapter: MovieRecyclerAdapter
+
+    if (adapter == null) {
+        movieAdapter = MovieRecyclerAdapter()
+        adapter = movieAdapter
+    } else {
+        movieAdapter = adapter as MovieRecyclerAdapter
+    }
+
+    movieAdapter.setItemList(list)
 }
