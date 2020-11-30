@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.deepco.studyfork.data.model.Item
 import com.deepco.studyfork.databinding.MovieItemBinding
 
-class RecyclerAdapterMovie :
-    RecyclerView.Adapter<MyViewHolder>() {
+class MovieRecyclerAdapter :
+    RecyclerView.Adapter<MovieViewHolder>() {
 
     private var modelList = ArrayList<Item>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding =
             DataBindingUtil.inflate<MovieItemBinding>(
                 LayoutInflater.from(parent.context),
@@ -20,13 +20,13 @@ class RecyclerAdapterMovie :
                 parent,
                 false
             )
-        return MyViewHolder(binding)
+        return MovieViewHolder(binding)
     }
 
     override fun getItemCount() = modelList.count()
 
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.bind(this.modelList[position])
     }
 

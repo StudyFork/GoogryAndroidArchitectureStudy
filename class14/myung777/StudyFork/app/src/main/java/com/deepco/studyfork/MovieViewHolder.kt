@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.deepco.studyfork.data.model.Item
 import com.deepco.studyfork.databinding.MovieItemBinding
 
-class MyViewHolder(
+class MovieViewHolder(
     private val binding: MovieItemBinding
 ) :
     RecyclerView.ViewHolder(binding.root) {
