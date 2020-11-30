@@ -1,7 +1,6 @@
 package com.wybh.androidarchitecturestudy.main
 
 import com.wybh.androidarchitecturestudy.CinemaItem
-import com.wybh.androidarchitecturestudy.data.ResponseCinemaData
 import com.wybh.androidarchitecturestudy.model.local.NaverLocalDataSourceImpl
 import com.wybh.androidarchitecturestudy.model.remote.NaverRemoteDataSourceImpl
 import com.wybh.androidarchitecturestudy.model.repository.RepositoryImpl
@@ -11,6 +10,9 @@ import io.reactivex.schedulers.Schedulers
 
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
     private val composeDisposable = CompositeDisposable()
+    private val list by lazy {
+        ArrayList<CinemaItem>()
+    }
     private val repository: RepositoryImpl by lazy {
         val remoteNaverDataSource = NaverRemoteDataSourceImpl()
         val localNaverDataSource = NaverLocalDataSourceImpl()
@@ -29,8 +31,7 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             repository.searchCinema(query)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
-                .subscribe({ response: ResponseCinemaData ->
-                    val list = ArrayList<CinemaItem>()
+                .map { response ->
                     response.items.map {
                         val item = CinemaItem(
                             it.image,
@@ -42,9 +43,10 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
                         )
                         list.add(item)
                     }
+                }.subscribe({
                     view.showCinemaList(list)
-                }, { error: Throwable ->
-                    view.showToastFailMessage(error.message)
+                }, {
+                    view.showToastFailMessage(it.message)
                 })
         )
     }
