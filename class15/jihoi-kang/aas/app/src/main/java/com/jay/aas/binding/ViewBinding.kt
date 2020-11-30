@@ -9,7 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jay.aas.model.Movie
+import com.jay.aas.ui.movie.MovieAdapter
 
 @BindingAdapter("onEditorEnterAction")
 fun EditText.onEditorEnterAction(action: (() -> Unit)? = null) {
@@ -39,7 +42,12 @@ fun ImageView.loadUrl(url: String) {
         .into(this)
 }
 
-@BindingAdapter("isVisible")
-fun View.isVisible(condition: Boolean) {
-    isVisible = condition
+@BindingAdapter("listItem")
+fun RecyclerView.bindListItem(items: List<Any>) {
+    (adapter as MovieAdapter).setMovies(items as List<Movie>)
+}
+
+@BindingAdapter(value = ["visible"])
+fun View.bindVisible(visible: Boolean) {
+    visibility = if (visible) View.VISIBLE else View.GONE
 }

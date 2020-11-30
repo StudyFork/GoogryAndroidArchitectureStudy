@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.jay.aas.ui.movie.MovieActivity" />
+            name="vm"
+            type="com.jay.aas.ui.movie.MovieViewModel" />
 
     </data>
 
@@ -40,21 +40,19 @@
                 android:paddingStart="@dimen/space_small"
                 android:paddingEnd="@dimen/space_small"
                 android:singleLine="true"
-                bind:onEditorEnterAction="@{() -> activity.searchMovies(evSearch.getText().toString())}" />
+                bind:onEditorEnterAction="@{() -> vm.searchMovies(evSearch.getText().toString())}" />
 
             <ImageView
-                android:id="@+id/iv_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> activity.searchMovies(evSearch.getText().toString())}"
+                android:onClick="@{() -> vm.searchMovies(evSearch.getText().toString())}"
                 android:padding="@dimen/space_small"
                 android:src="@drawable/ic_search_black" />
 
             <ImageView
-                android:id="@+id/iv_history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> activity.searchHistories()}"
+                android:onClick="@{() -> vm.searchHistories()}"
                 android:padding="@dimen/space_small"
                 android:src="@drawable/ic_history_black" />
 
@@ -71,10 +69,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ll_search"
+            bind:listItem="@{vm.movieItems}"
+            bind:visible="@{vm.movieItems.size() != 0}"
             tools:listitem="@layout/item_movie" />
 
         <TextView
-            android:id="@+id/tv_no_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/msg_no_result"
@@ -82,17 +81,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:visible="@{vm.movieItems.size() == 0}" />
 
         <ProgressBar
-            android:id="@+id/pb_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:visible="@{vm.loading}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

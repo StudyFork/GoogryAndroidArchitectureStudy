@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.jay.aas.ui.history.SearchHistoryActivity" />
+            name="vm"
+            type="com.jay.aas.ui.history.SearchHistoryViewModel" />
 
     </data>
 
@@ -30,7 +30,6 @@
                 android:id="@+id/iv_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> activity.finish()}"
                 android:padding="@dimen/space_small"
                 android:src="@drawable/ic_close_black"
                 app:layout_constraintBottom_toBottomOf="parent"
