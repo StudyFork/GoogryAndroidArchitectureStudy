@@ -5,4 +5,5 @@ import io.reactivex.Single
 
 interface Repository {
     fun searchCinema(query: String): Single<ResponseCinemaData>
+    fun getSearchWord(): String?
 }

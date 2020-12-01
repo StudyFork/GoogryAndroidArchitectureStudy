@@ -17,6 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".history.RecentSearchWordActivity"
+            android:theme="@style/AppTheme" />
+
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

@@ -1,6 +1,7 @@
-package com.wybh.androidarchitecturestudy.main
+package com.wybh.androidarchitecturestudy.history
 
 import com.wybh.androidarchitecturestudy.CinemaItem
+import com.wybh.androidarchitecturestudy.data.ResponseCinemaData
 import com.wybh.androidarchitecturestudy.model.local.NaverLocalDataSourceImpl
 import com.wybh.androidarchitecturestudy.model.remote.NaverRemoteDataSourceImpl
 import com.wybh.androidarchitecturestudy.model.repository.RepositoryImpl
@@ -8,30 +9,27 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
+class RecentSearchWordPresenter(private val view: RecentSearchWordContract.View) :
+    RecentSearchWordContract.Presenter {
     private val composeDisposable = CompositeDisposable()
-    private val list by lazy {
-        ArrayList<CinemaItem>()
-    }
     private val repository: RepositoryImpl by lazy {
         val remoteNaverDataSource = NaverRemoteDataSourceImpl()
         val localNaverDataSource = NaverLocalDataSourceImpl()
         RepositoryImpl(remoteNaverDataSource, localNaverDataSource)
     }
 
-    override fun removeCompositeDisposable() {
-        composeDisposable.dispose()
+    override fun getSearchWord() {
+        val wordList = repository.getSearchWord()
+        view.setSearchHistoryWord(wordList!!.split(","))
     }
 
     override fun searchCinema(query: String) {
-        if (query.isEmpty()) {
-            return
-        }
         composeDisposable.add(
             repository.searchCinema(query)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
-                .map { response ->
+                .subscribe({ response: ResponseCinemaData ->
+                    val list = ArrayList<CinemaItem>()
                     response.items.map {
                         val item = CinemaItem(
                             it.image,
@@ -43,18 +41,11 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
                         )
                         list.add(item)
                     }
-                }.subscribe({
                     view.showCinemaList(list)
-                }, {
-                    view.showToastFailMessage(it.message)
+                }, { error: Throwable ->
+                    view.showToastFailMessage(error.message)
                 })
         )
-    }
-
-    override fun saveSearchWord(word: String) {
-        if (word.isEmpty()) {
-            return
-        }
     }
 
 }
