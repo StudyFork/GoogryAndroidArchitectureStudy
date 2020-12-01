@@ -48,7 +48,7 @@ class RecentSearchedRecyclerviewAdapter() : RecyclerView.Adapter<RecentSearchedR
         // 각 뷰에  데이터 연결
         fun bind(recentSearchMovie: String?) {
             binding.searchMovieTitleData = recentSearchMovie
-
+            binding.executePendingBindings()
             //검색된 쿼리 클릭
             binding.tvSearchedMovieTitle.setOnClickListener {
                 recentSearchMovie?.let { it1 -> onItemClickListener?.onItemClick(searchedQuery = it1) }

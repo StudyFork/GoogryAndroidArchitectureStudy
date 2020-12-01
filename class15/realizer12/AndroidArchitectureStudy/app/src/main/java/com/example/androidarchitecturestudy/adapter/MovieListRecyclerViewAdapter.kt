@@ -38,7 +38,7 @@ class MovieListRecyclerViewAdapter() : RecyclerView.Adapter<MovieListRecyclerVie
 
             //아이템 뷰  데이터 연결
             binding.movieData = movieData
-
+            binding.executePendingBindings()
         }
     }
 
