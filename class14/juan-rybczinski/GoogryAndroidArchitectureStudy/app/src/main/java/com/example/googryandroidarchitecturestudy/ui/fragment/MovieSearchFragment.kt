@@ -35,7 +35,6 @@ class MovieSearchFragment :
     private fun setupUi() {
         binding.movieList.adapter = movieAdapter
         binding.v = this
-        binding.vm = viewModel
 
         checkPassedQuery()
 

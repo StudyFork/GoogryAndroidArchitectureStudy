@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.example.googryandroidarchitecturestudy.BR
 import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.viewmodel.BaseViewModel
@@ -35,8 +36,15 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     ): View? {
         _binding = DataBindingUtil.inflate(layoutInflater, layoutId, container, false)
 
-        setupBaseUi()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.setVariable(BR.vm, viewModel)
+
+        setupBaseUi()
     }
 
     private fun setupBaseUi() {
