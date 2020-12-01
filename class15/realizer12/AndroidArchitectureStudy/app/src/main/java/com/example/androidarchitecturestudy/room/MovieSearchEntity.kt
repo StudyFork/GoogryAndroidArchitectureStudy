@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 class MovieSearchEntity(
     @PrimaryKey(autoGenerate = true)
     val idx: Int? =0,
-    val searchedQuery: String
+    var searchedQuery: String
 )

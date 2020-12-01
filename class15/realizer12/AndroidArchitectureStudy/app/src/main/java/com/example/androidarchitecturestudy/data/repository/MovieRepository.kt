@@ -14,4 +14,6 @@ interface MovieRepository {
 
     fun saveRecentSearch(searchQuery:String,dataBase: SearchedDataBase)
 
+    fun getRecentSearch(dataBase: SearchedDataBase):List<String>
+
 }

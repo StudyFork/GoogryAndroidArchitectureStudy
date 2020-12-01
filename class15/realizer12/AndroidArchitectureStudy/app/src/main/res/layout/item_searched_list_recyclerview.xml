@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="searchMovieTitleData"
+            type="String" />
+    </data>
+
+    <TextView
+        android:id="@+id/tv_searched_movie_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        android:text="@{searchMovieTitleData}"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:text="최근 검색 영화 제목" />
+</layout>

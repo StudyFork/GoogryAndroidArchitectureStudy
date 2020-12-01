@@ -15,6 +15,10 @@ class MovieRepositoryImpl() :MovieRepository{
       localMovieDataSource.saveRecentSearch(searchQuery,dataBase)
     }
 
+
+    override fun getRecentSearch(dataBase: SearchedDataBase): List<String> = localMovieDataSource.getRecentSearchedMovieList(dataBase)
+
+
     override fun getMovieSearchResult(
         movieName: String,
         onSuccess: (GetMovieInfo.MovieList) -> Unit,
