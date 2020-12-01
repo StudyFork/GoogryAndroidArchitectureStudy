@@ -2,6 +2,7 @@ package com.example.androidarchitecturestudy.presenter
 
 import android.util.Log
 import com.example.androidarchitecturestudy.data.repository.MovieRepository
+import com.example.androidarchitecturestudy.room.SearchedDataBase
 
 class MoviePresenter(
     private val view: MovieContract.View,
@@ -26,6 +27,14 @@ class MoviePresenter(
             })
         }
         view.hideKeyBoard()
+    }
+
+
+    override fun saveSearchQuery(searchQuery: String,database:SearchedDataBase) {
+        //검색 쿼리  안비어 있을때 진행
+        if(searchQuery.isNotEmpty()){
+            repository.saveRecentSearch(searchQuery,database)
+        }
     }
 
 }

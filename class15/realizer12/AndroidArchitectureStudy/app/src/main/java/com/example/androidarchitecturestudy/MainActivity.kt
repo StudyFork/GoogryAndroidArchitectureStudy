@@ -14,10 +14,12 @@ import com.example.androidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.example.androidarchitecturestudy.databinding.ActivityMainBinding
 import com.example.androidarchitecturestudy.presenter.MovieContract
 import com.example.androidarchitecturestudy.presenter.MoviePresenter
+import com.example.androidarchitecturestudy.room.SearchedDataBase
 import com.example.androidarchitecturestudy.util.hideKeyboard
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MovieContract.View {
+
 
     // 리사이클러뷰 어뎁터
     private lateinit var recyclerViewAdapter: MovieListRecyclerViewAdapter
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     private val moviePresenter = MoviePresenter(this, MovieRepositoryImpl())
 
     private lateinit var binding:ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,8 +77,11 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     //영화 검색
     fun searchMovie(view : View){
-        moviePresenter.getMovieData(edit_main_search_movie.text.toString())
+         val database = SearchedDataBase.getInstance(applicationContext)
+         moviePresenter.getMovieData(edit_main_search_movie.text.toString())
+         moviePresenter.saveSearchQuery(edit_main_search_movie.text.toString(), database!!)
     }
+
 
 
     fun showRecentSearchList(view: View){
