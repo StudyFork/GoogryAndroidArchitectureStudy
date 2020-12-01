@@ -21,7 +21,7 @@
             android:background="@color/colorBlack"
             android:text="@string/str_recent_searched_list"
             android:textColor="@color/colorWhite"
-            android:textSize="45sp"
+            android:textSize="41sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -76,16 +75,34 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
 
     //영화 검색
-    fun searchMovie(view : View){
-         val database = SearchedDataBase.getInstance(applicationContext)
-         moviePresenter.getMovieData(edit_main_search_movie.text.toString())
-         moviePresenter.saveSearchQuery(edit_main_search_movie.text.toString(), database!!)
+    fun searchMovie(view: View) {
+        val database = SearchedDataBase.getInstance(applicationContext)
+        moviePresenter.getMovieData(edit_main_search_movie.text.toString())
+        moviePresenter.saveSearchQuery(edit_main_search_movie.text.toString(), database!!)
     }
 
 
-
-    fun showRecentSearchList(view: View){
-        startActivityForResult(Intent(this,RecentSearchActivity::class.java),RECENT_SEARCH_REQUEST_CODE)
+    fun showRecentSearchList(view: View) {
+        startActivityForResult(
+            Intent(this, RecentSearchActivity::class.java),
+            RECENT_SEARCH_REQUEST_CODE
+        )
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == RECENT_SEARCH_REQUEST_CODE) {
+            data?.getStringExtra(SELECTED_MOVIE_QUERY_DATA)?.let {
+                moviePresenter.getMovieData(it)
+                edit_main_search_movie.apply {
+                    requestFocus()
+                    setText(it)
+                    setSelection(length())
+                }
+            }
+        }
+    }
+
 
 }

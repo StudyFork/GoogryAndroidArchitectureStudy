@@ -5,6 +5,10 @@
     <data>
 
         <variable
+            name="recentSearchActivity"
+            type="com.example.androidarchitecturestudy.RecentSearchActivity" />
+
+        <variable
             name="searchMovieTitleData"
             type="String" />
     </data>
