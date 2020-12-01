@@ -30,12 +30,12 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dataBindingSet()
+        setupDataBinding()
         setRecyclerView()
     }
 
 
-    private fun dataBindingSet(){
+    private fun setupDataBinding(){
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
         binding.thisActivity = this
     }

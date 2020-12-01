@@ -21,12 +21,12 @@ class RecentSearchActivity :AppCompatActivity(),SearchedMovieContract.View {
     private lateinit var binding: ActivityRecentSearchBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dataBindingSet()
+        setupDataBinding()
         setRecyclerView()
         getSearchedMovieList()
 
     }
-    private fun dataBindingSet(){
+    private fun setupDataBinding(){
         binding = DataBindingUtil.setContentView(this,R.layout.activity_recent_search)
         binding.thisActivity = this
     }
