@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
 
     //영화 검색
-    fun searchMovie(view: View) {
+    fun searchMovie() {
         val database = SearchedDataBase.getInstance(applicationContext)
         moviePresenter.getMovieData(edit_main_search_movie.text.toString())
         moviePresenter.saveSearchQuery(edit_main_search_movie.text.toString(), database!!)
