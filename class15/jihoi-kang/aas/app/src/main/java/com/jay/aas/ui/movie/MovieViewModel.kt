@@ -13,6 +13,7 @@ class MovieViewModel(
 
     val movieItems = ObservableField<List<Movie>>(emptyList())
     val movieDetailLink = ObservableField<String>()
+    val query = ObservableField<String>()
 
     val hideKeyboardEvent = ObservableField<Unit>()
     val showSearchFailedEvent = ObservableField<Unit>()
@@ -25,14 +26,15 @@ class MovieViewModel(
         }
     }
 
-    fun searchMovies(query: String) {
-        if (query.isEmpty()) return
+    fun searchMovies() {
+        query.get() ?: return
+        if (query.get()!!.isEmpty()) return
 
         hideKeyboardEvent.notifyChange()
         viewModelScope.launch {
             try {
                 showLoading()
-                val movies = movieRepository.getSearchMovies(query)
+                val movies = movieRepository.getSearchMovies(query.get()!!)
                 hideLoading()
                 movieItems.set(movies)
             } catch (e: Exception) {

@@ -41,7 +41,8 @@ class MovieActivity :
 
         if (requestCode == REQ_CODE_SEARCH_HISTORY && resultCode == RESULT_OK) {
             data?.getStringExtra(SearchHistoryActivity.EXTRA_QUERY_TEXT)?.let { query ->
-                viewModel.searchMovies(query)
+                viewModel.query.set(query)
+                viewModel.searchMovies()
             }
         }
     }

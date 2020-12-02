@@ -40,12 +40,13 @@
                 android:paddingStart="@dimen/space_small"
                 android:paddingEnd="@dimen/space_small"
                 android:singleLine="true"
-                bind:onEditorEnterAction="@{() -> vm.searchMovies(evSearch.getText().toString())}" />
+                android:text="@={vm.query}"
+                bind:onEditorEnterAction="@{() -> vm.searchMovies()}" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> vm.searchMovies(evSearch.getText().toString())}"
+                android:onClick="@{() -> vm.searchMovies()}"
                 android:padding="@dimen/space_small"
                 android:src="@drawable/ic_search_black" />
 
