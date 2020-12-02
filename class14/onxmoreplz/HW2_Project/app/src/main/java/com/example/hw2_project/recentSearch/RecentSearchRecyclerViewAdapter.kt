@@ -1,19 +1,16 @@
 package com.example.hw2_project.recentSearch
 
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Nullable
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hw2_project.R
+import com.example.hw2_project.data.repository.MovieRepositoryImpl
 import com.example.hw2_project.databinding.RecentMovieItemBinding
-import com.example.hw2_project.main.MainActivity
 
-class RecentSearchRecyclerViewAdapter(
-    private val clickListener: SavedMovieClickListener
-) : RecyclerView.Adapter<RecentSearchRecyclerViewAdapter.ViewHolder>() {
-
+class RecentSearchRecyclerViewAdapter(@Nullable private val recentSearchActivity: ClickSavedMovieListener) :
+    RecyclerView.Adapter<RecentSearchRecyclerViewAdapter.ViewHolder>() {
     private val queryList = mutableListOf<String>()
 
     fun updateMovieList(list: List<String>?) {
@@ -28,10 +25,12 @@ class RecentSearchRecyclerViewAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
+        val repository = MovieRepositoryImpl()
         val binding = DataBindingUtil.inflate<RecentMovieItemBinding>(
             LayoutInflater.from(parent.context),
             R.layout.recent_movie_item, parent, false
         )
+        binding.vm = RecentSearchViewModel(repository)
         return ViewHolder(binding)
     }
 
@@ -51,14 +50,14 @@ class RecentSearchRecyclerViewAdapter(
         fun bind(query: String) {
             recentMovieItemBinding.recentItemTextTitle.text = query
             recentMovieItemBinding.recentItemTextTitle.setOnClickListener {
-                clickListener.clickSavedMovie(query)
+                recentSearchActivity.onClickSavedMovie(query)
             }
             recentMovieItemBinding.executePendingBindings()
         }
     }
 
-    interface SavedMovieClickListener {
-        fun clickSavedMovie(movie: String)
+    interface ClickSavedMovieListener {
+        fun onClickSavedMovie(movie: String)
     }
 
 }
