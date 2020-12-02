@@ -7,23 +7,21 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.example.androidarchitecturestudy.data.local.NaverLocalDataSourceImpl
-import com.example.androidarchitecturestudy.data.model.QueryHistory
 import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImpl
 import com.example.androidarchitecturestudy.data.repository.NaverRepositoryImpl
 import com.example.androidarchitecturestudy.databinding.TitleDialogFragmentBinding
 
-class TitleFragmentDialog : DialogFragment(), TitleHistoryContract.View {
+class TitleFragmentDialog : DialogFragment() {
 
     private lateinit var binding: TitleDialogFragmentBinding
     private val adapter by lazy {
         TitleAdapter()
     }
 
-    private val presenter: TitleHistoryContract.Presenter by lazy {
+    private val viewModel: TitleHistoryViewModel by lazy {
         val naverLocalDataSourceImpl = NaverLocalDataSourceImpl()
         val naverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
-        TitleHistoryPresenter(
-            this,
+        TitleHistoryViewModel(
             NaverRepositoryImpl(naverRemoteDataSourceImpl, naverLocalDataSourceImpl)
         )
     }
@@ -40,12 +38,14 @@ class TitleFragmentDialog : DialogFragment(), TitleHistoryContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.dialog = this
+        binding.vm = viewModel
+
         initRecyclerView()
+        viewModel.getRecentTitleList()
     }
 
     private fun initRecyclerView() {
         binding.rvSearchList.adapter = adapter
-        presenter.getRecentTitleList()
     }
 
     override fun onStart() {
@@ -56,9 +56,4 @@ class TitleFragmentDialog : DialogFragment(), TitleHistoryContract.View {
             WindowManager.LayoutParams.WRAP_CONTENT
         )
     }
-
-    override fun setTitleList(list: ArrayList<QueryHistory>) {
-        adapter.setTitleList(list)
-    }
-
 }
