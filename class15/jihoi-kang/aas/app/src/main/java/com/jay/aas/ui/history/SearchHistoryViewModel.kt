@@ -12,6 +12,8 @@ class SearchHistoryViewModel(
 ) : BaseViewModel() {
 
     val searchHistoryItems = ObservableField<List<SearchHistory>>(emptyList())
+    val searchQuery = ObservableField<String>()
+    val finishEvent = ObservableField<Unit>()
 
     fun getSearchHistories() {
         viewModelScope.launch {
@@ -20,13 +22,9 @@ class SearchHistoryViewModel(
         }
     }
 
-    val searchQuery = ObservableField<String>()
-
     fun searchMovies(query: String) {
         searchQuery.set(query)
     }
-
-    val finishEvent = ObservableField<Unit>()
 
     fun finish() {
         finishEvent.notifyChange()
