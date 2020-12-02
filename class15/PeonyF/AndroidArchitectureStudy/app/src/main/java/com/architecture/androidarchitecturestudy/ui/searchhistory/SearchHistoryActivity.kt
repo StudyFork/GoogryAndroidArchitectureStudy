@@ -18,20 +18,17 @@ class SearchHistoryActivity :
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
     private lateinit var searchBinding: ActivitySearchHistoryBinding
 
-    private val searchPresenter: SearchHistoryContract.Presenter by lazy {
-        val repositoryMovieDataImpl =
-            MovieRepositoryImpl(
-                MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE), MovieLocalDataSourceImpl()
-            )
-        SearchHistoryPresenter(this, repositoryMovieDataImpl)
+    private val viewModel by lazy {
+        val remoteDataSourceImpl = MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE)
+        val localDataSourceImpl = MovieLocalDataSourceImpl()
+        SearchHistoryViewModel(MovieRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        searchBinding = DataBindingUtil.setContentView(this, R.layout.activity_search_history)
-        searchBinding.searchActivity = this
-        initRecyclerView()
-        searchPresenter.setSearchHistoryList()
+        binding.searchActivity = this
+        binding.viewModel = viewModel
+        viewModel.getRecentKeywordList()
     }
 
     private fun initRecyclerView() {
