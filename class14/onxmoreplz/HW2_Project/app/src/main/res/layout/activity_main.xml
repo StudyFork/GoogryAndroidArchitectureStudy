@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
         <variable
             name="vm"
             type="com.example.hw2_project.main.MainViewModel" />
     </data>
 
-    <LinearLayout
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         tools:context=".main.MainActivity">
 
@@ -26,8 +27,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="영화제목을 입력하세요."
-                android:textSize="8pt"
                 android:singleLine="true"
+                android:textSize="8pt"
                 tools:layout_editor_absoluteX="63dp"
                 tools:layout_editor_absoluteY="70dp" />
 
@@ -35,27 +36,28 @@
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="검색"
-                android:textSize="8pt"
                 android:layout_weight="1"
-                android:onClick="@{() -> vm.getMovieFromRepository(etMovieName.getText().toString())}"/>
+                android:onClick="@{() -> vm.getMovieFromRepository(etMovieName.getText().toString())}"
+                android:text="검색"
+                android:textSize="8pt" />
 
             <Button
                 android:id="@+id/btn_recentSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="최근검색"
-                android:textSize="8pt"
                 android:layout_marginLeft="3dp"
                 android:layout_weight="1"
-                android:onClick="@{() -> vm.clickRecentBtn()}"/>
+                android:onClick="@{() -> vm.clickRecentBtn()}"
+                android:text="최근검색"
+                android:textSize="8pt" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:layout_marginLeft="3dp"
             android:layout_marginTop="4dp"
-            android:layout_marginLeft="3dp">
+            android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
@@ -63,8 +65,7 @@
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/movie_item"
-                />
+                tools:listitem="@layout/movie_item" />
 
         </LinearLayout>
 
