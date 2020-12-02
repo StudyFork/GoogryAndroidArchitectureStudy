@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.Observable
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMainBinding
-import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieListAdapter
 import kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm.MovieSearchViewModel
 
 class MainActivity :
@@ -21,29 +18,6 @@ class MainActivity :
 
         binding.activity = this@MainActivity
         binding.vm = movieSearchViewModel
-
-        /**
-         * 영화 검색결과 리스트 보여주는 RecyclerView에 어댑터 연결 및 목록 구분선 추가
-         */
-        binding.searchedMovieList.adapter = MovieListAdapter()
-        binding.searchedMovieList.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                LinearLayoutManager.VERTICAL
-            )
-        )
-
-        /**
-         * 영화 검색결과 데이터가 갱신되었을 경우, 리싸이클러 뷰에 반영
-         */
-        movieSearchViewModel.movieList.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                movieSearchViewModel.movieList.get()?.let {
-                    (binding.searchedMovieList.adapter as MovieListAdapter).refreshData(it)
-                }
-            }
-        })
 
         /**
          * 영화 검색 시, 검색어를 입력하지 않았을 경우에 대한 처리 모음
