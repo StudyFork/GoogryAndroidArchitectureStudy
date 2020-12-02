@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class MovieSearchFragment :
     BaseFragment<FragmentMovieSearchBinding, MovieSearchViewModel>(R.layout.fragment_movie_search) {
-    val args: MovieSearchFragmentArgs by navArgs()
+    private val args: MovieSearchFragmentArgs by navArgs()
 
     override val viewModel by lazy {
         MovieSearchViewModel(requireContext())
@@ -33,8 +33,10 @@ class MovieSearchFragment :
     }
 
     private fun setupUi() {
-        binding.movieList.adapter = movieAdapter
-        binding.v = this
+        binding.apply {
+            movieList.adapter = movieAdapter
+            v = this@MovieSearchFragment
+        }
 
         checkPassedQuery()
 

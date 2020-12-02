@@ -8,7 +8,7 @@ import com.example.googryandroidarchitecturestudy.domain.RecentSearch
 import java.util.*
 
 class MovieSearchViewModel(
-    private val context: Context
+    context: Context
 ) : MovieViewModel(context) {
     val movieList = ObservableField<List<Movie>>(emptyList())
     val loading = ObservableField(View.GONE)
