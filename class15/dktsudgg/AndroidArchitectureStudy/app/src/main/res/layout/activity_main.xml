@@ -7,6 +7,10 @@
         <variable
             name="activity"
             type="kr.dktsudgg.androidarchitecturestudy.MainActivity" />
+
+        <variable
+            name="vm"
+            type="kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm.MovieSearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -4,28 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.databinding.Observable
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-//import kotlinx.android.synthetic.main.activity_main.*
-import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
-import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepositoryImpl
 import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMainBinding
 import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieListAdapter
-import kr.dktsudgg.androidarchitecturestudy.view.ui.mvp.MovieSearchContract
-import kr.dktsudgg.androidarchitecturestudy.view.ui.mvp.MovieSearchPresenter
+import kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm.MovieSearchViewModel
 
 class MainActivity :
-    BaseActivity<MovieSearchPresenter, ActivityMainBinding>(R.layout.activity_main),
-    MovieSearchContract.View, View.OnClickListener {
+    BaseActivity<ActivityMainBinding>(R.layout.activity_main), View.OnClickListener {
 
-    private lateinit var movieSearchPresenter: MovieSearchContract.Presenter
+    private val movieSearchViewModel by lazy { MovieSearchViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding.activity = this@MainActivity
-
-        movieSearchPresenter = MovieSearchPresenter(NaverMovieRepositoryImpl(), this);
+        binding.vm = movieSearchViewModel
 
         /**
          * 영화 검색결과 리스트 보여주는 RecyclerView에 어댑터 연결 및 목록 구분선 추가
@@ -38,6 +33,51 @@ class MainActivity :
             )
         )
 
+        /**
+         * 영화 검색결과 데이터가 갱신되었을 경우, 리싸이클러 뷰에 반영
+         */
+        movieSearchViewModel.movieList.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                movieSearchViewModel.movieList.get()?.let {
+                    (binding.searchedMovieList.adapter as MovieListAdapter).refreshData(it)
+                }
+            }
+        })
+
+        /**
+         * 영화 검색 시, 검색어를 입력하지 않았을 경우에 대한 처리 모음
+         */
+        movieSearchViewModel.eventWhenEmptyInputInjected.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(this@MainActivity, "검색어를 입력하세요", Toast.LENGTH_LONG).show();
+            }
+
+        })
+
+        /**
+         * 영화 검색 성공 시에 대한 처리 모음
+         */
+        movieSearchViewModel.eventWhenDataRefreshRequestSuccess.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(this@MainActivity, "검색에 성공하였습니다.", Toast.LENGTH_LONG).show();
+            }
+
+        })
+
+        /**
+         * 영화 검색 실패 시에 대한 처리 모음
+         */
+        movieSearchViewModel.eventWhenDataRefreshRequestFailure.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(this@MainActivity, "검색에 실패하였습니다.", Toast.LENGTH_LONG).show();
+            }
+
+        })
+
     }
 
     /**
@@ -47,7 +87,7 @@ class MainActivity :
         when (clickedView.id) {
             R.id.movieSearchBtn -> {    // 검색 버튼 클릭 시, 검색어 입력한 내용을 가지고 검색 수행
                 val searchText = binding.movieSearchEditText.text.toString()
-                movieSearchPresenter.searchMovies(searchText)
+                movieSearchViewModel.refreshSearchMovieList(searchText)
             }
             R.id.showMovieSearchHistoryBtn -> { // 최근검색이력 버튼 클릭 시, 영화검색이력을 보여주는 액티비티로 이동
                 startActivityForResult(
@@ -79,10 +119,6 @@ class MainActivity :
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    override fun updateSearchedMovieList(data: List<MovieItem>) {
-        (binding.searchedMovieList.adapter as MovieListAdapter).refreshData(data)
     }
 
     companion object {
