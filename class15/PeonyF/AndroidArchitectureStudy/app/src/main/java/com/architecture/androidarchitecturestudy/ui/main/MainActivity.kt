@@ -20,49 +20,40 @@ import com.architecture.androidarchitecturestudy.webservice.ApiClient
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-    //    private lateinit var movieAdapter: MovieAdapter
-    // private lateinit var mainBinding: ActivityMainBinding
-
-    private val mainPresenter by lazy {
-        val repositoryMovieDataImpl =
-            MovieRepositoryImpl(
-                MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE),
-                MovieLocalDataSourceImpl()
-            )
-        MainPresenter(this, repositoryMovieDataImpl)
+    private val viewModel by lazy {
+        val remoteDataSourceImpl = MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE)
+        val localDataSourceImpl = MovieLocalDataSourceImpl()
+        MainViewModel(MovieRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        mainBinding.mainActivity = this
-        initRecyclerView()
+        binding.mainActivity = this
+        binding.viewModel = viewModel
+        setViewModelEvent()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQ_CODE_SEARCH_HISTORY && resultCode == RESULT_OK) {
-            data?.getStringExtra(MOVIE_KEYWORD)?.let { keyword ->
-                mainPresenter.findMovie(keyword)
-                mainBinding.etMainSearch.setText(keyword)
+    private fun setViewModelEvent() {
+        viewModel.onFailedEvent.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(this@MainActivity, "네트워크 통신 실패.", Toast.LENGTH_SHORT).show()
             }
-        }
-    }
+        })
 
-    private fun initRecyclerView() {
-        movieAdapter = MovieAdapter()
-        mainBinding.rvMainMovie.adapter = movieAdapter
-    }
+        viewModel.onEmptyQuery.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(this@MainActivity, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        })
 
-    fun findMovie() {
-        mainPresenter.findMovie(mainBinding.etMainSearch.text.toString())
-    }
-
-    override fun removeKeyboard() {
-        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-            et_main_search.windowToken,
-            0
-        )
+        viewModel.onEmptyResult.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                Toast.makeText(this@MainActivity, "관련 검색어의 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     override fun updateMovieRecycler(items: List<Movie>) {
