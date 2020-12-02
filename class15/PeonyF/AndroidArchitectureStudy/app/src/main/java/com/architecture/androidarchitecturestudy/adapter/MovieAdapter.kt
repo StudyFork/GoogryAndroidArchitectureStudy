@@ -32,7 +32,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieViewHolder>() {
         holder.onBind(this.modelList[position])
     }
 
-    fun setItems(items: List<Movie>) {
+    fun setMovieList(items: List<Movie>) {
         this.modelList.clear()
         this.modelList.addAll(processMovieItemString(items))
         notifyDataSetChanged()
