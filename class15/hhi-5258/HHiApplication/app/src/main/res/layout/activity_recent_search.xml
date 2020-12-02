@@ -29,7 +29,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:setQueryList="@{vm.queryList}"/>
+            bind:items="@{vm.queryList}"/>
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/recent_search_progressbar"

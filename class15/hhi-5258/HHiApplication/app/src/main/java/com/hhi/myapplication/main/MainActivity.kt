@@ -17,6 +17,7 @@ import java.util.*
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val vm = MainViewModel()
+    private val adapter = MainRecyclerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +25,13 @@ class MainActivity :
         binding.activity = this@MainActivity
         binding.vm = vm
 
+        setUpUi()
         setObserver()
+    }
+
+    private fun setUpUi() {
+        binding.mainRecyclerview.setHasFixedSize(false)
+        binding.mainRecyclerview.adapter = adapter
     }
 
     private fun setObserver() {

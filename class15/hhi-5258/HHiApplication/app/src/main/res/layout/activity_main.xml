@@ -61,7 +61,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/main_edit_search"
-            bind:setMovieList="@{vm.movieList}" />
+            bind:items="@{vm.movieList}" />
 
         <ProgressBar
             android:id="@+id/main_progressbar"
