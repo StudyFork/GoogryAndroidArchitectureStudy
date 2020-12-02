@@ -9,23 +9,29 @@ class MainViewModel(private val movieRepository: MovieRepositoryImpl) {
 
     val keyword = ObservableField<String>()
     val movieList = ObservableField<List<Movie>>()
-    val onFailedEvent = ObservableField<Unit>()
-    val onEmptyQuery = ObservableField<Unit>()
-    val onEmptyResult = ObservableField<Unit>()
+    val showToastMsg = ObservableField<Unit>()
+    val msg = ObservableField<String>()
 
     fun findMovie() {
-        if (keyword.get().isNullOrBlank()) {
-            onEmptyQuery.notifyChange()
+        val keyword = keyword.get() ?: return
+        if (keyword.isNullOrBlank()) {
+            msg.set("emptyKeyword")
+            showToastMsg.notifyChange()
         }
-        movieRepository.getMovieData(keyword = keyword.get()!!, 30,
+        movieRepository.getMovieData(keyword = keyword, 30,
             onSuccess = {
                 if (it.items!!.isEmpty()) {
-                    onEmptyResult.notifyChange()
+                    msg.set("emptyResult")
+                    showToastMsg.notifyChange()
                 } else {
+                    msg.set("success")
                     movieList.set(it.items)
                 }
             },
-            onFailure = { onFailedEvent.notifyChange() }
+            onFailure = {
+                msg.set("fail")
+                showToastMsg.notifyChange()
+            }
         )
     }
 }

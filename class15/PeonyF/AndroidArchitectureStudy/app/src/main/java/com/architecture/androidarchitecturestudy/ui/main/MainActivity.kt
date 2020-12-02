@@ -3,7 +3,6 @@ package com.architecture.androidarchitecturestudy.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.Observable
 import com.architecture.androidarchitecturestudy.R
 import com.architecture.androidarchitecturestudy.data.local.MovieLocalDataSourceImpl
@@ -12,6 +11,7 @@ import com.architecture.androidarchitecturestudy.data.repository.MovieRepository
 import com.architecture.androidarchitecturestudy.databinding.ActivityMainBinding
 import com.architecture.androidarchitecturestudy.ui.base.BaseActivity
 import com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryActivity
+import com.architecture.androidarchitecturestudy.util.toast
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -26,28 +26,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         binding.mainActivity = this
         binding.viewModel = viewModel
-        setViewModelEvent()
+        viewModelCallback()
     }
 
-    private fun setViewModelEvent() {
-        viewModel.onFailedEvent.addOnPropertyChangedCallback(object :
+    private fun viewModelCallback() {
+        viewModel.showToastMsg.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(this@MainActivity, "네트워크 통신 실패.", Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        viewModel.onEmptyQuery.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(this@MainActivity, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        viewModel.onEmptyResult.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(this@MainActivity, "관련 검색어의 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+                viewModel.msg.get()?.let {
+                    when (it) {
+                        "success" -> toast(R.string.network_success)
+                        "emptyKeyword" -> toast(R.string.keyword_empty)
+                        "fail" -> toast(R.string.network_error)
+                        "emptyResult" -> toast(R.string.keyword_result_empty)
+                    }
+                }
             }
         })
     }
