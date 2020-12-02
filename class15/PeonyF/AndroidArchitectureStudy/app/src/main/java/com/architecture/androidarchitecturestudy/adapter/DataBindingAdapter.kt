@@ -7,13 +7,13 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 @BindingAdapter("imageUrl")
-fun bindImage(view: ImageView, url: String?) {
+fun imageUrl(view: ImageView, url: String?) {
     Glide.with(view)
         .load(url)
         .into(view)
 }
 
 @BindingAdapter("bindRatingStar")
-fun bindingRatingStar(view: RatingBar, userRating: Double) {
+fun bindRatingStar(view: RatingBar, userRating: Double) {
     view.rating = (userRating / 2).toFloat()
 }
