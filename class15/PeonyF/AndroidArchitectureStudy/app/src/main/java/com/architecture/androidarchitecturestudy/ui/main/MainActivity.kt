@@ -19,9 +19,9 @@ import com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryA
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<MainPresenter>(), MainContract.View {
-    private lateinit var movieAdapter: MovieAdapter
-    private lateinit var mainBinding: ActivityMainBinding
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+    //    private lateinit var movieAdapter: MovieAdapter
+    // private lateinit var mainBinding: ActivityMainBinding
 
     private val mainPresenter by lazy {
         val repositoryMovieDataImpl =

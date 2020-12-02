@@ -14,7 +14,7 @@ import com.architecture.androidarchitecturestudy.ui.main.MainActivity
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
 
 class SearchHistoryActivity :
-    BaseActivity<SearchHistoryContract.Presenter>(), SearchHistoryContract.View {
+    BaseActivity<ActivitySearchHistoryBinding>(R.layout.activity_search_history) {
     private lateinit var searchHistoryAdapter: SearchHistoryAdapter
     private lateinit var searchBinding: ActivitySearchHistoryBinding
 
