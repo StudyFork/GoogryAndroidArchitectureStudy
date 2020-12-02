@@ -66,7 +66,11 @@ class MainActivity :
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                RC_ACTIVITY_FOR_RESULT -> vm.searchMovie(data!!.getStringExtra("query"))
+                RC_ACTIVITY_FOR_RESULT -> {
+                    val query = data!!.getStringExtra("query")
+                    vm.searchMovie(query)
+                    binding.mainEditSearch.setText(query)
+                }
             }
         }
     }
