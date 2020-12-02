@@ -1,4 +1,4 @@
-package com.architecture.androidarchitecturestudy.ui.searchhistory
+package com.architecture.androidarchitecturestudy.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
