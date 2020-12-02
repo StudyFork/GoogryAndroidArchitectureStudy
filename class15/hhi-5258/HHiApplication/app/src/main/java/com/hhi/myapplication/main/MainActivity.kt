@@ -9,6 +9,7 @@ import androidx.databinding.Observable
 import com.hhi.myapplication.R
 import com.hhi.myapplication.base.BaseActivity
 import com.hhi.myapplication.databinding.ActivityMainBinding
+import com.hhi.myapplication.recentSearch.RecentSearchActivity
 import com.hhi.myapplication.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -40,6 +41,16 @@ class MainActivity :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 showToast("내용을 입력해 주세요")
+            }
+        })
+
+        vm.searchRecentQueryEvent.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                startActivityForResult(
+                    Intent(this@MainActivity, RecentSearchActivity::class.java),
+                    RC_ACTIVITY_FOR_RESULT
+                )
             }
         })
     }

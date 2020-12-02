@@ -11,6 +11,7 @@ class MainViewModel {
     val movieList = ObservableField<ArrayList<MovieData.MovieItem>>()
     val emptyQueryEvent = ObservableField<Unit>()
     val hideKeyBoardEvent = ObservableField<Unit>()
+    val searchRecentQueryEvent = ObservableField<Unit>()
     val loading = ObservableField(View.GONE)
 
     fun searchMovie(query: String) {
@@ -32,5 +33,9 @@ class MainViewModel {
                 }
             )
         }
+    }
+
+    fun searchRecentQuery() {
+        searchRecentQueryEvent.notifyChange()
     }
 }
