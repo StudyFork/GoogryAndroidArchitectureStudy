@@ -7,7 +7,6 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.architecture.androidarchitecturestudy.data.model.Movie
 import com.architecture.androidarchitecturestudy.data.model.SearchHistoryEntity
-import com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryAdapter
 import com.bumptech.glide.Glide
 
 @BindingAdapter("imageUrl")
@@ -24,10 +23,8 @@ fun bindRatingStar(view: RatingBar, userRating: Double) {
 
 @BindingAdapter("setMovieList")
 fun RecyclerView.setMovieList(list: List<Movie>?) {
-
-    if (list == null) return
-
     val movieAdapter: MovieAdapter
+    if (list == null) return
 
     if (adapter == null) {
         movieAdapter = MovieAdapter()
@@ -40,9 +37,9 @@ fun RecyclerView.setMovieList(list: List<Movie>?) {
 
 @BindingAdapter("setSearchHistories")
 fun RecyclerView.setSearchHistories(list: List<SearchHistoryEntity>?) {
-    if (list == null) return
-
     val historyAdapter: SearchHistoryAdapter
+
+    if (list == null) return
 
     if (adapter == null) {
         historyAdapter = SearchHistoryAdapter()
