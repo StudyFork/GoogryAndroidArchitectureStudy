@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+
 @Database(
     entities = [MovieSearchEntity::class],
     version = 1,
@@ -11,6 +12,7 @@ import androidx.room.RoomDatabase
 )
 abstract class SearchedDataBase : RoomDatabase() {
     abstract fun getMovieSearchedDao(): MovieSearchedDao
+
     companion object {
         private var INSTANCE: SearchedDataBase? = null
         fun getInstance(context: Context): SearchedDataBase? {
@@ -20,7 +22,7 @@ abstract class SearchedDataBase : RoomDatabase() {
                         context.applicationContext,
                         SearchedDataBase::class.java, "searchedQuery.db"
                     ).allowMainThreadQueries()
-                      .build()
+                        .build()
                 }
             }
             return INSTANCE

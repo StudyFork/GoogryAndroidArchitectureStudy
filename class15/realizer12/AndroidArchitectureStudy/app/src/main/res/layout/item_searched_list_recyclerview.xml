@@ -17,10 +17,10 @@
         android:id="@+id/tv_searched_movie_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:gravity="center"
-        android:textColor="@color/colorBlack"
+        android:padding="10dp"
         android:text="@{searchMovieTitleData}"
+        android:textColor="@color/colorBlack"
         android:textSize="30sp"
         android:textStyle="bold"
         tools:text="최근 검색 영화 제목" />

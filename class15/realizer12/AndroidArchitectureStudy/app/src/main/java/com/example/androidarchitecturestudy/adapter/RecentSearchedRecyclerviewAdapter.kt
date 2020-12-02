@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidarchitecturestudy.databinding.ItemSearchedListRecyclerviewBinding
 
-class RecentSearchedRecyclerviewAdapter() : RecyclerView.Adapter<RecentSearchedRecyclerviewAdapter.RecentSearchedMovieItem>() {
+class RecentSearchedRecyclerviewAdapter :
+    RecyclerView.Adapter<RecentSearchedRecyclerviewAdapter.RecentSearchedMovieItem>() {
 
     private val recentSearchMovieList = ArrayList<String>()
     private var onItemClickListener: OnItemClickListener? = null

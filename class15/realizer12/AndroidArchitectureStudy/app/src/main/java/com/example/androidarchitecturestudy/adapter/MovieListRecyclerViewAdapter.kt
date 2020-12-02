@@ -6,14 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.androidarchitecturestudy.data.GetMovieInfo
 import com.example.androidarchitecturestudy.databinding.ItemMainRecyclerviewBinding
 
-class MovieListRecyclerViewAdapter() : RecyclerView.Adapter<MovieListRecyclerViewAdapter.MovieItemViewHolder>() {
+class MovieListRecyclerViewAdapter :
+    RecyclerView.Adapter<MovieListRecyclerViewAdapter.MovieItemViewHolder>() {
 
 
     private val movieList = ArrayList<GetMovieInfo.MovieData>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
-        val binding = ItemMainRecyclerviewBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            ItemMainRecyclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieItemViewHolder(binding)
     }
 
@@ -32,7 +34,8 @@ class MovieListRecyclerViewAdapter() : RecyclerView.Adapter<MovieListRecyclerVie
         notifyDataSetChanged()
     }
 
-    inner class MovieItemViewHolder(val binding:ItemMainRecyclerviewBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MovieItemViewHolder(val binding: ItemMainRecyclerviewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         // 각 뷰에  데이터 연결
         fun bind(movieData: GetMovieInfo.MovieData?) {
 

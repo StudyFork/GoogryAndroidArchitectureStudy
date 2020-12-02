@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-         <variable
-             name="thisActivity"
-             type="com.example.androidarchitecturestudy.MainActivity" />
+
+        <variable
+            name="thisActivity"
+            type="com.example.androidarchitecturestudy.MainActivity" />
 
     </data>
 
@@ -23,13 +24,13 @@
             android:autofillHints=""
             android:ems="10"
             android:hint="@string/main_edit_hint"
-            android:inputType="text"
             android:imeOptions="actionSearch"
-            bind:searchMovie="@{() -> thisActivity.searchMovie()}"
+            android:inputType="text"
             android:paddingStart="5dp"
             app:layout_constraintEnd_toStartOf="@id/btn_main_search_movie"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            bind:searchMovie="@{() -> thisActivity.searchMovie()}"
             tools:ignore="RtlSymmetry" />
 
         <Button
@@ -38,8 +39,8 @@
             android:layout_height="0dp"
             android:onClick="@{() -> thisActivity.searchMovie()}"
             android:text="@string/main_btn_search"
-            app:layout_constraintEnd_toStartOf="@id/btn_main_recent_search_movie_list"
             app:layout_constraintBottom_toBottomOf="@id/edit_main_search_movie"
+            app:layout_constraintEnd_toStartOf="@id/btn_main_recent_search_movie_list"
             app:layout_constraintStart_toEndOf="@id/edit_main_search_movie"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,11 +60,11 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_main_search_movie"
+            app:spanCount="2"
             tools:layout_editor_absoluteX="121dp"
             tools:layout_editor_absoluteY="183dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>

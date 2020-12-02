@@ -12,7 +12,7 @@ import com.example.androidarchitecturestudy.presenter.SearchedMoviePresenter
 import com.example.androidarchitecturestudy.room.SearchedDataBase
 import kotlinx.android.synthetic.main.activity_recent_search.*
 
-class RecentSearchActivity :AppCompatActivity(),SearchedMovieContract.View {
+class RecentSearchActivity : AppCompatActivity(), SearchedMovieContract.View {
 
     private val searchedMoviePresenter = SearchedMoviePresenter(this, MovieRepositoryImpl())
 
@@ -26,8 +26,9 @@ class RecentSearchActivity :AppCompatActivity(),SearchedMovieContract.View {
         getSearchedMovieList()
 
     }
-    private fun setupDataBinding(){
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_recent_search)
+
+    private fun setupDataBinding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_recent_search)
         binding.thisActivity = this
     }
 

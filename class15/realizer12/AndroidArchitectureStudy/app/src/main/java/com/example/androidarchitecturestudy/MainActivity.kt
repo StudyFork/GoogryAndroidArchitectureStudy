@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     private val moviePresenter = MoviePresenter(this, MovieRepositoryImpl())
 
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
     }
 
 
-    private fun setupDataBinding(){
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+    private fun setupDataBinding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.thisActivity = this
     }
 
@@ -46,12 +46,12 @@ class MainActivity : AppCompatActivity(), MovieContract.View {
 
     override fun showMovieResultEmpty() {
         updateRecyclerView(emptyList())
-        Toast.makeText(this, R.string.main_no_search_result, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.main_no_search_result, Toast.LENGTH_SHORT).show()
     }
 
 
     override fun showSearchQueryEmpty() {
-        Toast.makeText(this, R.string.main_no_search_query, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.main_no_search_query, Toast.LENGTH_SHORT).show()
     }
 
     // 리사이클러뷰 세팅

@@ -16,6 +16,6 @@ interface MovieContract {
     //프레젠터에서 할일
     interface Presenter {
         fun getMovieData(searchQuery: String)
-        fun saveSearchQuery(searchQuery: String,database:SearchedDataBase)
+        fun saveSearchQuery(searchQuery: String, database: SearchedDataBase)
     }
 }

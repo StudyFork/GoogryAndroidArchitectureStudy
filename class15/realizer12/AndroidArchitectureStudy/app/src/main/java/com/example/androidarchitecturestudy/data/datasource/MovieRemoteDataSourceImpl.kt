@@ -33,7 +33,7 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
                     onFailure(t)
 
                 }
-            });
+            })
 
     }
 }

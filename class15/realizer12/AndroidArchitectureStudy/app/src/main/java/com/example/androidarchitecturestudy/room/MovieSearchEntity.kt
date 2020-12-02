@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "searchedQuery")
 class MovieSearchEntity(
     @PrimaryKey(autoGenerate = true)
-    val idx: Int? =0,
+    val idx: Int? = 0,
     var searchedQuery: String
 )

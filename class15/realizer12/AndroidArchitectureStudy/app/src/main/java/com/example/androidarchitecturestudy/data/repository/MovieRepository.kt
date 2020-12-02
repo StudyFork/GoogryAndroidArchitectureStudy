@@ -12,8 +12,8 @@ interface MovieRepository {
         onFailure: (Throwable) -> Unit
     )
 
-    fun saveRecentSearch(searchQuery:String,dataBase: SearchedDataBase)
+    fun saveRecentSearch(searchQuery: String, dataBase: SearchedDataBase)
 
-    fun getRecentSearch(dataBase: SearchedDataBase):List<String>
+    fun getRecentSearch(dataBase: SearchedDataBase): List<String>
 
 }
