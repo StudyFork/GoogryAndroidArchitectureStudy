@@ -5,75 +5,50 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import androidx.core.view.isVisible
+import androidx.databinding.Observable
 import com.hhi.myapplication.R
 import com.hhi.myapplication.base.BaseActivity
-import com.hhi.myapplication.data.model.MovieData
-import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 import com.hhi.myapplication.databinding.ActivityMainBinding
-import com.hhi.myapplication.recentSearch.RecentSearchActivity
+import com.hhi.myapplication.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity :
-    BaseActivity<MainContract.Presenter, ActivityMainBinding>(R.layout.activity_main),
-    MainContract.View {
-    private val recyclerAdapter =
-        MainRecyclerAdapter()
-    private val mainPresenter = MainPresenter(
-        this,
-        NaverRepositoryDataSourceImpl()
-    )
+    BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+    private val vm = MainViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setUpUi()
-        setUpListener()
+        binding.activity = this@MainActivity
+        binding.vm = vm
+
+        setObserver()
     }
 
-    private fun setUpUi() {
-        main_recyclerview.setHasFixedSize(false)
-        main_recyclerview.adapter = recyclerAdapter
-    }
+    private fun setObserver() {
+        vm.hideKeyBoardEvent.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                val inputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+            }
+        })
 
-    private fun setUpListener() {
-        main_btn_search.setOnClickListener {
-            val searchText = main_edit_search.text.toString()
-            mainPresenter.searchMovie(searchText)
-        }
-        main_btn_recent_search.setOnClickListener {
-            val intent = Intent(this, RecentSearchActivity::class.java)
-            startActivityForResult(intent, RC_ACTIVITY_FOR_RESULT)
-        }
-    }
-
-    override fun showMovies(items: ArrayList<MovieData.MovieItem>) {
-        recyclerAdapter.setMovieList(items)
-    }
-
-    override fun showEmptyQuery() {
-        super.showToast("내용을 입력해 주세요")
-    }
-
-    override fun showProgressBar() {
-        main_progressbar.isVisible = true
-    }
-
-    override fun hideProgressBar() {
-        main_progressbar.isVisible = false
-    }
-
-    override fun hideKeyboard() {
-        val inputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        vm.emptyQueryEvent.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showToast("내용을 입력해 주세요")
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-                RC_ACTIVITY_FOR_RESULT -> mainPresenter.searchMovie(data!!.getStringExtra("query"))
+                RC_ACTIVITY_FOR_RESULT -> vm.searchMovie(data!!.getStringExtra("query"))
             }
         }
     }

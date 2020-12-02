@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="activity"
+            type="com.hhi.myapplication.main.MainActivity" />
+
+        <variable
+            name="vm"
+            type="com.hhi.myapplication.viewmodel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,6 +34,7 @@
             android:id="@+id/main_btn_search"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.searchMovie(mainEditSearch.getText().toString())}"
             android:text="검색"
             app:layout_constraintLeft_toRightOf="@id/main_edit_search"
             app:layout_constraintRight_toLeftOf="@id/main_btn_recent_search"
@@ -50,13 +59,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/main_edit_search" />
+            app:layout_constraintTop_toBottomOf="@id/main_edit_search"
+            bind:setMovieList="@{vm.movieList}" />
 
         <ProgressBar
             android:id="@+id/main_progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="@{vm.loading}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

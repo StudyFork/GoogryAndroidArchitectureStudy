@@ -10,7 +10,7 @@ import com.hhi.myapplication.databinding.ActivityRecentSearchBinding
 import kotlinx.android.synthetic.main.activity_recent_search.*
 
 class RecentSearchActivity :
-    BaseActivity<RecentSearchContract.Presenter, ActivityRecentSearchBinding>(R.layout.activity_recent_search),
+    BaseActivity<ActivityRecentSearchBinding>(R.layout.activity_recent_search),
     RecentSearchContract.View {
     private val recyclerAdapter = RecentSearchRecyclerAdapter(
         onClick = { query ->
