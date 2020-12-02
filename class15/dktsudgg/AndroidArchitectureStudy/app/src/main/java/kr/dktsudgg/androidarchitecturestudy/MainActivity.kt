@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
+//import kotlinx.android.synthetic.main.activity_main.*
 import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepositoryImpl
 import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMainBinding
@@ -30,8 +30,8 @@ class MainActivity :
         /**
          * 영화 검색결과 리스트 보여주는 RecyclerView에 어댑터 연결 및 목록 구분선 추가
          */
-        searchedMovieList.adapter = MovieListAdapter()
-        searchedMovieList.addItemDecoration(
+        binding.searchedMovieList.adapter = MovieListAdapter()
+        binding.searchedMovieList.addItemDecoration(
             DividerItemDecoration(
                 this,
                 LinearLayoutManager.VERTICAL
@@ -46,7 +46,7 @@ class MainActivity :
     override fun onClick(clickedView: View) {
         when (clickedView.id) {
             R.id.movieSearchBtn -> {    // 검색 버튼 클릭 시, 검색어 입력한 내용을 가지고 검색 수행
-                val searchText = movieSearchEditText.text.toString()
+                val searchText = binding.movieSearchEditText.text.toString()
                 movieSearchPresenter.searchMovies(searchText)
             }
             R.id.showMovieSearchHistoryBtn -> { // 최근검색이력 버튼 클릭 시, 영화검색이력을 보여주는 액티비티로 이동
@@ -63,10 +63,10 @@ class MainActivity :
         when (requestCode) {
             ACTIVITY_REQ_CODE -> {  // 반환된 내용을 가지고 EditText에 세팅 및 검색버튼 클릭 수행
                 if (resultCode == RESULT_OK) {
-                    movieSearchEditText.setText(
+                    binding.movieSearchEditText.setText(
                         data?.getStringExtra("selectedKeyword") ?: ""
                     )
-                    movieSearchBtn.performClick()
+                    binding.movieSearchBtn.performClick()
                 } else {
                     Toast.makeText(
                         this,
@@ -82,7 +82,7 @@ class MainActivity :
     }
 
     override fun updateSearchedMovieList(data: List<MovieItem>) {
-        (searchedMovieList.adapter as MovieListAdapter).refreshData(data)
+        (binding.searchedMovieList.adapter as MovieListAdapter).refreshData(data)
     }
 
     companion object {

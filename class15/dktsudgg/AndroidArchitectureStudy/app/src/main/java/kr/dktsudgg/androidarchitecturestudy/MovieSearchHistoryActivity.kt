@@ -3,7 +3,7 @@ package kr.dktsudgg.androidarchitecturestudy
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_movie_search_history.*
+//import kotlinx.android.synthetic.main.activity_movie_search_history.*
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepositoryImpl
 import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMovieSearchHistoryBinding
 import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieSearchHistoryListAdapter
@@ -24,8 +24,8 @@ class MovieSearchHistoryActivity :
         /**
          * 영화 검색이력 리스트 보여주는 RecyclerView에 어댑터 연결 및 목록 구분선 추가
          */
-        movieSearchHistoryList.adapter = MovieSearchHistoryListAdapter()
-        movieSearchHistoryList.addItemDecoration(
+        binding.movieSearchHistoryList.adapter = MovieSearchHistoryListAdapter()
+        binding.movieSearchHistoryList.addItemDecoration(
             DividerItemDecoration(
                 this,
                 LinearLayoutManager.VERTICAL
@@ -39,7 +39,7 @@ class MovieSearchHistoryActivity :
     }
 
     override fun updateMovieSearchHistoryList(data: List<String>) {
-        (movieSearchHistoryList.adapter as MovieSearchHistoryListAdapter).refreshData(data)
+        (binding.movieSearchHistoryList.adapter as MovieSearchHistoryListAdapter).refreshData(data)
     }
 
 }

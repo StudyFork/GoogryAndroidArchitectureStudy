@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'kotlin-android-extensions' // 얘를 지우고, kotlin-parcelize 플러그인 추가
+apply plugin: 'kotlin-parcelize'            // 코틀린 gradle 플러그인 버전 1.4.20으로 업데이트 후 사용
 apply plugin: 'kotlin-kapt'
 
 def getSecretProperty(String key){
