@@ -1,45 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <EditText
-        android:id="@+id/edit_main_search_movie"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/main_edit_hint"
-        android:inputType="text"
-        android:imeOptions="actionSearch"
-        android:paddingStart="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="RtlSymmetry" />
+    <data>
 
-    <Button
-        android:id="@+id/btn_main_search_movie"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:text="@string/main_btn_search"
-        app:layout_constraintBottom_toBottomOf="@id/edit_main_search_movie"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="thisActivity"
+            type="com.example.androidarchitecturestudy.MainActivity" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_main_movie_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_main_search_movie"
-        tools:layout_editor_absoluteX="121dp"
-        tools:layout_editor_absoluteY="183dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <EditText
+            android:id="@+id/edit_main_search_movie"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/main_edit_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingStart="5dp"
+            app:layout_constraintEnd_toStartOf="@id/btn_main_search_movie"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            bind:searchMovie="@{() -> thisActivity.searchMovie()}"
+            tools:ignore="RtlSymmetry" />
+
+        <Button
+            android:id="@+id/btn_main_search_movie"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:onClick="@{() -> thisActivity.searchMovie()}"
+            android:text="@string/main_btn_search"
+            app:layout_constraintBottom_toBottomOf="@id/edit_main_search_movie"
+            app:layout_constraintEnd_toStartOf="@id/btn_main_recent_search_movie_list"
+            app:layout_constraintStart_toEndOf="@id/edit_main_search_movie"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_main_recent_search_movie_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{thisActivity::showRecentSearchList}"
+            android:text="@string/main_btn_recent_search"
+            app:layout_constraintBottom_toBottomOf="@id/edit_main_search_movie"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_main_search_movie"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_main_movie_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_main_search_movie"
+            app:spanCount="2"
+            tools:layout_editor_absoluteX="121dp"
+            tools:layout_editor_absoluteY="183dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

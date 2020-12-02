@@ -1,7 +1,7 @@
 package com.example.androidarchitecturestudy.presenter
 
-import android.util.Log
 import com.example.androidarchitecturestudy.data.repository.MovieRepository
+import com.example.androidarchitecturestudy.room.SearchedDataBase
 
 class MoviePresenter(
     private val view: MovieContract.View,
@@ -15,9 +15,9 @@ class MoviePresenter(
             //영화 검색 실행
             repository.getMovieSearchResult(searchQuery, {
                 it.movieList?.let { movieList ->
-                    if(movieList.isEmpty()) {
+                    if (movieList.isEmpty()) {
                         view.showMovieResultEmpty()
-                    }else{
+                    } else {
                         view.updateRecyclerView(movieList)
                     }
                 }
@@ -26,6 +26,14 @@ class MoviePresenter(
             })
         }
         view.hideKeyBoard()
+    }
+
+
+    override fun saveSearchQuery(searchQuery: String, database: SearchedDataBase) {
+        //검색 쿼리  안비어 있을때 진행
+        if (searchQuery.isNotEmpty()) {
+            repository.saveRecentSearch(searchQuery, database)
+        }
     }
 
 }
