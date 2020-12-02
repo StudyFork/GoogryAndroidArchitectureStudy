@@ -1,4 +1,4 @@
-package kr.dktsudgg.androidarchitecturestudy.view.ui
+package kr.dktsudgg.androidarchitecturestudy.view.ui.mvp
 
 interface MovieHistoryContract {
 

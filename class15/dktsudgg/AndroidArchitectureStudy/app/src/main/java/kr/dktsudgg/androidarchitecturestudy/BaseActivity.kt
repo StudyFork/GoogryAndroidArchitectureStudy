@@ -7,8 +7,8 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import kr.dktsudgg.androidarchitecturestudy.view.ui.BaseContract
-import kr.dktsudgg.androidarchitecturestudy.view.ui.BasePresenter
+import kr.dktsudgg.androidarchitecturestudy.view.ui.mvp.BaseContract
+import kr.dktsudgg.androidarchitecturestudy.view.ui.mvp.BasePresenter
 
 abstract class BaseActivity<P : BasePresenter, B : ViewDataBinding>(@LayoutRes val layoutResId: Int) :
     AppCompatActivity(), BaseContract.View {

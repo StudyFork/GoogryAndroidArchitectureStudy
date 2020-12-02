@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepositoryImpl
 import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMovieSearchHistoryBinding
 import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieSearchHistoryListAdapter
-import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieHistoryContract
-import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieHistoryPresenter
+import kr.dktsudgg.androidarchitecturestudy.view.ui.mvp.MovieHistoryContract
+import kr.dktsudgg.androidarchitecturestudy.view.ui.mvp.MovieHistoryPresenter
 
 class MovieSearchHistoryActivity :
     BaseActivity<MovieHistoryPresenter, ActivityMovieSearchHistoryBinding>(R.layout.activity_movie_search_history),

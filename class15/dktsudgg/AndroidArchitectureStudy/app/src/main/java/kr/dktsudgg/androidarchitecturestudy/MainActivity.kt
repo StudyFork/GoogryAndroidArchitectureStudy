@@ -11,8 +11,8 @@ import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepositoryImpl
 import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMainBinding
 import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieListAdapter
-import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieSearchContract
-import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieSearchPresenter
+import kr.dktsudgg.androidarchitecturestudy.view.ui.mvp.MovieSearchContract
+import kr.dktsudgg.androidarchitecturestudy.view.ui.mvp.MovieSearchPresenter
 
 class MainActivity :
     BaseActivity<MovieSearchPresenter, ActivityMainBinding>(R.layout.activity_main),
