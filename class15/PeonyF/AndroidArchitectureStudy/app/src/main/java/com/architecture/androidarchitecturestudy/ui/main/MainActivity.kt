@@ -1,23 +1,18 @@
 package com.architecture.androidarchitecturestudy.ui.main
 
-import android.content.Context
-import android.content.Intent
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
 import com.architecture.androidarchitecturestudy.R
-import com.architecture.androidarchitecturestudy.adapter.MovieAdapter
 import com.architecture.androidarchitecturestudy.data.local.MovieLocalDataSourceImpl
-import com.architecture.androidarchitecturestudy.data.model.Movie
 import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.architecture.androidarchitecturestudy.databinding.ActivityMainBinding
 import com.architecture.androidarchitecturestudy.ui.base.BaseActivity
 import com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryActivity
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val viewModel by lazy {
@@ -25,6 +20,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val localDataSourceImpl = MovieLocalDataSourceImpl()
         MainViewModel(MovieRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl))
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,14 +52,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         })
     }
 
-    override fun updateMovieRecycler(items: List<Movie>) {
-        movieAdapter.setItems(items)
-    }
-
-    override fun failMovieGet(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-    }
-
     fun searchHistory() {
         val intent = Intent(this, SearchHistoryActivity::class.java)
         startActivityForResult(intent, REQ_CODE_SEARCH_HISTORY)
@@ -71,6 +59,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     companion object {
         const val REQ_CODE_SEARCH_HISTORY = 101
-        const val MOVIE_KEYWORD = "movie_keyword"
     }
 }
