@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="activity"
+            type="com.hhi.myapplication.recentSearch.RecentSearchActivity" />
 
+        <variable
+            name="vm"
+            type="com.hhi.myapplication.viewmodel.RecentSearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +28,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:setQueryList="@{vm.queryList}"/>
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/recent_search_progressbar"
@@ -30,8 +38,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{vm.loading}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
