@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,6 +10,10 @@
             name="searchActivity"
             type="com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryActivity" />
 
+
+        <variable
+            name="viewModel"
+            type="com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
