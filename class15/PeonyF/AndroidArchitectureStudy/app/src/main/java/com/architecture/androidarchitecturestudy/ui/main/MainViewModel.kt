@@ -17,6 +17,7 @@ class MainViewModel(private val movieRepository: MovieRepository) {
         if (keyword.isNullOrBlank()) {
             msg.set("emptyKeyword")
             showToastMsg.notifyChange()
+            return
         }
         movieRepository.getMovieData(keyword = keyword, 30,
             onSuccess = {
