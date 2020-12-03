@@ -6,7 +6,7 @@ import com.example.androidarchitecturestudy.data.repository.NaverRepository
 
 class MainViewModel(private val repository: NaverRepository) {
     val searchText = ObservableField<String>()
-    val movieList = ObservableField<ArrayList<Movie>>()
+    val movieList = ObservableField<List<Movie>>()
     val msg = ObservableField<String>()
     val isVisible = ObservableField<Boolean>()
     val keyboard = ObservableField<Unit>()
@@ -38,7 +38,6 @@ class MainViewModel(private val repository: NaverRepository) {
 
     fun requestLocalMovieData(){
         repository.getMovieData()
-            ?.let { movie -> movieList.set(movie as ArrayList<Movie>) }
+            ?.let { movie -> movieList.set(movie) }
     }
-
 }

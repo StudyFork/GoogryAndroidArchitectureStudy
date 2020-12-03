@@ -16,7 +16,7 @@ import com.example.androidarchitecturestudy.ui.MovieAdapter
 import com.example.androidarchitecturestudy.ui.TitleAdapter
 
 @BindingAdapter("movieList")
-fun RecyclerView.bindMovieList(items: ArrayList<Movie>) {
+fun RecyclerView.bindMovieList(items: List<Movie>) {
     (adapter as MovieAdapter).setMovieList(items)
 }
 
