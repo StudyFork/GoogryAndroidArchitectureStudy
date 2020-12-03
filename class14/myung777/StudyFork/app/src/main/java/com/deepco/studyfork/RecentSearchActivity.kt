@@ -27,14 +27,6 @@ class RecentSearchActivity :
     }
 
     private fun setObserver() {
-        recentSearchViewModel.searchHistoryItems.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                recentSearchRecyclerAdapter.setItemList(
-                    recentSearchViewModel.searchHistoryItems.get()!!.toList()
-                )
-            }
-        })
         recentSearchViewModel.recentSearchTitle.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

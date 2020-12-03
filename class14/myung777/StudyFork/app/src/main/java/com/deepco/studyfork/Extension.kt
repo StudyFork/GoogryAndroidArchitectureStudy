@@ -6,6 +6,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.deepco.studyfork.data.model.Item
+import com.deepco.studyfork.data.model.RecentSearchData
 
 @BindingAdapter("loadUrl")
 fun ImageView.loadImageView(imageUrl: String) {
@@ -46,4 +47,9 @@ fun RecyclerView.setMovieList(list: List<Item>?) {
     }
 
     movieAdapter.setItemList(list)
+}
+
+@BindingAdapter("setRecentSearchList")
+fun RecyclerView.setRecentSearchList(list: List<RecentSearchData>) {
+    (adapter as RecentSearchRecyclerAdapter).setItemList(list)
 }
