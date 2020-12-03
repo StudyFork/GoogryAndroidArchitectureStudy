@@ -25,7 +25,7 @@ class MainActivity :
         movieSearchViewModel.eventWhenEmptyInputInjected.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(this@MainActivity, "검색어를 입력하세요", Toast.LENGTH_LONG).show();
+                showToast("검색어를 입력하세요")
             }
 
         })
@@ -36,7 +36,7 @@ class MainActivity :
         movieSearchViewModel.eventWhenDataRefreshRequestSuccess.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(this@MainActivity, "검색에 성공하였습니다.", Toast.LENGTH_LONG).show();
+                showToast("검색에 성공하였습니다.")
             }
 
         })
@@ -47,7 +47,7 @@ class MainActivity :
         movieSearchViewModel.eventWhenDataRefreshRequestFailure.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(this@MainActivity, "검색에 실패하였습니다.", Toast.LENGTH_LONG).show();
+                showToast("검색에 실패하였습니다.")
             }
 
         })
