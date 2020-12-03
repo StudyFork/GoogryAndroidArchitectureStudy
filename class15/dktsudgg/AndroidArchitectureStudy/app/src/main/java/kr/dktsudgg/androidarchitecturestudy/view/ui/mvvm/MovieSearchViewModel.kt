@@ -2,7 +2,6 @@ package kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm
 
 import androidx.databinding.ObservableField
 import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
-import kr.dktsudgg.androidarchitecturestudy.data.model.NaverMovieResponse
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepository
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepositoryImpl
 
@@ -20,14 +19,22 @@ class MovieSearchViewModel : BaseViewModel() {
      */
     val movieList = ObservableField<List<MovieItem>>()
 
-    fun refreshSearchMovieList(query: String){
-        if (isEmptyData(query)) {
+    /**
+     * 영화 검색 입력값
+     */
+    val query = ObservableField<String>()
+
+    fun refreshSearchMovieList() {
+
+        val searchKeyword = query.get()
+
+        if (searchKeyword.isNullOrEmpty()) {
             eventWhenEmptyInputInjected.notifyChange()
             return
         }
 
-        naverMovieRepository.searchMovies(query, {
-            (it as NaverMovieResponse).items?.let { searchedMovieList ->
+        naverMovieRepository.searchMovies(searchKeyword, { naverMovieResponse ->
+            naverMovieResponse.items?.let { searchedMovieList ->
                 // 검색된 영화 데이터로 갱신
                 movieList.set(searchedMovieList)
                 movieList.notifyChange()
@@ -39,12 +46,13 @@ class MovieSearchViewModel : BaseViewModel() {
             movieList.notifyChange()
             eventWhenDataRefreshRequestFailure.notifyChange()
         })
+
     }
 
     /**
      * 영화 검색이력 조회 요청 이벤트
      */
-    fun showMovieSearchHistory(){
+    fun showMovieSearchHistory() {
         eventToShowMovieSearchHistory.notifyChange()
     }
 

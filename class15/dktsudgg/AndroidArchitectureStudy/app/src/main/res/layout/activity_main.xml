@@ -32,7 +32,8 @@
                     android:layout_height="60dp"
                     android:layout_weight="5"
                     android:hint="@string/movie_search_autofill_hints"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:text="@={vm.query}" />
 
                 <Button
                     android:id="@+id/showMovieSearchHistoryBtn"
@@ -47,7 +48,7 @@
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:onClick="@{()-> vm.refreshSearchMovieList(movieSearchEditText.getText().toString())}"
+                    android:onClick="@{()-> vm.refreshSearchMovieList()}"
                     android:text="검색" />
             </LinearLayout>
 
