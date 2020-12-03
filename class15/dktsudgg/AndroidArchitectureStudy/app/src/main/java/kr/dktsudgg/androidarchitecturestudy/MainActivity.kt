@@ -9,7 +9,7 @@ import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMainBinding
 import kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm.MovieSearchViewModel
 
 class MainActivity :
-    BaseActivity<ActivityMainBinding>(R.layout.activity_main), View.OnClickListener {
+    BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val movieSearchViewModel by lazy { MovieSearchViewModel() }
 
@@ -55,22 +55,12 @@ class MainActivity :
     }
 
     /**
-     * 클릭 이벤트 처리 메소드
+     * 최근검색이력 조회 버튼 클릭 처리메소드
      */
-    override fun onClick(clickedView: View) {
-        when (clickedView.id) {
-            R.id.movieSearchBtn -> {    // 검색 버튼 클릭 시, 검색어 입력한 내용을 가지고 검색 수행
-                val searchText = binding.movieSearchEditText.text.toString()
-                movieSearchViewModel.refreshSearchMovieList(searchText)
-            }
-            R.id.showMovieSearchHistoryBtn -> { // 최근검색이력 버튼 클릭 시, 영화검색이력을 보여주는 액티비티로 이동
-                startActivityForResult(
-                    Intent(this, MovieSearchHistoryActivity::class.java), ACTIVITY_REQ_CODE
-                )
-            }
-            else -> {
-            }
-        }
+    fun showMovieSearchHistory() {
+        startActivityForResult(
+            Intent(this, MovieSearchHistoryActivity::class.java), ACTIVITY_REQ_CODE
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
