@@ -3,7 +3,6 @@ package com.example.androidarchitecturestudy.ui.main
 import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.databinding.Observable
 import com.example.androidarchitecturestudy.R
 import com.example.androidarchitecturestudy.data.local.NaverLocalDataSourceImpl
@@ -47,7 +46,7 @@ class MainActivity :
         viewModel.msg.addOnPropertyChangedCallback(object :
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(this@MainActivity, viewModel.msg.get(), Toast.LENGTH_SHORT).show()
+                showToastMsg(viewModel.msg.get()!!)
             }
         })
 
