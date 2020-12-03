@@ -13,7 +13,6 @@ class RecentSearchActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.activity = this
         binding.viewModel = recentSearchViewModel
         setRecyclerView()
         setObserver()

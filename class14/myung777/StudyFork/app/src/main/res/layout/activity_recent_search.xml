@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.deepco.studyfork.RecentSearchActivity" />
-
-        <variable
             name="viewModel"
             type="com.deepco.studyfork.viewmodel.RecentSearchViewModel" />
 
