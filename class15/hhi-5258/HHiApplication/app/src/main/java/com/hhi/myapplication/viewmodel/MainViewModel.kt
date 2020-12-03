@@ -3,16 +3,16 @@ package com.hhi.myapplication.viewmodel
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableField
+import com.hhi.myapplication.base.BaseViewModel
 import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 
-class MainViewModel {
+class MainViewModel : BaseViewModel(){
     private val repositoryDataSourceImpl = NaverRepositoryDataSourceImpl()
     val movieList = ObservableField<ArrayList<MovieData.MovieItem>>()
     val emptyQueryEvent = ObservableField<Unit>()
     val hideKeyBoardEvent = ObservableField<Unit>()
     val searchRecentQueryEvent = ObservableField<Unit>()
-    val loading = ObservableField(View.GONE)
 
     fun searchMovie(query: String) {
         hideKeyBoardEvent.notifyChange()
