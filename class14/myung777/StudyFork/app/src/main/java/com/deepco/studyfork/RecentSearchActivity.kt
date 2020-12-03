@@ -8,8 +8,10 @@ import com.deepco.studyfork.viewmodel.RecentSearchViewModel
 
 class RecentSearchActivity :
     BaseActivity<ActivityRecentSearchBinding>(R.layout.activity_recent_search) {
-    private lateinit var recentSearchRecyclerAdapter: RecentSearchRecyclerAdapter
     val recentSearchViewModel = RecentSearchViewModel()
+    private val recentSearchRecyclerAdapter by lazy {
+        RecentSearchRecyclerAdapter(recentSearchViewModel)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,9 +22,6 @@ class RecentSearchActivity :
     }
 
     private fun setRecyclerView() {
-        recentSearchRecyclerAdapter = RecentSearchRecyclerAdapter { query ->
-            recentSearchViewModel.setRecentSearchTitle(query)
-        }
         binding.recyclerView.adapter = recentSearchRecyclerAdapter
     }
 

@@ -5,13 +5,18 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="com.deepco.studyfork.viewmodel.RecentSearchViewModel" />
+
+        <variable
             name="recentSearch"
             type="com.deepco.studyfork.data.model.RecentSearchData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{()->viewModel.setRecentSearchTitle(recentSearch.recentSearchTitle)}">
 
         <TextView
             android:id="@+id/title"
