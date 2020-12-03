@@ -11,6 +11,11 @@ class MovieSearchViewModel : BaseViewModel() {
     private val naverMovieRepository: NaverMovieRepository = NaverMovieRepositoryImpl()
 
     /**
+     * 영화 검색이력 목록 보여주기 요청이 발생할 시, 알리기 위한 변수
+     */
+    val eventToShowMovieSearchHistory = ObservableField<Unit>()
+
+    /**
      * 영화 검색 결과 목록을 담고 있는 변수
      */
     val movieList = ObservableField<List<MovieItem>>()
@@ -34,6 +39,13 @@ class MovieSearchViewModel : BaseViewModel() {
             movieList.notifyChange()
             eventWhenDataRefreshRequestFailure.notifyChange()
         })
+    }
+
+    /**
+     * 영화 검색이력 조회 요청 이벤트
+     */
+    fun showMovieSearchHistory(){
+        eventToShowMovieSearchHistory.notifyChange()
     }
 
 }

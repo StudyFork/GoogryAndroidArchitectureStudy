@@ -2,7 +2,6 @@ package kr.dktsudgg.androidarchitecturestudy
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.databinding.Observable
 import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMainBinding
@@ -16,7 +15,6 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.activity = this@MainActivity
         binding.vm = movieSearchViewModel
 
         /**
@@ -52,15 +50,19 @@ class MainActivity :
 
         })
 
-    }
+        /**
+         * 영화 검색이력 조회 요청 이벤트
+         */
+        movieSearchViewModel.eventToShowMovieSearchHistory.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                startActivityForResult(
+                    Intent(this@MainActivity, MovieSearchHistoryActivity::class.java), ACTIVITY_REQ_CODE
+                )
+            }
 
-    /**
-     * 최근검색이력 조회 버튼 클릭 처리메소드
-     */
-    fun showMovieSearchHistory() {
-        startActivityForResult(
-            Intent(this, MovieSearchHistoryActivity::class.java), ACTIVITY_REQ_CODE
-        )
+        })
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
