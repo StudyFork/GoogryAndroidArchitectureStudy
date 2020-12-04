@@ -1,10 +1,12 @@
 package com.example.studyfork.main
 
 import androidx.databinding.ObservableField
+import com.example.studyfork.base.BaseViewModel
 import com.example.studyfork.data.model.MovieSearchResponse
 import com.example.studyfork.data.repository.Repository
+import io.reactivex.rxkotlin.addTo
 
-class MainViewModel(private val repository: Repository) {
+class MainViewModel(private val repository: Repository) : BaseViewModel() {
 
     val movieList: ObservableField<List<MovieSearchResponse.MovieItem>> = ObservableField()
     val showError: ObservableField<Unit> = ObservableField()
@@ -23,6 +25,10 @@ class MainViewModel(private val repository: Repository) {
             fail = {
                 showError.set(Unit)
             }
-        )
+        ).addTo(compositeDisposable)
+    }
+
+    fun clear() {
+        compositeDisposable.clear()
     }
 }
