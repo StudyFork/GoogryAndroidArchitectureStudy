@@ -1,7 +1,9 @@
 package com.example.googryandroidarchitecturestudy.ui.viewmodel
 
 import android.view.View
+import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
+import com.example.googryandroidarchitecturestudy.BR
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.domain.Movie
 import com.example.googryandroidarchitecturestudy.domain.RecentSearch
@@ -21,7 +23,21 @@ class MovieSearchViewModel(
 
     val showRecentKeywordsEvent = ObservableField(false)
 
-    suspend fun queryMovieList(query: String) {
+    private var query = ""
+
+    @Bindable
+    fun getQuery(): String {
+        return query
+    }
+
+    fun setQuery(query: String) {
+        if (this.query != query) {
+            this.query = query
+            notifyPropertyChanged(BR.query)
+        }
+    }
+
+    suspend fun queryMovieList() {
         if (query.isEmpty()) {
             showQueryEmptyEvent.notifyChange()
             return

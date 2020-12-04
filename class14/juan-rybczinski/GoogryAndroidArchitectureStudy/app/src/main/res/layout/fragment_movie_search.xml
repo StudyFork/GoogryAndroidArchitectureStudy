@@ -12,6 +12,10 @@
         <variable
             name="vm"
             type="com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieSearchViewModel" />
+
+        <variable
+            name="query"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,6 +29,7 @@
             android:layout_marginHorizontal="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
             android:inputType="text"
+            android:text="@={vm.query}"
             app:layout_constraintEnd_toStartOf="@+id/search_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            android:onClick="@{() -> v.queryMovieList(searchText.getText().toString())}"
+            android:onClick="@{() -> v.queryMovieList()}"
             android:text="@string/search"
             app:layout_constraintEnd_toStartOf="@id/recent_button"
             app:layout_constraintTop_toTopOf="parent" />

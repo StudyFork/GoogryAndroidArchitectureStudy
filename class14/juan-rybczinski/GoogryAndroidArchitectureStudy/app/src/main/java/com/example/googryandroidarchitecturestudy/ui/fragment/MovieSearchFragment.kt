@@ -82,13 +82,14 @@ class MovieSearchFragment :
 
     private fun checkPassedQuery() {
         args.passedQuery?.let {
-            queryMovieList(it)
+            viewModel.setQuery(it)
+            queryMovieList()
         }
     }
 
-    fun queryMovieList(query: String) {
+    fun queryMovieList() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.queryMovieList(query)
+            viewModel.queryMovieList()
         }
     }
 
