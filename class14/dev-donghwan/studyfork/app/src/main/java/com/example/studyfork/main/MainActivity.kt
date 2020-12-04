@@ -31,7 +31,7 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.activity = this
-
+        binding.vm = viewModel
         binding.recMovie.adapter = recyclerAdapter
 
         viewModel.showError.addOnPropertyChangedCallback(object :

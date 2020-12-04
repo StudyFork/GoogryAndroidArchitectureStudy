@@ -1,5 +1,6 @@
 package com.example.studyfork.main.adapter
 
+import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.studyfork.MovieRecyclerAdapter

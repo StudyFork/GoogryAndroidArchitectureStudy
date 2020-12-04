@@ -15,6 +15,7 @@ class RecentSearchViewModel(private val repository: Repository) : BaseViewModel(
             showListIsEmpty.set(Unit)
         } else {
             recentSearchList.set(result)
+            recentSearchList.notifyChange()
         }
     }
 }

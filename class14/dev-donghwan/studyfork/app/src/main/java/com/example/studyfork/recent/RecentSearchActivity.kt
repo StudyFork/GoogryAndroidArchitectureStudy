@@ -2,6 +2,7 @@ package com.example.studyfork.recent
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.databinding.Observable
 import com.example.studyfork.R
 import com.example.studyfork.RecentSearchAdapter
 import com.example.studyfork.base.BaseActivity
@@ -37,7 +38,14 @@ class RecentSearchActivity :
         )
 
         binding.activity = this
+        binding.vm = viewModel
         binding.rvRecentSearch.adapter = adapter
+
+        viewModel.showListIsEmpty.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showListIsEmpty()
+            }
+        })
     }
 
     override fun onResume() {
