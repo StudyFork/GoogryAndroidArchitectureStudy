@@ -48,7 +48,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     }
 
     private fun setupBaseUi() {
-        viewModel.apply {
+        with(viewModel) {
             hideKeyboardEvent.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

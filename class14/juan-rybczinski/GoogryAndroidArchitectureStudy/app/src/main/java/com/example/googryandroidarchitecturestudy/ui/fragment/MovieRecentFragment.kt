@@ -26,7 +26,7 @@ class MovieRecentFragment :
     }
 
     private fun setupUi() {
-        viewModel.apply {
+        with(viewModel) {
             showSearchRecentFailedEvent.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {

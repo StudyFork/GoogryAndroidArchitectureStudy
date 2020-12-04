@@ -33,14 +33,14 @@ class MovieSearchFragment :
     }
 
     private fun setupUi() {
-        binding.apply {
+        with(binding) {
             movieList.adapter = movieAdapter
             v = this@MovieSearchFragment
         }
 
         checkPassedQuery()
 
-        viewModel.apply {
+        with(viewModel) {
             showQueryEmptyEvent.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
