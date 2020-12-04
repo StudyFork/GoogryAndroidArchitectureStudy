@@ -34,19 +34,11 @@ fun TextView.setDirectorString(director: String) {
 
 @BindingAdapter("setMovieList")
 fun RecyclerView.setMovieList(list: List<Item>?) {
-
-    if (list == null) return
-
-    val movieAdapter: MovieRecyclerAdapter
-
-    if (adapter == null) {
-        movieAdapter = MovieRecyclerAdapter()
-        adapter = movieAdapter
-    } else {
-        movieAdapter = adapter as MovieRecyclerAdapter
+    val adapter =
+        adapter as? MovieRecyclerAdapter ?: MovieRecyclerAdapter().apply { adapter = this }
+    list?.let {
+        adapter.setItemList(it)
     }
-
-    movieAdapter.setItemList(list)
 }
 
 @BindingAdapter("setRecentSearchList")
