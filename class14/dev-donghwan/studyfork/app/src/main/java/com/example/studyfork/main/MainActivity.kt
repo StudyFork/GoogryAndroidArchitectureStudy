@@ -6,7 +6,6 @@ import androidx.databinding.Observable
 import com.example.studyfork.MovieRecyclerAdapter
 import com.example.studyfork.R
 import com.example.studyfork.base.BaseActivity
-import com.example.studyfork.base.BaseApplication
 import com.example.studyfork.data.local.LocalDataSourceImpl
 import com.example.studyfork.data.remote.RemoteDataSourceImpl
 import com.example.studyfork.data.repository.RepositoryImpl
@@ -20,8 +19,9 @@ class MainActivity :
         MainViewModel(
             RepositoryImpl(
                 remoteDataSource = RemoteDataSourceImpl(),
-                localDataSource =  LocalDataSourceImpl(BaseApplication.getPref())
-            ))
+                localDataSource = LocalDataSourceImpl(getSharedPreferences("local", MODE_PRIVATE))
+            )
+        )
     }
 
     private val requestCode = 100
@@ -34,19 +34,22 @@ class MainActivity :
 
         binding.recMovie.adapter = recyclerAdapter
 
-        viewModel.showError.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        viewModel.showError.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 showError()
             }
         })
 
-        viewModel.showQueryError.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        viewModel.showQueryError.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 showQueryError()
             }
         })
 
-        viewModel.showResultEmpty.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+        viewModel.showResultEmpty.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 showResultEmpty()
             }

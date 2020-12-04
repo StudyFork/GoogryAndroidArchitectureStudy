@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.example.studyfork.R
 import com.example.studyfork.RecentSearchAdapter
 import com.example.studyfork.base.BaseActivity
-import com.example.studyfork.base.BaseApplication.Companion.getPref
 import com.example.studyfork.data.local.LocalDataSourceImpl
 import com.example.studyfork.data.remote.RemoteDataSourceImpl
 import com.example.studyfork.data.repository.RepositoryImpl
@@ -19,7 +18,7 @@ class RecentSearchActivity :
         RecentSearchViewModel(
             RepositoryImpl(
                 RemoteDataSourceImpl(),
-                LocalDataSourceImpl(getPref())
+                LocalDataSourceImpl(getSharedPreferences("local", MODE_PRIVATE))
             )
         )
     }
