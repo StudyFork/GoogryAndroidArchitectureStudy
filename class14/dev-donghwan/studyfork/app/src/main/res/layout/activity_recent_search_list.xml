@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:recent_bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="activity"
-            type="com.example.studyfork.recent.RecentSearchListActivity" />
+            type="com.example.studyfork.recent.RecentSearchActivity" />
 
+        <variable
+            name="vm"
+            type="com.example.studyfork.recent.RecentSearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".recent.RecentSearchListActivity">
+        tools:context=".recent.RecentSearchActivity">
 
         <androidx.recyclerview.widget.RecyclerView
+            recent_bind:setItems="@{vm.recentSearchList}"
             android:id="@+id/rv_recent_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

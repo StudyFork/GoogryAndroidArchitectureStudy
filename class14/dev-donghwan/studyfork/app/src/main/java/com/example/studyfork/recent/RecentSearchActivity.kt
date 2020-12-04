@@ -5,22 +5,21 @@ import android.os.Bundle
 import com.example.studyfork.R
 import com.example.studyfork.RecentSearchAdapter
 import com.example.studyfork.base.BaseActivity
+import com.example.studyfork.base.BaseApplication.Companion.getPref
 import com.example.studyfork.data.local.LocalDataSourceImpl
 import com.example.studyfork.data.remote.RemoteDataSourceImpl
 import com.example.studyfork.data.repository.RepositoryImpl
 import com.example.studyfork.databinding.ActivityRecentSearchListBinding
 import com.example.studyfork.main.MainActivity.Companion.SEARCH_ITEM
 
-class RecentSearchListActivity :
-    BaseActivity<ActivityRecentSearchListBinding>(R.layout.activity_recent_search_list),
-    RecentSearchListContract.View {
+class RecentSearchActivity :
+    BaseActivity<ActivityRecentSearchListBinding>(R.layout.activity_recent_search_list) {
 
-    private val presenter: RecentSearchListContract.Presenter by lazy {
-        RecentSearchListPresenter(
-            this,
+    private val viewModel by lazy {
+        RecentSearchViewModel(
             RepositoryImpl(
                 RemoteDataSourceImpl(),
-                LocalDataSourceImpl(getSharedPreferences("local", MODE_PRIVATE))
+                LocalDataSourceImpl(getPref())
             )
         )
     }
@@ -44,15 +43,11 @@ class RecentSearchListActivity :
 
     override fun onResume() {
         super.onResume()
-        presenter.getRecentSearchList()
+        viewModel.getRecentSearchList()
     }
 
-    override fun showListIsEmpty() {
+    fun showListIsEmpty() {
         showToast("리스트가 비어 있습니다.")
         finish()
-    }
-
-    override fun showRecentSearchList(list: List<String>) {
-        adapter.setItems(list)
     }
 }

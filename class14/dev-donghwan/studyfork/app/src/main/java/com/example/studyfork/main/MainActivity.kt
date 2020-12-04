@@ -8,11 +8,10 @@ import com.example.studyfork.R
 import com.example.studyfork.base.BaseActivity
 import com.example.studyfork.base.BaseApplication
 import com.example.studyfork.data.local.LocalDataSourceImpl
-import com.example.studyfork.data.model.MovieSearchResponse
 import com.example.studyfork.data.remote.RemoteDataSourceImpl
 import com.example.studyfork.data.repository.RepositoryImpl
 import com.example.studyfork.databinding.ActivityMainBinding
-import com.example.studyfork.recent.RecentSearchListActivity
+import com.example.studyfork.recent.RecentSearchActivity
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -78,7 +77,7 @@ class MainActivity :
     }
 
     fun showRecentSearchListActivity() {
-        Intent(this, RecentSearchListActivity::class.java).apply {
+        Intent(this, RecentSearchActivity::class.java).apply {
             startActivityForResult(this, requestCode)
         }
     }
