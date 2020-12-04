@@ -5,11 +5,17 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.Observable
 import com.jay.aas.R
+import com.jay.aas.api.RetrofitHelper
 import com.jay.aas.base.BaseActivity
+import com.jay.aas.data.MovieLocalDataSourceImpl
+import com.jay.aas.data.MovieRemoteDataSourceImpl
+import com.jay.aas.data.MovieRepository
+import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivitySearchHistoryBinding
+import com.jay.aas.room.AppDatabase
 
 class SearchHistoryActivity :
-    BaseActivity<ActivitySearchHistoryBinding, SearchHistoryViewModel>(
+    BaseActivity<ActivitySearchHistoryBinding>(
         R.layout.activity_search_history
     ) {
 
@@ -17,6 +23,18 @@ class SearchHistoryActivity :
         SearchHistoryAdapter { query ->
             viewModel.searchMovies(query)
         }
+    }
+    private val movieRepository: MovieRepository by lazy {
+        val remoteDataSource = MovieRemoteDataSourceImpl(RetrofitHelper.movieService)
+        val appDatabase = AppDatabase.getInstance(this)
+        val localDataSource = MovieLocalDataSourceImpl(
+            appDatabase.movieDao(),
+            appDatabase.searchHistoryDao()
+        )
+        MovieRepositoryImpl(remoteDataSource, localDataSource)
+    }
+    private val viewModel: SearchHistoryViewModel by lazy {
+        SearchHistoryViewModel(movieRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +46,7 @@ class SearchHistoryActivity :
     }
 
     private fun setupUi() {
+        binding.vm = viewModel
         binding.rvSearchList.adapter = searchHistoryAdapter
     }
 

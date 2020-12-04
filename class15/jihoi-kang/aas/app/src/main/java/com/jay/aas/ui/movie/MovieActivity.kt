@@ -7,13 +7,19 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.Observable
 import com.jay.aas.R
+import com.jay.aas.api.RetrofitHelper
 import com.jay.aas.base.BaseActivity
+import com.jay.aas.data.MovieLocalDataSourceImpl
+import com.jay.aas.data.MovieRemoteDataSourceImpl
+import com.jay.aas.data.MovieRepository
+import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivityMovieBinding
+import com.jay.aas.room.AppDatabase
 import com.jay.aas.ui.history.SearchHistoryActivity
 import com.jay.aas.util.toast
 
 class MovieActivity :
-    BaseActivity<ActivityMovieBinding, MovieViewModel>(
+    BaseActivity<ActivityMovieBinding>(
         R.layout.activity_movie
     ) {
 
@@ -26,6 +32,18 @@ class MovieActivity :
         MovieAdapter { link ->
             viewModel.openMovieDetail(link)
         }
+    }
+    private val movieRepository: MovieRepository by lazy {
+        val remoteDataSource = MovieRemoteDataSourceImpl(RetrofitHelper.movieService)
+        val appDatabase = AppDatabase.getInstance(this)
+        val localDataSource = MovieLocalDataSourceImpl(
+            appDatabase.movieDao(),
+            appDatabase.searchHistoryDao()
+        )
+        MovieRepositoryImpl(remoteDataSource, localDataSource)
+    }
+    private val viewModel: MovieViewModel by lazy {
+        MovieViewModel(movieRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +66,7 @@ class MovieActivity :
     }
 
     private fun setupUi() {
+        binding.vm = viewModel
         binding.rvMovie.adapter = movieAdapter
     }
 
