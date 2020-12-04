@@ -13,6 +13,10 @@ class MovieSearchHistoryViewModel : BaseViewModel() {
      */
     val searchHistoryList = ObservableField<List<String>>()
 
+    init {
+        refreshMovieSearchHistoryList()
+    }
+
     /**
      * 로컬 저장소로부터 영화 검색 이력 조회하여 데이터 갱신
      */

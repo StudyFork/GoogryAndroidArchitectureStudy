@@ -7,11 +7,7 @@ import kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm.MovieSearchHistoryViewM
 class MovieSearchHistoryActivity :
     BaseActivity<ActivityMovieSearchHistoryBinding>(R.layout.activity_movie_search_history) {
 
-    private val movieSearchHistoryViewModel by lazy {
-        val vm = MovieSearchHistoryViewModel()
-        vm.refreshMovieSearchHistoryList()
-        vm
-    }
+    private val movieSearchHistoryViewModel by lazy { MovieSearchHistoryViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
