@@ -10,7 +10,6 @@ import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieRecentBinding
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieRecentViewModel
-import com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieRecentViewModel.Companion.showMovieSearchEvent
 import kotlinx.coroutines.launch
 
 class MovieRecentFragment :
@@ -52,7 +51,7 @@ class MovieRecentFragment :
     private fun navToMovieSearch() {
         val action =
             MovieRecentFragmentDirections.actionMovieRecentFragmentToMovieSearchFragment(
-                showMovieSearchEvent.get()
+                viewModel.showMovieSearchEvent.get()
             )
         this@MovieRecentFragment.findNavController().navigate(action)
         viewModel.showMovieSearchEventCompleted()

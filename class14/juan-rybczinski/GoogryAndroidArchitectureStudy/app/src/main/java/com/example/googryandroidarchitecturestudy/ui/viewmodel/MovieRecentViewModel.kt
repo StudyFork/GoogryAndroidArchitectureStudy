@@ -9,6 +9,11 @@ class MovieRecentViewModel(
 ) : MovieViewModel(context) {
     val recentList = ObservableField<List<RecentSearch>>(emptyList())
 
+    val onChipClick: (String) -> Unit = {
+        showMovieSearchEvent.set(it)
+    }
+
+    val showMovieSearchEvent = ObservableField("")
     val showSearchRecentFailedEvent = ObservableField<Exception>()
 
     suspend fun getRecentKeywords() {
@@ -22,9 +27,5 @@ class MovieRecentViewModel(
 
     fun showMovieSearchEventCompleted() {
         showMovieSearchEvent.set("")
-    }
-
-    companion object {
-        val showMovieSearchEvent = ObservableField("")
     }
 }

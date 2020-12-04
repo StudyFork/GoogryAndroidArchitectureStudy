@@ -38,6 +38,7 @@
             app:children="@{vm.recentList}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recent_keyword"
+            app:onChipClick="@{vm.onChipClick}"
             app:singleLine="true"
             app:singleSelection="true" />
 
