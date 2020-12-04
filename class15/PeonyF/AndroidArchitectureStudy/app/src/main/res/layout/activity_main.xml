@@ -7,10 +7,6 @@
     <data>
 
         <variable
-            name="mainActivity"
-            type="com.architecture.androidarchitecturestudy.ui.main.MainActivity" />
-
-        <variable
             name="viewModel"
             type="com.architecture.androidarchitecturestudy.ui.main.MainViewModel" />
     </data>
@@ -45,7 +41,7 @@
             android:id="@+id/btn_recent_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> mainActivity.searchHistory()}"
+            android:onClick="@{() -> viewModel.searchHistory()}"
             android:text="@string/history"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
