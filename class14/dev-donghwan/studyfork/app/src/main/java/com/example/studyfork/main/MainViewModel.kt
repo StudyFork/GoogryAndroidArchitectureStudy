@@ -16,6 +16,8 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
     fun searchMovie(query: String) {
         if (query.isNullOrEmpty()) showQueryError.set(Unit)
 
+        repository.putRecentSearchList(query)
+
         repository.searchMovie(
             query = query,
             success = {
