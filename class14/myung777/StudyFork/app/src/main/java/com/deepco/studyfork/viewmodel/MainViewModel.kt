@@ -20,7 +20,6 @@ class MainViewModel {
         if (query.get().isNullOrBlank()) {
             message.set("영화 제목을 입력해주세요")
         } else {
-            repositoryMovieDataImpl.saveQuery(query.get().toString())
             repositoryMovieDataImpl.getMovieList(query.get().toString(), {
                 movieList.set(it)
             }, {

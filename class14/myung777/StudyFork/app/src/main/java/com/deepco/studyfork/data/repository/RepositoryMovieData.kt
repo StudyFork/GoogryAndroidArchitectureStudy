@@ -10,7 +10,5 @@ interface RepositoryMovieData {
         failed: (String) -> Unit
     )
 
-    fun saveQuery(query: String)
-
     fun getQueryList(): List<RecentSearchData>
 }
