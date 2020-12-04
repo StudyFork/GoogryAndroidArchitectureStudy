@@ -16,7 +16,6 @@ import com.example.googryandroidarchitecturestudy.BR
 import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.viewmodel.BaseViewModel
-import com.example.googryandroidarchitecturestudy.ui.viewmodel.BaseViewModel.Companion.INVALID_URL
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     private val layoutId: Int
@@ -59,11 +58,14 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
             selectedUrl.addOnPropertyChangedCallback(object :
                 Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if (!selectedUrl.equals(INVALID_URL)) {
-                        selectedUrl.get()?.let { showUrlResource(it) }
-                    } else {
-                        showInvalidUrl()
-                    }
+                    selectedUrl.get()?.let { showUrlResource(it) }
+                }
+            })
+
+            showInvalidUrlEvent.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    showInvalidUrl()
                 }
             })
         }
