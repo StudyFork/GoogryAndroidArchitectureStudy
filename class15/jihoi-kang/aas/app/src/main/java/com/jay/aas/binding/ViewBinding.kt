@@ -46,9 +46,9 @@ fun ImageView.bindLoadUrl(url: String) {
 
 @BindingAdapter("items")
 fun RecyclerView.bindItems(items: List<Any>) {
-    when (adapter) {
-        is MovieAdapter -> (adapter as MovieAdapter).setMovies(items as List<Movie>)
-        is SearchHistoryAdapter -> (adapter as SearchHistoryAdapter).setSearchHistories(items as List<SearchHistory>)
+    when (val adapter = adapter) {
+        is MovieAdapter -> adapter.setMovies(items as List<Movie>)
+        is SearchHistoryAdapter -> adapter.setSearchHistories(items as List<SearchHistory>)
     }
 }
 
