@@ -21,7 +21,7 @@ fun RecyclerView.bindMovieList(items: List<Movie>) {
 }
 
 @BindingAdapter("searchList")
-fun RecyclerView.bindQueryList(items: ArrayList<QueryHistory>) {
+fun RecyclerView.bindQueryList(items: List<QueryHistory>) {
     (adapter as TitleAdapter).setTitleList(items)
 }
 
