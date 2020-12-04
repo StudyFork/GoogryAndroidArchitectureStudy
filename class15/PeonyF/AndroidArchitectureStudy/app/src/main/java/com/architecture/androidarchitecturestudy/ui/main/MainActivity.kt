@@ -42,6 +42,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
             }
         })
+
+        viewModel.callSearchHistory.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                searchHistory()
+            }
+        })
     }
 
     fun searchHistory() {

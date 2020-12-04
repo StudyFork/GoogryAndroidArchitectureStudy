@@ -11,6 +11,7 @@ class MainViewModel(private val movieRepository: MovieRepository) {
     val movieList = ObservableField<List<Movie>>()
     val showToastMsg = ObservableField<Unit>()
     val msg = ObservableField<String>()
+    val callSearchHistory = ObservableField<Unit>()
 
     fun findMovie() {
         val keyword = keyword.get() ?: return
@@ -34,5 +35,9 @@ class MainViewModel(private val movieRepository: MovieRepository) {
                 showToastMsg.notifyChange()
             }
         )
+    }
+
+    fun searchHistory() {
+        callSearchHistory.notifyChange()
     }
 }
