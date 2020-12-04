@@ -9,10 +9,6 @@
         <import type="android.view.View" />
 
         <variable
-            name="activity"
-            type="com.hhi.myapplication.main.MainActivity" />
-
-        <variable
             name="vm"
             type="com.hhi.myapplication.viewmodel.MainViewModel" />
     </data>

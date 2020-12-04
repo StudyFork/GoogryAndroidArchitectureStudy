@@ -9,13 +9,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="activity"
-            type="com.hhi.myapplication.recentSearch.RecentSearchActivity" />
-
-        <variable
             name="vm"
             type="com.hhi.myapplication.viewmodel.RecentSearchViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
