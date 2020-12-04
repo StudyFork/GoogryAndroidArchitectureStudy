@@ -7,6 +7,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -53,5 +54,5 @@ fun RecyclerView.bindItems(items: List<Any>) {
 
 @BindingAdapter(value = ["visible"])
 fun View.bindVisible(visible: Boolean) {
-    visibility = if (visible) View.VISIBLE else View.GONE
+    isVisible = visible
 }
