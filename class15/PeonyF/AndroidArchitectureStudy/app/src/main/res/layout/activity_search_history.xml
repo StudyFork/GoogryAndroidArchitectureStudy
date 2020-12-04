@@ -7,11 +7,6 @@
     <data>
 
         <variable
-            name="searchActivity"
-            type="com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryActivity" />
-
-
-        <variable
             name="viewModel"
             type="com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryViewModel" />
     </data>
