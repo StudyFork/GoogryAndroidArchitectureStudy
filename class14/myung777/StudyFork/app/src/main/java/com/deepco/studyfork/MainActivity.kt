@@ -13,7 +13,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.activity = this
         binding.viewModel = mainViewModel
         setObserver()
     }
@@ -39,6 +38,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 showEmptyMessage(mainViewModel.message.get().toString())
+            }
+        })
+        mainViewModel.startRecentSearchActivity.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                recentSearch()
             }
         })
     }

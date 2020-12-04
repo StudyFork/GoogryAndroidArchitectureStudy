@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.deepco.studyfork.MainActivity" />
-
-        <variable
             name="viewModel"
             type="com.deepco.studyfork.viewmodel.MainViewModel" />
     </data>
@@ -41,7 +37,7 @@
             android:id="@+id/recent_search_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->activity.recentSearch()}"
+            android:onClick="@{()-> viewModel.recentSearch()}"
             android:text="@string/recent_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

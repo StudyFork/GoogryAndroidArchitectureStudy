@@ -10,6 +10,7 @@ class MainViewModel {
     val query = ObservableField<String>()
     val message = ObservableField<String>()
     val movieList = ObservableField<List<Item>>()
+    val startRecentSearchActivity = ObservableField<Unit>()
 
     private val repositoryMovieDataImpl = RepositoryMovieDataImpl(
         RemoteMovieDataImpl(),
@@ -26,6 +27,10 @@ class MainViewModel {
                 message.set(it)
             })
         }
+    }
+
+    fun recentSearch() {
+        startRecentSearchActivity.notifyChange()
     }
 
 }
