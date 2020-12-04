@@ -8,7 +8,9 @@ import com.deepco.studyfork.viewmodel.RecentSearchViewModel
 
 class RecentSearchActivity :
     BaseActivity<ActivityRecentSearchBinding>(R.layout.activity_recent_search) {
-    private val recentSearchViewModel = RecentSearchViewModel()
+    private val recentSearchViewModel by lazy {
+        RecentSearchViewModel()
+    }
     private val recentSearchRecyclerAdapter by lazy {
         RecentSearchRecyclerAdapter(recentSearchViewModel)
     }
