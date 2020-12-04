@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="activity"
-            type="kr.dktsudgg.androidarchitecturestudy.MainActivity" />
+            name="vm"
+            type="kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm.MovieSearchViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,14 +32,15 @@
                     android:layout_height="60dp"
                     android:layout_weight="5"
                     android:hint="@string/movie_search_autofill_hints"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:text="@={vm.query}" />
 
                 <Button
                     android:id="@+id/showMovieSearchHistoryBtn"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="2"
-                    android:onClick="@{(v)-> activity.onClick(v)}"
+                    android:onClick="@{()-> vm.showMovieSearchHistory()}"
                     android:text="최근검색이력" />
 
                 <Button
@@ -45,7 +48,7 @@
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:onClick="@{(v)-> activity.onClick(v)}"
+                    android:onClick="@{()-> vm.refreshSearchMovieList()}"
                     android:text="검색" />
             </LinearLayout>
 
@@ -53,7 +56,8 @@
                 android:id="@+id/searchedMovieList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:movieRecyclerViewItems="@{vm.movieList}" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,71 +2,77 @@ package kr.dktsudgg.androidarchitecturestudy
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
-import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
-import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepositoryImpl
+import androidx.databinding.Observable
 import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMainBinding
-import kr.dktsudgg.androidarchitecturestudy.view.adapter.MovieListAdapter
-import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieSearchContract
-import kr.dktsudgg.androidarchitecturestudy.view.ui.MovieSearchPresenter
+import kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm.MovieSearchViewModel
 
 class MainActivity :
-    BaseActivity<MovieSearchPresenter, ActivityMainBinding>(R.layout.activity_main),
-    MovieSearchContract.View, View.OnClickListener {
+    BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private lateinit var movieSearchPresenter: MovieSearchContract.Presenter
+    private val movieSearchViewModel by lazy { MovieSearchViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.activity = this@MainActivity
-
-        movieSearchPresenter = MovieSearchPresenter(NaverMovieRepositoryImpl(), this);
+        binding.vm = movieSearchViewModel
 
         /**
-         * 영화 검색결과 리스트 보여주는 RecyclerView에 어댑터 연결 및 목록 구분선 추가
+         * 영화 검색 시, 검색어를 입력하지 않았을 경우에 대한 처리 모음
          */
-        searchedMovieList.adapter = MovieListAdapter()
-        searchedMovieList.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                LinearLayoutManager.VERTICAL
-            )
-        )
-
-    }
-
-    /**
-     * 클릭 이벤트 처리 메소드
-     */
-    override fun onClick(clickedView: View) {
-        when (clickedView.id) {
-            R.id.movieSearchBtn -> {    // 검색 버튼 클릭 시, 검색어 입력한 내용을 가지고 검색 수행
-                val searchText = movieSearchEditText.text.toString()
-                movieSearchPresenter.searchMovies(searchText)
+        movieSearchViewModel.eventWhenEmptyInputInjected.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showToast("검색어를 입력하세요")
             }
-            R.id.showMovieSearchHistoryBtn -> { // 최근검색이력 버튼 클릭 시, 영화검색이력을 보여주는 액티비티로 이동
+
+        })
+
+        /**
+         * 영화 검색 성공 시에 대한 처리 모음
+         */
+        movieSearchViewModel.eventWhenDataRefreshRequestSuccess.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showToast("검색에 성공하였습니다.")
+            }
+
+        })
+
+        /**
+         * 영화 검색 실패 시에 대한 처리 모음
+         */
+        movieSearchViewModel.eventWhenDataRefreshRequestFailure.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showToast("검색에 실패하였습니다.")
+            }
+
+        })
+
+        /**
+         * 영화 검색이력 조회 요청 이벤트
+         */
+        movieSearchViewModel.eventToShowMovieSearchHistory.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 startActivityForResult(
-                    Intent(this, MovieSearchHistoryActivity::class.java), ACTIVITY_REQ_CODE
+                    Intent(this@MainActivity, MovieSearchHistoryActivity::class.java), ACTIVITY_REQ_CODE
                 )
             }
-            else -> {
-            }
-        }
+
+        })
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             ACTIVITY_REQ_CODE -> {  // 반환된 내용을 가지고 EditText에 세팅 및 검색버튼 클릭 수행
                 if (resultCode == RESULT_OK) {
-                    movieSearchEditText.setText(
+                    binding.movieSearchEditText.setText(
                         data?.getStringExtra("selectedKeyword") ?: ""
                     )
-                    movieSearchBtn.performClick()
+                    binding.movieSearchBtn.performClick()
                 } else {
                     Toast.makeText(
                         this,
@@ -79,10 +85,6 @@ class MainActivity :
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    override fun updateSearchedMovieList(data: List<MovieItem>) {
-        (searchedMovieList.adapter as MovieListAdapter).refreshData(data)
     }
 
     companion object {

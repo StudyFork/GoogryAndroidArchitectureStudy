@@ -1,4 +1,4 @@
-package kr.dktsudgg.androidarchitecturestudy.view.ui
+package kr.dktsudgg.androidarchitecturestudy.view.ui.mvp
 
 import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 import kr.dktsudgg.androidarchitecturestudy.data.model.NaverMovieResponse

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm.MovieSearchHistoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +19,8 @@
             android:id="@+id/movieSearchHistoryList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:searchHistoryRecyclerViewItems="@{vm.searchHistoryList}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

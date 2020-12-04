@@ -51,7 +51,7 @@ class MovieSearchHistoryListAdapter :
 
         fun returnDataToPreviousActivity() {
             // 선택한 내용을 이전 액티비티에 반환
-            (binding.root.context as BaseActivity<*, *>).doActivityResult(
+            (binding.root.context as BaseActivity<*>).doActivityResult(
                 "selectedKeyword",
                 binding.textItem
             )
