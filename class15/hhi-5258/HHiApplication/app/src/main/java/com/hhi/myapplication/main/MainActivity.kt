@@ -67,7 +67,8 @@ class MainActivity :
             when (requestCode) {
                 RC_ACTIVITY_FOR_RESULT -> {
                     val query = data!!.getStringExtra("query")
-                    vm.searchMovie(query)
+                    vm.query.set(query)
+                    vm.searchMovie()
                     binding.mainEditSearch.setText(query)
                 }
             }

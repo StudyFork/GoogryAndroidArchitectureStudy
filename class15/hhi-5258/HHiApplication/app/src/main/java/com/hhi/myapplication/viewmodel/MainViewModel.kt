@@ -13,16 +13,17 @@ class MainViewModel : BaseViewModel(){
     val emptyQueryEvent = ObservableField<Unit>()
     val hideKeyBoardEvent = ObservableField<Unit>()
     val searchRecentQueryEvent = ObservableField<Unit>()
+    val query = ObservableField<String>()
 
-    fun searchMovie(query: String) {
+    fun searchMovie() {
         hideKeyBoardEvent.notifyChange()
-        if (query.isNullOrBlank()) {
+        if (query.get().isNullOrBlank()) {
             emptyQueryEvent.notifyChange()
         } else {
-            repositoryDataSourceImpl.saveQuery(query)
+            repositoryDataSourceImpl.saveQuery(query.get()!!)
 
             loading.set(View.VISIBLE)
-            repositoryDataSourceImpl.searchMovies(query,
+            repositoryDataSourceImpl.searchMovies(query.get()!!,
                 success = {
                     movieList.set(it.items)
                     loading.set(View.GONE)
