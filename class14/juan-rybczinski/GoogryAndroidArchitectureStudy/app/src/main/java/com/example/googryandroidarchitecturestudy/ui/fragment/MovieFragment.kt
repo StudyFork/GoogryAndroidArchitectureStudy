@@ -1,20 +1,20 @@
-package com.example.googryandroidarchitecturestudy.ui.viewmodel
+package com.example.googryandroidarchitecturestudy.ui.fragment
 
-import android.content.Context
-import androidx.fragment.app.Fragment
+import androidx.databinding.ViewDataBinding
 import com.example.googryandroidarchitecturestudy.data.local.MovieLocalDataSourceImpl
 import com.example.googryandroidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.example.googryandroidarchitecturestudy.database.MovieDatabase
+import com.example.googryandroidarchitecturestudy.ui.viewmodel.BaseViewModel
 
-abstract class MovieViewModel(
-    private val context: Context
-) : BaseViewModel() {
+abstract class MovieFragment<B : ViewDataBinding, VM : BaseViewModel>(
+    layoutId: Int
+) : BaseFragment<B, VM>(layoutId) {
     protected val repository: MovieRepository by lazy {
         val movieRemoteDataSource = MovieRemoteDataSourceImpl()
         val movieLocalDataSource =
-            MovieLocalDataSourceImpl(MovieDatabase.getInstance(context))
+            MovieLocalDataSourceImpl(MovieDatabase.getInstance(requireContext()))
         MovieRepositoryImpl(movieRemoteDataSource, movieLocalDataSource)
     }
 }

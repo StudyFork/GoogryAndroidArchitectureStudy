@@ -15,11 +15,11 @@ import com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieSearchViewMo
 import kotlinx.coroutines.launch
 
 class MovieSearchFragment :
-    BaseFragment<FragmentMovieSearchBinding, MovieSearchViewModel>(R.layout.fragment_movie_search) {
+    MovieFragment<FragmentMovieSearchBinding, MovieSearchViewModel>(R.layout.fragment_movie_search) {
     private val args: MovieSearchFragmentArgs by navArgs()
 
     override val viewModel by lazy {
-        MovieSearchViewModel(requireContext())
+        MovieSearchViewModel(repository)
     }
 
     private val movieAdapter = MovieAdapter {

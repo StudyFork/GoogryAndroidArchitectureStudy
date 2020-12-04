@@ -1,12 +1,12 @@
 package com.example.googryandroidarchitecturestudy.ui.viewmodel
 
-import android.content.Context
 import androidx.databinding.ObservableField
+import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.domain.RecentSearch
 
 class MovieRecentViewModel(
-    context: Context
-) : MovieViewModel(context) {
+    private val repository: MovieRepository
+) : BaseViewModel() {
     val recentList = ObservableField<List<RecentSearch>>(emptyList())
 
     val onChipClick: (String) -> Unit = {

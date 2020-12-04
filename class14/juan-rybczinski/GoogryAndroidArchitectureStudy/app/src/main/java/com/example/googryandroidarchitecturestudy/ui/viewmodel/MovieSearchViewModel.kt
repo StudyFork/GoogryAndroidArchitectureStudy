@@ -1,15 +1,15 @@
 package com.example.googryandroidarchitecturestudy.ui.viewmodel
 
-import android.content.Context
 import android.view.View
 import androidx.databinding.ObservableField
+import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.domain.Movie
 import com.example.googryandroidarchitecturestudy.domain.RecentSearch
 import java.util.*
 
 class MovieSearchViewModel(
-    context: Context
-) : MovieViewModel(context) {
+    private val repository: MovieRepository
+) : BaseViewModel() {
     val movieList = ObservableField<List<Movie>>(emptyList())
     val loading = ObservableField(View.GONE)
 

@@ -13,9 +13,9 @@ import com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieRecentViewMo
 import kotlinx.coroutines.launch
 
 class MovieRecentFragment :
-    BaseFragment<FragmentMovieRecentBinding, MovieRecentViewModel>(R.layout.fragment_movie_recent) {
+    MovieFragment<FragmentMovieRecentBinding, MovieRecentViewModel>(R.layout.fragment_movie_recent) {
     override val viewModel by lazy {
-        MovieRecentViewModel(requireContext())
+        MovieRecentViewModel(repository)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
