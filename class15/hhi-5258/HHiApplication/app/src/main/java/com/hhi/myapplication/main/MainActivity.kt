@@ -22,7 +22,6 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.activity = this@MainActivity
         binding.vm = vm
 
         setUpUi()

@@ -24,7 +24,6 @@ class RecentSearchActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.activity = this@RecentSearchActivity
         binding.vm = vm
 
         setUpUi()
