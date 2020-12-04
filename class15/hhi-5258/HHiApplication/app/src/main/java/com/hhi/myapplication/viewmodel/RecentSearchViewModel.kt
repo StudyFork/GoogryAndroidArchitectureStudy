@@ -1,6 +1,5 @@
 package com.hhi.myapplication.viewmodel
 
-import android.view.View
 import androidx.databinding.ObservableField
 import com.hhi.myapplication.base.BaseViewModel
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
@@ -10,9 +9,9 @@ class RecentSearchViewModel : BaseViewModel() {
     val queryList = ObservableField<List<String>>()
 
     fun searchRecentQuery() {
-        loading.set(View.GONE)
+        visible.set(false)
         val list = naverRepositoryDataSource.getQueryList()
         queryList.set(list)
-        loading.set(View.GONE)
+        visible.set(false)
     }
 }

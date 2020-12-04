@@ -1,13 +1,12 @@
 package com.hhi.myapplication.viewmodel
 
 import android.util.Log
-import android.view.View
 import androidx.databinding.ObservableField
 import com.hhi.myapplication.base.BaseViewModel
 import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 
-class MainViewModel : BaseViewModel(){
+class MainViewModel : BaseViewModel() {
     private val repositoryDataSourceImpl = NaverRepositoryDataSourceImpl()
     val movieList = ObservableField<ArrayList<MovieData.MovieItem>>()
     val emptyQueryEvent = ObservableField<Unit>()
@@ -22,15 +21,15 @@ class MainViewModel : BaseViewModel(){
         } else {
             repositoryDataSourceImpl.saveQuery(query.get()!!)
 
-            loading.set(View.VISIBLE)
+            visible.set(true)
             repositoryDataSourceImpl.searchMovies(query.get()!!,
                 success = {
                     movieList.set(it.items)
-                    loading.set(View.GONE)
+                    visible.set(false)
                 },
                 failed = {
                     Log.e("search_failed", it.toString())
-                    loading.set(View.GONE)
+                    visible.set(false)
                 }
             )
         }
