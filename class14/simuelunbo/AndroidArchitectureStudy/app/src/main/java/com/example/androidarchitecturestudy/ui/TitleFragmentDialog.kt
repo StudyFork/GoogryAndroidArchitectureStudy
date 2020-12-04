@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.databinding.Observable
 import androidx.fragment.app.DialogFragment
 import com.example.androidarchitecturestudy.data.local.NaverLocalDataSourceImpl
 import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImpl
@@ -37,11 +38,19 @@ class TitleFragmentDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.dialog = this
         binding.vm = viewModel
-
         initRecyclerView()
         viewModel.getRecentTitleList()
+        setViewModelCallBack()
+    }
+
+    private fun setViewModelCallBack() {
+        viewModel.dialog.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                dismiss()
+            }
+        })
     }
 
     private fun initRecyclerView() {

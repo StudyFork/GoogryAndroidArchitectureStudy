@@ -5,10 +5,6 @@
     <data>
 
         <variable
-            name="dialog"
-            type="com.example.androidarchitecturestudy.ui.TitleFragmentDialog" />
-
-        <variable
             name="vm"
             type="com.example.androidarchitecturestudy.ui.TitleHistoryViewModel" />
     </data>
@@ -37,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="@{() -> dialog.dismiss()}"
+            android:onClick="@{() -> vm.dialogClose()}"
             android:text="@string/close" />
     </LinearLayout>
 </layout>
