@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
-abstract class BaseActivity<T : BaseContract.Presenter, B : ViewDataBinding>(@LayoutRes val layoutResId: Int) :
-    AppCompatActivity(), BaseContract.View {
-    private lateinit var binding: B
+abstract class BaseActivity<B : ViewDataBinding>(@LayoutRes val layoutResId: Int) :
+    AppCompatActivity() {
+    protected lateinit var binding: B
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +19,7 @@ abstract class BaseActivity<T : BaseContract.Presenter, B : ViewDataBinding>(@La
         )
     }
 
-    override fun showToast(message: String) {
+    fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
