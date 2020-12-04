@@ -20,7 +20,6 @@ class RecentSearchActivity :
         binding.viewModel = recentSearchViewModel
         setRecyclerView()
         setObserver()
-        recentSearchViewModel.getSearchHistories()
     }
 
     private fun setRecyclerView() {

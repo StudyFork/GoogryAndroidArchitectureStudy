@@ -9,13 +9,16 @@ import com.deepco.studyfork.data.repository.RepositoryMovieDataImpl
 class RecentSearchViewModel {
     val recentSearchTitle = ObservableField<String>()
     val searchHistoryItems = ObservableField<List<RecentSearchData>>()
-
     private val repositoryMovieDataImpl = RepositoryMovieDataImpl(
         RemoteMovieDataImpl(),
         LocalMovieDataImpl()
     )
 
-    fun getSearchHistories() {
+    init {
+        getSearchHistories()
+    }
+
+    private fun getSearchHistories() {
         val searchHistories = repositoryMovieDataImpl.getQueryList()
         searchHistoryItems.set(searchHistories)
     }
