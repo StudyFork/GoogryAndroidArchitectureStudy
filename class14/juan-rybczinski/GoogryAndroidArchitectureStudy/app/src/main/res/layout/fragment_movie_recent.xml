@@ -11,10 +11,6 @@
             type="List&lt;com.example.googryandroidarchitecturestudy.domain.RecentSearch>" />
 
         <variable
-            name="v"
-            type="com.example.googryandroidarchitecturestudy.ui.fragment.MovieRecentFragment" />
-
-        <variable
             name="vm"
             type="com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieRecentViewModel" />
     </data>
