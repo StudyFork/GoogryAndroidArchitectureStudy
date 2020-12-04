@@ -9,6 +9,10 @@
             name="activity"
             type="com.example.studyfork.main.MainActivity" />
 
+        <variable
+            name="vm"
+            type="com.example.studyfork.main.MainViewModel" />
+
     </data>
 
     <LinearLayout
