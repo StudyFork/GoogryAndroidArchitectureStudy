@@ -5,9 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
+import androidx.databinding.Observable
 import com.jay.aas.R
 import com.jay.aas.api.RetrofitHelper
 import com.jay.aas.base.BaseActivity
@@ -16,15 +14,14 @@ import com.jay.aas.data.MovieRemoteDataSourceImpl
 import com.jay.aas.data.MovieRepository
 import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivityMovieBinding
-import com.jay.aas.model.Movie
 import com.jay.aas.room.AppDatabase
 import com.jay.aas.ui.history.SearchHistoryActivity
 import com.jay.aas.util.toast
-import kotlinx.coroutines.launch
 
 class MovieActivity :
-    BaseActivity<ActivityMovieBinding, MovieContract.Presenter>(R.layout.activity_movie),
-    MovieContract.View {
+    BaseActivity<ActivityMovieBinding>(
+        R.layout.activity_movie
+    ) {
 
     private val TAG = this::class.java.simpleName
 
@@ -33,7 +30,7 @@ class MovieActivity :
     }
     private val movieAdapter: MovieAdapter by lazy {
         MovieAdapter { link ->
-            presenter.openMovieDetail(link)
+            viewModel.openMovieDetail(link)
         }
     }
     private val movieRepository: MovieRepository by lazy {
@@ -45,17 +42,16 @@ class MovieActivity :
         )
         MovieRepositoryImpl(remoteDataSource, localDataSource)
     }
-    override val presenter: MovieContract.Presenter by lazy {
-        MoviePresenter(this, movieRepository)
+    private val viewModel: MovieViewModel by lazy {
+        MovieViewModel(movieRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupUi()
+        setupObserver()
 
-        lifecycleScope.launch {
-            presenter.getMovies()
-        }
+        viewModel.getMovies()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -63,48 +59,50 @@ class MovieActivity :
 
         if (requestCode == REQ_CODE_SEARCH_HISTORY && resultCode == RESULT_OK) {
             data?.getStringExtra(SearchHistoryActivity.EXTRA_QUERY_TEXT)?.let { query ->
-                searchMovies(query)
+                viewModel.query.set(query)
+                viewModel.searchMovies()
             }
         }
     }
 
     private fun setupUi() {
-        binding.activity = this
-        progressBar = binding.pbLoading
+        binding.vm = viewModel
         binding.rvMovie.adapter = movieAdapter
     }
 
-    fun searchMovies(query: String) {
-        lifecycleScope.launch {
-            presenter.searchMovies(query)
-        }
-    }
-
-    fun searchHistories() {
-        startActivityForResult(SearchHistoryActivity.getIntent(this), REQ_CODE_SEARCH_HISTORY)
-    }
-
-    override fun hideKeyboard() {
-        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-    }
-
-    override fun showSearchFailed() {
-        toast(getString(R.string.msg_search_failed))
-    }
-
-    override fun showNoResult() {
-        binding.tvNoResult.isVisible = true
-        binding.rvMovie.isGone = true
-    }
-
-    override fun showMovieItems(movies: List<Movie>) {
-        binding.tvNoResult.isGone = true
-        binding.rvMovie.isVisible = true
-        movieAdapter.setMovies(movies)
-    }
-
-    override fun openMovieDetail(link: String) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link)))
+    private fun setupObserver() {
+        viewModel.showSearchFailedEvent
+            .addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    toast(getString(R.string.msg_search_failed))
+                }
+            })
+        viewModel.hideKeyboardEvent
+            .addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+                }
+            })
+        viewModel.movieDetailLink
+            .addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(viewModel.movieDetailLink.get())
+                        )
+                    )
+                }
+            })
+        viewModel.startSearchHistoryEvent
+            .addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    startActivityForResult(
+                        SearchHistoryActivity.getIntent(this@MovieActivity),
+                        REQ_CODE_SEARCH_HISTORY
+                    )
+                }
+            })
     }
 
     companion object {

@@ -9,10 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jay.aas.model.Movie
+import com.jay.aas.model.SearchHistory
+import com.jay.aas.ui.history.SearchHistoryAdapter
+import com.jay.aas.ui.movie.MovieAdapter
 
 @BindingAdapter("onEditorEnterAction")
-fun EditText.onEditorEnterAction(action: (() -> Unit)? = null) {
+fun EditText.bindOnEditorEnterAction(action: (() -> Unit)? = null) {
     setOnEditorActionListener { _, actionId, _ ->
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             action?.invoke()
@@ -24,7 +29,7 @@ fun EditText.onEditorEnterAction(action: (() -> Unit)? = null) {
 
 @Suppress("DEPRECATION")
 @BindingAdapter("htmlText")
-fun TextView.htmlText(text: String) {
+fun TextView.bindHtmlText(text: String) {
     this.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
     } else {
@@ -33,13 +38,21 @@ fun TextView.htmlText(text: String) {
 }
 
 @BindingAdapter("loadUrl")
-fun ImageView.loadUrl(url: String) {
+fun ImageView.bindLoadUrl(url: String) {
     Glide.with(this)
         .load(url)
         .into(this)
 }
 
-@BindingAdapter("isVisible")
-fun View.isVisible(condition: Boolean) {
-    isVisible = condition
+@BindingAdapter("items")
+fun RecyclerView.bindItems(items: List<Any>) {
+    when (val adapter = adapter) {
+        is MovieAdapter -> adapter.setMovies(items as List<Movie>)
+        is SearchHistoryAdapter -> adapter.setSearchHistories(items as List<SearchHistory>)
+    }
+}
+
+@BindingAdapter(value = ["visible"])
+fun View.bindVisible(visible: Boolean) {
+    isVisible = visible
 }

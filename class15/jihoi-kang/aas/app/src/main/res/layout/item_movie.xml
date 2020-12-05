@@ -65,7 +65,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_post"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            bind:isVisible="@{!item.userRating.equals(`0.00`)}">
+            bind:visible="@{!item.userRating.equals(`0.00`)}">
 
             <ImageView
                 android:layout_width="@dimen/icon_size_small"

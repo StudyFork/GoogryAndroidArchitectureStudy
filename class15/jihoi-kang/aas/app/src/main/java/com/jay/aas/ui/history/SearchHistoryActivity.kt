@@ -3,66 +3,70 @@ package com.jay.aas.ui.history
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
+import androidx.databinding.Observable
 import com.jay.aas.R
 import com.jay.aas.api.RetrofitHelper
 import com.jay.aas.base.BaseActivity
 import com.jay.aas.data.MovieLocalDataSourceImpl
 import com.jay.aas.data.MovieRemoteDataSourceImpl
+import com.jay.aas.data.MovieRepository
 import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivitySearchHistoryBinding
-import com.jay.aas.model.SearchHistory
 import com.jay.aas.room.AppDatabase
 
 class SearchHistoryActivity :
-    BaseActivity<ActivitySearchHistoryBinding, SearchHistoryContract.Presenter>(
+    BaseActivity<ActivitySearchHistoryBinding>(
         R.layout.activity_search_history
-    ), SearchHistoryContract.View {
+    ) {
 
     private val searchHistoryAdapter: SearchHistoryAdapter by lazy {
         SearchHistoryAdapter { query ->
-            presenter.searchMovies(query)
+            viewModel.searchMovies(query)
         }
     }
-
-    override val presenter: SearchHistoryContract.Presenter by lazy {
+    private val movieRepository: MovieRepository by lazy {
+        val remoteDataSource = MovieRemoteDataSourceImpl(RetrofitHelper.movieService)
         val appDatabase = AppDatabase.getInstance(this)
-        val movieRepository = MovieRepositoryImpl(
-            MovieRemoteDataSourceImpl(RetrofitHelper.movieService),
-            MovieLocalDataSourceImpl(appDatabase.movieDao(), appDatabase.searchHistoryDao())
+        val localDataSource = MovieLocalDataSourceImpl(
+            appDatabase.movieDao(),
+            appDatabase.searchHistoryDao()
         )
-        SearchHistoryPresenter(this, movieRepository)
+        MovieRepositoryImpl(remoteDataSource, localDataSource)
+    }
+    private val viewModel: SearchHistoryViewModel by lazy {
+        SearchHistoryViewModel(movieRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupUi()
+        setupObserver()
 
-        presenter.getSearchHistories()
+        viewModel.getSearchHistories()
     }
 
     private fun setupUi() {
-        binding.activity = this
+        binding.vm = viewModel
         binding.rvSearchList.adapter = searchHistoryAdapter
     }
 
-    override fun showNoResult() {
-        binding.tvNoResult.isVisible = true
-        binding.rvSearchList.isGone = true
-    }
+    private fun setupObserver() {
+        viewModel.finishEvent
+            .addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    finish()
+                }
+            })
 
-    override fun showSearchHistoryItems(searchHistories: List<SearchHistory>) {
-        binding.tvNoResult.isGone = true
-        binding.rvSearchList.isVisible = true
-        searchHistoryAdapter.setSearchHistories(searchHistories)
-    }
-
-    override fun searchMovies(query: String) {
-        setResult(RESULT_OK, Intent().apply {
-            putExtra(EXTRA_QUERY_TEXT, query)
-        })
-        finish()
+        viewModel.searchQuery
+            .addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    setResult(RESULT_OK, Intent().apply {
+                        putExtra(EXTRA_QUERY_TEXT, viewModel.searchQuery.get())
+                    })
+                    finish()
+                }
+            })
     }
 
     companion object {

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="activity"
-            type="com.jay.aas.ui.history.SearchHistoryActivity" />
+            name="vm"
+            type="com.jay.aas.ui.history.SearchHistoryViewModel" />
 
     </data>
 
@@ -30,7 +31,7 @@
                 android:id="@+id/iv_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> activity.finish()}"
+                android:onClick="@{() -> vm.finish()}"
                 android:padding="@dimen/space_small"
                 android:src="@drawable/ic_close_black"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -59,6 +60,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_actionbar"
+            bind:items="@{vm.searchHistoryItems}"
+            bind:visible="@{vm.searchHistoryItems.size() != 0}"
             tools:listitem="@layout/item_search_history" />
 
         <TextView
@@ -70,7 +73,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:visible="@{vm.searchHistoryItems.size() == 0}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
