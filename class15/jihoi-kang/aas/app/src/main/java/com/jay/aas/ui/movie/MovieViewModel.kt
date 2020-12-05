@@ -27,14 +27,14 @@ class MovieViewModel(
     }
 
     fun searchMovies() {
-        query.get() ?: return
-        if (query.get()!!.isEmpty()) return
+        val movieQuery = query.get() ?: return
+        if (movieQuery.isEmpty()) return
 
         hideKeyboardEvent.notifyChange()
         viewModelScope.launch {
             try {
                 showLoading()
-                val movies = movieRepository.getSearchMovies(query.get()!!)
+                val movies = movieRepository.getSearchMovies(movieQuery)
                 hideLoading()
                 movieItems.set(movies)
             } catch (e: Exception) {
