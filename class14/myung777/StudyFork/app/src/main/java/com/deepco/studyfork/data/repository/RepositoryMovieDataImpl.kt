@@ -16,15 +16,18 @@ class RepositoryMovieDataImpl(
         failed: (String) -> Unit
     ) {
         remoteMovieDataImpl.getMovieList(
-            title, success, failed
+            title, {
+                success(it)
+                saveQuery(title)
+            }, failed
         )
-    }
-
-    override fun saveQuery(query: String) {
-        localMovieDataImpl.saveQuery(query)
     }
 
     override fun getQueryList(): List<RecentSearchData> {
         return localMovieDataImpl.getQueryList()
+    }
+
+    private fun saveQuery(query: String) {
+        localMovieDataImpl.saveQuery(query)
     }
 }
