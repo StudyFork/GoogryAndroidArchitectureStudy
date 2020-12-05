@@ -31,6 +31,6 @@ fun TextView.setDirectorName(@Nullable directorName: String) {
 
 @BindingAdapter("setQueryList")
 fun RecyclerView.setRecentQueryList(recentQueryList: List<String>) {
-    var recentSearchRecyclerViewAdapter = adapter as RecentSearchRecyclerViewAdapter
-    recentSearchRecyclerViewAdapter.updateMovieList(recentQueryList)
+    val recentSearchRecyclerViewAdapter = adapter as? RecentSearchRecyclerViewAdapter
+    recentSearchRecyclerViewAdapter?.updateMovieList(recentQueryList)
 }
