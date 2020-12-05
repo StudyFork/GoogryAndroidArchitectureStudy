@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="activity"
-            type="com.example.androidarchitecturestudy.ui.main.MainActivity" />
+            name="viewModel"
+            type="com.example.androidarchitecturestudy.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +32,7 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLines="1"
+                android:text="@={viewModel.searchText}"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
@@ -37,16 +40,16 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{() -> activity.searchMovies()}"
+                android:onClick="@{() -> viewModel.requestMovieInfo()}"
                 android:text="@string/search" />
 
             <Button
                 android:id="@+id/btn_history"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:paddingRight="10dp"
-                android:onClick="@{() -> activity.showHistory()}"
                 android:layout_weight="1"
+                android:onClick="@{() -> viewModel.showHistory()}"
+                android:paddingEnd="10dp"
                 android:text="@string/history" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -59,6 +62,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_input"
             app:layout_constraintVertical_bias="0.0"
+            bind:movieList="@{viewModel.movieList}"
             tools:layout_editor_absoluteX="0dp"
             tools:listitem="@layout/item_movie" />
 
@@ -68,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            app:isVisibility="@{viewModel.isVisible()}"
             app:layout_constraintBottom_toBottomOf="@+id/rcv_result"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/rcv_result"

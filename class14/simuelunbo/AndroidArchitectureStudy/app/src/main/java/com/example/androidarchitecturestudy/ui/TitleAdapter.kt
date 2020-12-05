@@ -31,7 +31,7 @@ class TitleAdapter : RecyclerView.Adapter<TitleAdapter.TitleViewHolder>() {
 
     override fun getItemCount(): Int = list.count()
 
-    fun setTitleList(titleList: ArrayList<QueryHistory>) {
+    fun setTitleList(titleList: List<QueryHistory>) {
         list.clear()
         list.addAll(titleList)
         notifyDataSetChanged()
