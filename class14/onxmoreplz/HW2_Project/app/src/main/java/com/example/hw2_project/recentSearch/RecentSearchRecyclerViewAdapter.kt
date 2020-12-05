@@ -25,12 +25,10 @@ class RecentSearchRecyclerViewAdapter(@Nullable private val recentSearchActivity
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val repository = MovieRepositoryImpl()
         val binding = DataBindingUtil.inflate<RecentMovieItemBinding>(
             LayoutInflater.from(parent.context),
             R.layout.recent_movie_item, parent, false
         )
-        binding.vm = RecentSearchViewModel(repository)
         return ViewHolder(binding)
     }
 
