@@ -3,38 +3,42 @@ package com.jay.aas.ui.history
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.databinding.Observable
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.jay.aas.R
 import com.jay.aas.api.RetrofitHelper
 import com.jay.aas.base.BaseActivity
 import com.jay.aas.data.MovieLocalDataSourceImpl
 import com.jay.aas.data.MovieRemoteDataSourceImpl
-import com.jay.aas.data.MovieRepository
 import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivitySearchHistoryBinding
 import com.jay.aas.room.AppDatabase
 
-class SearchHistoryActivity :
-    BaseActivity<ActivitySearchHistoryBinding>(
-        R.layout.activity_search_history
-    ) {
+class SearchHistoryActivity : BaseActivity<ActivitySearchHistoryBinding>(
+    R.layout.activity_search_history
+) {
+
+    private val viewModel by viewModels<SearchHistoryViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val appDatabase = AppDatabase.getInstance(this@SearchHistoryActivity)
+                val movieRepository = MovieRepositoryImpl(
+                    MovieRemoteDataSourceImpl(RetrofitHelper.movieService),
+                    MovieLocalDataSourceImpl(
+                        appDatabase.movieDao(),
+                        appDatabase.searchHistoryDao()
+                    )
+                )
+                return SearchHistoryViewModel(movieRepository) as T
+            }
+        }
+    }
 
     private val searchHistoryAdapter: SearchHistoryAdapter by lazy {
         SearchHistoryAdapter { query ->
             viewModel.searchMovies(query)
         }
-    }
-    private val movieRepository: MovieRepository by lazy {
-        val remoteDataSource = MovieRemoteDataSourceImpl(RetrofitHelper.movieService)
-        val appDatabase = AppDatabase.getInstance(this)
-        val localDataSource = MovieLocalDataSourceImpl(
-            appDatabase.movieDao(),
-            appDatabase.searchHistoryDao()
-        )
-        MovieRepositoryImpl(remoteDataSource, localDataSource)
-    }
-    private val viewModel: SearchHistoryViewModel by lazy {
-        SearchHistoryViewModel(movieRepository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,27 +50,21 @@ class SearchHistoryActivity :
     }
 
     private fun setupUi() {
+        binding.lifecycleOwner = this
         binding.vm = viewModel
         binding.rvSearchList.adapter = searchHistoryAdapter
     }
 
     private fun setupObserver() {
-        viewModel.finishEvent
-            .addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    finish()
-                }
+        viewModel.finishEvent.observe(this) {
+            finish()
+        }
+        viewModel.searchQuery.observe(this) { query ->
+            setResult(RESULT_OK, Intent().apply {
+                putExtra(EXTRA_QUERY_TEXT, query)
             })
-
-        viewModel.searchQuery
-            .addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    setResult(RESULT_OK, Intent().apply {
-                        putExtra(EXTRA_QUERY_TEXT, viewModel.searchQuery.get())
-                    })
-                    finish()
-                }
-            })
+            finish()
+        }
     }
 
     companion object {
