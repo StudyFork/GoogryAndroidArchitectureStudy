@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="영화제목을 입력하세요."
+                android:text="@={vm.movie}"
                 android:singleLine="true"
                 android:textSize="8pt"
                 tools:layout_editor_absoluteX="63dp"
@@ -37,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="@{() -> vm.getMovieFromRepository(etMovieName.getText().toString())}"
+                android:onClick="@{() -> vm.getMovieFromRepository()}"
                 android:text="검색"
                 android:textSize="8pt" />
 

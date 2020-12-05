@@ -81,7 +81,8 @@ class MainActivity : AppCompatActivity() {
                     if (data?.hasExtra("recentMovie")!!) {
                         val clickedMovie: String? = data.getStringExtra("recentMovie")
                         if (clickedMovie != null) {
-                            viewModel.getMovieFromRepository(clickedMovie)
+                            viewModel.queryObservableField.set(clickedMovie)
+                            viewModel.getMovieFromRepository()
                         }
                     }
                 }
