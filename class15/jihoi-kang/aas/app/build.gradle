@@ -66,6 +66,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$recyclerVersion"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.activity:activity-ktx:$activityKtxVersion"
 
     // network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
