@@ -9,4 +9,8 @@
     <string name="noResult">No latest search results found</string>
     <string name="search_history">Search History</string>
     <string name="history">검색 기록</string>
+    <string name="network_success">검색 성공</string>
+    <string name="keyword_empty">제목을 입력해주세요.</string>
+    <string name="network_error">네트워크 에러발생</string>
+    <string name="keyword_result_empty">관련 검색어의 결과가 없습니다.</string>
 </resources>

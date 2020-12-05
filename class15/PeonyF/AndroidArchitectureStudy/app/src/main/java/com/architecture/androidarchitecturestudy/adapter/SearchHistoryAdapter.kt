@@ -1,4 +1,4 @@
-package com.architecture.androidarchitecturestudy.ui.searchhistory
+package com.architecture.androidarchitecturestudy.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +8,7 @@ import com.architecture.androidarchitecturestudy.R
 import com.architecture.androidarchitecturestudy.data.model.SearchHistoryEntity
 import com.architecture.androidarchitecturestudy.databinding.SearchHistoryItemBinding
 
-class SearchHistoryAdapter(
-    private val onItemClick: (String) -> Unit,
-) : RecyclerView.Adapter<SearchHistoryViewHolder>() {
+class SearchHistoryAdapter() : RecyclerView.Adapter<SearchHistoryViewHolder>() {
 
     private var searchHistory = ArrayList<SearchHistoryEntity>()
 
@@ -20,19 +18,18 @@ class SearchHistoryAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        SearchHistoryViewHolder(
-            DataBindingUtil.inflate<SearchHistoryItemBinding>(
-                LayoutInflater.from(parent.context),
-                R.layout.search_history_item,
-                parent,
-                false
-            )
-        ).apply {
-            itemView.setOnClickListener {
-                onItemClick(searchHistory[adapterPosition].searchHistoryKeyword)
-            }
-        }
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): SearchHistoryViewHolder {
+        val binding = DataBindingUtil.inflate<SearchHistoryItemBinding>(
+            LayoutInflater.from(parent.context),
+            R.layout.search_history_item,
+            parent,
+            false
+        )
+        return SearchHistoryViewHolder(binding)
+    }
 
     override fun onBindViewHolder(holder: SearchHistoryViewHolder, position: Int) {
         holder.onBind(searchHistory[position])

@@ -1,4 +1,4 @@
-package com.architecture.androidarchitecturestudy.ui.searchhistory
+package com.architecture.androidarchitecturestudy.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.architecture.androidarchitecturestudy.data.model.SearchHistoryEntity

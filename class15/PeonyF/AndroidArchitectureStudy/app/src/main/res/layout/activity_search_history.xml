@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="searchActivity"
-            type="com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryActivity" />
-
+            name="viewModel"
+            type="com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,6 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
+            bind:setSearchHistories="@{viewModel.keywordList}"
             tools:listitem="@layout/search_history_item" />
 
         <TextView
