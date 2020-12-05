@@ -1,18 +1,20 @@
 package com.jay.aas.base
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 abstract class BaseViewModel : ViewModel() {
 
-    val loading = ObservableField(false)
+    private val _loading = MutableLiveData(false)
+    val loading: LiveData<Boolean> get() = _loading
 
     fun showLoading() {
-        loading.set(true)
+        _loading.value = true
     }
 
     fun hideLoading() {
-        loading.set(false)
+        _loading.value = false
     }
 
 }
