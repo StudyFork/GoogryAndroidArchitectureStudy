@@ -23,45 +23,35 @@ class MovieSearchViewModel(
 
     val showRecentKeywordsEvent = ObservableField(false)
 
-    private var query = ""
-
-    @Bindable
-    fun getQuery(): String {
-        return query
-    }
-
-    fun setQuery(query: String) {
-        if (this.query != query) {
-            this.query = query
-            notifyPropertyChanged(BR.query)
-        }
-    }
+    val query = ObservableField("")
 
     suspend fun queryMovieList() {
-        if (query.isEmpty()) {
-            showQueryEmptyEvent.notifyChange()
-            return
-        }
+        query.get()?.let {
+            if (it.isEmpty()) {
+                showQueryEmptyEvent.notifyChange()
+                return
+            }
 
-        try {
-            loading.set(View.VISIBLE)
-            repository.insertRecent(
-                RecentSearch(Date(System.currentTimeMillis()), query)
-            )
-        } catch (e: Exception) {
-            showSaveRecentFailedEvent.notifyChange()
-        } finally {
             try {
-                val movies = repository.searchMovies(query)
-                loading.set(View.GONE)
-                if (movies.isEmpty()) {
-                    showNoSearchResultEvent.notifyChange()
-                    return
-                }
-                hideKeyboardEvent.notifyChange()
-                movieList.set(movies)
+                loading.set(View.VISIBLE)
+                repository.insertRecent(
+                    RecentSearch(Date(System.currentTimeMillis()), it)
+                )
             } catch (e: Exception) {
-                showSearchMovieFailedEvent.notifyChange()
+                showSaveRecentFailedEvent.notifyChange()
+            } finally {
+                try {
+                    val movies = repository.searchMovies(it)
+                    loading.set(View.GONE)
+                    if (movies.isEmpty()) {
+                        showNoSearchResultEvent.notifyChange()
+                        return
+                    }
+                    hideKeyboardEvent.notifyChange()
+                    movieList.set(movies)
+                } catch (e: Exception) {
+                    showSearchMovieFailedEvent.notifyChange()
+                }
             }
         }
     }

@@ -82,7 +82,7 @@ class MovieSearchFragment :
 
     private fun checkPassedQuery() {
         args.passedQuery?.let {
-            viewModel.setQuery(it)
+            viewModel.query.set(it)
             queryMovieList()
         }
     }

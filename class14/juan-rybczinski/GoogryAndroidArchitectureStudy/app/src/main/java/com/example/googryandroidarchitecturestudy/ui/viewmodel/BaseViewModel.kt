@@ -5,7 +5,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.ObservableField
 import com.example.googryandroidarchitecturestudy.domain.UrlResource
 
-abstract class BaseViewModel : BaseObservable() {
+abstract class BaseViewModel {
     val selectedUrl = ObservableField("")
     val hideKeyboardEvent = ObservableField<Unit>()
     val showInvalidUrlEvent = ObservableField<Unit>()
