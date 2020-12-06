@@ -12,10 +12,6 @@
         <variable
             name="vm"
             type="com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieSearchViewModel" />
-
-        <variable
-            name="query"
-            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
