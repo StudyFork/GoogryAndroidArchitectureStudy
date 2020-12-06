@@ -2,18 +2,26 @@ package com.deepco.studyfork
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.databinding.Observable
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.deepco.studyfork.databinding.ActivityMainBinding
 import com.deepco.studyfork.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-    private val mainViewModel by lazy {
-        MainViewModel()
+    private val mainViewModel by viewModels<MainViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel() as T
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.viewModel = mainViewModel
+        binding.lifecycleOwner = this
         setObserver()
     }
 
@@ -34,18 +42,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun setObserver() {
-        mainViewModel.message.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showEmptyMessage(mainViewModel.message.get().toString())
-            }
-        })
-        mainViewModel.startRecentSearchActivity.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                recentSearch()
-            }
-        })
+        mainViewModel.message.observe(this) {
+            showEmptyMessage(it)
+        }
+
+        mainViewModel.startRecentSearchActivity.observe(this) {
+            recentSearch()
+        }
     }
 
     companion object {
