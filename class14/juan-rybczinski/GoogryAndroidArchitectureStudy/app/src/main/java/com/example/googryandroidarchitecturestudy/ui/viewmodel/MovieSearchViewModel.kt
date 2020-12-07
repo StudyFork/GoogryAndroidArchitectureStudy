@@ -1,8 +1,8 @@
 package com.example.googryandroidarchitecturestudy.ui.viewmodel
 
 import android.view.View
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.domain.Movie
@@ -14,48 +14,63 @@ import java.util.*
 class MovieSearchViewModel(
     private val repository: MovieRepository
 ) : BaseViewModel() {
-    val movieList = ObservableField<List<Movie>>(emptyList())
-    val loading = ObservableField(View.GONE)
+    private val _movieList = MutableLiveData<List<Movie>>(emptyList())
+    val movieList: LiveData<List<Movie>>
+        get() = _movieList
 
-    val showQueryEmptyEvent = ObservableField<Unit>()
-    val showNoSearchResultEvent = ObservableField<Unit>()
+    private val _loading = MutableLiveData(View.GONE)
+    val loading: LiveData<Int>
+        get() = _loading
 
-    val showSearchMovieFailedEvent = ObservableField<Exception>()
-    val showSaveRecentFailedEvent = ObservableField<Exception>()
+    private val _showQueryEmptyEvent = MutableLiveData<Unit>()
+    val showQueryEmptyEvent: LiveData<Unit>
+        get() = _showQueryEmptyEvent
+
+    private val _showNoSearchResultEvent = MutableLiveData<Unit>()
+    val showNoSearchResultEvent: LiveData<Unit>
+        get() = _showNoSearchResultEvent
+
+    private val _showSearchMovieFailedEvent = MutableLiveData<Exception>()
+    val showSearchMovieFailedEvent: LiveData<Exception>
+        get() = _showSearchMovieFailedEvent
+
+    private val _showSaveRecentFailedEvent = MutableLiveData<Exception>()
+    val showSaveRecentFailedEvent: LiveData<Exception>
+        get() = _showSaveRecentFailedEvent
 
     private val _showRecentKeywordsEvent = SingleLiveEvent<Unit>()
     val showRecentKeywordsEvent: LiveData<Unit>
         get() = _showRecentKeywordsEvent
 
-    val query = ObservableField("")
+    val query = MutableLiveData("")
 
     fun queryMovieList() {
         viewModelScope.launch {
-            query.get()?.let {
+            query.value?.let {
                 if (it.isEmpty()) {
-                    showQueryEmptyEvent.notifyChange()
+                    _showQueryEmptyEvent.value = Unit
                     return@launch
                 }
 
                 try {
-                    loading.set(View.VISIBLE)
+                    _loading.value = View.VISIBLE
                     repository.insertRecent(
                         RecentSearch(Date(System.currentTimeMillis()), it)
                     )
                 } catch (e: Exception) {
-                    showSaveRecentFailedEvent.notifyChange()
+                    _showSaveRecentFailedEvent.value = e
                 } finally {
                     try {
                         val movies = repository.searchMovies(it)
-                        loading.set(View.GONE)
+                        _loading.value = View.GONE
                         if (movies.isEmpty()) {
-                            showNoSearchResultEvent.notifyChange()
+                            _showNoSearchResultEvent.value = Unit
                             return@launch
                         }
                         hideKeyboardEvent.notifyChange()
-                        movieList.set(movies)
+                        _movieList.value = movies
                     } catch (e: Exception) {
-                        showSearchMovieFailedEvent.notifyChange()
+                        _showSearchMovieFailedEvent.value = e
                     }
                 }
             }
