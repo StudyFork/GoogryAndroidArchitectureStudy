@@ -34,6 +34,15 @@ class MainViewModel(private val movieRepository: MovieRepositoryImpl) {
 
     fun clickRecentBtn() {
         startRecentActivity.notifyChange()
+    class MainViewModelFactory(private val repository: MovieRepositoryImpl) :
+        ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+                MainViewModel(repository) as T
+            } else {
+                throw IllegalArgumentException()
+            }
+        }
     }
 
 }
