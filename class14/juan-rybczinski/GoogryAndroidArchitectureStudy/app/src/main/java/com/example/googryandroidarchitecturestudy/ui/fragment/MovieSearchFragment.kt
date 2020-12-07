@@ -7,7 +7,6 @@ import androidx.databinding.Observable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.googryandroidarchitecturestudy.R
@@ -15,7 +14,6 @@ import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieSearc
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 import com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieSearchViewModel
-import kotlinx.coroutines.launch
 
 class MovieSearchFragment :
     MovieFragment<FragmentMovieSearchBinding, MovieSearchViewModel>(R.layout.fragment_movie_search) {
@@ -42,7 +40,6 @@ class MovieSearchFragment :
     private fun setupUi() {
         with(binding) {
             movieList.adapter = movieAdapter
-            v = this@MovieSearchFragment
         }
 
         checkPassedQuery()
@@ -85,12 +82,6 @@ class MovieSearchFragment :
     private fun checkPassedQuery() {
         args.passedQuery?.let {
             viewModel.query.set(it)
-            queryMovieList()
-        }
-    }
-
-    fun queryMovieList() {
-        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.queryMovieList()
         }
     }

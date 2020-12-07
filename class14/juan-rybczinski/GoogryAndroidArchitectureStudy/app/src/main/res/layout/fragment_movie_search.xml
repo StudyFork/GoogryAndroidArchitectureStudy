@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="v"
-            type="com.example.googryandroidarchitecturestudy.ui.fragment.MovieSearchFragment" />
-
-        <variable
             name="vm"
             type="com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieSearchViewModel" />
     </data>
@@ -36,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            android:onClick="@{() -> v.queryMovieList()}"
+            android:onClick="@{() -> vm.queryMovieList()}"
             android:text="@string/search"
             app:layout_constraintEnd_toStartOf="@id/recent_button"
             app:layout_constraintTop_toTopOf="parent" />
