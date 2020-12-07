@@ -33,13 +33,8 @@ class MovieRecentFragment :
                 }
             })
 
-            showMovieSearchEvent.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if (showMovieSearchEvent.get() != "") {
-                        navToMovieSearch()
-                    }
-                }
+            showMovieSearchEvent.observe(viewLifecycleOwner, {
+                navToMovieSearch(it)
             })
         }
 
@@ -48,13 +43,10 @@ class MovieRecentFragment :
         }
     }
 
-    private fun navToMovieSearch() {
+    private fun navToMovieSearch(query: String) {
         val action =
-            MovieRecentFragmentDirections.actionMovieRecentFragmentToMovieSearchFragment(
-                viewModel.showMovieSearchEvent.get()
-            )
-        this@MovieRecentFragment.findNavController().navigate(action)
-        viewModel.showMovieSearchEventCompleted()
+            MovieRecentFragmentDirections.actionMovieRecentFragmentToMovieSearchFragment(query)
+        findNavController().navigate(action)
     }
 
     private fun showSearchRecentFailed(e: Exception) {

@@ -69,13 +69,8 @@ class MovieSearchFragment :
                 }
             })
 
-            showRecentKeywordsEvent.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    if (showRecentKeywordsEvent.get() == true) {
-                        navToRecentSearch()
-                    }
-                }
+            showRecentKeywordsEvent.observe(viewLifecycleOwner, {
+                navToRecentSearch()
             })
         }
     }
@@ -115,7 +110,6 @@ class MovieSearchFragment :
     private fun navToRecentSearch() {
         val action = MovieSearchFragmentDirections.actionMovieSearchFragmentToMovieRecentFragment()
         this.findNavController().navigate(action)
-        viewModel.clickRecentButtonCompleted()
     }
 
     companion object {

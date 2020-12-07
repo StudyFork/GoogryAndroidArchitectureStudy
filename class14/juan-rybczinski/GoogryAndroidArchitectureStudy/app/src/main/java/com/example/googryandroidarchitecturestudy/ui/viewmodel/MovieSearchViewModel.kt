@@ -1,12 +1,12 @@
 package com.example.googryandroidarchitecturestudy.ui.viewmodel
 
 import android.view.View
-import androidx.databinding.Bindable
 import androidx.databinding.ObservableField
-import com.example.googryandroidarchitecturestudy.BR
+import androidx.lifecycle.LiveData
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.domain.Movie
 import com.example.googryandroidarchitecturestudy.domain.RecentSearch
+import com.example.googryandroidarchitecturestudy.util.SingleLiveEvent
 import java.util.*
 
 class MovieSearchViewModel(
@@ -21,7 +21,9 @@ class MovieSearchViewModel(
     val showSearchMovieFailedEvent = ObservableField<Exception>()
     val showSaveRecentFailedEvent = ObservableField<Exception>()
 
-    val showRecentKeywordsEvent = ObservableField(false)
+    private val _showRecentKeywordsEvent = SingleLiveEvent<Unit>()
+    val showRecentKeywordsEvent: LiveData<Unit>
+        get() = _showRecentKeywordsEvent
 
     val query = ObservableField("")
 
@@ -57,10 +59,6 @@ class MovieSearchViewModel(
     }
 
     fun clickRecentButton() {
-        showRecentKeywordsEvent.set(true)
-    }
-
-    fun clickRecentButtonCompleted() {
-        showRecentKeywordsEvent.set(false)
+        _showRecentKeywordsEvent.call()
     }
 }
