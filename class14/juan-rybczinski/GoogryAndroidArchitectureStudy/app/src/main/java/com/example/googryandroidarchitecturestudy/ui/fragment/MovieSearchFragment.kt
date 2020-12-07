@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.Observable
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,8 +21,12 @@ class MovieSearchFragment :
     MovieFragment<FragmentMovieSearchBinding, MovieSearchViewModel>(R.layout.fragment_movie_search) {
     private val args: MovieSearchFragmentArgs by navArgs()
 
-    override val viewModel by lazy {
-        MovieSearchViewModel(repository)
+    override val viewModel by viewModels<MovieSearchViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MovieSearchViewModel(repository) as T
+            }
+        }
     }
 
     private val movieAdapter = MovieAdapter {
