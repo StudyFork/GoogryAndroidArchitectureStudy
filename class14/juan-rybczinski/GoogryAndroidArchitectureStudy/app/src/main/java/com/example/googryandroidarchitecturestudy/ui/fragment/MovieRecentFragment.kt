@@ -7,13 +7,11 @@ import androidx.databinding.Observable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieRecentBinding
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieRecentViewModel
-import kotlinx.coroutines.launch
 
 class MovieRecentFragment :
     MovieFragment<FragmentMovieRecentBinding, MovieRecentViewModel>(R.layout.fragment_movie_recent) {
@@ -43,10 +41,6 @@ class MovieRecentFragment :
             showMovieSearchEvent.observe(viewLifecycleOwner, {
                 navToMovieSearch(it)
             })
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getRecentKeywords()
         }
     }
 
