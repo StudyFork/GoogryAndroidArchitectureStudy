@@ -10,23 +10,24 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.Observable
+import androidx.lifecycle.ViewModelProvider
 import com.example.hw2_project.R
 import com.example.hw2_project.data.repository.MovieRepositoryImpl
 import com.example.hw2_project.databinding.ActivityMainBinding
 import com.example.hw2_project.recentSearch.RecentSearchActivity
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
-
     private val mainAdapter = MainRecyclerViewAdapter()
-
     private val movieRepository = MovieRepositoryImpl()
-
-    private val viewModel = MainViewModel(movieRepository)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, MainViewModel.MainViewModelFactory(movieRepository))
+            .get(MainViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
         binding.vm = viewModel
 
         binding.recyclerView.setHasFixedSize(true)
@@ -36,36 +37,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeViewModelEvent() {
-        viewModel.isEmptyQuery.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(this@MainActivity, "Please enter the movie.", Toast.LENGTH_SHORT)
-                    .show()
+        viewModel.isEmptyQuery.observe(this) {
+            Toast.makeText(this@MainActivity, "Please enter the movie.", Toast.LENGTH_SHORT)
+                .show()
+        }
+        viewModel.successToGetMovie.observe(this) {
+            hideKeyboard()
+            viewModel.movieListTest.value?.let {
+                mainAdapter.updateMovieList(it)
             }
-        })
-        viewModel.successToGetMovie.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                hideKeyboard()
-                viewModel.movieListTest.get()?.let {
-                    mainAdapter.updateMovieList(it)
-                }
-            }
-        })
-        viewModel.failToGetMovie.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                Toast.makeText(this@MainActivity, "Fail to get movie.", Toast.LENGTH_SHORT).show()
-                Log.e("FailToGetMovie", viewModel.failToGetMovie.get().toString())
-            }
-        })
-        viewModel.startRecentActivity.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                val intent = Intent(this@MainActivity, RecentSearchActivity::class.java)
-                startActivityForResult(intent, 100)
-            }
-        })
+        }
+        viewModel.failToGetMovie.observe(this) {
+            Toast.makeText(this@MainActivity, "Fail to get movie.", Toast.LENGTH_SHORT).show()
+            Log.e("FailToGetMovie", viewModel.failToGetMovie.value.toString())
+        }
+        viewModel.startRecentActivity.observe(this) {
+            val intent = Intent(this@MainActivity, RecentSearchActivity::class.java)
+            startActivityForResult(intent, 100)
+        }
     }
 
     private fun hideKeyboard() {
@@ -81,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                     if (data?.hasExtra("recentMovie")!!) {
                         val clickedMovie: String? = data.getStringExtra("recentMovie")
                         if (clickedMovie != null) {
-                            viewModel.queryObservableField.set(clickedMovie)
+                            viewModel.query.value = clickedMovie
                             viewModel.getMovieFromRepository()
                         }
                     }
