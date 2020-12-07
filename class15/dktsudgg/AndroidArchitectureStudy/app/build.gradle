@@ -85,4 +85,9 @@ dependencies {
      * Add Stetho dependencies
      */
     implementation "com.facebook.stetho:stetho:$stetho_version"
+
+    /**
+     * Add activity-ktx dependencies
+     */
+    implementation "androidx.activity:activity-ktx:$activity_version"
 }
