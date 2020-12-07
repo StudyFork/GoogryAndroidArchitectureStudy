@@ -8,32 +8,67 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.Observable
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.viewbinding.ViewBinding
+import com.example.googryandroidarchitecturestudy.BR
 import com.example.googryandroidarchitecturestudy.R
-import com.example.googryandroidarchitecturestudy.domain.UrlResource
-import com.example.googryandroidarchitecturestudy.ui.contract.BaseContract
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
-import com.example.googryandroidarchitecturestudy.ui.presenter.BasePresenter
+import com.example.googryandroidarchitecturestudy.ui.viewmodel.BaseViewModel
 
-abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), BaseContract.View {
+abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
+    private val layoutId: Int
+) : Fragment() {
     private var _binding: B? = null
     protected val binding get() = _binding!!
 
-    var onProgress = View.INVISIBLE
+    abstract val viewModel: VM
 
     private val inputMethodManager by lazy(LazyThreadSafetyMode.NONE) {
         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 
-    protected abstract fun inflateViewBinding(inflater: LayoutInflater, container: ViewGroup?): B
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = inflateViewBinding(inflater, container)
+        _binding = DataBindingUtil.inflate(layoutInflater, layoutId, container, false)
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.setVariable(BR.vm, viewModel)
+
+        setupBaseUi()
+    }
+
+    private fun setupBaseUi() {
+        with(viewModel) {
+            hideKeyboardEvent.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    hideKeyboard()
+                }
+            })
+
+            selectedUrl.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    selectedUrl.get()?.let { showUrlResource(it) }
+                }
+            })
+
+            showInvalidUrlEvent.addOnPropertyChangedCallback(object :
+                Observable.OnPropertyChangedCallback() {
+                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                    showInvalidUrl()
+                }
+            })
+        }
     }
 
     override fun onDestroyView() {
@@ -41,38 +76,18 @@ abstract class BaseFragment<B : ViewBinding, P : BasePresenter> : Fragment(), Ba
         super.onDestroyView()
     }
 
-    override fun hideKeyboard() {
+    private fun hideKeyboard() {
         inputMethodManager.hideSoftInputFromWindow(
             requireActivity().currentFocus?.windowToken,
             0
         )
     }
 
-    override fun showUrlResource(item: UrlResource) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(item.link)))
+    private fun showUrlResource(url: String) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
-    override fun showInvalidUrl() {
+    private fun showInvalidUrl() {
         toast(getString(R.string.invalid_url))
-    }
-
-    override fun showQueryEmpty() {
-        toast(getString(R.string.no_keyword))
-    }
-
-    override fun showNoSearchResult() {
-        toast(getString(R.string.no_results))
-    }
-
-    override fun showSearchFailed(e: Exception) {
-        toast(getString(R.string.error_occurred))
-    }
-
-    override fun showProgressBar() {
-        onProgress = View.VISIBLE
-    }
-
-    override fun hideProgressBar() {
-        onProgress = View.INVISIBLE
     }
 }

@@ -3,20 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_grapth"
-    app:startDestination="@id/movieFragment">
-
+    app:startDestination="@id/movieSearchFragment">
     <fragment
-        android:id="@+id/movieFragment"
-        android:name="com.example.googryandroidarchitecturestudy.ui.fragment.MovieFragment"
-        android:label="fragment_movie"
-        tools:layout="@layout/fragment_movie">
+        android:id="@+id/movieSearchFragment"
+        android:name="com.example.googryandroidarchitecturestudy.ui.fragment.MovieSearchFragment"
+        android:label="MovieSearchFragment" >
         <action
-            android:id="@+id/action_movieFragment_to_recentFragment"
-            app:destination="@id/recentFragment" />
+            android:id="@+id/action_movieSearchFragment_to_movieRecentFragment"
+            app:destination="@id/movieRecentFragment" />
+        <argument
+            android:name="passedQuery"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
-        android:id="@+id/recentFragment"
-        android:name="com.example.googryandroidarchitecturestudy.ui.fragment.RecentFragment"
-        android:label="fragment_recent"
-        tools:layout="@layout/fragment_recent" />
+        android:id="@+id/movieRecentFragment"
+        android:name="com.example.googryandroidarchitecturestudy.ui.fragment.MovieRecentFragment"
+        android:label="MovieRecentFragment" >
+        <action
+            android:id="@+id/action_movieRecentFragment_to_movieSearchFragment"
+            app:destination="@id/movieSearchFragment" />
+    </fragment>
 </navigation>

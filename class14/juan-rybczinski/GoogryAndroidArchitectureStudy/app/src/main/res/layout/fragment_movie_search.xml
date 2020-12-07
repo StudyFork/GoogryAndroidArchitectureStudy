@@ -6,8 +6,12 @@
     <data>
 
         <variable
-            name="view"
-            type="com.example.googryandroidarchitecturestudy.ui.fragment.MovieFragment" />
+            name="v"
+            type="com.example.googryandroidarchitecturestudy.ui.fragment.MovieSearchFragment" />
+
+        <variable
+            name="vm"
+            type="com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieSearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +25,7 @@
             android:layout_marginHorizontal="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin"
             android:inputType="text"
+            android:text="@={vm.query}"
             app:layout_constraintEnd_toStartOf="@+id/search_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            android:onClick="@{() -> view.queryMovieList()}"
+            android:onClick="@{() -> v.queryMovieList()}"
             android:text="@string/search"
             app:layout_constraintEnd_toStartOf="@id/recent_button"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
-            android:onClick="@{() -> view.navToRecentSearch()}"
+            android:onClick="@{() -> vm.clickRecentButton()}"
             android:text="@string/recent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -57,13 +62,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_text"
+            app:list="@{vm.movieList}"
             tools:listitem="@layout/item_movie" />
 
         <ProgressBar
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{view.onProgress}"
+            android:visibility="@{vm.loading}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
