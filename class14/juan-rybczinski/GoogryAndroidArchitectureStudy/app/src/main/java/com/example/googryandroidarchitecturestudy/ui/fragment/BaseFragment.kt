@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.example.googryandroidarchitecturestudy.BR
@@ -41,33 +40,27 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.setVariable(BR.vm, viewModel)
+        with(binding) {
+            setVariable(BR.vm, viewModel)
+            lifecycleOwner = viewLifecycleOwner
+        }
 
         setupBaseUi()
     }
 
     private fun setupBaseUi() {
         with(viewModel) {
-            hideKeyboardEvent.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    hideKeyboard()
-                }
-            })
+            hideKeyboardEvent.observe(viewLifecycleOwner) {
+                hideKeyboard()
+            }
 
-            selectedUrl.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    selectedUrl.get()?.let { showUrlResource(it) }
-                }
-            })
+            selectedUrl.observe(viewLifecycleOwner) {
+                showUrlResource(it)
+            }
 
-            showInvalidUrlEvent.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showInvalidUrl()
-                }
-            })
+            showInvalidUrlEvent.observe(viewLifecycleOwner) {
+                showInvalidUrl()
+            }
         }
     }
 

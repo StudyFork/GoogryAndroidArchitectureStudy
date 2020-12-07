@@ -67,7 +67,7 @@ class MovieSearchViewModel(
                             _showNoSearchResultEvent.value = Unit
                             return@launch
                         }
-                        hideKeyboardEvent.notifyChange()
+                        hideKeyboardEvent.value = Unit
                         _movieList.value = movies
                     } catch (e: Exception) {
                         _showSearchMovieFailedEvent.value = e

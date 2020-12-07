@@ -29,10 +29,6 @@ class MovieRecentFragment :
     }
 
     private fun setupUi() {
-        with(binding) {
-            lifecycleOwner = viewLifecycleOwner
-        }
-
         with(viewModel) {
             showSearchRecentFailedEvent.observe(viewLifecycleOwner) {
                 showSearchRecentFailed(it)

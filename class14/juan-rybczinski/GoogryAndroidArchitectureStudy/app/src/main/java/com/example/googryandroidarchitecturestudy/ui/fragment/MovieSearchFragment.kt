@@ -39,7 +39,6 @@ class MovieSearchFragment :
     private fun setupUi() {
         with(binding) {
             movieList.adapter = movieAdapter
-            lifecycleOwner = viewLifecycleOwner
         }
 
         checkPassedQuery()
