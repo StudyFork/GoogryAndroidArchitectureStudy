@@ -3,7 +3,6 @@ package com.example.googryandroidarchitecturestudy.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.databinding.Observable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -30,17 +29,18 @@ class MovieRecentFragment :
     }
 
     private fun setupUi() {
-        with(viewModel) {
-            showSearchRecentFailedEvent.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showSearchRecentFailedEvent.get()?.let { showSearchRecentFailed(it) }
-                }
-            })
+        with(binding) {
+            lifecycleOwner = viewLifecycleOwner
+        }
 
-            showMovieSearchEvent.observe(viewLifecycleOwner, {
+        with(viewModel) {
+            showSearchRecentFailedEvent.observe(viewLifecycleOwner) {
+                showSearchRecentFailed(it)
+            }
+
+            showMovieSearchEvent.observe(viewLifecycleOwner) {
                 navToMovieSearch(it)
-            })
+            }
         }
     }
 
