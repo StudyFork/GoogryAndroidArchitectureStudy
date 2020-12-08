@@ -14,7 +14,10 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
     val showResultEmpty: ObservableField<Unit> = ObservableField()
 
     fun searchMovie(query: String) {
-        if (query.isNullOrEmpty()) showQueryError.set(Unit)
+        if (query.isNullOrEmpty()) {
+            showQueryError.set(Unit)
+            return
+        }
 
         repository.putRecentSearchList(query)
 
