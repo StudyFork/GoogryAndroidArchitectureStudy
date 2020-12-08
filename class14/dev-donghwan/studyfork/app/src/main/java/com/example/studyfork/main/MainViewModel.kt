@@ -1,6 +1,5 @@
 package com.example.studyfork.main
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import com.example.studyfork.base.BaseViewModel
 import com.example.studyfork.data.model.MovieSearchResponse
@@ -22,8 +21,11 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
         repository.searchMovie(
             query = query,
             success = {
-                if (it.items.isEmpty()) showResultEmpty.set(Unit)
-                else movieList.set(it.items)
+                if (it.items.isEmpty()) {
+                    showResultEmpty.set(Unit)
+                } else {
+                    movieList.set(it.items)
+                }
                 movieList.notifyChange()
             },
             fail = {
