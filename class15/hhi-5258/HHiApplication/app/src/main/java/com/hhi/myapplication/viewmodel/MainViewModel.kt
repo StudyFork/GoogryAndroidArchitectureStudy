@@ -6,7 +6,7 @@ import com.hhi.myapplication.base.BaseViewModel
 import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 
-class MainViewModel : BaseViewModel(), viewModel() {
+class MainViewModel : BaseViewModel() {
     private val repositoryDataSourceImpl = NaverRepositoryDataSourceImpl()
     val movieList = ObservableField<ArrayList<MovieData.MovieItem>>()
     val emptyQueryEvent = ObservableField<Unit>()

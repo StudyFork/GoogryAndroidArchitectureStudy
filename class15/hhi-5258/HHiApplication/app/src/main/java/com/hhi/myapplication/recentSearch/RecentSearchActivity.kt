@@ -3,15 +3,23 @@ package com.hhi.myapplication.recentSearch
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.hhi.myapplication.R
 import com.hhi.myapplication.base.BaseActivity
 import com.hhi.myapplication.databinding.ActivityRecentSearchBinding
 import com.hhi.myapplication.viewmodel.RecentSearchViewModel
-import kotlinx.android.synthetic.main.activity_recent_search.*
 
 class RecentSearchActivity :
     BaseActivity<ActivityRecentSearchBinding>(R.layout.activity_recent_search) {
-    private val vm = RecentSearchViewModel()
+    private val vm by viewModels<RecentSearchViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return RecentSearchViewModel() as T
+            }
+        }
+    }
     private val adapter = RecentSearchRecyclerAdapter(
         onClick = { query ->
             val intent = Intent()

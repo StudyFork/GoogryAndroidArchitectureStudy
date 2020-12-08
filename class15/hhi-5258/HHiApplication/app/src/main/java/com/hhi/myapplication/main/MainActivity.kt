@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.databinding.Observable
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.hhi.myapplication.R
 import com.hhi.myapplication.base.BaseActivity
 import com.hhi.myapplication.databinding.ActivityMainBinding
@@ -16,7 +19,13 @@ import java.util.*
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-    private val vm = MainViewModel()
+    private val vm by viewModels<MainViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MainViewModel() as T
+            }
+        }
+    }
     private val adapter = MainRecyclerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
