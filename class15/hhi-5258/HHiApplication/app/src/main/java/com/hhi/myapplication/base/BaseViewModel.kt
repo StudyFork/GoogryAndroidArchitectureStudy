@@ -1,9 +1,9 @@
 package com.hhi.myapplication.base
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-abstract class BaseViewModel : ViewModel(){
+abstract class BaseViewModel : ViewModel() {
 
-    val visible = ObservableField<Boolean>()
+    val visible = MutableLiveData<Boolean>()
 }

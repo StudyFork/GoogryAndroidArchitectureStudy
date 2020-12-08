@@ -1,17 +1,19 @@
 package com.hhi.myapplication.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.hhi.myapplication.base.BaseViewModel
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 
 class RecentSearchViewModel : BaseViewModel() {
     private val naverRepositoryDataSource = NaverRepositoryDataSourceImpl()
-    val queryList = ObservableField<List<String>>()
+    private val _queryList = MutableLiveData<List<String>>()
+    val queryList: LiveData<List<String>> = _queryList
 
     fun searchRecentQuery() {
-        visible.set(false)
+        visible.value = false
         val list = naverRepositoryDataSource.getQueryList()
-        queryList.set(list)
-        visible.set(false)
+        _queryList.value = list
+        visible.value = false
     }
 }
