@@ -30,7 +30,6 @@ class MainActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.activity = this
         binding.vm = viewModel
         binding.recMovie.adapter = recyclerAdapter
 
@@ -54,6 +53,13 @@ class MainActivity :
                 showResultEmpty()
             }
         })
+
+        viewModel.showRecentSearchActivity.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showRecentSearchListActivity()
+            }
+        })
     }
 
     override fun onDestroy() {
@@ -62,9 +68,7 @@ class MainActivity :
     }
 
     fun searchMovie() {
-        binding.edtQuery.text.toString().run {
-            viewModel.searchMovie(this)
-        }
+        viewModel.searchMovie()
     }
 
     fun showQueryError() {
@@ -90,7 +94,10 @@ class MainActivity :
         if (requestCode == this.requestCode) {
             if (resultCode != RESULT_OK) return
             data?.run {
-                viewModel.searchMovie(this.getStringExtra(SEARCH_ITEM) ?: "")
+                runOnUiThread {
+                    viewModel.query.set(this.getStringExtra(SEARCH_ITEM) ?: "")
+                    viewModel.searchMovie()
+                }
             }
         }
     }

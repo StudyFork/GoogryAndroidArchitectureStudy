@@ -7,10 +7,6 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.example.studyfork.main.MainActivity" />
-
-        <variable
             name="vm"
             type="com.example.studyfork.main.MainViewModel" />
 
@@ -32,20 +28,21 @@
                 android:id="@+id/edt_query"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="@={vm.query}" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{ () -> activity.searchMovie() }"
+                android:onClick="@{ () -> vm.searchMovie() }"
                 android:text="검색" />
 
             <Button
                 android:id="@+id/btn_recent_search_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{ () -> activity.showRecentSearchListActivity()}"
+                android:onClick="@{ () -> vm.requestRecentSearchActivity()}"
                 android:text="최근검색기록" />
 
         </LinearLayout>
