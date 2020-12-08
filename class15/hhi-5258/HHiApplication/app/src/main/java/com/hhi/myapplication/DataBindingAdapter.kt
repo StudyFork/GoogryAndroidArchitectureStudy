@@ -9,9 +9,9 @@ import com.hhi.myapplication.recentSearch.RecentSearchRecyclerAdapter
 @BindingAdapter("items")
 fun RecyclerView.setItems(items: List<Any>?) {
     items?.let {
-        when (adapter) {
-            is MainRecyclerAdapter -> (adapter as MainRecyclerAdapter).setMovieList(it as ArrayList<MovieData.MovieItem>)
-            is RecentSearchRecyclerAdapter -> (adapter as RecentSearchRecyclerAdapter).setQueryList(
+        when (val adapter = adapter) {
+            is MainRecyclerAdapter -> adapter.setMovieList(it as ArrayList<MovieData.MovieItem>)
+            is RecentSearchRecyclerAdapter -> adapter.setQueryList(
                 it as List<String>
             )
         }
