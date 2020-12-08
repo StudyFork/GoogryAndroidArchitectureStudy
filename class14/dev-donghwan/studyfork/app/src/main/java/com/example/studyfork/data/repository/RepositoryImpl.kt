@@ -8,7 +8,8 @@ import io.reactivex.disposables.Disposable
 
 class RepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource) : Repository {
+    private val localDataSource: LocalDataSource
+) : Repository {
 
     override fun searchMovie(
         query: String,

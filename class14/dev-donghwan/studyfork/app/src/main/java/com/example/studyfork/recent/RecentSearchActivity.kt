@@ -37,7 +37,6 @@ class RecentSearchActivity :
             }
         )
 
-        binding.activity = this
         binding.vm = viewModel
         binding.rvRecentSearch.adapter = adapter
 

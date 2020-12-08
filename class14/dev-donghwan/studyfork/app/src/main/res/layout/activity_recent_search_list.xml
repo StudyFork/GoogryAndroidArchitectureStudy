@@ -7,10 +7,6 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.example.studyfork.recent.RecentSearchActivity" />
-
-        <variable
             name="vm"
             type="com.example.studyfork.recent.RecentSearchViewModel" />
     </data>
@@ -21,11 +17,11 @@
         tools:context=".recent.RecentSearchActivity">
 
         <androidx.recyclerview.widget.RecyclerView
-            recent_bind:setItems="@{vm.recentSearchList}"
             android:id="@+id/rv_recent_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            recent_bind:setItems="@{vm.recentSearchList}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

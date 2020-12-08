@@ -10,9 +10,9 @@ class RecentSearchViewModel(private val repository: Repository) : BaseViewModel(
     val showListIsEmpty: ObservableField<Unit> = ObservableField()
 
     fun getRecentSearchList() {
-        val result = repository.getRecentSearchList()
+        val result = repository.getRecentSearchList().reversed()
         if (result.isEmpty()) {
-            showListIsEmpty.set(Unit)
+            showListIsEmpty.notifyChange()
         } else {
             recentSearchList.set(result)
             recentSearchList.notifyChange()
