@@ -26,7 +26,6 @@ class RecentSearchActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.viewModel = recentSearchViewModel
-        binding.lifecycleOwner = this
         setRecyclerView()
         setObserver()
     }

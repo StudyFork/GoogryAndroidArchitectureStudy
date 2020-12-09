@@ -14,6 +14,7 @@ abstract class BaseActivity<B : ViewDataBinding>(@LayoutRes val layoutResId: Int
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutResId)
+        binding.lifecycleOwner = this
     }
 
     fun showEmptyMessage(message: String) {
