@@ -18,16 +18,21 @@ import com.architecture.androidarchitecturestudy.util.toast
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-    private val viewModel by lazy {
-        val remoteDataSourceImpl = MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE)
-        val localDataSourceImpl = MovieLocalDataSourceImpl()
-        MainViewModel(MovieRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl))
+    private val mainViewModel by viewModels<MainViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val remoteDataSourceImpl = MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE)
+                val localDataSourceImpl = MovieLocalDataSourceImpl()
+                val movieRepository = MovieRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl)
+                return MainViewModel(movieRepository) as T
+            }
+        }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
+        binding.mainViewModel = mainViewModel
+        binding.lifecycleOwner = this
         viewModelCallback()
     }
 
@@ -46,11 +51,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         })
 
-        viewModel.callSearchHistory.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                searchHistory()
-            }
+        mainViewModel.callSearchHistory.observe(this, {
+            searchHistory()
         })
     }
 
