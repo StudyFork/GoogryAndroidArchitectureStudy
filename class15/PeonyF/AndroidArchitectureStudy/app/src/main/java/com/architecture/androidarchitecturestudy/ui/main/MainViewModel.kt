@@ -14,30 +14,28 @@ class MainViewModel(private val movieRepository: MovieRepository) : ViewModel() 
 
 
     fun findMovie() {
-        val keyword = keyword.get() ?: return
-        if (keyword.isNullOrBlank()) {
-            msg.set("emptyKeyword")
-            showToastMsg.notifyChange()
+        val keywordValue = keyword.value ?: return
+        isVisibleToast = true
+        if (keywordValue.isNullOrBlank()) {
+            msg.value = "emptyKeyword"
             return
         }
-        movieRepository.getMovieData(keyword = keyword, 30,
-            onSuccess = {
-                if (it.items!!.isEmpty()) {
-                    msg.set("emptyResult")
-                    showToastMsg.notifyChange()
-                } else {
-                    msg.set("success")
-                    movieList.set(it.items)
+        movieRepository.getMovieData(keyword = keywordValue, 30,
+                onSuccess = {
+                    if (it.items!!.isEmpty()) {
+                        msg.value = "emptyResult"
+                    } else {
+                        msg.value = "success"
+                        movieList.value = it.items
+                    }
+                },
+                onFailure = {
+                    msg.value = "fail"
                 }
-            },
-            onFailure = {
-                msg.set("fail")
-                showToastMsg.notifyChange()
-            }
         )
     }
 
     fun searchHistory() {
-        callSearchHistory.notifyChange()
+        callSearchHistory.value = Unit
     }
 }
