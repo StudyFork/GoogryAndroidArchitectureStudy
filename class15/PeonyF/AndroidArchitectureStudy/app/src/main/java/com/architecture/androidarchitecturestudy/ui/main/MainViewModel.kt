@@ -12,11 +12,6 @@ class MainViewModel(private val movieRepository: MovieRepository) : ViewModel() 
     val callSearchHistory = MutableLiveData<Unit>()
     var isVisibleToast = true
 
-    val keyword = ObservableField<String>()
-    val movieList = ObservableField<List<Movie>>()
-    val showToastMsg = ObservableField<Unit>()
-    val msg = ObservableField<String>()
-    val callSearchHistory = ObservableField<Unit>()
 
     fun findMovie() {
         val keyword = keyword.get() ?: return
