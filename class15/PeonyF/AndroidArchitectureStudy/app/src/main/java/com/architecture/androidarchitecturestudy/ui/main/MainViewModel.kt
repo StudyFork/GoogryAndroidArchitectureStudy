@@ -1,11 +1,16 @@
 package com.architecture.androidarchitecturestudy.ui.main
 
-
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.architecture.androidarchitecturestudy.data.model.Movie
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepository
 
-class MainViewModel(private val movieRepository: MovieRepository) {
+class MainViewModel(private val movieRepository: MovieRepository) : ViewModel() {
+    val keyword = MutableLiveData<String>()
+    val movieList = MutableLiveData<List<Movie>>()
+    val msg = MutableLiveData<String>()
+    val callSearchHistory = MutableLiveData<Unit>()
+    var isVisibleToast = true
 
     val keyword = ObservableField<String>()
     val movieList = ObservableField<List<Movie>>()
