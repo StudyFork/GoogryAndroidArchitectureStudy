@@ -40,9 +40,9 @@ class HistoryAdapter(
     inner class HistoryViewHolder(
         private val binding: ItemHistoryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(text: String) {
-            binding.item = text
-            binding.position = adapterPosition + 1
+        private var text: String = ""
+
+        init {
             binding.ivDelete.setOnClickListener {
                 listener.onHistoryItemClickToDelete(text)
                 historyList.remove(text)
@@ -51,6 +51,13 @@ class HistoryAdapter(
             binding.root.setOnClickListener {
                 listener.onHistoryItemClick(text)
             }
+        }
+
+        fun bind(text: String) {
+            this.text = text
+
+            binding.item = text
+            binding.position = adapterPosition + 1
         }
     }
 
