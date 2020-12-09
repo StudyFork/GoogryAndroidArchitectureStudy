@@ -9,7 +9,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.Observable
 import androidx.lifecycle.ViewModelProvider
 import com.example.hw2_project.R
 import com.example.hw2_project.data.repository.MovieRepositoryImpl
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
         viewModel.successToGetMovie.observe(this) {
             hideKeyboard()
-            viewModel.movieListTest.value?.let {
+            viewModel.movieList.value?.let {
                 mainAdapter.updateMovieList(it)
             }
         }

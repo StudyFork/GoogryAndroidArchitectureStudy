@@ -1,16 +1,17 @@
 package com.example.hw2_project.main
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.hw2_project.data.repository.MovieRepository
 import com.example.hw2_project.data.repository.MovieRepositoryImpl
 
 class MainViewModel(private val movieRepository: MovieRepositoryImpl) : ViewModel() {
     val query = MutableLiveData<String>()
-    val movieListTest: MutableLiveData<List<com.example.hw2_project.data.api.NaverMovieData.NaverMovie>> =
+
+    private val _movieList: MutableLiveData<List<com.example.hw2_project.data.api.NaverMovieData.NaverMovie>> =
         MutableLiveData()
+    val movieList: LiveData<List<com.example.hw2_project.data.api.NaverMovieData.NaverMovie>> = _movieList
 
     val isEmptyQuery = MutableLiveData<Unit>()
     val successToGetMovie = MutableLiveData<Unit>()
@@ -26,7 +27,7 @@ class MainViewModel(private val movieRepository: MovieRepositoryImpl) : ViewMode
                 queryToString,
                 success = {
                     it.items.run {
-                        movieListTest.value = it.items
+                        _movieList.value = it.items
                         successToGetMovie.value = Unit
                     }
                 },
