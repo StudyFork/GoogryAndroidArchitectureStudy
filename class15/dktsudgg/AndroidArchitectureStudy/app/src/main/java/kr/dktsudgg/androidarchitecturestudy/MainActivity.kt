@@ -16,7 +16,6 @@ class MainActivity :
         super.onCreate(savedInstanceState)
 
         binding.vm = movieSearchViewModel
-        binding.lifecycleOwner = this
 
         /**
          * 영화 검색 시, 검색어를 입력하지 않았을 경우에 대한 처리 모음

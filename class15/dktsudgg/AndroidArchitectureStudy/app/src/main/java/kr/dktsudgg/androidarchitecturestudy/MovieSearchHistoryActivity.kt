@@ -14,7 +14,6 @@ class MovieSearchHistoryActivity :
         super.onCreate(savedInstanceState)
 
         binding.vm = movieSearchHistoryViewModel
-        binding.lifecycleOwner = this
     }
 
 }
