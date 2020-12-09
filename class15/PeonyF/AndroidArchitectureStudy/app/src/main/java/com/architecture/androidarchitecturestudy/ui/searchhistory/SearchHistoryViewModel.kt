@@ -10,6 +10,6 @@ class SearchHistoryViewModel(
 ) : ViewModel() {
     val keywordList = MutableLiveData<List<SearchHistoryEntity>>()
     fun getRecentKeywordList() {
-        keywordList.set(movieRepository.getSearchHistoryList())
+        keywordList.value = movieRepository.getSearchHistoryList()
     }
 }
