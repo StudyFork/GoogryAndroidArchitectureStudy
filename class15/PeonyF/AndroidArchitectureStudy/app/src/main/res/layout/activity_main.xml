@@ -5,9 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="viewModel"
+            name="mainViewModel"
             type="com.architecture.androidarchitecturestudy.ui.main.MainViewModel" />
     </data>
 
@@ -21,7 +20,7 @@
             android:id="@+id/et_main_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@={viewModel.keyword}"
+            android:text="@={mainViewModel.keyword}"
             app:layout_constraintEnd_toStartOf="@+id/btn_main_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +30,7 @@
             android:id="@+id/btn_main_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.findMovie()}"
+            android:onClick="@{()->mainViewModel.findMovie()}"
             android:text="@string/search"
             app:layout_constraintEnd_toStartOf="@+id/btn_recent_search"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +40,7 @@
             android:id="@+id/btn_recent_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.searchHistory()}"
+            android:onClick="@{() -> mainViewModel.searchHistory()}"
             android:text="@string/history"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_main_search"
-            bind:setMovieList="@{viewModel.movieList}"
+            bind:setMovieList="@{mainViewModel.movieList}"
             tools:listitem="@layout/movie_item" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
