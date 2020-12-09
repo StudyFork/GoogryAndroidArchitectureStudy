@@ -7,24 +7,19 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.databinding.Observable
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import com.example.androidarchitecturestudy.data.local.NaverLocalDataSourceImpl
 import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImpl
 import com.example.androidarchitecturestudy.data.repository.NaverRepositoryImpl
 import com.example.androidarchitecturestudy.databinding.TitleDialogFragmentBinding
+import com.example.androidarchitecturestudy.ui.main.MainViewModel
 
 class TitleFragmentDialog : DialogFragment() {
 
     private lateinit var binding: TitleDialogFragmentBinding
+    private val viewModel: MainViewModel by activityViewModels()
     private val adapter by lazy {
         TitleAdapter()
-    }
-
-    private val viewModel: TitleHistoryViewModel by lazy {
-        val naverLocalDataSourceImpl = NaverLocalDataSourceImpl()
-        val naverRemoteDataSourceImpl = NaverRemoteDataSourceImpl()
-        TitleHistoryViewModel(
-            NaverRepositoryImpl(naverRemoteDataSourceImpl, naverLocalDataSourceImpl)
-        )
     }
 
     override fun onCreateView(
@@ -39,18 +34,10 @@ class TitleFragmentDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         initRecyclerView()
-        viewModel.getRecentTitleList()
-        setViewModelCallBack()
-    }
 
-    private fun setViewModelCallBack() {
-        viewModel.dialog.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                dismiss()
-            }
-        })
+        viewModel.getRecentTitleList()
     }
 
     private fun initRecyclerView() {
@@ -65,4 +52,5 @@ class TitleFragmentDialog : DialogFragment() {
             WindowManager.LayoutParams.WRAP_CONTENT
         )
     }
+
 }
