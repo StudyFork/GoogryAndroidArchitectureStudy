@@ -27,17 +27,17 @@ class MovieViewModel(
             naverRepository.addHistory(it)
             naverRepository.getMoviesList(it)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
+                .subscribe({ list ->
                     // TODO : Hide Keyboard
                     hideProgress.notifyChange()
-                    if (it.isEmpty()) {
+                    if (list.isEmpty()) {
                         showDataIsEmpty.notifyChange()
                     } else {
-                        movieList.set(it)
+                        movieList.set(list)
                     }
-                }, {
+                }, { error ->
                     hideProgress.notifyChange()
-                    showThrowError.set(it)
+                    showThrowError.set(error)
                 }).addTo(disposable)
         }
     }
