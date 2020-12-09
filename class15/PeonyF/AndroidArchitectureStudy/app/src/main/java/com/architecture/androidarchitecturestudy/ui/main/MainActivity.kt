@@ -37,17 +37,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun viewModelCallback() {
-        viewModel.showToastMsg.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                viewModel.msg.get()?.let {
-                    when (it) {
-                        "success" -> toast(R.string.network_success)
-                        "emptyKeyword" -> toast(R.string.keyword_empty)
-                        "fail" -> toast(R.string.network_error)
-                        "emptyResult" -> toast(R.string.keyword_result_empty)
-                    }
+        mainViewModel.msg.observe(this, Observer {
+            if (mainViewModel.isVisibleToast) {
+                when (it) {
+                    "success" -> toast(R.string.network_success)
+                    "emptyKeyword" -> toast(R.string.keyword_empty)
+                    "fail" -> toast(R.string.network_error)
+                    "emptyResult" -> toast(R.string.keyword_result_empty)
                 }
+                mainViewModel.isVisibleToast = false
             }
         })
 
