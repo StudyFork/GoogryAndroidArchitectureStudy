@@ -31,7 +31,8 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:imeOptions="actionSearch"
-                bind:onEditorEnter="@{() -> vm.searchMovie(etSearch.getText().toString())}"
+                android:text="@={vm.query}"
+                bind:onEditorEnter="@{() -> vm.searchMovie()}"
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="10dp"
@@ -42,7 +43,7 @@
                 android:id="@+id/btn_search"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> vm.searchMovie(etSearch.getText().toString())}"
+                android:onClick="@{() -> vm.searchMovie()}"
                 android:text="@string/label_search" />
 
             <Button

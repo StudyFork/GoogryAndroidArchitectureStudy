@@ -12,7 +12,7 @@ class MovieViewModel(
 ) {
     private val disposable = CompositeDisposable()
 
-    val searchText = ObservableField<String>()
+    val query = ObservableField<String>()
     val movieList = ObservableField<List<MovieModel.Movie>>()
 
     val showDataIsEmpty = ObservableField<Unit>()
@@ -21,26 +21,25 @@ class MovieViewModel(
     val showProgress = ObservableField<Unit>()
     val hideProgress = ObservableField<Unit>()
 
-    fun searchMovie(query: String) {
-        if (query.isEmpty()) {
-            return
+    fun searchMovie() {
+        query.get()?.let {
+            showProgress.notifyChange()
+            naverRepository.addHistory(it)
+            naverRepository.getMoviesList(it)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    // TODO : Hide Keyboard
+                    hideProgress.notifyChange()
+                    if (it.isEmpty()) {
+                        showDataIsEmpty.notifyChange()
+                    } else {
+                        movieList.set(it)
+                    }
+                }, {
+                    hideProgress.notifyChange()
+                    showThrowError.set(it)
+                }).addTo(disposable)
         }
-        showProgress.notifyChange()
-        naverRepository.addHistory(query)
-        naverRepository.getMoviesList(query)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                // TODO : Hide Keyboard
-                hideProgress.notifyChange()
-                if (it.isEmpty()) {
-                    showDataIsEmpty.notifyChange()
-                } else {
-                    movieList.set(it)
-                }
-            }, {
-                hideProgress.notifyChange()
-                showThrowError.set(it)
-            }).addTo(disposable)
     }
 
     fun clearDisposable() {

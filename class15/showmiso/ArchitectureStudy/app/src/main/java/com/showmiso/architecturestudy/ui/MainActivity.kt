@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 val result = data?.getStringExtra(Constants.INTENT_KEY_HISTORY)
                 result?.let {
-                    movieViewModel.searchMovie(it)
+                    movieViewModel.searchMovie()
                     binding.etSearch.setText(it)
                 }
             }
