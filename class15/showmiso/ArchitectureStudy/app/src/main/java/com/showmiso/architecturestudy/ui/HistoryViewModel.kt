@@ -11,6 +11,8 @@ class HistoryViewModel(
     val showNoHistory = ObservableField<Unit>()
     val showRemoveAllHistory = ObservableField<Unit>()
 
+    val backPressedEvent = ObservableField<Unit>()
+
     fun updateHistoryList() {
         val list = naverRepository.getHistory()
         list?.let {
@@ -30,6 +32,10 @@ class HistoryViewModel(
     fun removeAllHistory() {
         naverRepository.removeAllHistory()
         showRemoveAllHistory.notifyChange()
+    }
+
+    fun backPressed() {
+        backPressedEvent.notifyChange()
     }
 
 }

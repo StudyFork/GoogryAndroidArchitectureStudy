@@ -11,9 +11,6 @@
             name="vm"
             type="com.showmiso.architecturestudy.ui.HistoryViewModel" />
 
-        <variable
-            name="activity"
-            type="com.showmiso.architecturestudy.ui.HistoryActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +25,7 @@
             android:layout_height="48dp"
             android:layout_marginStart="@dimen/margin_item"
             android:layout_marginTop="@dimen/margin_item"
-            android:onClick="@{() -> activity.onBackPressed()}"
+            android:onClick="@{() -> vm.backPressed()}"
             android:src="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

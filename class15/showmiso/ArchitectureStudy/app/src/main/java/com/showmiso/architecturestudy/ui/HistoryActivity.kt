@@ -63,6 +63,12 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapter.OnHistoryClickListen
                 Toast.makeText(this@HistoryActivity, getString(R.string.msg_delete_all), Toast.LENGTH_SHORT).show()
             }
         })
+
+        historyViewModel.backPressedEvent.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                onBackPressed()
+            }
+        })
     }
     
     override fun onHistoryItemClick(text: String) {
