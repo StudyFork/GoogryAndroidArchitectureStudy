@@ -3,7 +3,12 @@ package com.example.androidarchitecturestudy.ui.main
 import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.databinding.Observable
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.androidarchitecturestudy.R
 import com.example.androidarchitecturestudy.data.local.NaverLocalDataSourceImpl
 import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImpl
@@ -17,11 +22,16 @@ import com.example.androidarchitecturestudy.ui.base.BaseActivity
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val viewModel by lazy {
-        val remoteMovieDataImpl = NaverRemoteDataSourceImpl()
-        val localMovieDataImpl = NaverLocalDataSourceImpl()
-        val repositoryMovieImpl = NaverRepositoryImpl(remoteMovieDataImpl, localMovieDataImpl)
-        MainViewModel(repositoryMovieImpl)
+    private val viewModel by viewModels<MainViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val remoteMovieDataImpl = NaverRemoteDataSourceImpl()
+                val localMovieDataImpl = NaverLocalDataSourceImpl()
+                val repositoryMovieImpl =
+                    NaverRepositoryImpl(remoteMovieDataImpl, localMovieDataImpl)
+                return MainViewModel(repositoryMovieImpl) as T
+            }
+        }
     }
 
     private val movieAdapter: MovieAdapter by lazy {
@@ -33,6 +43,7 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         initRecyclerView()
         setViewModelCallBack()
         viewModel.requestLocalMovieData()
@@ -43,31 +54,27 @@ class MainActivity :
     }
 
     private fun setViewModelCallBack() {
-        viewModel.msg.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showToastMsg(viewModel.msg.get()!!)
+
+        viewModel.msg.observe(this) {
+            showToastMsg(viewModel.msg.value!!)
+        }
+
+        viewModel.keyboard.observe(this) {
+            (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                binding.etSearch.windowToken,
+                0
+            )
+        }
+
+        viewModel.showDialog.observe(this) {
+            TitleFragmentDialog().show(supportFragmentManager, "title_history")
+        }
+
+        viewModel.hideDialog.observe(this) {
+            supportFragmentManager.findFragmentByTag("title_history")?.let {
+                (it as DialogFragment).dismiss()
             }
-        })
-
-        viewModel.keyboard.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                    binding.etSearch.windowToken,
-                    0
-                )
-            }
-        })
-
-        viewModel.dialog.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                TitleFragmentDialog().show(supportFragmentManager, "title_history")
-
-            }
-        })
-
+        }
     }
 
 }
