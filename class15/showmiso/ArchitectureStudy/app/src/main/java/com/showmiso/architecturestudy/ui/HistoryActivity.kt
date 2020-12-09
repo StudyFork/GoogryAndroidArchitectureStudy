@@ -36,7 +36,6 @@ class HistoryActivity : AppCompatActivity(), HistoryAdapter.OnHistoryClickListen
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_history)
         binding.vm = historyViewModel
-        binding.activity = this
 
         initUi()
     }
