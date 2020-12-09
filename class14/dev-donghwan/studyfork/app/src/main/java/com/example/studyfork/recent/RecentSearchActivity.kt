@@ -2,6 +2,7 @@ package com.example.studyfork.recent
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.databinding.Observable
 import com.example.studyfork.R
 import com.example.studyfork.RecentSearchAdapter
 import com.example.studyfork.base.BaseActivity
@@ -11,13 +12,11 @@ import com.example.studyfork.data.repository.RepositoryImpl
 import com.example.studyfork.databinding.ActivityRecentSearchListBinding
 import com.example.studyfork.main.MainActivity.Companion.SEARCH_ITEM
 
-class RecentSearchListActivity :
-    BaseActivity<ActivityRecentSearchListBinding>(R.layout.activity_recent_search_list),
-    RecentSearchListContract.View {
+class RecentSearchActivity :
+    BaseActivity<ActivityRecentSearchListBinding>(R.layout.activity_recent_search_list) {
 
-    private val presenter: RecentSearchListContract.Presenter by lazy {
-        RecentSearchListPresenter(
-            this,
+    private val viewModel by lazy {
+        RecentSearchViewModel(
             RepositoryImpl(
                 RemoteDataSourceImpl(),
                 LocalDataSourceImpl(getSharedPreferences("local", MODE_PRIVATE))
@@ -38,21 +37,23 @@ class RecentSearchListActivity :
             }
         )
 
-        binding.activity = this
+        binding.vm = viewModel
         binding.rvRecentSearch.adapter = adapter
+
+        viewModel.showListIsEmpty.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showListIsEmpty()
+            }
+        })
     }
 
     override fun onResume() {
         super.onResume()
-        presenter.getRecentSearchList()
+        viewModel.getRecentSearchList()
     }
 
-    override fun showListIsEmpty() {
+    fun showListIsEmpty() {
         showToast("리스트가 비어 있습니다.")
         finish()
-    }
-
-    override fun showRecentSearchList(list: List<String>) {
-        adapter.setItems(list)
     }
 }

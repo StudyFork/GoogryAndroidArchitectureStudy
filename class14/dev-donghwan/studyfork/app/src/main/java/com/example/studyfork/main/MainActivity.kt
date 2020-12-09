@@ -2,26 +2,24 @@ package com.example.studyfork.main
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.databinding.Observable
 import com.example.studyfork.MovieRecyclerAdapter
 import com.example.studyfork.R
 import com.example.studyfork.base.BaseActivity
 import com.example.studyfork.data.local.LocalDataSourceImpl
-import com.example.studyfork.data.model.MovieSearchResponse
 import com.example.studyfork.data.remote.RemoteDataSourceImpl
 import com.example.studyfork.data.repository.RepositoryImpl
 import com.example.studyfork.databinding.ActivityMainBinding
-import com.example.studyfork.recent.RecentSearchListActivity
+import com.example.studyfork.recent.RecentSearchActivity
 
 class MainActivity :
-    BaseActivity<ActivityMainBinding>(R.layout.activity_main),
-    MainContract.View {
+    BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val presenter: MainContract.Presenter by lazy {
-        MainPresenter(
-            this,
+    private val viewModel by lazy {
+        MainViewModel(
             RepositoryImpl(
-                RemoteDataSourceImpl(),
-                LocalDataSourceImpl(getSharedPreferences("local", MODE_PRIVATE))
+                remoteDataSource = RemoteDataSourceImpl(),
+                localDataSource = LocalDataSourceImpl(getSharedPreferences("local", MODE_PRIVATE))
             )
         )
     }
@@ -32,42 +30,63 @@ class MainActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.activity = this
-
+        binding.vm = viewModel
         binding.recMovie.adapter = recyclerAdapter
-    }
 
-    override fun searchMovie() {
-        binding.edtQuery.text.toString().run {
-            presenter.requestMovieList(this)
-        }
+        viewModel.showError.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showError()
+            }
+        })
+
+        viewModel.showQueryError.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showQueryError()
+            }
+        })
+
+        viewModel.showResultEmpty.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showResultEmpty()
+            }
+        })
+
+        viewModel.showRecentSearchActivity.addOnPropertyChangedCallback(object :
+            Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                showRecentSearchListActivity()
+            }
+        })
     }
 
     override fun onDestroy() {
-        presenter.requestClearDisposable()
+        viewModel.clear()
         super.onDestroy()
     }
 
-    override fun showQueryEmpty() {
+    fun searchMovie() {
+        viewModel.searchMovie()
+    }
+
+    fun showQueryError() {
         showToast("검색어를 입력해주세요")
     }
 
-    override fun showMovieEmpty() {
-        showToast("검색 결과가 없습니다.")
-    }
-
-    override fun showMovieError() {
+    fun showError() {
         showToast("데이터를 불러오는 중에 문가 발생했습니다.")
     }
 
-    override fun showRecentSearchListActivity() {
-        Intent(this, RecentSearchListActivity::class.java).apply {
-            startActivityForResult(this, requestCode)
-        }
+    fun showResultEmpty() {
+        showToast("검색 결과가 없습니다.")
     }
 
-    override fun showMovieList(list: List<MovieSearchResponse.MovieItem>) {
-        recyclerAdapter.itemChange(list)
+    fun showRecentSearchListActivity() {
+        Intent(this, RecentSearchActivity::class.java).apply {
+            startActivityForResult(this, requestCode)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -75,7 +94,10 @@ class MainActivity :
         if (requestCode == this.requestCode) {
             if (resultCode != RESULT_OK) return
             data?.run {
-                presenter.requestMovieList(this.getStringExtra(SEARCH_ITEM) ?: "")
+                runOnUiThread {
+                    viewModel.query.set(this.getStringExtra(SEARCH_ITEM) ?: "")
+                    viewModel.searchMovie()
+                }
             }
         }
     }

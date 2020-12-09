@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:main_bind="http://schemas.android.com/tools"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="activity"
-            type="com.example.studyfork.main.MainActivity" />
+            name="vm"
+            type="com.example.studyfork.main.MainViewModel" />
 
     </data>
 
@@ -27,20 +28,21 @@
                 android:id="@+id/edt_query"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="@={vm.query}" />
 
             <Button
                 android:id="@+id/btn_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{ () -> activity.searchMovie() }"
+                android:onClick="@{ () -> vm.searchMovie() }"
                 android:text="검색" />
 
             <Button
                 android:id="@+id/btn_recent_search_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{ () -> activity.showRecentSearchListActivity()}"
+                android:onClick="@{ () -> vm.requestRecentSearchActivity()}"
                 android:text="최근검색기록" />
 
         </LinearLayout>
@@ -49,7 +51,8 @@
             android:id="@+id/rec_movie"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            main_bind:movieList="@{vm.movieList}" />
 
     </LinearLayout>
 </layout>
