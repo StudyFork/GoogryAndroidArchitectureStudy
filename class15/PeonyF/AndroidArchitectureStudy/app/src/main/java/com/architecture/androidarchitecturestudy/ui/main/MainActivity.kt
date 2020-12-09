@@ -1,6 +1,5 @@
 package com.architecture.androidarchitecturestudy.ui.main
 
-
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
