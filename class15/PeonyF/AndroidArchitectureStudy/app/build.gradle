@@ -68,6 +68,10 @@ dependencies {
     implementation "androidx.core:core-ktx:$coreKtxVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation "androidx.recyclerview:recyclerview:$recyclerVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.activity:activity-ktx:$activityVersion"
+
 
     //retrofit
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
