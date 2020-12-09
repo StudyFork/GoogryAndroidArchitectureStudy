@@ -50,7 +50,6 @@ class SearchHistoryActivity : BaseActivity<ActivitySearchHistoryBinding>(
     }
 
     private fun setupUi() {
-        binding.lifecycleOwner = this
         binding.vm = viewModel
         binding.rvSearchList.adapter = searchHistoryAdapter
     }

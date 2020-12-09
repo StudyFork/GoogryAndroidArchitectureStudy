@@ -71,7 +71,6 @@ class MovieActivity : BaseActivity<ActivityMovieBinding>(
     }
 
     private fun setupUi() {
-        binding.lifecycleOwner = this
         binding.vm = viewModel
         binding.rvMovie.adapter = movieAdapter
     }
