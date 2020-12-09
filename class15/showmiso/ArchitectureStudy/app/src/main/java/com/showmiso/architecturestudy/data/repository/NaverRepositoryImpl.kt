@@ -15,6 +15,7 @@ class NaverRepositoryImpl(
         return remoteDataSource.getMovies(query)
             .subscribeOn(Schedulers.io())
             .map {
+                addHistory(query)
                 it.items ?: listOf()
             }
     }

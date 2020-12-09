@@ -24,7 +24,6 @@ class MovieViewModel(
     fun searchMovie() {
         query.get()?.let {
             showProgress.notifyChange()
-            naverRepository.addHistory(it)
             naverRepository.getMoviesList(it)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ list ->
