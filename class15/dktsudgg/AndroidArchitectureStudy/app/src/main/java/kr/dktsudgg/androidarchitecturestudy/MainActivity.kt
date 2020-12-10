@@ -3,14 +3,14 @@ package kr.dktsudgg.androidarchitecturestudy
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.Observable
+import androidx.activity.viewModels
 import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMainBinding
 import kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm.MovieSearchViewModel
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val movieSearchViewModel by lazy { MovieSearchViewModel() }
+    private val movieSearchViewModel: MovieSearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,48 +20,32 @@ class MainActivity :
         /**
          * 영화 검색 시, 검색어를 입력하지 않았을 경우에 대한 처리 모음
          */
-        movieSearchViewModel.eventWhenEmptyInputInjected.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showToast("검색어를 입력하세요")
-            }
-
-        })
+        movieSearchViewModel.eventWhenEmptyInputInjected.observe(this) {
+            showToast("검색어를 입력하세요")
+        }
 
         /**
          * 영화 검색 성공 시에 대한 처리 모음
          */
-        movieSearchViewModel.eventWhenDataRefreshRequestSuccess.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showToast("검색에 성공하였습니다.")
-            }
-
-        })
+        movieSearchViewModel.eventWhenDataRefreshRequestSuccess.observe(this) {
+            showToast("검색에 성공하였습니다.")
+        }
 
         /**
          * 영화 검색 실패 시에 대한 처리 모음
          */
-        movieSearchViewModel.eventWhenDataRefreshRequestFailure.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showToast("검색에 실패하였습니다.")
-            }
-
-        })
+        movieSearchViewModel.eventWhenDataRefreshRequestFailure.observe(this) {
+            showToast("검색에 실패하였습니다.")
+        }
 
         /**
          * 영화 검색이력 조회 요청 이벤트
          */
-        movieSearchViewModel.eventToShowMovieSearchHistory.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                startActivityForResult(
-                    Intent(this@MainActivity, MovieSearchHistoryActivity::class.java), ACTIVITY_REQ_CODE
-                )
-            }
-
-        })
+        movieSearchViewModel.eventToShowMovieSearchHistory.observe(this) {
+            startActivityForResult(
+                Intent(this@MainActivity, MovieSearchHistoryActivity::class.java), ACTIVITY_REQ_CODE
+            )
+        }
 
     }
 
