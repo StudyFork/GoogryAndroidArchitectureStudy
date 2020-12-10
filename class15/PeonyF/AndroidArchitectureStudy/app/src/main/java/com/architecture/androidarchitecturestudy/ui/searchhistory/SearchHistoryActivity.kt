@@ -30,7 +30,6 @@ class SearchHistoryActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.searchHistoryViewModel = searchHistoryViewModel
-        binding.lifecycleOwner = this
         searchHistoryViewModel.getRecentKeywordList()
     }
 }
