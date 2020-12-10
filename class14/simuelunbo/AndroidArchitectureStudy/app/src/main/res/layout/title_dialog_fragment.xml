@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.example.androidarchitecturestudy.ui.TitleHistoryViewModel" />
+            type="com.example.androidarchitecturestudy.ui.main.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:searchList="@{vm.queryList}" />
+            app:searchList="@{vm.searchTextList}" />
 
         <Button
             android:id="@+id/btn_close"
