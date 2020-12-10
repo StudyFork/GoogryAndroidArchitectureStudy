@@ -15,6 +15,7 @@ abstract class BaseActivity<binding : ViewDataBinding>(@LayoutRes val layout: In
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layout)
+        binding.lifecycleOwner = this
     }
 
     fun showToastMsg(msg: String) {
