@@ -17,6 +17,7 @@ abstract class BaseActivity<B : ViewDataBinding>(@LayoutRes val layoutResId: Int
             this,
             layoutResId
         )
+        binding.lifecycleOwner = this
     }
 
     fun showToast(message: String) {

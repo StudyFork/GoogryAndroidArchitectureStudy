@@ -33,7 +33,6 @@ class RecentSearchActivity :
         super.onCreate(savedInstanceState)
 
         binding.vm = vm
-        binding.lifecycleOwner = this
 
         setUpUi()
 
