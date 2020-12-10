@@ -1,21 +1,27 @@
 package com.example.googryandroidarchitecturestudy.ui.viewmodel
 
 import android.webkit.URLUtil
-import androidx.databinding.BaseObservable
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.googryandroidarchitecturestudy.domain.UrlResource
 
-abstract class BaseViewModel {
-    val selectedUrl = ObservableField("")
-    val hideKeyboardEvent = ObservableField<Unit>()
-    val showInvalidUrlEvent = ObservableField<Unit>()
+abstract class BaseViewModel : ViewModel() {
+    private val _selectedUrl = MutableLiveData<String>()
+    val selectedUrl: LiveData<String>
+        get() = _selectedUrl
+
+    val hideKeyboardEvent = MutableLiveData<Unit>()
+
+    private val _showInvalidUrlEvent = MutableLiveData<Unit>()
+    val showInvalidUrlEvent: LiveData<Unit>
+        get() = _showInvalidUrlEvent
 
     fun selectUrlItem(item: UrlResource) {
         if (URLUtil.isValidUrl(item.link)) {
-            selectedUrl.set(item.link)
-            selectedUrl.notifyChange()
+            _selectedUrl.value = item.link
         } else {
-            showInvalidUrlEvent.notifyChange()
+            _showInvalidUrlEvent.value = Unit
         }
     }
 }

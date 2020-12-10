@@ -3,19 +3,23 @@ package com.example.googryandroidarchitecturestudy.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.databinding.Observable
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieRecentBinding
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieRecentViewModel
-import kotlinx.coroutines.launch
 
 class MovieRecentFragment :
     MovieFragment<FragmentMovieRecentBinding, MovieRecentViewModel>(R.layout.fragment_movie_recent) {
-    override val viewModel by lazy {
-        MovieRecentViewModel(repository)
+    override val viewModel by viewModels<MovieRecentViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MovieRecentViewModel(repository) as T
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,20 +30,13 @@ class MovieRecentFragment :
 
     private fun setupUi() {
         with(viewModel) {
-            showSearchRecentFailedEvent.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showSearchRecentFailedEvent.get()?.let { showSearchRecentFailed(it) }
-                }
-            })
+            showSearchRecentFailedEvent.observe(viewLifecycleOwner) {
+                showSearchRecentFailed(it)
+            }
 
-            showMovieSearchEvent.observe(viewLifecycleOwner, {
+            showMovieSearchEvent.observe(viewLifecycleOwner) {
                 navToMovieSearch(it)
-            })
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getRecentKeywords()
+            }
         }
     }
 

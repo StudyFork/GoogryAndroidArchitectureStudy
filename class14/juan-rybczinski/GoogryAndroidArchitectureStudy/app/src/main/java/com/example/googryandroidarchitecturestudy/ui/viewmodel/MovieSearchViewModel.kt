@@ -1,58 +1,77 @@
 package com.example.googryandroidarchitecturestudy.ui.viewmodel
 
 import android.view.View
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.domain.Movie
 import com.example.googryandroidarchitecturestudy.domain.RecentSearch
 import com.example.googryandroidarchitecturestudy.util.SingleLiveEvent
+import kotlinx.coroutines.launch
 import java.util.*
 
 class MovieSearchViewModel(
     private val repository: MovieRepository
 ) : BaseViewModel() {
-    val movieList = ObservableField<List<Movie>>(emptyList())
-    val loading = ObservableField(View.GONE)
+    private val _movieList = MutableLiveData<List<Movie>>(emptyList())
+    val movieList: LiveData<List<Movie>>
+        get() = _movieList
 
-    val showQueryEmptyEvent = ObservableField<Unit>()
-    val showNoSearchResultEvent = ObservableField<Unit>()
+    private val _loading = MutableLiveData(View.GONE)
+    val loading: LiveData<Int>
+        get() = _loading
 
-    val showSearchMovieFailedEvent = ObservableField<Exception>()
-    val showSaveRecentFailedEvent = ObservableField<Exception>()
+    private val _showQueryEmptyEvent = MutableLiveData<Unit>()
+    val showQueryEmptyEvent: LiveData<Unit>
+        get() = _showQueryEmptyEvent
+
+    private val _showNoSearchResultEvent = MutableLiveData<Unit>()
+    val showNoSearchResultEvent: LiveData<Unit>
+        get() = _showNoSearchResultEvent
+
+    private val _showSearchMovieFailedEvent = MutableLiveData<Exception>()
+    val showSearchMovieFailedEvent: LiveData<Exception>
+        get() = _showSearchMovieFailedEvent
+
+    private val _showSaveRecentFailedEvent = MutableLiveData<Exception>()
+    val showSaveRecentFailedEvent: LiveData<Exception>
+        get() = _showSaveRecentFailedEvent
 
     private val _showRecentKeywordsEvent = SingleLiveEvent<Unit>()
     val showRecentKeywordsEvent: LiveData<Unit>
         get() = _showRecentKeywordsEvent
 
-    val query = ObservableField("")
+    val query = MutableLiveData("")
 
-    suspend fun queryMovieList() {
-        query.get()?.let {
-            if (it.isEmpty()) {
-                showQueryEmptyEvent.notifyChange()
-                return
-            }
+    fun queryMovieList() {
+        viewModelScope.launch {
+            query.value?.let {
+                if (it.isEmpty()) {
+                    _showQueryEmptyEvent.value = Unit
+                    return@launch
+                }
 
-            try {
-                loading.set(View.VISIBLE)
-                repository.insertRecent(
-                    RecentSearch(Date(System.currentTimeMillis()), it)
-                )
-            } catch (e: Exception) {
-                showSaveRecentFailedEvent.notifyChange()
-            } finally {
                 try {
-                    val movies = repository.searchMovies(it)
-                    loading.set(View.GONE)
-                    if (movies.isEmpty()) {
-                        showNoSearchResultEvent.notifyChange()
-                        return
-                    }
-                    hideKeyboardEvent.notifyChange()
-                    movieList.set(movies)
+                    _loading.value = View.VISIBLE
+                    repository.insertRecent(
+                        RecentSearch(Date(System.currentTimeMillis()), it)
+                    )
                 } catch (e: Exception) {
-                    showSearchMovieFailedEvent.notifyChange()
+                    _showSaveRecentFailedEvent.value = e
+                } finally {
+                    try {
+                        val movies = repository.searchMovies(it)
+                        _loading.value = View.GONE
+                        if (movies.isEmpty()) {
+                            _showNoSearchResultEvent.value = Unit
+                            return@launch
+                        }
+                        hideKeyboardEvent.value = Unit
+                        _movieList.value = movies
+                    } catch (e: Exception) {
+                        _showSearchMovieFailedEvent.value = e
+                    }
                 }
             }
         }

@@ -3,8 +3,9 @@ package com.example.googryandroidarchitecturestudy.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.databinding.Observable
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.googryandroidarchitecturestudy.R
@@ -12,14 +13,17 @@ import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieSearc
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 import com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieSearchViewModel
-import kotlinx.coroutines.launch
 
 class MovieSearchFragment :
     MovieFragment<FragmentMovieSearchBinding, MovieSearchViewModel>(R.layout.fragment_movie_search) {
     private val args: MovieSearchFragmentArgs by navArgs()
 
-    override val viewModel by lazy {
-        MovieSearchViewModel(repository)
+    override val viewModel by viewModels<MovieSearchViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return MovieSearchViewModel(repository) as T
+            }
+        }
     }
 
     private val movieAdapter = MovieAdapter {
@@ -35,55 +39,36 @@ class MovieSearchFragment :
     private fun setupUi() {
         with(binding) {
             movieList.adapter = movieAdapter
-            v = this@MovieSearchFragment
         }
 
         checkPassedQuery()
 
         with(viewModel) {
-            showQueryEmptyEvent.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showQueryEmpty()
-                }
-            })
+            showQueryEmptyEvent.observe(viewLifecycleOwner) {
+                showQueryEmpty()
+            }
 
-            showNoSearchResultEvent.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showNoSearchResult()
-                }
-            })
+            showNoSearchResultEvent.observe(viewLifecycleOwner) {
+                showNoSearchResult()
+            }
 
-            showSearchMovieFailedEvent.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showSearchMovieFailedEvent.get()?.let { showSearchFailed(it) }
-                }
-            })
+            showSearchMovieFailedEvent.observe(viewLifecycleOwner) {
+                showSearchFailed(it)
+            }
 
-            showSaveRecentFailedEvent.addOnPropertyChangedCallback(object :
-                Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                    showSaveRecentFailedEvent.get()?.let { showSaveRecentFailed(it) }
-                }
-            })
+            showSaveRecentFailedEvent.observe(viewLifecycleOwner) {
+                showSaveRecentFailed(it)
+            }
 
-            showRecentKeywordsEvent.observe(viewLifecycleOwner, {
+            showRecentKeywordsEvent.observe(viewLifecycleOwner) {
                 navToRecentSearch()
-            })
+            }
         }
     }
 
     private fun checkPassedQuery() {
         args.passedQuery?.let {
-            viewModel.query.set(it)
-            queryMovieList()
-        }
-    }
-
-    fun queryMovieList() {
-        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.query.value = it
             viewModel.queryMovieList()
         }
     }

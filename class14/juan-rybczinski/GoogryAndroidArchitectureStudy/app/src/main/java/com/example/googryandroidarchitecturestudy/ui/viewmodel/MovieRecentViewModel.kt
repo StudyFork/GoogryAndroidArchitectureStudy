@@ -1,32 +1,44 @@
 package com.example.googryandroidarchitecturestudy.ui.viewmodel
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.domain.RecentSearch
 import com.example.googryandroidarchitecturestudy.util.SingleLiveEvent
+import kotlinx.coroutines.launch
 
 class MovieRecentViewModel(
     private val repository: MovieRepository
 ) : BaseViewModel() {
-    val recentList = ObservableField<List<RecentSearch>>(emptyList())
-
-    val onChipClick: (String) -> Unit = {
-        _showMovieSearchEvent.value = it
+    init {
+        viewModelScope.launch {
+            getRecentKeywords()
+        }
     }
+
+    private val _recentList = MutableLiveData<List<RecentSearch>>(emptyList())
+    val recentList: LiveData<List<RecentSearch>>
+        get() = _recentList
 
     private val _showMovieSearchEvent = SingleLiveEvent<String>()
     val showMovieSearchEvent: LiveData<String>
         get() = _showMovieSearchEvent
 
-    val showSearchRecentFailedEvent = ObservableField<Exception>()
+    private val _showSearchRecentFailedEvent = MutableLiveData<Exception>()
+    val showSearchRecentFailedEvent: LiveData<Exception>
+        get() = _showSearchRecentFailedEvent
 
-    suspend fun getRecentKeywords() {
+    val onChipClick: (String) -> Unit = {
+        _showMovieSearchEvent.value = it
+    }
+
+    private suspend fun getRecentKeywords() {
         try {
             val keywords = repository.searchRecent()
-            recentList.set(keywords)
+            _recentList.value = keywords
         } catch (e: Exception) {
-            showSearchRecentFailedEvent.set(e)
+            _showSearchRecentFailedEvent.value = e
         }
     }
 }
