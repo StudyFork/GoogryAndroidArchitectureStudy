@@ -1,16 +1,21 @@
 package com.deepco.studyfork.viewmodel
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.deepco.studyfork.data.local.LocalMovieDataImpl
 import com.deepco.studyfork.data.model.Item
 import com.deepco.studyfork.data.remote.RemoteMovieDataImpl
 import com.deepco.studyfork.data.repository.RepositoryMovieDataImpl
 
-class MainViewModel {
-    val query = ObservableField<String>()
-    val message = ObservableField<String>()
-    val movieList = ObservableField<List<Item>>()
-    val startRecentSearchActivity = ObservableField<Unit>()
+class MainViewModel : ViewModel() {
+    val query = MutableLiveData<String>()
+    private val _message = MutableLiveData<String>()
+    val message: LiveData<String> = _message
+    private val _movieList = MutableLiveData<List<Item>>()
+    val movieList: LiveData<List<Item>> = _movieList
+    private val _startRecentSearchActivity = MutableLiveData<Unit>()
+    val startRecentSearchActivity: LiveData<Unit> = _startRecentSearchActivity
 
     private val repositoryMovieDataImpl = RepositoryMovieDataImpl(
         RemoteMovieDataImpl(),
@@ -18,19 +23,19 @@ class MainViewModel {
     )
 
     fun queryMovie() {
-        if (query.get().isNullOrBlank()) {
-            message.set("영화 제목을 입력해주세요")
+        if (query.value.isNullOrBlank()) {
+            _message.value = "영화 제목을 입력해주세요"
         } else {
-            repositoryMovieDataImpl.getMovieList(query.get().toString(), {
-                movieList.set(it)
+            repositoryMovieDataImpl.getMovieList(query.value.toString(), {
+                _movieList.value = it
             }, {
-                message.set(it)
+                _message.value = it
             })
         }
     }
 
     fun recentSearch() {
-        startRecentSearchActivity.notifyChange()
+        _startRecentSearchActivity.value = Unit
     }
 
 }
