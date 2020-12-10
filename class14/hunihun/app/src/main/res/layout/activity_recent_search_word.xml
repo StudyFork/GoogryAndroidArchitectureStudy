@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
-            name="view"
-            type="com.wybh.androidarchitecturestudy.history.RecentSearchWordActivity" />
+            name="vm"
+            type="com.wybh.androidarchitecturestudy.history.RecentSearchWordViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,16 +31,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_searchList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rv_history" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

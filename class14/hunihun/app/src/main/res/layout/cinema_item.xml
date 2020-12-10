@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.wybh.androidarchitecturestudy.CinemaItem" />
+            type="com.wybh.androidarchitecturestudy.data.CinemaItem" />
     </data>
 
     <LinearLayout

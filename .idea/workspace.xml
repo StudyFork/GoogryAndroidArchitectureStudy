@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="38d8fdc5-4917-4166-b0f2-51fd7446088f" name="Default Changelist" comment="">
+    <list default="true" id="d83bb2e3-7e7d-49b0-80c3-62568ed76987" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class14/hunihun/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/class14/hunihun/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class14/hunihun/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class14/hunihun/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/history/RecentSearchWordActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/history/RecentSearchWordActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/history/RecentSearchWordContract.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/history/RecentSearchWordPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/history/RecentSearchWordViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/main/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/main/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/main/MainContract.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/main/MainPresenter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/class14/hunihun/app/src/main/java/com/wybh/androidarchitecturestudy/main/MainViewModel.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,14 +48,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="project.kotlinCompiler" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="38d8fdc5-4917-4166-b0f2-51fd7446088f" name="Default Changelist" comment="" />
+      <changelist id="d83bb2e3-7e7d-49b0-80c3-62568ed76987" name="Default Changelist" comment="" />
       <created>1603724319499</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -107,5 +115,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="androidx 기반의 프로젝트 생성 + gitgnore 추가" />
     <option name="LAST_COMMIT_MESSAGE" value="androidx 기반의 프로젝트 생성 + gitgnore 추가" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1607520445872">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1607520445872" />
+    <state x="469" y="257" key="SettingsEditor" timestamp="1607609400992">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="469" y="257" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1607609400992" />
   </component>
 </project>

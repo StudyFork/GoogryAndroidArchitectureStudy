@@ -11,7 +11,7 @@ fun bindImage(view: ImageView, url: String) {
     Glide.with(view.context)
         .load(url)
         .placeholder(R.drawable.ic_launcher_background)
-        .error(R.drawable.ic_launcher_foreground)
+        .error(R.drawable.ic_launcher_background)
         .into(view)
 }
 

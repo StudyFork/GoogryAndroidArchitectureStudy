@@ -1,4 +1,4 @@
-package com.wybh.androidarchitecturestudy
+package com.wybh.androidarchitecturestudy.util
 
 import android.graphics.Rect
 import androidx.recyclerview.widget.RecyclerView

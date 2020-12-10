@@ -1,7 +1,8 @@
 package com.wybh.androidarchitecturestudy.model.local
 
-import com.wybh.androidarchitecturestudy.App
-import com.wybh.androidarchitecturestudy.SharedPref
+import android.util.Log
+import com.wybh.androidarchitecturestudy.util.App
+import com.wybh.androidarchitecturestudy.util.SharedPref
 
 class NaverLocalDataSourceImpl : NaverLocalDataSource {
     override fun saveSearchWord(word: String) {
@@ -14,10 +15,12 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
                 parseWord = if (parseWord.isEmpty()) s else "$parseWord,$s"
             }
         }
+        Log.e("jsh","parseWord >>> $parseWord")
         SharedPref.setSaveSearchWord(parseWord, App.instance)
     }
 
     override fun getSearchWord(): String? {
+        Log.e("jsh","getSaveSearchWord >>> " + SharedPref.getSaveSearchWord(App.instance))
         return SharedPref.getSaveSearchWord(App.instance)
     }
 }
