@@ -37,14 +37,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeViewModelEvent() {
         viewModel.isEmptyQuery.observe(this) {
-            Toast.makeText(this@MainActivity, "Please enter the movie.", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(this@MainActivity, "Please enter the movie.", Toast.LENGTH_SHORT).show()
         }
-        viewModel.successToGetMovie.observe(this) {
+        viewModel.movieList.observe(this) {
             hideKeyboard()
-            viewModel.movieList.value?.let {
-                mainAdapter.updateMovieList(it)
-            }
+            mainAdapter.updateMovieList(it)
         }
         viewModel.failToGetMovie.observe(this) {
             Toast.makeText(this@MainActivity, "Fail to get movie.", Toast.LENGTH_SHORT).show()
