@@ -1,6 +1,7 @@
 package com.jay.aas.ui.movie
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.jay.aas.base.BaseViewModel
 import com.jay.aas.data.MovieRepository
@@ -11,46 +12,51 @@ class MovieViewModel(
     private val movieRepository: MovieRepository
 ) : BaseViewModel() {
 
-    val movieItems = ObservableField<List<Movie>>(emptyList())
-    val movieDetailLink = ObservableField<String>()
-    val query = ObservableField<String>()
+    private val _movieItems = MutableLiveData<List<Movie>>(emptyList())
+    val movieItems: LiveData<List<Movie>> get() = _movieItems
+    private val _movieDetailLink = MutableLiveData<String>()
+    val movieDetailLink: LiveData<String> get() = _movieDetailLink
+    val query = MutableLiveData<String>()
 
-    val hideKeyboardEvent = ObservableField<Unit>()
-    val showSearchFailedEvent = ObservableField<Unit>()
-    val startSearchHistoryEvent = ObservableField<Unit>()
+    private val _hideKeyboardEvent = MutableLiveData<Unit>()
+    val hideKeyboardEvent: LiveData<Unit> get() = _hideKeyboardEvent
+    private val _showSearchFailedEvent = MutableLiveData<Unit>()
+    val showSearchFailedEvent: LiveData<Unit> get() = _showSearchFailedEvent
+    private val _startSearchHistoryEvent = MutableLiveData<Unit>()
+    val startSearchHistoryEvent: LiveData<Unit> get() = _startSearchHistoryEvent
 
     fun getMovies() {
         viewModelScope.launch {
             val movies = movieRepository.getMovies()
-            movieItems.set(movies)
+            _movieItems.value = movies
         }
     }
 
     fun searchMovies() {
-        val movieQuery = query.get() ?: return
+        val movieQuery = query.value ?: return
         if (movieQuery.isEmpty()) return
 
-        hideKeyboardEvent.notifyChange()
+        _hideKeyboardEvent.value = Unit
         viewModelScope.launch {
             try {
                 showLoading()
                 val movies = movieRepository.getSearchMovies(movieQuery)
                 hideLoading()
-                movieItems.set(movies)
+                _movieItems.value = movies
             } catch (e: Exception) {
                 e.printStackTrace()
                 hideLoading()
-                showSearchFailedEvent.notifyChange()
+                _showSearchFailedEvent.value = Unit
             }
         }
     }
 
     fun searchHistories() {
-        startSearchHistoryEvent.notifyChange()
+        _startSearchHistoryEvent.value = Unit
     }
 
     fun openMovieDetail(link: String) {
-        movieDetailLink.set(link)
+        _movieDetailLink.value = link
     }
 
 }
