@@ -22,6 +22,10 @@ class RecentSearchWordViewModel: BaseViewModel() {
     }
 
     private fun getSearchWord() {
-        _wordList.value = repository.getSearchWord()!!.split(",")
+        val wordList = repository.getSearchWord()
+        if (wordList.isNullOrEmpty()) {
+            return
+        }
+        _wordList.value = wordList.split(",")
     }
 }
