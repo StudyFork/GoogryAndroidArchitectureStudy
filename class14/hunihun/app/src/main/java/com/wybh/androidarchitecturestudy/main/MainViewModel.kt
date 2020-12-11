@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 
 class MainViewModel: BaseViewModel() {
     private val composeDisposable = CompositeDisposable()
-    private val tempList = ArrayList<CinemaItem>()
+    private val tempList = mutableListOf<CinemaItem>()
 
     private val _cinemaItemList = MutableLiveData<List<CinemaItem>>()
     val cinemaItemList: LiveData<List<CinemaItem>> = _cinemaItemList
