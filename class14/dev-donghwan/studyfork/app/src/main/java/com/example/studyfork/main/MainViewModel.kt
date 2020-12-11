@@ -1,6 +1,8 @@
 package com.example.studyfork.main
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.studyfork.base.BaseViewModel
 import com.example.studyfork.data.model.MovieSearchResponse
 import com.example.studyfork.data.repository.Repository
@@ -43,4 +45,15 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
     fun requestRecentSearchActivity() {
         showRecentSearchActivity.onNext(Unit)
     }
+}
+
+class MainViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            MainViewModel(repository = repository) as T
+        } else {
+            throw IllegalArgumentException()
+        }
+    }
+
 }
