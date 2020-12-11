@@ -2,7 +2,7 @@ package com.example.studyfork.main
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.databinding.Observable
+import androidx.lifecycle.ViewModelProvider
 import com.example.studyfork.MovieRecyclerAdapter
 import com.example.studyfork.R
 import com.example.studyfork.base.BaseActivity
@@ -11,17 +11,27 @@ import com.example.studyfork.data.remote.RemoteDataSourceImpl
 import com.example.studyfork.data.repository.RepositoryImpl
 import com.example.studyfork.databinding.ActivityMainBinding
 import com.example.studyfork.recent.RecentSearchActivity
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val viewModel by lazy {
-        MainViewModel(
-            RepositoryImpl(
-                remoteDataSource = RemoteDataSourceImpl(),
-                localDataSource = LocalDataSourceImpl(getSharedPreferences("local", MODE_PRIVATE))
+        ViewModelProvider(
+            this,
+            MainViewModelFactory(
+                RepositoryImpl(
+                    remoteDataSource = RemoteDataSourceImpl(),
+                    localDataSource = LocalDataSourceImpl(
+                        getSharedPreferences(
+                            "local",
+                            MODE_PRIVATE
+                        )
+                    )
+                )
             )
-        )
+        ).get(MainViewModel::class.java)
     }
 
     private val requestCode = 100
@@ -33,57 +43,40 @@ class MainActivity :
         binding.vm = viewModel
         binding.recMovie.adapter = recyclerAdapter
 
-        viewModel.showError.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showError()
-            }
-        })
+        viewModel.showError
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { showError() }
+            .addTo(compositeDisposable)
 
-        viewModel.showQueryError.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showQueryError()
-            }
-        })
+        viewModel.showQueryError
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { showQueryError() }
+            .addTo(compositeDisposable)
 
-        viewModel.showResultEmpty.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showResultEmpty()
-            }
-        })
+        viewModel.showResultEmpty
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { showResultEmpty() }
+            .addTo(compositeDisposable)
 
-        viewModel.showRecentSearchActivity.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showRecentSearchListActivity()
-            }
-        })
+        viewModel.showRecentSearchActivity
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { showRecentSearchListActivity() }
+            .addTo(compositeDisposable)
     }
 
-    override fun onDestroy() {
-        viewModel.clear()
-        super.onDestroy()
-    }
-
-    fun searchMovie() {
-        viewModel.searchMovie()
-    }
-
-    fun showQueryError() {
+    private fun showQueryError() {
         showToast("검색어를 입력해주세요")
     }
 
-    fun showError() {
+    private fun showError() {
         showToast("데이터를 불러오는 중에 문가 발생했습니다.")
     }
 
-    fun showResultEmpty() {
+    private fun showResultEmpty() {
         showToast("검색 결과가 없습니다.")
     }
 
-    fun showRecentSearchListActivity() {
+    private fun showRecentSearchListActivity() {
         Intent(this, RecentSearchActivity::class.java).apply {
             startActivityForResult(this, requestCode)
         }
@@ -95,7 +88,7 @@ class MainActivity :
             if (resultCode != RESULT_OK) return
             data?.run {
                 runOnUiThread {
-                    viewModel.query.set(this.getStringExtra(SEARCH_ITEM) ?: "")
+                    viewModel.query.value = this.getStringExtra(SEARCH_ITEM) ?: ""
                     viewModel.searchMovie()
                 }
             }
