@@ -31,13 +31,8 @@ class RecentSearchWordActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initData()
         initAdapter()
         initObserve()
-    }
-
-    private fun initData() {
-        vm.getSearchWord()
     }
 
     private fun initAdapter() {

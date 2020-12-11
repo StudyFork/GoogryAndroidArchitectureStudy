@@ -17,7 +17,11 @@ class RecentSearchWordViewModel: BaseViewModel() {
     private val _wordList = MutableLiveData<List<String>>()
     val wordList: LiveData<List<String>> = _wordList
 
-    fun getSearchWord() {
+    init {
+        getSearchWord()
+    }
+
+    private fun getSearchWord() {
         _wordList.value = repository.getSearchWord()!!.split(",")
     }
 }
