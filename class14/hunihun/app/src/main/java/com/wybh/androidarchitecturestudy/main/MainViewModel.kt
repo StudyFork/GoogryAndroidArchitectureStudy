@@ -17,8 +17,8 @@ class MainViewModel: BaseViewModel() {
     private val composeDisposable = CompositeDisposable()
     private val tempList = ArrayList<CinemaItem>()
 
-    private val _cinemaItemList = MutableLiveData<ArrayList<CinemaItem>>()
-    val cinemaItemList: LiveData<ArrayList<CinemaItem>> = _cinemaItemList
+    private val _cinemaItemList = MutableLiveData<List<CinemaItem>>()
+    val cinemaItemList: LiveData<List<CinemaItem>> = _cinemaItemList
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
