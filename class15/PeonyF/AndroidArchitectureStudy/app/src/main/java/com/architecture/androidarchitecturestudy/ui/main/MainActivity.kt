@@ -3,7 +3,6 @@ package com.architecture.androidarchitecturestudy.ui.main
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.architecture.androidarchitecturestudy.R
@@ -35,8 +34,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun viewModelCallback() {
-        mainViewModel.msg.observe(this, Observer {
-            if (mainViewModel.pending.compareAndSet(true,false)) {
+        mainViewModel.msg.observe(this, {
+            if (mainViewModel.pending.compareAndSet(true, false)) {
                 when (it) {
                     "success" -> toast(R.string.network_success)
                     "emptyKeyword" -> toast(R.string.keyword_empty)
