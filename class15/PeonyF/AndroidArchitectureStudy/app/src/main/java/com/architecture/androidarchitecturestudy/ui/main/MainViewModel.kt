@@ -22,17 +22,17 @@ class MainViewModel(private val movieRepository: MovieRepository) : ViewModel() 
             return
         }
         movieRepository.getMovieData(keyword = keywordValue, 30,
-                onSuccess = {
-                    if (it.items!!.isEmpty()) {
-                        msg.value = "emptyResult"
-                    } else {
-                        msg.value = "success"
-                        movieList.value = it.items
-                    }
-                },
-                onFailure = {
-                    msg.value = "fail"
+            onSuccess = {
+                if (it.items!!.isEmpty()) {
+                    msg.value = "emptyResult"
+                } else {
+                    msg.value = "success"
+                    movieList.value = it.items
                 }
+            },
+            onFailure = {
+                msg.value = "fail"
+            }
         )
     }
 
