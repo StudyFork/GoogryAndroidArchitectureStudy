@@ -1,6 +1,5 @@
 package com.wybh.androidarchitecturestudy.main
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,19 +28,19 @@ class MainViewModel: BaseViewModel() {
     val query = MutableLiveData<String>("")
 
 
-
     private val repository: RepositoryImpl by lazy {
         val remoteNaverDataSource = NaverRemoteDataSourceImpl()
         val localNaverDataSource = NaverLocalDataSourceImpl()
         RepositoryImpl(remoteNaverDataSource, localNaverDataSource)
     }
 
-    fun recentSearch() {
-        _recentSearch.value = Unit
+    override fun onCleared() {
+        composeDisposable.dispose()
+        super.onCleared()
     }
 
-    fun removeCompositeDisposable() {
-        composeDisposable.dispose()
+    fun recentSearch() {
+        _recentSearch.value = Unit
     }
 
     fun searchCinema() {
