@@ -1,6 +1,6 @@
 package com.wybh.androidarchitecturestudy.retrofit
 
-import com.wybh.androidarchitecturestudy.App
+import com.wybh.androidarchitecturestudy.util.App
 import com.wybh.androidarchitecturestudy.R
 import okhttp3.Interceptor
 import okhttp3.Response

@@ -3,47 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
-            name="view"
-            type="com.wybh.androidarchitecturestudy.main.MainActivity" />
+            name="vm"
+            type="com.wybh.androidarchitecturestudy.main.MainViewModel" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_searchWord"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> view.search()}"
-                android:text="검색" />
+                <EditText
+                    android:id="@+id/et_searchWord"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@={vm.query}"
+                    android:layout_weight="1" />
 
-            <Button
-                android:id="@+id/btn_recent_search"
-                android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/btn_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> vm.searchCinema()}"
+                    android:text="검색" />
+
+                <Button
+                    android:id="@+id/btn_recent_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> vm.recentSearch()}"
+                    android:text="최근검색" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_cinema"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> view.recentSearch()}"
-                android:text="최근검색" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_cinema"
-            android:layout_width="match_parent"
+        <ProgressBar
+            android:id="@+id/pb_progressbar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    </LinearLayout>
+            android:visibility="@{vm.progressVisible}"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 </layout>

@@ -1,4 +1,4 @@
-package com.wybh.androidarchitecturestudy
+package com.wybh.androidarchitecturestudy.util
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE

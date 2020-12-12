@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidArchitectureStudy</string>
+    <string name="naver_client_key">VsqhmqtGTmcUWFZ_Cv2I</string>
+    <string name="naver_client_secret_key">bfUieu0BGT</string>
 </resources>

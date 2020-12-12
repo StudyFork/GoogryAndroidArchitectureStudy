@@ -1,4 +1,4 @@
-package com.wybh.androidarchitecturestudy
+package com.wybh.androidarchitecturestudy.data
 
 data class CinemaItem(
     var thumnail: String,

@@ -1,6 +1,10 @@
 package com.wybh.androidarchitecturestudy.main
 
-import com.wybh.androidarchitecturestudy.CinemaItem
+import android.view.View
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.wybh.androidarchitecturestudy.base.BaseViewModel
+import com.wybh.androidarchitecturestudy.data.CinemaItem
 import com.wybh.androidarchitecturestudy.model.local.NaverLocalDataSourceImpl
 import com.wybh.androidarchitecturestudy.model.remote.NaverRemoteDataSourceImpl
 import com.wybh.androidarchitecturestudy.model.repository.RepositoryImpl
@@ -8,30 +12,49 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
+class MainViewModel: BaseViewModel() {
     private val composeDisposable = CompositeDisposable()
-    private val list by lazy {
-        ArrayList<CinemaItem>()
-    }
+    private val tempList = mutableListOf<CinemaItem>()
+
+    private val _cinemaItemList = MutableLiveData<List<CinemaItem>>()
+    val cinemaItemList: LiveData<List<CinemaItem>> = _cinemaItemList
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> = _error
+
+    private val _recentSearch = MutableLiveData<Unit>()
+    val recentSearch: LiveData<Unit> = _recentSearch
+
+    val query = MutableLiveData<String>("")
+
+
     private val repository: RepositoryImpl by lazy {
         val remoteNaverDataSource = NaverRemoteDataSourceImpl()
         val localNaverDataSource = NaverLocalDataSourceImpl()
         RepositoryImpl(remoteNaverDataSource, localNaverDataSource)
     }
 
-    override fun removeCompositeDisposable() {
+    override fun onCleared() {
         composeDisposable.dispose()
+        super.onCleared()
     }
 
-    override fun searchCinema(query: String) {
-        if (query.isEmpty()) {
+    fun recentSearch() {
+        _recentSearch.value = Unit
+    }
+
+    fun searchCinema() {
+        if (query.value.isNullOrEmpty()) {
             return
         }
+
+        progressVisible.value = View.VISIBLE
         composeDisposable.add(
-            repository.searchCinema(query)
+            repository.searchCinema(query.value!!)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .map { response ->
+                    tempList.clear()
                     response.items.map {
                         val item = CinemaItem(
                             it.image,
@@ -41,20 +64,14 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
                             it.pubDate,
                             it.link
                         )
-                        list.add(item)
+                        tempList.add(item)
                     }
                 }.subscribe({
-                    view.showCinemaList(list)
+                    _cinemaItemList.value = tempList
+                    progressVisible.value = View.GONE
                 }, {
-                    view.showToastFailMessage(it.message)
+                    _error.value = it.message
                 })
         )
     }
-
-    override fun saveSearchWord(word: String) {
-        if (word.isEmpty()) {
-            return
-        }
-    }
-
 }

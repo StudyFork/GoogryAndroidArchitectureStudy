@@ -1,9 +1,11 @@
-package com.wybh.androidarchitecturestudy
+package com.wybh.androidarchitecturestudy.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.wybh.androidarchitecturestudy.data.CinemaItem
+import com.wybh.androidarchitecturestudy.R
 import com.wybh.androidarchitecturestudy.databinding.CinemaItemBinding
 
 class CinemaAdapter(private val itemClickListener: (link: String) -> Unit) :
