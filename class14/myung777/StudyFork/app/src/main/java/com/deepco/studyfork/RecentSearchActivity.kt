@@ -3,22 +3,17 @@ package com.deepco.studyfork
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.deepco.studyfork.databinding.ActivityRecentSearchBinding
 import com.deepco.studyfork.viewmodel.RecentSearchViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecentSearchActivity :
     BaseActivity<ActivityRecentSearchBinding>(R.layout.activity_recent_search) {
 
-    private val recentSearchViewModel by viewModels<RecentSearchViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return RecentSearchViewModel() as T
-            }
-        }
-    }
+    private val recentSearchViewModel: RecentSearchViewModel by viewModels()
+
     private val recentSearchRecyclerAdapter by lazy {
         RecentSearchRecyclerAdapter(recentSearchViewModel)
     }
