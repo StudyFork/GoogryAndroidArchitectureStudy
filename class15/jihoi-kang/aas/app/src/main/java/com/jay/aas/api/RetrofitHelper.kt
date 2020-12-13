@@ -3,10 +3,9 @@ package com.jay.aas.api
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-object RetrofitHelper {
-
-    private const val BASE_NAVER_API_PATH = "https://openapi.naver.com/"
+class RetrofitHelper @Inject constructor() {
 
     val movieService: MovieService by lazy {
         retrofit.create(MovieService::class.java)
@@ -24,6 +23,10 @@ object RetrofitHelper {
         OkHttpClient.Builder()
             .addInterceptor(RequestInterceptor())
             .build()
+    }
+
+    companion object {
+        private const val BASE_NAVER_API_PATH = "https://openapi.naver.com/"
     }
 
 }

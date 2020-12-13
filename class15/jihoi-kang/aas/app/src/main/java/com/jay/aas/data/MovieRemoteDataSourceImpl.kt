@@ -1,6 +1,6 @@
 package com.jay.aas.data
 
-import com.jay.aas.api.MovieService
+import com.jay.aas.api.RetrofitHelper
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -9,11 +9,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 class MovieRemoteDataSourceImpl @Inject constructor(
-    private val movieService: MovieService,
+    private val retrofitHelper: RetrofitHelper,
 ) : MovieRemoteDataSource {
 
     override suspend fun getSearchMovies(query: String) =
-        movieService.getMovies(query).items
+        retrofitHelper.movieService.getMovies(query).items
 
 }
 
