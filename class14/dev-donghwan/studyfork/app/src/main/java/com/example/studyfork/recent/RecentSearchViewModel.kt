@@ -10,12 +10,12 @@ import io.reactivex.subjects.PublishSubject
 class RecentSearchViewModel(private val repository: Repository) : BaseViewModel() {
 
     val recentSearchList: MutableLiveData<List<String>> = MutableLiveData()
-    val showListIsEmpty: PublishSubject<Unit> = PublishSubject.create()
+    val showListIsEmpty: MutableLiveData<Unit> = MutableLiveData()
 
     fun getRecentSearchList() {
         val result = repository.getRecentSearchList().reversed()
         if (result.isEmpty()) {
-            showListIsEmpty.onNext(Unit)
+            showListIsEmpty.value = Unit
         } else {
             recentSearchList.value = result
         }

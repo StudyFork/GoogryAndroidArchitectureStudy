@@ -11,8 +11,6 @@ import com.example.studyfork.data.remote.RemoteDataSourceImpl
 import com.example.studyfork.data.repository.RepositoryImpl
 import com.example.studyfork.databinding.ActivityRecentSearchListBinding
 import com.example.studyfork.main.MainActivity.Companion.SEARCH_ITEM
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.addTo
 
 class RecentSearchActivity :
     BaseActivity<ActivityRecentSearchListBinding>(R.layout.activity_recent_search_list) {
@@ -45,10 +43,9 @@ class RecentSearchActivity :
         binding.vm = viewModel
         binding.rvRecentSearch.adapter = adapter
 
-        viewModel.showListIsEmpty
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { showListIsEmpty() }
-            .addTo(compositeDisposable)
+        viewModel.showListIsEmpty.observe(this) {
+            showListIsEmpty()
+        }
     }
 
     override fun onResume() {

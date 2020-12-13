@@ -11,8 +11,6 @@ import com.example.studyfork.data.remote.RemoteDataSourceImpl
 import com.example.studyfork.data.repository.RepositoryImpl
 import com.example.studyfork.databinding.ActivityMainBinding
 import com.example.studyfork.recent.RecentSearchActivity
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.addTo
 
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -43,25 +41,21 @@ class MainActivity :
         binding.vm = viewModel
         binding.recMovie.adapter = recyclerAdapter
 
-        viewModel.showError
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { showError() }
-            .addTo(compositeDisposable)
+        viewModel.showError.observe(this) {
+            showError()
+        }
 
-        viewModel.showQueryError
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { showQueryError() }
-            .addTo(compositeDisposable)
+        viewModel.showQueryError.observe(this) {
+            showQueryError()
+        }
 
-        viewModel.showResultEmpty
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { showResultEmpty() }
-            .addTo(compositeDisposable)
+        viewModel.showResultEmpty.observe(this) {
+            showResultEmpty()
+        }
 
-        viewModel.showRecentSearchActivity
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { showRecentSearchListActivity() }
-            .addTo(compositeDisposable)
+        viewModel.showRecentSearchActivity.observe(this) {
+            showRecentSearchListActivity()
+        }
     }
 
     private fun showQueryError() {

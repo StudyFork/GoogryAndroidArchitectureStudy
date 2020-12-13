@@ -13,14 +13,14 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
 
     val query: MutableLiveData<String> = MutableLiveData()
     val movieList: MutableLiveData<List<MovieSearchResponse.MovieItem>> = MutableLiveData()
-    val showError: PublishSubject<Unit> = PublishSubject.create()
-    val showQueryError: PublishSubject<Unit> = PublishSubject.create()
-    val showResultEmpty: PublishSubject<Unit> = PublishSubject.create()
-    val showRecentSearchActivity: PublishSubject<Unit> = PublishSubject.create()
+    val showError: MutableLiveData<Unit> = MutableLiveData()
+    val showQueryError: MutableLiveData<Unit> = MutableLiveData()
+    val showResultEmpty: MutableLiveData<Unit> = MutableLiveData()
+    val showRecentSearchActivity: MutableLiveData<Unit> = MutableLiveData()
 
     fun searchMovie() {
         if (this.query.value.isNullOrEmpty()) {
-            showQueryError.onNext(Unit)
+            showQueryError.value = Unit
             return
         } else {
             val query = this.query.value!!
@@ -30,20 +30,20 @@ class MainViewModel(private val repository: Repository) : BaseViewModel() {
                 query = query,
                 success = {
                     if (it.items.isEmpty()) {
-                        showResultEmpty.onNext(Unit)
+                        showResultEmpty.value = Unit
                     } else {
                         movieList.value = it.items
                     }
                 },
                 fail = {
-                    showError.onNext(Unit)
+                    showError.value = Unit
                 }
             ).addTo(compositeDisposable)
         }
     }
 
     fun requestRecentSearchActivity() {
-        showRecentSearchActivity.onNext(Unit)
+        showRecentSearchActivity.value = Unit
     }
 }
 
