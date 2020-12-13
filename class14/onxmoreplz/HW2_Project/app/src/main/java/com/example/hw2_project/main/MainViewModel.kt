@@ -1,39 +1,52 @@
 package com.example.hw2_project.main
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.hw2_project.data.repository.MovieRepositoryImpl
 
-class MainViewModel(private val movieRepository: MovieRepositoryImpl) {
-    val queryObservableField = ObservableField<String>()
-    val movieListTest: ObservableField<List<com.example.hw2_project.data.api.NaverMovieData.NaverMovie>> = ObservableField()
+class MainViewModel(private val movieRepository: MovieRepositoryImpl) : ViewModel() {
+    val query = MutableLiveData<String>()
 
-    val isEmptyQuery = ObservableField<Unit>()
-    val successToGetMovie = ObservableField<Unit>()
-    val failToGetMovie = ObservableField<Unit>()
-    val startRecentActivity = ObservableField<Unit>()
+    val movieList: MutableLiveData<List<com.example.hw2_project.data.api.NaverMovieData.NaverMovie>> =
+        MutableLiveData()
+
+    val isEmptyQuery = MutableLiveData<Unit>()
+    val failToGetMovie = MutableLiveData<Unit>()
+    val startRecentActivity = MutableLiveData<Unit>()
 
     fun getMovieFromRepository() {
-        val query = queryObservableField?.get().toString()
-        if (query.isEmpty()) {
-            isEmptyQuery.notifyChange()
+        val queryToString = query.value.toString()
+        if (queryToString.isEmpty()) {
+            isEmptyQuery.value = Unit
         } else {
             movieRepository.getMovieList(
-                query,
+                queryToString,
                 success = {
                     it.items.run {
-                        movieListTest.set(it.items)
-                        successToGetMovie.notifyChange()
+                        movieList.value = it.items
                     }
                 },
                 fail = {
-                    failToGetMovie.notifyChange()
+                    failToGetMovie.value = Unit
                 }
             )
         }
     }
 
     fun clickRecentBtn() {
-        startRecentActivity.notifyChange()
+        startRecentActivity.value = Unit
+    }
+
+    class MainViewModelFactory(private val repository: MovieRepositoryImpl) :
+        ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+                MainViewModel(repository) as T
+            } else {
+                throw IllegalArgumentException()
+            }
+        }
     }
 
 }

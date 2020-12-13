@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:hint="영화제목을 입력하세요."
-                android:text="@={vm.movie}"
+                android:text="@={vm.query}"
                 android:singleLine="true"
                 android:textSize="8pt"
                 tools:layout_editor_absoluteX="63dp"
