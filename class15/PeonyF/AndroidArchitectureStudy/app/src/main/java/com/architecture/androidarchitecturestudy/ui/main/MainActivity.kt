@@ -35,13 +35,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun viewModelCallback() {
         mainViewModel.msg.observe(this, {
-            if (mainViewModel.pending.compareAndSet(true, false)) {
-                when (it) {
-                    "success" -> toast(R.string.network_success)
-                    "emptyKeyword" -> toast(R.string.keyword_empty)
-                    "fail" -> toast(R.string.network_error)
-                    "emptyResult" -> toast(R.string.keyword_result_empty)
-                }
+            when (it) {
+                "success" -> toast(R.string.network_success)
+                "emptyKeyword" -> toast(R.string.keyword_empty)
+                "fail" -> toast(R.string.network_error)
+                "emptyResult" -> toast(R.string.keyword_result_empty)
             }
         })
 
