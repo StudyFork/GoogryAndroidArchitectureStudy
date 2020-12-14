@@ -2,7 +2,7 @@ package com.example.studyfork.recent
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.databinding.Observable
+import androidx.lifecycle.ViewModelProvider
 import com.example.studyfork.R
 import com.example.studyfork.RecentSearchAdapter
 import com.example.studyfork.base.BaseActivity
@@ -16,12 +16,15 @@ class RecentSearchActivity :
     BaseActivity<ActivityRecentSearchListBinding>(R.layout.activity_recent_search_list) {
 
     private val viewModel by lazy {
-        RecentSearchViewModel(
-            RepositoryImpl(
-                RemoteDataSourceImpl(),
-                LocalDataSourceImpl(getSharedPreferences("local", MODE_PRIVATE))
+        ViewModelProvider(
+            this,
+            RecentSearchViewModelFactory(
+                RepositoryImpl(
+                    RemoteDataSourceImpl(),
+                    LocalDataSourceImpl(getSharedPreferences("local", MODE_PRIVATE))
+                )
             )
-        )
+        ).get(RecentSearchViewModel::class.java)
     }
 
     private lateinit var adapter: RecentSearchAdapter
@@ -40,11 +43,9 @@ class RecentSearchActivity :
         binding.vm = viewModel
         binding.rvRecentSearch.adapter = adapter
 
-        viewModel.showListIsEmpty.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                showListIsEmpty()
-            }
-        })
+        viewModel.showListIsEmpty.observe(this) {
+            showListIsEmpty()
+        }
     }
 
     override fun onResume() {
@@ -52,7 +53,7 @@ class RecentSearchActivity :
         viewModel.getRecentSearchList()
     }
 
-    fun showListIsEmpty() {
+    private fun showListIsEmpty() {
         showToast("리스트가 비어 있습니다.")
         finish()
     }

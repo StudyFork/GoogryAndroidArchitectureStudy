@@ -1,21 +1,33 @@
 package com.example.studyfork.recent
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.studyfork.base.BaseViewModel
 import com.example.studyfork.data.repository.Repository
+import io.reactivex.subjects.PublishSubject
 
 class RecentSearchViewModel(private val repository: Repository) : BaseViewModel() {
 
-    val recentSearchList: ObservableField<List<String>> = ObservableField()
-    val showListIsEmpty: ObservableField<Unit> = ObservableField()
+    val recentSearchList: MutableLiveData<List<String>> = MutableLiveData()
+    val showListIsEmpty: MutableLiveData<Unit> = MutableLiveData()
 
     fun getRecentSearchList() {
         val result = repository.getRecentSearchList().reversed()
         if (result.isEmpty()) {
-            showListIsEmpty.notifyChange()
+            showListIsEmpty.value = Unit
         } else {
-            recentSearchList.set(result)
-            recentSearchList.notifyChange()
+            recentSearchList.value = result
+        }
+    }
+}
+
+class RecentSearchViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return if (modelClass.isAssignableFrom(RecentSearchViewModel::class.java)) {
+            RecentSearchViewModel(repository) as T
+        } else {
+            throw IllegalArgumentException()
         }
     }
 }

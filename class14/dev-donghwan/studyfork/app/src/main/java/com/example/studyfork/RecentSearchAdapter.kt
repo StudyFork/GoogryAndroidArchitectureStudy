@@ -1,6 +1,5 @@
 package com.example.studyfork
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -43,7 +42,7 @@ class RecentSearchAdapter(
     ) {
         fun onBind(item: String) {
             binding.tvTitle.text = item
-            binding.root.setOnClickListener{
+            binding.root.setOnClickListener {
                 onClick(item)
             }
             binding.executePendingBindings()
