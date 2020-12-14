@@ -1,9 +1,10 @@
 package com.architecture.androidarchitecturestudy.ui.main
 
-
 import android.content.Intent
 import android.os.Bundle
-import androidx.databinding.Observable
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.architecture.androidarchitecturestudy.R
 import com.architecture.androidarchitecturestudy.data.local.MovieLocalDataSourceImpl
 import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
@@ -15,39 +16,35 @@ import com.architecture.androidarchitecturestudy.util.toast
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-    private val viewModel by lazy {
-        val remoteDataSourceImpl = MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE)
-        val localDataSourceImpl = MovieLocalDataSourceImpl()
-        MainViewModel(MovieRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl))
+    private val mainViewModel by viewModels<MainViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val remoteDataSourceImpl = MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE)
+                val localDataSourceImpl = MovieLocalDataSourceImpl()
+                val movieRepository = MovieRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl)
+                return MainViewModel(movieRepository) as T
+            }
+        }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
+        binding.mainViewModel = mainViewModel
         viewModelCallback()
     }
 
     private fun viewModelCallback() {
-        viewModel.showToastMsg.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                viewModel.msg.get()?.let {
-                    when (it) {
-                        "success" -> toast(R.string.network_success)
-                        "emptyKeyword" -> toast(R.string.keyword_empty)
-                        "fail" -> toast(R.string.network_error)
-                        "emptyResult" -> toast(R.string.keyword_result_empty)
-                    }
-                }
+        mainViewModel.msg.observe(this, {
+            when (it) {
+                "success" -> toast(R.string.network_success)
+                "emptyKeyword" -> toast(R.string.keyword_empty)
+                "fail" -> toast(R.string.network_error)
+                "emptyResult" -> toast(R.string.keyword_result_empty)
             }
         })
 
-        viewModel.callSearchHistory.addOnPropertyChangedCallback(object :
-            Observable.OnPropertyChangedCallback() {
-            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
-                searchHistory()
-            }
+        mainViewModel.callSearchHistory.observe(this, {
+            searchHistory()
         })
     }
 

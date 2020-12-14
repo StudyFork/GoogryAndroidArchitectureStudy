@@ -1,43 +1,39 @@
 package com.architecture.androidarchitecturestudy.ui.main
 
-
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.architecture.androidarchitecturestudy.data.model.Movie
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepository
+import com.architecture.androidarchitecturestudy.util.SingleLiveEvent
 
-class MainViewModel(private val movieRepository: MovieRepository) {
-
-    val keyword = ObservableField<String>()
-    val movieList = ObservableField<List<Movie>>()
-    val showToastMsg = ObservableField<Unit>()
-    val msg = ObservableField<String>()
-    val callSearchHistory = ObservableField<Unit>()
+class MainViewModel(private val movieRepository: MovieRepository) : ViewModel() {
+    val keyword = MutableLiveData<String>()
+    val movieList = MutableLiveData<List<Movie>>()
+    val msg = SingleLiveEvent<String>()
+    val callSearchHistory = MutableLiveData<Unit>()
 
     fun findMovie() {
-        val keyword = keyword.get() ?: return
-        if (keyword.isNullOrBlank()) {
-            msg.set("emptyKeyword")
-            showToastMsg.notifyChange()
+        val keywordValue = keyword.value ?: return
+        if (keywordValue.isNullOrBlank()) {
+            msg.value = "emptyKeyword"
             return
         }
-        movieRepository.getMovieData(keyword = keyword, 30,
+        movieRepository.getMovieData(keyword = keywordValue, 30,
             onSuccess = {
                 if (it.items!!.isEmpty()) {
-                    msg.set("emptyResult")
-                    showToastMsg.notifyChange()
+                    msg.value = "emptyResult"
                 } else {
-                    msg.set("success")
-                    movieList.set(it.items)
+                    msg.value = "success"
+                    movieList.value = it.items
                 }
             },
             onFailure = {
-                msg.set("fail")
-                showToastMsg.notifyChange()
+                msg.value = "fail"
             }
         )
     }
 
     fun searchHistory() {
-        callSearchHistory.notifyChange()
+        callSearchHistory.value = Unit
     }
 }

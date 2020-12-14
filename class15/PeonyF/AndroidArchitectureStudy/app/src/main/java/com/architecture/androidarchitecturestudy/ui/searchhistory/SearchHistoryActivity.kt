@@ -2,6 +2,9 @@ package com.architecture.androidarchitecturestudy.ui.searchhistory
 
 
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.architecture.androidarchitecturestudy.R
 import com.architecture.androidarchitecturestudy.data.local.MovieLocalDataSourceImpl
 import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
@@ -13,15 +16,20 @@ import com.architecture.androidarchitecturestudy.webservice.ApiClient
 class SearchHistoryActivity :
     BaseActivity<ActivitySearchHistoryBinding>(R.layout.activity_search_history) {
 
-    private val viewModel by lazy {
-        val remoteDataSourceImpl = MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE)
-        val localDataSourceImpl = MovieLocalDataSourceImpl()
-        SearchHistoryViewModel(MovieRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl))
+    private val searchHistoryViewModel by viewModels<SearchHistoryViewModel> {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val remoteDataSourceImpl = MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE)
+                val localDataSourceImpl = MovieLocalDataSourceImpl()
+                val movieRepository = MovieRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl)
+                return SearchHistoryViewModel(movieRepository) as T
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.viewModel = viewModel
-        viewModel.getRecentKeywordList()
+        binding.searchHistoryViewModel = searchHistoryViewModel
+        searchHistoryViewModel.getRecentKeywordList()
     }
 }
