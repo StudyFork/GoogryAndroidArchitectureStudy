@@ -11,21 +11,12 @@ import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSour
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.architecture.androidarchitecturestudy.databinding.ActivitySearchHistoryBinding
 import com.architecture.androidarchitecturestudy.ui.base.BaseActivity
-import com.architecture.androidarchitecturestudy.webservice.ApiClient
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchHistoryActivity :
     BaseActivity<ActivitySearchHistoryBinding>(R.layout.activity_search_history) {
-
-    private val searchHistoryViewModel by viewModels<SearchHistoryViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val remoteDataSourceImpl = MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE)
-                val localDataSourceImpl = MovieLocalDataSourceImpl()
-                val movieRepository = MovieRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl)
-                return SearchHistoryViewModel(movieRepository) as T
-            }
-        }
-    }
+    private val searchHistoryViewModel: SearchHistoryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -13,19 +13,11 @@ import com.architecture.androidarchitecturestudy.databinding.ActivityMainBinding
 import com.architecture.androidarchitecturestudy.ui.base.BaseActivity
 import com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryActivity
 import com.architecture.androidarchitecturestudy.util.toast
-import com.architecture.androidarchitecturestudy.webservice.ApiClient
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-    private val mainViewModel by viewModels<MainViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val remoteDataSourceImpl = MovieRemoteDataSourceImpl(ApiClient.NETWORK_SERVICE)
-                val localDataSourceImpl = MovieLocalDataSourceImpl()
-                val movieRepository = MovieRepositoryImpl(remoteDataSourceImpl, localDataSourceImpl)
-                return MainViewModel(movieRepository) as T
-            }
-        }
-    }
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
