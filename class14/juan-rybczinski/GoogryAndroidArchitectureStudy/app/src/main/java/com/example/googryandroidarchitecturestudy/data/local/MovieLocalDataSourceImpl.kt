@@ -2,24 +2,25 @@ package com.example.googryandroidarchitecturestudy.data.local
 
 import com.example.googryandroidarchitecturestudy.database.DatabaseMovie
 import com.example.googryandroidarchitecturestudy.database.DatabaseRecentSearch
-import com.example.googryandroidarchitecturestudy.database.MovieDatabase
+import com.example.googryandroidarchitecturestudy.database.MovieDao
+import javax.inject.Inject
 
-class MovieLocalDataSourceImpl(
-    private val database: MovieDatabase
+class MovieLocalDataSourceImpl @Inject constructor(
+    private val movieDao: MovieDao
 ) : MovieLocalDataSource {
     override suspend fun searchMoviesFromLocal(search: String): List<DatabaseMovie> {
-        return database.movieDao.searchMovies(search)
+        return movieDao.searchMovies(search)
     }
 
     override suspend fun insertAll(movies: List<DatabaseMovie>) {
-        database.movieDao.insertAll(movies)
+        movieDao.insertAll(movies)
     }
 
     override suspend fun searchRecentFromLocal(): List<DatabaseRecentSearch> =
-        database.movieDao.searchRecentUpTo(LIMIT)
+        movieDao.searchRecentUpTo(LIMIT)
 
     override suspend fun insertRecentToLocal(recentSearch: DatabaseRecentSearch) {
-        database.movieDao.insertRecentSearch(recentSearch)
+        movieDao.insertRecentSearch(recentSearch)
     }
 
     companion object {
