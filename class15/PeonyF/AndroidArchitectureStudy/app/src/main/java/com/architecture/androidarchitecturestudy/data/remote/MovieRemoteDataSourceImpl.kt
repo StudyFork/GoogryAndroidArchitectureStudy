@@ -12,8 +12,8 @@ import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class MovieRemoteDataSourceImpl(
-    private val network: NetworkService = ApiClient.NETWORK_SERVICE
+class MovieRemoteDataSourceImpl @Inject constructor(
+    private val apiClient: ApiClient
 ) : MovieRemoteDataSource {
     override fun getMovieData(
         keyword: String,
@@ -21,7 +21,7 @@ class MovieRemoteDataSourceImpl(
         onSuccess: (MovieResponse) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        network.getMovieSearch(keyword, display)
+        apiClient.NETWORK_SERVICE.getMovieSearch(keyword, display)
             .enqueue(object : Callback<MovieResponse> {
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     onFailure(t)
