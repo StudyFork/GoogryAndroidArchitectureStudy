@@ -3,12 +3,7 @@ package com.architecture.androidarchitecturestudy.ui.main
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.architecture.androidarchitecturestudy.R
-import com.architecture.androidarchitecturestudy.data.local.MovieLocalDataSourceImpl
-import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
-import com.architecture.androidarchitecturestudy.data.repository.MovieRepositoryImpl
 import com.architecture.androidarchitecturestudy.databinding.ActivityMainBinding
 import com.architecture.androidarchitecturestudy.ui.base.BaseActivity
 import com.architecture.androidarchitecturestudy.ui.searchhistory.SearchHistoryActivity
