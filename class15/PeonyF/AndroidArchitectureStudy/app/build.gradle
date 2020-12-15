@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 
 def getProperty(String filename, String propName) {
@@ -71,7 +72,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
     implementation "androidx.activity:activity-ktx:$activityVersion"
-
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltLifecycleViewModelVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltLifecycleViewModelVersion"
 
     //retrofit
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
