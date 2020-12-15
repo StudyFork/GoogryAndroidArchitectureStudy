@@ -2,10 +2,15 @@ package com.architecture.androidarchitecturestudy.data.remote
 
 import com.architecture.androidarchitecturestudy.data.model.MovieResponse
 import com.architecture.androidarchitecturestudy.webservice.ApiClient
-import com.architecture.androidarchitecturestudy.webservice.NetworkService
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
 class MovieRemoteDataSourceImpl(
     private val network: NetworkService = ApiClient.NETWORK_SERVICE
@@ -33,4 +38,12 @@ class MovieRemoteDataSourceImpl(
                 }
             })
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class RemoteDataSourceModule {
+    @Binds
+    @Singleton
+    abstract fun bindRemoteDataSource(remoteDataSourceImpl: MovieRemoteDataSourceImpl): MovieRemoteDataSource
 }

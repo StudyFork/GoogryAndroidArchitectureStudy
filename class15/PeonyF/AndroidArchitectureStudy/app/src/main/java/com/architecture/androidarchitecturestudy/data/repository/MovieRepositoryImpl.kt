@@ -4,8 +4,14 @@ import com.architecture.androidarchitecturestudy.data.local.MovieLocalDataSource
 import com.architecture.androidarchitecturestudy.data.model.MovieResponse
 import com.architecture.androidarchitecturestudy.data.model.SearchHistoryEntity
 import com.architecture.androidarchitecturestudy.data.remote.MovieRemoteDataSourceImpl
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MovieRepositoryImpl(
+class MovieRepositoryImpl @Inject constructor(
     private val movieRemoteDataSourceImpl: MovieRemoteDataSourceImpl,
     private val movieLocalDataSourceImpl: MovieLocalDataSourceImpl
 ) : MovieRepository {
@@ -32,4 +38,12 @@ class MovieRepositoryImpl(
     override fun getSearchHistoryList(): List<SearchHistoryEntity> {
         return movieLocalDataSourceImpl.getSearchHistoryList()
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class RepositoryModule {
+    @Binds
+    @Singleton
+    abstract fun bindRepository(repositoryImpl: MovieRepositoryImpl): MovieRepository
 }
