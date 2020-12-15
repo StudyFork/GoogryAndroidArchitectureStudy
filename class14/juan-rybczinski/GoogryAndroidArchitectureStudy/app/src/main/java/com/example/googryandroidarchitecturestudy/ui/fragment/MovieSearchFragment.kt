@@ -3,7 +3,6 @@ package com.example.googryandroidarchitecturestudy.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.googryandroidarchitecturestudy.R
@@ -17,8 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MovieSearchFragment :
     BaseFragment<FragmentMovieSearchBinding, MovieSearchViewModel>(R.layout.fragment_movie_search) {
     private val args: MovieSearchFragmentArgs by navArgs()
-
-    override val viewModel: MovieSearchViewModel by viewModels()
 
     private val movieAdapter = MovieAdapter {
         viewModel.selectUrlItem(it)
