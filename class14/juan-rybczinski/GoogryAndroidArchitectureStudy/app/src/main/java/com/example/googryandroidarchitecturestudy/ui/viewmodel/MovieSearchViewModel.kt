@@ -1,8 +1,11 @@
 package com.example.googryandroidarchitecturestudy.ui.viewmodel
 
 import android.view.View
+import androidx.hilt.Assisted
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
 import com.example.googryandroidarchitecturestudy.domain.Movie
@@ -11,8 +14,9 @@ import com.example.googryandroidarchitecturestudy.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 import java.util.*
 
-class MovieSearchViewModel(
-    private val repository: MovieRepository
+class MovieSearchViewModel @ViewModelInject constructor(
+    private val repository: MovieRepository,
+    @Assisted private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
     private val _movieList = MutableLiveData<List<Movie>>(emptyList())
     val movieList: LiveData<List<Movie>>
