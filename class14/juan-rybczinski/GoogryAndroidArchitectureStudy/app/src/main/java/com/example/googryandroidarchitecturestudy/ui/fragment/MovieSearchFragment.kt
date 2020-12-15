@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MovieSearchFragment :
-    MovieFragment<FragmentMovieSearchBinding, MovieSearchViewModel>(R.layout.fragment_movie_search) {
+    BaseFragment<FragmentMovieSearchBinding, MovieSearchViewModel>(R.layout.fragment_movie_search) {
     private val args: MovieSearchFragmentArgs by navArgs()
 
     override val viewModel: MovieSearchViewModel by viewModels()
