@@ -3,10 +3,9 @@ package com.architecture.androidarchitecturestudy.webservice
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-object ApiClient {
-    private const val BASE_URL = "https://openapi.naver.com/"
-
+class ApiClient @Inject constructor() {
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(RequestInterceptor())
         .build()
@@ -17,4 +16,8 @@ object ApiClient {
         .baseUrl(BASE_URL)
         .build()
     val NETWORK_SERVICE: NetworkService = retrofit.create(NetworkService::class.java)
+
+    companion object {
+        private const val BASE_URL = "https://openapi.naver.com/"
+    }
 }
