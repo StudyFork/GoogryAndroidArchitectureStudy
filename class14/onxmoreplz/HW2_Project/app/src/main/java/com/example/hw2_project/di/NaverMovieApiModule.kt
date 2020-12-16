@@ -1,6 +1,9 @@
 package com.example.hw2_project.di
 
 import com.example.hw2_project.data.api.NaverMovieApi
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,8 +11,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
-
-public class NaverMovieApiModule @Inject constructor() {
+@Module
+@InstallIn(ApplicationComponent::class)
+class NaverMovieApiModule @Inject constructor() {
     fun create(): NaverMovieApi {
 
         val httpLoggingInterceptor = HttpLoggingInterceptor()
