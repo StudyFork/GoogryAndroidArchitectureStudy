@@ -1,7 +1,5 @@
 package com.example.hw2_project.data.remote
 
-import android.app.Application
-import com.example.hw2_project.data.api.NaverMovieApi
 import com.example.hw2_project.data.api.NaverMovieData
 import com.example.hw2_project.di.NaverMovieApiModule
 import dagger.Binds
