@@ -5,32 +5,19 @@ import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.androidarchitecturestudy.R
-import com.example.androidarchitecturestudy.data.local.NaverLocalDataSourceImpl
-import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSourceImpl
-import com.example.androidarchitecturestudy.data.repository.NaverRepositoryImpl
 import com.example.androidarchitecturestudy.databinding.ActivityMainBinding
 import com.example.androidarchitecturestudy.link
 import com.example.androidarchitecturestudy.ui.MovieAdapter
 import com.example.androidarchitecturestudy.ui.TitleFragmentDialog
 import com.example.androidarchitecturestudy.ui.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val viewModel by viewModels<MainViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val remoteMovieDataImpl = NaverRemoteDataSourceImpl()
-                val localMovieDataImpl = NaverLocalDataSourceImpl()
-                val repositoryMovieImpl =
-                    NaverRepositoryImpl(remoteMovieDataImpl, localMovieDataImpl)
-                return MainViewModel(repositoryMovieImpl) as T
-            }
-        }
-    }
+    private val viewModel: MainViewModel by viewModels()
 
     private val movieAdapter: MovieAdapter by lazy {
         MovieAdapter { link ->
