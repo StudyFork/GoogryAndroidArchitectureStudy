@@ -8,10 +8,11 @@ import com.example.androidarchitecturestudy.data.model.QueryHistory
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import org.json.JSONArray
+import javax.inject.Inject
 
 
-class Preferences(context: Context) {
-    private val preferences: SharedPreferences = context.getSharedPreferences(
+class Preferences @Inject constructor() {
+    private val preferences: SharedPreferences = MyApplication.context.getSharedPreferences(
         MOVIE_LIST,
         Activity.MODE_PRIVATE
     )
