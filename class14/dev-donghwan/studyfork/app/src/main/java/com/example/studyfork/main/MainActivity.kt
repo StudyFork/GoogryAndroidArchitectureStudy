@@ -2,35 +2,19 @@ package com.example.studyfork.main
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import com.example.studyfork.MovieRecyclerAdapter
 import com.example.studyfork.R
 import com.example.studyfork.base.BaseActivity
-import com.example.studyfork.data.local.LocalDataSourceImpl
-import com.example.studyfork.data.remote.RemoteDataSourceImpl
-import com.example.studyfork.data.repository.RepositoryImpl
 import com.example.studyfork.databinding.ActivityMainBinding
 import com.example.studyfork.recent.RecentSearchActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val viewModel by lazy {
-        ViewModelProvider(
-            this,
-            MainViewModelFactory(
-                RepositoryImpl(
-                    remoteDataSource = RemoteDataSourceImpl(),
-                    localDataSource = LocalDataSourceImpl(
-                        getSharedPreferences(
-                            "local",
-                            MODE_PRIVATE
-                        )
-                    )
-                )
-            )
-        ).get(MainViewModel::class.java)
-    }
+    private val viewModel: MainViewModel by viewModels()
 
     private val requestCode = 100
 
