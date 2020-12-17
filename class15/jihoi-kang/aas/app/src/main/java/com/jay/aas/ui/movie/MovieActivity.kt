@@ -6,40 +6,21 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.jay.aas.R
-import com.jay.aas.api.RetrofitHelper
 import com.jay.aas.base.BaseActivity
-import com.jay.aas.data.MovieLocalDataSourceImpl
-import com.jay.aas.data.MovieRemoteDataSourceImpl
-import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivityMovieBinding
-import com.jay.aas.room.AppDatabase
 import com.jay.aas.ui.history.SearchHistoryActivity
 import com.jay.aas.util.toast
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieActivity : BaseActivity<ActivityMovieBinding>(
     R.layout.activity_movie
 ) {
 
     private val TAG = this::class.java.simpleName
 
-    private val viewModel by viewModels<MovieViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val appDatabase = AppDatabase.getInstance(this@MovieActivity)
-                val movieRepository = MovieRepositoryImpl(
-                    MovieRemoteDataSourceImpl(RetrofitHelper.movieService),
-                    MovieLocalDataSourceImpl(
-                        appDatabase.movieDao(),
-                        appDatabase.searchHistoryDao()
-                    )
-                )
-                return MovieViewModel(movieRepository) as T
-            }
-        }
-    }
+    private val viewModel: MovieViewModel by viewModels()
 
     private val movieAdapter: MovieAdapter by lazy {
         MovieAdapter { link ->

@@ -2,8 +2,14 @@ package com.jay.aas.data
 
 import com.jay.aas.model.Movie
 import com.jay.aas.model.SearchHistory
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MovieRepositoryImpl(
+class MovieRepositoryImpl @Inject constructor(
     private val movieRemoteDataSource: MovieRemoteDataSource,
     private val movieLocalDataSource: MovieLocalDataSource,
 ) : MovieRepository {
@@ -22,5 +28,15 @@ class MovieRepositoryImpl(
 
     override fun getSearchHistories(): List<SearchHistory> =
         movieLocalDataSource.getSearchHistories()
+
+}
+
+@InstallIn(ApplicationComponent::class)
+@Module
+abstract class MovieRepositoryModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindMovieRepository(movieRepositoryImpl: MovieRepositoryImpl): MovieRepository
 
 }

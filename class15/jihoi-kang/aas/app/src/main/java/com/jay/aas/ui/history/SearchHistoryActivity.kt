@@ -4,36 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.jay.aas.R
-import com.jay.aas.api.RetrofitHelper
 import com.jay.aas.base.BaseActivity
-import com.jay.aas.data.MovieLocalDataSourceImpl
-import com.jay.aas.data.MovieRemoteDataSourceImpl
-import com.jay.aas.data.MovieRepositoryImpl
 import com.jay.aas.databinding.ActivitySearchHistoryBinding
-import com.jay.aas.room.AppDatabase
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchHistoryActivity : BaseActivity<ActivitySearchHistoryBinding>(
     R.layout.activity_search_history
 ) {
 
-    private val viewModel by viewModels<SearchHistoryViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val appDatabase = AppDatabase.getInstance(this@SearchHistoryActivity)
-                val movieRepository = MovieRepositoryImpl(
-                    MovieRemoteDataSourceImpl(RetrofitHelper.movieService),
-                    MovieLocalDataSourceImpl(
-                        appDatabase.movieDao(),
-                        appDatabase.searchHistoryDao()
-                    )
-                )
-                return SearchHistoryViewModel(movieRepository) as T
-            }
-        }
-    }
+    private val viewModel: SearchHistoryViewModel by viewModels()
 
     private val searchHistoryAdapter: SearchHistoryAdapter by lazy {
         SearchHistoryAdapter { query ->

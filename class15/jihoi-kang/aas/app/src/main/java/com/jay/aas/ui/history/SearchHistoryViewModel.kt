@@ -1,5 +1,6 @@
 package com.jay.aas.ui.history
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -8,7 +9,7 @@ import com.jay.aas.data.MovieRepository
 import com.jay.aas.model.SearchHistory
 import kotlinx.coroutines.launch
 
-class SearchHistoryViewModel(
+class SearchHistoryViewModel @ViewModelInject constructor(
     private val movieRepository: MovieRepository
 ) : BaseViewModel() {
 
