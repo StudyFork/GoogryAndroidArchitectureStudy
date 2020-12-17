@@ -1,16 +1,25 @@
 package com.deepco.studyfork.api
 
 import com.deepco.studyfork.BuildConfig
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitHelper @Inject constructor() {
 
-    fun create(): RetrofitService {
+@InstallIn(ApplicationComponent::class)
+@Module
+class RetrofitHelper {
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(): Retrofit {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         if (BuildConfig.DEBUG) {
             httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -37,8 +46,12 @@ class RetrofitHelper @Inject constructor() {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(RetrofitService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideRetrofitService(retrofit: Retrofit): RetrofitService =
+        retrofit.create(RetrofitService::class.java)
 
     companion object {
         private const val BASE_URL_NAVER_API = "https://openapi.naver.com/"

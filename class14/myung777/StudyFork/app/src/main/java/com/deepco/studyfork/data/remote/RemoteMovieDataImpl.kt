@@ -1,6 +1,6 @@
 package com.deepco.studyfork.data.remote
 
-import com.deepco.studyfork.api.RetrofitHelper
+import com.deepco.studyfork.api.RetrofitService
 import com.deepco.studyfork.data.model.Item
 import com.deepco.studyfork.data.model.MovieData
 import dagger.Binds
@@ -14,14 +14,14 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 class RemoteMovieDataImpl @Inject constructor(
-    private var retrofitHelper: RetrofitHelper
+    private var retrofitService: RetrofitService
 ) : RemoteMovieData {
     override fun getMovieList(
         title: String,
         success: (List<Item>) -> Unit,
         failed: (String) -> Unit
     ) {
-        retrofitHelper.create().getSearchMovie(title).enqueue(object : Callback<MovieData> {
+        retrofitService.getSearchMovie(title).enqueue(object : Callback<MovieData> {
             override fun onFailure(call: Call<MovieData>, t: Throwable) {
                 failed(t.message.toString())
             }
