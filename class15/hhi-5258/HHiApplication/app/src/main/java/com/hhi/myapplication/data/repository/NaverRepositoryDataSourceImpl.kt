@@ -10,9 +10,11 @@ import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class NaverRepositoryDataSourceImpl @Inject constructor() : NaverRepositoryDataSource {
-    private val naverRemoteDataSource = NaverRemoteDataSourceImpl()
-    private val naverLocalDataSource = NaverLocalDataSourceImpl()
+class NaverRepositoryDataSourceImpl @Inject constructor(
+    private val naverRemoteDataSource: NaverRemoteDataSourceImpl,
+    private val naverLocalDataSource: NaverLocalDataSourceImpl
+) : NaverRepositoryDataSource {
+
     override fun searchMovies(
         query: String,
         success: (MovieData.Response) -> Unit,
