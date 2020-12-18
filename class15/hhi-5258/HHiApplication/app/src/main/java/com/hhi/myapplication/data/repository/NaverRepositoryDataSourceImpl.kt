@@ -3,8 +3,14 @@ package com.hhi.myapplication.data.repository
 import com.hhi.myapplication.data.local.NaverLocalDataSourceImpl
 import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.data.remote.NaverRemoteDataSourceImpl
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NaverRepositoryDataSourceImpl : NaverRepositoryDataSource {
+class NaverRepositoryDataSourceImpl @Inject constructor() : NaverRepositoryDataSource {
     private val naverRemoteDataSource = NaverRemoteDataSourceImpl()
     private val naverLocalDataSource = NaverLocalDataSourceImpl()
     override fun searchMovies(
@@ -20,4 +26,12 @@ class NaverRepositoryDataSourceImpl : NaverRepositoryDataSource {
     }
 
     override fun getQueryList(): List<String> = naverLocalDataSource.getQueryList()
+}
+
+@InstallIn(ApplicationComponent::class)
+@Module
+abstract class NaverRepositoryModule {
+    @Binds
+    @Singleton
+    abstract fun bindNaverRepository(naverRepositoryDataSourceImpl: NaverRepositoryDataSourceImpl): NaverRepositoryDataSource
 }

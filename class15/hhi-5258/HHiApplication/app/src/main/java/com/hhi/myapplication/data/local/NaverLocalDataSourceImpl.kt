@@ -1,9 +1,15 @@
 package com.hhi.myapplication.data.local
 
 import com.hhi.myapplication.App
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import org.json.JSONArray
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NaverLocalDataSourceImpl : NaverLocalDataSource {
+class NaverLocalDataSourceImpl @Inject constructor() : NaverLocalDataSource {
     override fun saveQuery(query: String) {
         val queryList = getQueryList().toMutableList()
         queryList.add(query)
@@ -32,4 +38,12 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
     companion object {
         private const val PREF_QUERY_LIST: String = "pref_query_list"
     }
+}
+
+@InstallIn(ApplicationComponent::class)
+@Module
+abstract class NaverLocalDataModule {
+    @Binds
+    @Singleton
+    abstract fun bindNaverLocalData(naverLocalDataSourceImpl: NaverLocalDataSourceImpl): NaverLocalDataSource
 }
