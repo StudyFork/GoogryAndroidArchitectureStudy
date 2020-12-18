@@ -11,7 +11,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 
-class MovieLocalDataSourceImpl @Inject constructor() : MovieLocalDataSource {
+class MovieLocalDataSourceImpl @Inject constructor(
+    private val sharedPreferenceUtil: SharedPreferenceUtil
+) : MovieLocalDataSource {
     override fun saveSearchHistory(keyword: String) {
         val searchHistoryList = getSearchHistoryList().toMutableList()
         try {
@@ -26,11 +28,11 @@ class MovieLocalDataSourceImpl @Inject constructor() : MovieLocalDataSource {
     }
 
     private fun saveSearchHistoryList(keyword: List<SearchHistoryEntity>) {
-        SharedPreferenceUtil(App.context).saveSearchHistory(keyword)
+        sharedPreferenceUtil.saveSearchHistory(keyword)
     }
 
     override fun getSearchHistoryList(): List<SearchHistoryEntity> =
-        SharedPreferenceUtil(App.context).getSearchHistoryList()
+        sharedPreferenceUtil.getSearchHistoryList()
 }
 
 @Module
