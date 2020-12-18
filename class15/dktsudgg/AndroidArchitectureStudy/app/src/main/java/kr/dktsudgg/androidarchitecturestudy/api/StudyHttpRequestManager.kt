@@ -36,7 +36,7 @@ class StudyHttpRequestManager @Inject constructor() : NetworkRequestManager {
 
 @InstallIn(ApplicationComponent::class)
 @Module
-abstract class WebRequestManagerModule {
+abstract class StudyHttpRequestManagerModule {
 
     @StudyHttpRequest
     @Binds
