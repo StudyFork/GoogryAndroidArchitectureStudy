@@ -14,9 +14,11 @@ import com.hhi.myapplication.base.BaseActivity
 import com.hhi.myapplication.databinding.ActivityMainBinding
 import com.hhi.myapplication.recentSearch.RecentSearchActivity
 import com.hhi.myapplication.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
+@AndroidEntryPoint
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val vm by viewModels<MainViewModel> {

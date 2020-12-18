@@ -10,7 +10,9 @@ import com.hhi.myapplication.R
 import com.hhi.myapplication.base.BaseActivity
 import com.hhi.myapplication.databinding.ActivityRecentSearchBinding
 import com.hhi.myapplication.viewmodel.RecentSearchViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecentSearchActivity :
     BaseActivity<ActivityRecentSearchBinding>(R.layout.activity_recent_search) {
     private val vm by viewModels<RecentSearchViewModel> {
