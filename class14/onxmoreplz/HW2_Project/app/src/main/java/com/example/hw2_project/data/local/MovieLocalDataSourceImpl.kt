@@ -1,6 +1,7 @@
 package com.example.hw2_project.data.local
 
 import com.example.hw2_project.App
+import com.example.hw2_project.SharedPreferenceUtil
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -9,7 +10,9 @@ import org.json.JSONArray
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class MovieLocalDataSourceImpl @Inject constructor() : MovieLocalDataSource {
+class MovieLocalDataSourceImpl @Inject constructor(
+    private val sharedPreferenceUtil: SharedPreferenceUtil
+) : MovieLocalDataSource {
     override fun saveQuery(query: String) {
         val queryList = getSavedQuery().toMutableList()
         queryList.add(query)
@@ -17,11 +20,11 @@ class MovieLocalDataSourceImpl @Inject constructor() : MovieLocalDataSource {
         if (queryList.size > 5) {
             queryList.removeAt(0)
         }
-        App.prefs.saveQueryList(queryList)
+        sharedPreferenceUtil.saveQueryList(queryList)
     }
 
     override fun getSavedQuery(): List<String> {
-        val json = App.prefs.getSavedQueryListTest()
+        val json = sharedPreferenceUtil.getSavedQueryListTest()
         val queryList = mutableListOf<String>()
 
         json?.let {
