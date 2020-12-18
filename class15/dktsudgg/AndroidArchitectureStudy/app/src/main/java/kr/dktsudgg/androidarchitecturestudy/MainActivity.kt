@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import kr.dktsudgg.androidarchitecturestudy.databinding.ActivityMainBinding
 import kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm.MovieSearchViewModel
 
+@AndroidEntryPoint
 class MainActivity :
     BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
