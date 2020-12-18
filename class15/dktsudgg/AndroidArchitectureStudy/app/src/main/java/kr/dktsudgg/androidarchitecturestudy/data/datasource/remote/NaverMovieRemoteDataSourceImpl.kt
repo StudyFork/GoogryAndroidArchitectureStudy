@@ -6,7 +6,8 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import kr.dktsudgg.androidarchitecturestudy.BuildConfig
-import kr.dktsudgg.androidarchitecturestudy.api.WebRequestManager
+import kr.dktsudgg.androidarchitecturestudy.api.NetworkRequestManager
+import kr.dktsudgg.androidarchitecturestudy.api.StudyHttpRequest
 import kr.dktsudgg.androidarchitecturestudy.api.naver.NaverMovieApi
 import kr.dktsudgg.androidarchitecturestudy.data.model.NaverMovieResponse
 import retrofit2.Call
@@ -15,7 +16,9 @@ import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class NaverMovieRemoteDataSourceImpl @Inject constructor() : NaverMovieRemoteDataSource {
+class NaverMovieRemoteDataSourceImpl @Inject constructor(
+    @StudyHttpRequest private val networkRequestManager: NetworkRequestManager
+) : NaverMovieRemoteDataSource {
 
     private val NAVER_CLIENT_ID = BuildConfig.NAVER_CLIENT_ID;
     private val NAVER_CLIENT_SECRET = BuildConfig.NAVER_CLIENT_SECRET;
@@ -27,7 +30,7 @@ class NaverMovieRemoteDataSourceImpl @Inject constructor() : NaverMovieRemoteDat
         successCallback: (NaverMovieResponse) -> Unit,
         failureCallback: (t: Throwable) -> Unit
     ) {
-        WebRequestManager.getInstance(NaverMovieApi::class)
+        networkRequestManager.getClient(NaverMovieApi::class)
             ?.searchMovies(NAVER_CLIENT_ID, NAVER_CLIENT_SECRET, query, display, start)
             ?.enqueue(object : Callback<NaverMovieResponse> {
                 override fun onResponse(
@@ -58,7 +61,9 @@ class NaverMovieRemoteDataSourceImpl @Inject constructor() : NaverMovieRemoteDat
 @InstallIn(ApplicationComponent::class)
 @Module
 abstract class NaverMovieRemoteDataModule {
+
     @Binds
     @Singleton
     abstract fun bindNaverMovieRemoteData(naverMovieRemoteDataSourceImpl: NaverMovieRemoteDataSourceImpl): NaverMovieRemoteDataSource
+
 }
