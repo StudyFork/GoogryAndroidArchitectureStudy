@@ -6,23 +6,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
-import com.wybh.androidarchitecturestudy.base.BaseActivity
-import com.wybh.androidarchitecturestudy.adapter.CinemaAdapter
 import com.wybh.androidarchitecturestudy.R
+import com.wybh.androidarchitecturestudy.adapter.CinemaAdapter
+import com.wybh.androidarchitecturestudy.base.BaseActivity
 import com.wybh.androidarchitecturestudy.databinding.ActivityMainBinding
 import com.wybh.androidarchitecturestudy.history.RecentSearchWordActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
-    override val vm by viewModels<MainViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MainViewModel() as T
-            }
-        }
-    }
+    override val vm : MainViewModel by viewModels()
 
     private val cinemaAdapter: CinemaAdapter =
         CinemaAdapter {

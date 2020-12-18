@@ -1,18 +1,18 @@
 package com.wybh.androidarchitecturestudy.main
 
 import android.view.View
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wybh.androidarchitecturestudy.base.BaseViewModel
 import com.wybh.androidarchitecturestudy.data.CinemaItem
-import com.wybh.androidarchitecturestudy.model.local.NaverLocalDataSourceImpl
-import com.wybh.androidarchitecturestudy.model.remote.NaverRemoteDataSourceImpl
 import com.wybh.androidarchitecturestudy.model.repository.RepositoryImpl
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel: BaseViewModel() {
+class MainViewModel @ViewModelInject constructor(
+    private val repository: RepositoryImpl
+) : BaseViewModel() {
     private val tempList = mutableListOf<CinemaItem>()
 
     private val _cinemaItemList = MutableLiveData<List<CinemaItem>>()
@@ -25,13 +25,6 @@ class MainViewModel: BaseViewModel() {
     val recentSearch: LiveData<Unit> = _recentSearch
 
     val query = MutableLiveData<String>("")
-
-
-    private val repository: RepositoryImpl by lazy {
-        val remoteNaverDataSource = NaverRemoteDataSourceImpl()
-        val localNaverDataSource = NaverLocalDataSourceImpl()
-        RepositoryImpl(remoteNaverDataSource, localNaverDataSource)
-    }
 
     fun recentSearch() {
         _recentSearch.value = Unit

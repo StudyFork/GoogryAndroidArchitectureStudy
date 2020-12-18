@@ -2,12 +2,14 @@ package com.wybh.androidarchitecturestudy.util
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
 
-
-object SharedPref {
-    private const val KEY_MY_PREFERENCE = "com.wybh.shootingstar.PREFERENCE"
-    private const val KEY_SAVE_SEARCH_WORD = "SAVE_SEARCH_WORD"
-
+@InstallIn(ApplicationComponent::class)
+@Module
+class SharedPref @Inject constructor() {
     fun setSaveSearchWord(userID: String, context: Context) {
         setPreference(KEY_SAVE_SEARCH_WORD, userID, context)
     }
@@ -85,5 +87,10 @@ object SharedPref {
         val editor = pref.edit()
         editor.remove(key)
         editor.apply()
+    }
+
+    companion object {
+        private const val KEY_MY_PREFERENCE = "com.wybh.shootingstar.PREFERENCE"
+        private const val KEY_SAVE_SEARCH_WORD = "SAVE_SEARCH_WORD"
     }
 }
