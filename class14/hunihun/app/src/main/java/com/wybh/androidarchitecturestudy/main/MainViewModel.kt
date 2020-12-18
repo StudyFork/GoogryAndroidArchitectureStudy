@@ -13,7 +13,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel: BaseViewModel() {
-    private val composeDisposable = CompositeDisposable()
     private val tempList = mutableListOf<CinemaItem>()
 
     private val _cinemaItemList = MutableLiveData<List<CinemaItem>>()
@@ -34,11 +33,6 @@ class MainViewModel: BaseViewModel() {
         RepositoryImpl(remoteNaverDataSource, localNaverDataSource)
     }
 
-    override fun onCleared() {
-        composeDisposable.dispose()
-        super.onCleared()
-    }
-
     fun recentSearch() {
         _recentSearch.value = Unit
     }
@@ -47,31 +41,29 @@ class MainViewModel: BaseViewModel() {
         if (query.value.isNullOrEmpty()) {
             return
         }
-
         progressVisible.value = View.VISIBLE
-        composeDisposable.add(
-            repository.searchCinema(query.value!!)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.newThread())
-                .map { response ->
-                    tempList.clear()
-                    response.items.map {
-                        val item = CinemaItem(
-                            it.image,
-                            it.title,
-                            it.actor,
-                            it.userRating,
-                            it.pubDate,
-                            it.link
-                        )
-                        tempList.add(item)
-                    }
-                }.subscribe({
-                    _cinemaItemList.value = tempList
-                    progressVisible.value = View.GONE
-                }, {
-                    _error.value = it.message
-                })
-        )
+
+        addDisposable(repository.searchCinema(query.value!!)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.newThread())
+            .map { response ->
+                tempList.clear()
+                response.items.map {
+                    val item = CinemaItem(
+                        it.image,
+                        it.title,
+                        it.actor,
+                        it.userRating,
+                        it.pubDate,
+                        it.link
+                    )
+                    tempList.add(item)
+                }
+            }.subscribe({
+                _cinemaItemList.value = tempList
+                progressVisible.value = View.GONE
+            }, {
+                _error.value = it.message
+            }))
     }
 }
