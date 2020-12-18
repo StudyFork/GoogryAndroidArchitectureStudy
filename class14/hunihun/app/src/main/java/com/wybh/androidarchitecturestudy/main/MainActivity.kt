@@ -36,11 +36,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         initObserve()
     }
 
-    override fun onDestroy() {
-        vm.removeCompositeDisposable()
-        super.onDestroy()
-    }
-
     private fun initObserve() {
         vm.run {
             error.observe(this@MainActivity) {
