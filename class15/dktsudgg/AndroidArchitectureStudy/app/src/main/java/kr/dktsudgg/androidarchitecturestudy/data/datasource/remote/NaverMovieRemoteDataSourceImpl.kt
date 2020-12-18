@@ -1,6 +1,10 @@
 package kr.dktsudgg.androidarchitecturestudy.data.datasource.remote
 
 import android.util.Log
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import kr.dktsudgg.androidarchitecturestudy.BuildConfig
 import kr.dktsudgg.androidarchitecturestudy.api.WebRequestManager
 import kr.dktsudgg.androidarchitecturestudy.api.naver.NaverMovieApi
@@ -8,8 +12,10 @@ import kr.dktsudgg.androidarchitecturestudy.data.model.NaverMovieResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
+class NaverMovieRemoteDataSourceImpl @Inject constructor() : NaverMovieRemoteDataSource {
 
     private val NAVER_CLIENT_ID = BuildConfig.NAVER_CLIENT_ID;
     private val NAVER_CLIENT_SECRET = BuildConfig.NAVER_CLIENT_SECRET;
@@ -47,4 +53,12 @@ class NaverMovieRemoteDataSourceImpl : NaverMovieRemoteDataSource {
             })
     }
 
+}
+
+@InstallIn(ApplicationComponent::class)
+@Module
+abstract class NaverMovieRemoteDataModule {
+    @Binds
+    @Singleton
+    abstract fun bindNaverMovieRemoteData(naverMovieRemoteDataSourceImpl: NaverMovieRemoteDataSourceImpl): NaverMovieRemoteDataSource
 }

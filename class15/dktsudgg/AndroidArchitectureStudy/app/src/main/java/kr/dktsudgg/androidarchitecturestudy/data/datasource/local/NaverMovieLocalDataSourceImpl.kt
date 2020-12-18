@@ -1,8 +1,13 @@
 package kr.dktsudgg.androidarchitecturestudy.data.datasource.local
 
-import kr.dktsudgg.androidarchitecturestudy.R
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NaverMovieLocalDataSourceImpl : NaverMovieLocalDataSource {
+class NaverMovieLocalDataSourceImpl @Inject constructor() : NaverMovieLocalDataSource {
 
     override fun getMovieSearchHistory(): List<String> {
         // 문자열로 저장된 데이터를 파싱하여 리스트로 반환
@@ -36,4 +41,12 @@ class NaverMovieLocalDataSourceImpl : NaverMovieLocalDataSource {
         private const val MOVIE_SEARCH_HISTORY = "MOVIE_SEARCH_HISTORY"
     }
 
+}
+
+@InstallIn(ApplicationComponent::class)
+@Module
+abstract class NaverMovieLocalDataModule {
+    @Binds
+    @Singleton
+    abstract fun bindNaverMovieLocalData(naverMovieLocalDataSourceImpl: NaverMovieLocalDataSourceImpl): NaverMovieLocalDataSource
 }

@@ -1,14 +1,14 @@
 package kr.dktsudgg.androidarchitecturestudy.view.ui.mvvm
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kr.dktsudgg.androidarchitecturestudy.data.model.MovieItem
 import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepository
-import kr.dktsudgg.androidarchitecturestudy.data.repository.NaverMovieRepositoryImpl
 
-class MovieSearchViewModel : BaseViewModel() {
-
-    private val naverMovieRepository: NaverMovieRepository = NaverMovieRepositoryImpl()
+class MovieSearchViewModel @ViewModelInject constructor(
+    private val naverMovieRepository: NaverMovieRepository
+) : BaseViewModel() {
 
     /**
      * 영화 검색이력 목록 보여주기 요청이 발생할 시, 알리기 위한 변수
