@@ -1,13 +1,14 @@
 package com.hhi.myapplication.viewmodel
 
 import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hhi.myapplication.base.BaseViewModel
 import com.hhi.myapplication.data.model.MovieData
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 
-class MainViewModel : BaseViewModel() {
+class MainViewModel @ViewModelInject constructor() : BaseViewModel() {
     private val repositoryDataSourceImpl = NaverRepositoryDataSourceImpl()
     private val _movieList = MutableLiveData<ArrayList<MovieData.MovieItem>>()
     val movieList: LiveData<ArrayList<MovieData.MovieItem>> = _movieList
