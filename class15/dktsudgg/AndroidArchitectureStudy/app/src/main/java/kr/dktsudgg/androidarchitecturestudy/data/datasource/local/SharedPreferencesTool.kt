@@ -2,16 +2,18 @@ package kr.dktsudgg.androidarchitecturestudy.data.datasource.local
 
 import android.app.Application
 import android.content.Context
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object SharedPreferencesTool {
+class SharedPreferencesTool @Inject constructor(
+    private val appCtx: Application
+) : DBTool {
 
-    private lateinit var appCtx: Context
-
-    fun init(applicationContext: Application) {
-        appCtx = applicationContext
-    }
-
-    fun putData(prefFileKey: String, putKey: String, data: String) {
+    override fun putData(prefFileKey: String, putKey: String, data: String) {
         appCtx.getSharedPreferences(
             prefFileKey,
             Context.MODE_PRIVATE
@@ -20,12 +22,23 @@ object SharedPreferencesTool {
         ).commit()
     }
 
-    fun getData(prefFileKey: String, getKey: String): String {
+    override fun getData(prefFileKey: String, getKey: String): String {
         return appCtx.getSharedPreferences(
             prefFileKey,
             Context.MODE_PRIVATE
         ).getString(getKey, null)
             ?: ""
     }
+
+}
+
+@InstallIn(ApplicationComponent::class)
+@Module
+abstract class SharedPreferencesToolModule {
+
+    @NosqlTool
+    @Binds
+    @Singleton
+    abstract fun bindSharedPreferencesTool(sharedPreferencesTool: SharedPreferencesTool): DBTool
 
 }

@@ -7,11 +7,13 @@ import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class NaverMovieLocalDataSourceImpl @Inject constructor() : NaverMovieLocalDataSource {
+class NaverMovieLocalDataSourceImpl @Inject constructor(
+    private val sharedPreferencesTool: SharedPreferencesTool
+) : NaverMovieLocalDataSource {
 
     override fun getMovieSearchHistory(): List<String> {
         // 문자열로 저장된 데이터를 파싱하여 리스트로 반환
-        return SharedPreferencesTool.getData(
+        return sharedPreferencesTool.getData(
             MOVIE_PREFERENCE_FILE_KEY,
             MOVIE_SEARCH_HISTORY
         ).split("|||").map { it }
@@ -22,7 +24,7 @@ class NaverMovieLocalDataSourceImpl @Inject constructor() : NaverMovieLocalDataS
         var queryList = getMovieSearchHistory().toMutableList()
         queryList.add(0, query)
 
-        SharedPreferencesTool.putData(
+        sharedPreferencesTool.putData(
             MOVIE_PREFERENCE_FILE_KEY,
             MOVIE_SEARCH_HISTORY,
             queryList.joinToString(prefix = "", separator = "|||", postfix = "")
