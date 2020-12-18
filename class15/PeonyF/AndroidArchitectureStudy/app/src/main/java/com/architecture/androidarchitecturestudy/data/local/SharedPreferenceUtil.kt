@@ -1,6 +1,5 @@
 package com.architecture.androidarchitecturestudy.data.local
 
-import android.content.Context
 import android.content.SharedPreferences
 import com.architecture.androidarchitecturestudy.data.model.SearchHistoryEntity
 import com.architecture.androidarchitecturestudy.util.App

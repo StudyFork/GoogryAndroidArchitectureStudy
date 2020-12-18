@@ -1,7 +1,6 @@
 package com.architecture.androidarchitecturestudy.data.local
 
 import com.architecture.androidarchitecturestudy.data.model.SearchHistoryEntity
-import com.architecture.androidarchitecturestudy.util.App
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
