@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 class NaverMovieLocalDataSourceImpl @Inject constructor(
-    private val sharedPreferencesTool: SharedPreferencesTool
+    @NosqlTool private val sharedPreferencesTool: DBTool
 ) : NaverMovieLocalDataSource {
 
     override fun getMovieSearchHistory(): List<String> {
