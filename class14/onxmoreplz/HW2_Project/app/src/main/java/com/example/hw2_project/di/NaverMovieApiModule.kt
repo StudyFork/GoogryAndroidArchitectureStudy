@@ -1,7 +1,9 @@
 package com.example.hw2_project.di
 
+import com.example.hw2_project.BuildConfig
 import com.example.hw2_project.data.api.NaverMovieApi
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.Interceptor
@@ -10,14 +12,21 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ApplicationComponent::class)
 class NaverMovieApiModule @Inject constructor() {
-    fun create(): NaverMovieApi {
 
+    @Provides
+    fun provideBaseUrl() = NAVER_MOVIE_BASE_URL
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
         val headerInterceptor = Interceptor {
             val request = it.request()
                 .newBuilder()
@@ -26,59 +35,31 @@ class NaverMovieApiModule @Inject constructor() {
                 .build()
             return@Interceptor it.proceed(request)
         }
-        val client = OkHttpClient.Builder()
+        OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .build()
-
-        return Retrofit.Builder()
-            .baseUrl(NAVER_MOVIE_BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
+    } else {
+        OkHttpClient
+            .Builder()
             .build()
-            .create(NaverMovieApi::class.java)
     }
-    /*   @Provides
-       fun provideBaseUrl() = NAVER_MOVIE_BASE_URL
 
-       @Singleton
-       @Provides
-       fun provideOkHttpClient() = if (BuildConfig.DEBUG) {
-           val httpLoggingInterceptor = HttpLoggingInterceptor()
-           httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+    @Singleton
+    @Provides
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient,
+        BASE_URL: String
+    ): Retrofit = Retrofit.Builder()
+        .addConverterFactory(GsonConverterFactory.create())
+        .baseUrl(BASE_URL)
+        .client(okHttpClient)
+        .build()
 
-           val headerInterceptor = Interceptor {
-               val request = it.request()
-                   .newBuilder()
-                   .addHeader("X-Naver-Client-Id", NAVER_CLIENT_ID)
-                   .addHeader("X-Naver-Client-Secret", NAVER_CLIENT_SECRET)
-                   .build()
-               return@Interceptor it.proceed(request)
-           }
-           OkHttpClient.Builder()
-               .addInterceptor(headerInterceptor)
-               .addInterceptor(httpLoggingInterceptor)
-               .build()
-       } else {
-           OkHttpClient
-               .Builder()
-               .build()
-       }
-
-       @Singleton
-       @Provides
-       fun provideRetrofit(
-           okHttpClient: OkHttpClient,
-           BASE_URL: String
-       ): Retrofit = Retrofit.Builder()
-           .addConverterFactory(GsonConverterFactory.create())
-           .baseUrl(BASE_URL)
-           .client(okHttpClient)
-           .build()
-
-       @Provides
-       @Singleton
-       fun provideNaverApi(retrofit: Retrofit) = retrofit.create(NaverMovieApi::class.java)*/
+    @Provides
+    @Singleton
+    fun provideNaverApi(retrofit: Retrofit): NaverMovieApi =
+        retrofit.create(NaverMovieApi::class.java)
 
     companion object {
         private const val NAVER_MOVIE_BASE_URL = "https://openapi.naver.com"

@@ -1,7 +1,7 @@
 package com.example.hw2_project.data.remote
 
+import com.example.hw2_project.data.api.NaverMovieApi
 import com.example.hw2_project.data.api.NaverMovieData
-import com.example.hw2_project.di.NaverMovieApiModule
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,7 +12,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 class MovieRemoteDataSourceImpl @Inject constructor(
-    private val naverMovieApiModule: NaverMovieApiModule
+    private val naverMovieApi: NaverMovieApi
 ) : MovieRemoteDataSource {
 
     override fun getMovieFromRemote(
@@ -20,7 +20,7 @@ class MovieRemoteDataSourceImpl @Inject constructor(
         success: (NaverMovieData.NaverMovieResponse) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverMovieApiModule.create().searchMovieInApi(query)
+        naverMovieApi.searchMovieInApi(query)
             .enqueue(object : retrofit2.Callback<NaverMovieData.NaverMovieResponse> {
                 override fun onResponse(
                     call: Call<NaverMovieData.NaverMovieResponse>,
@@ -39,7 +39,6 @@ class MovieRemoteDataSourceImpl @Inject constructor(
                 ) {
                     fail(t)
                 }
-
             })
     }
 }
