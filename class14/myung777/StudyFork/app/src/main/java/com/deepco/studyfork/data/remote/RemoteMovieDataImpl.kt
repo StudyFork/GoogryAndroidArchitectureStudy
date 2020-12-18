@@ -3,18 +3,25 @@ package com.deepco.studyfork.data.remote
 import com.deepco.studyfork.api.RetrofitService
 import com.deepco.studyfork.data.model.Item
 import com.deepco.studyfork.data.model.MovieData
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RemoteMovieDataImpl : RemoteMovieData {
-    private var api: RetrofitService = RetrofitService.create()
+class RemoteMovieDataImpl @Inject constructor(
+    private var retrofitService: RetrofitService
+) : RemoteMovieData {
     override fun getMovieList(
         title: String,
         success: (List<Item>) -> Unit,
         failed: (String) -> Unit
     ) {
-        api.getSearchMovie(title).enqueue(object : Callback<MovieData> {
+        retrofitService.getSearchMovie(title).enqueue(object : Callback<MovieData> {
             override fun onFailure(call: Call<MovieData>, t: Throwable) {
                 failed(t.message.toString())
             }
@@ -35,4 +42,13 @@ class RemoteMovieDataImpl : RemoteMovieData {
             }
         })
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class RemoteMovieDataModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindRemoteMovieData(remoteMovieDataImpl: RemoteMovieDataImpl): RemoteMovieData
 }

@@ -4,8 +4,14 @@ import com.deepco.studyfork.data.local.LocalMovieDataImpl
 import com.deepco.studyfork.data.model.Item
 import com.deepco.studyfork.data.model.RecentSearchData
 import com.deepco.studyfork.data.remote.RemoteMovieDataImpl
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RepositoryMovieDataImpl(
+class RepositoryMovieDataImpl @Inject constructor(
     private val remoteMovieDataImpl: RemoteMovieDataImpl,
     private val localMovieDataImpl: LocalMovieDataImpl
 
@@ -30,4 +36,13 @@ class RepositoryMovieDataImpl(
     private fun saveQuery(query: String) {
         localMovieDataImpl.saveQuery(query)
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class RepositoryMovieDataModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindRepositoryMovieData(repositoryMovieDataImpl: RepositoryMovieDataImpl): RepositoryMovieData
 }

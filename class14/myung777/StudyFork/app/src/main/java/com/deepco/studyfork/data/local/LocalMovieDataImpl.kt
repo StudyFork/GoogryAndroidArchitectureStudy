@@ -1,9 +1,16 @@
 package com.deepco.studyfork.data.local
 
-import com.deepco.studyfork.MyApplication
 import com.deepco.studyfork.data.model.RecentSearchData
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LocalMovieDataImpl : LocalMovieData {
+class LocalMovieDataImpl @Inject constructor(
+    private val sharedPreferenceUtil: SharedPreferenceUtil
+) : LocalMovieData {
     override fun saveQuery(query: String) {
         val queryList = getQueryList().toMutableList()
         queryList.add(RecentSearchData(query))
@@ -15,9 +22,18 @@ class LocalMovieDataImpl : LocalMovieData {
     }
 
     private fun saveQueryList(query: List<RecentSearchData>) {
-        MyApplication.prefs.saveQuery(query)
+        sharedPreferenceUtil.saveQuery(query)
     }
 
     override fun getQueryList(): List<RecentSearchData> =
-        MyApplication.prefs.getQueryList()
+        sharedPreferenceUtil.getQueryList()
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class LocalMovieDataModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindLocalMovieData(localMovieDataImpl: LocalMovieDataImpl): LocalMovieData
 }

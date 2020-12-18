@@ -1,16 +1,17 @@
 package com.deepco.studyfork.data.local
 
-import android.content.Context
 import android.content.SharedPreferences
+import com.deepco.studyfork.MyApplication
 import com.deepco.studyfork.data.model.RecentSearchData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import javax.inject.Inject
 
 private const val MOVIE: String = "movie"
 private const val PREF_RECENT_SEARCH: String = "pref_recent_search"
 
-class SharedPreferenceUtil(context: Context) {
-    private val preference: SharedPreferences = context.getSharedPreferences(MOVIE, 0)
+class SharedPreferenceUtil @Inject constructor() {
+    private val preference: SharedPreferences = MyApplication.context.getSharedPreferences(MOVIE, 0)
     private var gson = Gson()
     fun saveQuery(queryList: List<RecentSearchData>) {
         preference.edit().putString(PREF_RECENT_SEARCH, gson.toJson(queryList).toString()).apply()
