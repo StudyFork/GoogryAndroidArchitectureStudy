@@ -6,6 +6,8 @@ buildscript {
         glide_version = "4.11.0"
         stetho_version = "1.5.1"
         activity_version = "1.1.0"
+        dagger_hilt_version = "2.28-alpha"
+        android_hilt_version = "1.0.0-alpha01"
     }
     repositories {
         google()
@@ -17,6 +19,8 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$dagger_hilt_version"
     }
 }
 

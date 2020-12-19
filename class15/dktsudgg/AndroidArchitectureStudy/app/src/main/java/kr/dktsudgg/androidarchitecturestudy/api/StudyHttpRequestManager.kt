@@ -1,15 +1,19 @@
 package kr.dktsudgg.androidarchitecturestudy.api
 
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import kr.dktsudgg.androidarchitecturestudy.api.naver.NaverMovieApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.reflect.KClass
 
-object WebRequestManager {
+class StudyHttpRequestManager @Inject constructor() : NetworkRequestManager {
 
-    val NAVER_OPEN_API_URL = "https://openapi.naver.com/"
-
-    fun <T : Any> getInstance(serviceInterface: KClass<T>): T? {
+    override fun <T : Any> getClient(serviceInterface: KClass<T>): T? {
         val retrofit = Retrofit.Builder()
 
         when (serviceInterface) {
@@ -24,4 +28,19 @@ object WebRequestManager {
             }
         }
     }
+
+    companion object {
+        private const val NAVER_OPEN_API_URL = "https://openapi.naver.com/"
+    }
+}
+
+@InstallIn(ApplicationComponent::class)
+@Module
+abstract class StudyHttpRequestManagerModule {
+
+    @StudyHttpRequest
+    @Binds
+    @Singleton
+    abstract fun bindWebRequestManager(studyHttpRequestManager: StudyHttpRequestManager): NetworkRequestManager
+
 }
