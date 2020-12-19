@@ -10,6 +10,8 @@ buildscript {
         glide_version = "4.11.0"
         lifecycle_version = "2.2.0"
         room_version = "2.2.5"
+        hilt_version = "2.30-alpha"
+        hilt_viewmodel_version = "1.0.0-alpha02"
     }
     repositories {
         google()
@@ -21,6 +23,9 @@ buildscript {
 
         // Save Args
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+
+        // Hilt
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

@@ -8,21 +8,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelLazy
 import com.example.googryandroidarchitecturestudy.BR
 import com.example.googryandroidarchitecturestudy.R
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.viewmodel.BaseViewModel
+import java.lang.reflect.ParameterizedType
 
 abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
-    private val layoutId: Int
+    @LayoutRes private val layoutResId: Int
 ) : Fragment() {
     private var _binding: B? = null
     protected val binding get() = _binding!!
 
-    abstract val viewModel: VM
+    private val clazz = ((javaClass.genericSuperclass as ParameterizedType?)
+        ?.actualTypeArguments
+        ?.get(1) as Class<VM>).kotlin
+
+    protected val viewModel by ViewModelLazy(
+        clazz,
+        { viewModelStore },
+        { defaultViewModelProviderFactory }
+    )
 
     private val inputMethodManager by lazy(LazyThreadSafetyMode.NONE) {
         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -32,7 +43,7 @@ abstract class BaseFragment<B : ViewDataBinding, VM : BaseViewModel>(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = DataBindingUtil.inflate(layoutInflater, layoutId, container, false)
+        _binding = DataBindingUtil.inflate(layoutInflater, layoutResId, container, false)
 
         return binding.root
     }

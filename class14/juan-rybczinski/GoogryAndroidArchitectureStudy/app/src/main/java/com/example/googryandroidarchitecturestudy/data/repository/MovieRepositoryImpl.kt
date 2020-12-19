@@ -9,8 +9,9 @@ import com.example.googryandroidarchitecturestudy.domain.asDatabaseModel
 import com.example.googryandroidarchitecturestudy.network.asDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MovieRepositoryImpl(
+class MovieRepositoryImpl @Inject constructor(
     private val remoteDataSource: MovieRemoteDataSource,
     private val localDataSource: MovieLocalDataSource
 ) : MovieRepository {

@@ -3,9 +3,6 @@ package com.example.googryandroidarchitecturestudy.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.googryandroidarchitecturestudy.R
@@ -13,18 +10,12 @@ import com.example.googryandroidarchitecturestudy.databinding.FragmentMovieSearc
 import com.example.googryandroidarchitecturestudy.ui.extension.toast
 import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 import com.example.googryandroidarchitecturestudy.ui.viewmodel.MovieSearchViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieSearchFragment :
-    MovieFragment<FragmentMovieSearchBinding, MovieSearchViewModel>(R.layout.fragment_movie_search) {
+    BaseFragment<FragmentMovieSearchBinding, MovieSearchViewModel>(R.layout.fragment_movie_search) {
     private val args: MovieSearchFragmentArgs by navArgs()
-
-    override val viewModel by viewModels<MovieSearchViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return MovieSearchViewModel(repository) as T
-            }
-        }
-    }
 
     private val movieAdapter = MovieAdapter {
         viewModel.selectUrlItem(it)
