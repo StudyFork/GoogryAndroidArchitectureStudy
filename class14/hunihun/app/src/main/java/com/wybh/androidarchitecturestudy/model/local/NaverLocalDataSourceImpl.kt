@@ -3,8 +3,16 @@ package com.wybh.androidarchitecturestudy.model.local
 import android.util.Log
 import com.wybh.androidarchitecturestudy.util.App
 import com.wybh.androidarchitecturestudy.util.SharedPref
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NaverLocalDataSourceImpl : NaverLocalDataSource {
+class NaverLocalDataSourceImpl @Inject constructor(
+    private val sharedPref: SharedPref
+) : NaverLocalDataSource {
     override fun saveSearchWord(word: String) {
         var parseWord = if (getSearchWord().isNullOrEmpty()) word else "$word," + getSearchWord()
         val parseWordList = parseWord.split(",")
@@ -16,11 +24,20 @@ class NaverLocalDataSourceImpl : NaverLocalDataSource {
             }
         }
         Log.e("jsh","parseWord >>> $parseWord")
-        SharedPref.setSaveSearchWord(parseWord, App.instance)
+        sharedPref.setSaveSearchWord(parseWord, App.instance)
     }
 
     override fun getSearchWord(): String? {
-        Log.e("jsh","getSaveSearchWord >>> " + SharedPref.getSaveSearchWord(App.instance))
-        return SharedPref.getSaveSearchWord(App.instance)
+        Log.e("jsh","getSaveSearchWord >>> " + sharedPref.getSaveSearchWord(App.instance))
+        return sharedPref.getSaveSearchWord(App.instance)
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class NaverLocalDataSourceModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindNaverLocalDataSource(localMovieDataImpl: NaverLocalDataSourceImpl): NaverLocalDataSource
 }
