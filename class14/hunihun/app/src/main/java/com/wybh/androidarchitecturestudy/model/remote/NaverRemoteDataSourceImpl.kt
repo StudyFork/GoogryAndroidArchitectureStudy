@@ -12,11 +12,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 class NaverRemoteDataSourceImpl @Inject constructor(
-    private val retrofitCreator: RetrofitCreator
+    private val retrofit: RetrofitImpl
 ) : NaverRemoteDataSource {
 
     override fun searchCinema(query: String): Single<ResponseCinemaData> {
-        return retrofitCreator.create(RetrofitImpl::class.java)
+        return retrofit
             .getCinemaData(query)
     }
 }
