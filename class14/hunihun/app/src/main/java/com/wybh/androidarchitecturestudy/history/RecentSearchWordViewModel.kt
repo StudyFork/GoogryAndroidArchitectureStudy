@@ -4,10 +4,10 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wybh.androidarchitecturestudy.base.BaseViewModel
-import com.wybh.androidarchitecturestudy.model.repository.RepositoryImpl
+import com.wybh.androidarchitecturestudy.model.repository.Repository
 
 class RecentSearchWordViewModel @ViewModelInject constructor(
-    private val repository: RepositoryImpl
+    private val repository: Repository
 ) : BaseViewModel() {
 
     private val _wordList = MutableLiveData<List<String>>()

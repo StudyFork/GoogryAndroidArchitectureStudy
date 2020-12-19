@@ -6,12 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wybh.androidarchitecturestudy.base.BaseViewModel
 import com.wybh.androidarchitecturestudy.data.CinemaItem
-import com.wybh.androidarchitecturestudy.model.repository.RepositoryImpl
+import com.wybh.androidarchitecturestudy.model.repository.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel @ViewModelInject constructor(
-    private val repository: RepositoryImpl
+    private val repository: Repository
 ) : BaseViewModel() {
     private val tempList = mutableListOf<CinemaItem>()
 
