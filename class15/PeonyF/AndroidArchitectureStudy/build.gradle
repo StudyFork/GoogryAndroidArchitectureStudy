@@ -18,6 +18,8 @@ buildscript {
         retrofitVersion = '2.9.0'
         okhttp3Version = "4.9.0"
         glideVersion = '4.11.0'
+        hiltVersion='2.28-alpha'
+        hiltLifecycleViewModelVersion = '1.0.0-alpha01'
 
         junitVersion = '4.13.1'
         androidxTest = '1.1.2'
@@ -37,7 +39,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

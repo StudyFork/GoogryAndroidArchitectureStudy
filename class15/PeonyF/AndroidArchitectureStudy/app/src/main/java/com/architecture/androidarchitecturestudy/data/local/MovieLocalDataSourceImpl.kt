@@ -1,11 +1,18 @@
 package com.architecture.androidarchitecturestudy.data.local
 
 import com.architecture.androidarchitecturestudy.data.model.SearchHistoryEntity
-import com.architecture.androidarchitecturestudy.util.App
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import org.json.JSONException
+import javax.inject.Inject
+import javax.inject.Singleton
 
 
-class MovieLocalDataSourceImpl : MovieLocalDataSource {
+class MovieLocalDataSourceImpl @Inject constructor(
+    private val sharedPreferenceUtil: SharedPreferenceUtil
+) : MovieLocalDataSource {
     override fun saveSearchHistory(keyword: String) {
         val searchHistoryList = getSearchHistoryList().toMutableList()
         try {
@@ -20,9 +27,17 @@ class MovieLocalDataSourceImpl : MovieLocalDataSource {
     }
 
     private fun saveSearchHistoryList(keyword: List<SearchHistoryEntity>) {
-        SharedPreferenceUtil(App.context).saveSearchHistory(keyword)
+        sharedPreferenceUtil.saveSearchHistory(keyword)
     }
 
     override fun getSearchHistoryList(): List<SearchHistoryEntity> =
-        SharedPreferenceUtil(App.context).getSearchHistoryList()
+        sharedPreferenceUtil.getSearchHistoryList()
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class LocalDataSourceModule {
+    @Binds
+    @Singleton
+    abstract fun bindLocalDataSource(localDataSourceImpl: MovieLocalDataSourceImpl): MovieLocalDataSource
 }

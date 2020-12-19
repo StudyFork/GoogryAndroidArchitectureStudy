@@ -1,14 +1,19 @@
 package com.architecture.androidarchitecturestudy.data.remote
 
 import com.architecture.androidarchitecturestudy.data.model.MovieResponse
-import com.architecture.androidarchitecturestudy.webservice.ApiClient
 import com.architecture.androidarchitecturestudy.webservice.NetworkService
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MovieRemoteDataSourceImpl(
-    private val network: NetworkService = ApiClient.NETWORK_SERVICE
+class MovieRemoteDataSourceImpl @Inject constructor(
+    private val networkService: NetworkService
 ) : MovieRemoteDataSource {
     override fun getMovieData(
         keyword: String,
@@ -16,7 +21,7 @@ class MovieRemoteDataSourceImpl(
         onSuccess: (MovieResponse) -> Unit,
         onFailure: (Throwable) -> Unit
     ) {
-        network.getMovieSearch(keyword, display)
+        networkService.getMovieSearch(keyword, display)
             .enqueue(object : Callback<MovieResponse> {
                 override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                     onFailure(t)
@@ -33,4 +38,12 @@ class MovieRemoteDataSourceImpl(
                 }
             })
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class RemoteDataSourceModule {
+    @Binds
+    @Singleton
+    abstract fun bindRemoteDataSource(remoteDataSourceImpl: MovieRemoteDataSourceImpl): MovieRemoteDataSource
 }

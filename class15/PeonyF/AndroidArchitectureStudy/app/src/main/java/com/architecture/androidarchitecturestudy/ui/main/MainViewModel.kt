@@ -1,12 +1,15 @@
 package com.architecture.androidarchitecturestudy.ui.main
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.architecture.androidarchitecturestudy.data.model.Movie
 import com.architecture.androidarchitecturestudy.data.repository.MovieRepository
 import com.architecture.androidarchitecturestudy.util.SingleLiveEvent
 
-class MainViewModel(private val movieRepository: MovieRepository) : ViewModel() {
+
+class MainViewModel @ViewModelInject constructor(private val movieRepository: MovieRepository) :
+    ViewModel() {
     val keyword = MutableLiveData<String>()
     val movieList = MutableLiveData<List<Movie>>()
     val msg = SingleLiveEvent<String>()
