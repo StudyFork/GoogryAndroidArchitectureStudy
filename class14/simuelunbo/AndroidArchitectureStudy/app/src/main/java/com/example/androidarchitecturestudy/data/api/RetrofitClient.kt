@@ -1,43 +1,52 @@
 package com.example.androidarchitecturestudy.data.api
 
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitClient @Inject constructor() {
+@InstallIn(ApplicationComponent::class)
+@Module
+class RetrofitClient  {
 
-    private val retrofit: Retrofit by lazy {
-        Retrofit.Builder()
+    @Provides
+    @Singleton
+    fun provideRetrofit(): Retrofit {
+        val headerInterceptor = Interceptor {
+            val request = it.request()
+                .newBuilder()
+                .addHeader(
+                    "X-Naver-Client-Id",
+                    CLIENT_ID
+                )
+                .addHeader(
+                    "X-Naver-Client-Secret",
+                    CLIENT_SECRET
+                )
+                .build()
+            return@Interceptor it.proceed(request)
+
+        }
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(headerInterceptor)
+            .build()
+
+        return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
-
-    private val headerInterceptor = Interceptor {
-        val request = it.request()
-            .newBuilder()
-            .addHeader(
-                "X-Naver-Client-Id",
-                CLIENT_ID
-            )
-            .addHeader(
-                "X-Naver-Client-Secret",
-                CLIENT_SECRET
-            )
-            .build()
-        return@Interceptor it.proceed(request)
-
-    }
-
-    private val client = OkHttpClient.Builder()
-        .addInterceptor(headerInterceptor)
-        .build()
-
-    fun <T> naverMovieInterface(serviceClass: Class<T>): T {
-        return retrofit.create(serviceClass)
+    @Provides
+    @Singleton
+    fun naverMovieInterface(retrofit: Retrofit): NaverMovieInterface {
+        return retrofit.create(NaverMovieInterface::class.java)
     }
 
     companion object {

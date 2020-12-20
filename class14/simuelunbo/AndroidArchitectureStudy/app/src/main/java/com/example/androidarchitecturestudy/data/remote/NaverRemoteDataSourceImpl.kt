@@ -14,7 +14,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 class NaverRemoteDataSourceImpl @Inject constructor(
-    private val retrofitClient: RetrofitClient
+    private val naverMovieInterface: NaverMovieInterface
 ): NaverRemoteDataSource {
 
     override fun getSearchMovieList(
@@ -22,8 +22,7 @@ class NaverRemoteDataSourceImpl @Inject constructor(
         success: (MovieData) -> Unit,
         failed: (String) -> Unit
     ) {
-        val api = retrofitClient.naverMovieInterface(NaverMovieInterface::class.java)
-        api.searchMovies(query).enqueue(object :
+        naverMovieInterface.searchMovies(query).enqueue(object :
             retrofit2.Callback<MovieData> {
             override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
                 if (response.isSuccessful) {
