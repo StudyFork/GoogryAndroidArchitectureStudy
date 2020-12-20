@@ -1,5 +1,6 @@
 package com.example.androidarchitecturestudy.ui.main
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +8,9 @@ import com.example.androidarchitecturestudy.data.model.Movie
 import com.example.androidarchitecturestudy.data.model.QueryHistory
 import com.example.androidarchitecturestudy.data.repository.NaverRepository
 
-class MainViewModel(private val repository: NaverRepository) : ViewModel() {
+class MainViewModel @ViewModelInject constructor(private val repository: NaverRepository) :
+    ViewModel() {
+
     val searchText = MutableLiveData<String>()
     val movieList = MutableLiveData<List<Movie>>()
 

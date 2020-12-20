@@ -1,14 +1,16 @@
 package com.example.androidarchitecturestudy
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        prefs = Preferences(applicationContext)
+        context = this
     }
 
     companion object {
-        lateinit var prefs: Preferences
+        lateinit var context: MyApplication
     }
 }

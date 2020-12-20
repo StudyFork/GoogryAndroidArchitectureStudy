@@ -1,18 +1,28 @@
 package com.example.androidarchitecturestudy.data.remote
 
+import android.app.Application
 import com.example.androidarchitecturestudy.data.api.NaverMovieInterface
+import com.example.androidarchitecturestudy.data.api.RetrofitClient
 import com.example.androidarchitecturestudy.data.model.MovieData
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import retrofit2.Call
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
+class NaverRemoteDataSourceImpl @Inject constructor(
+    private val naverMovieInterface: NaverMovieInterface
+): NaverRemoteDataSource {
 
     override fun getSearchMovieList(
         query: String,
         success: (MovieData) -> Unit,
         failed: (String) -> Unit
     ) {
-        NaverMovieInterface.create().searchMovies(query).enqueue(object :
+        naverMovieInterface.searchMovies(query).enqueue(object :
             retrofit2.Callback<MovieData> {
             override fun onResponse(call: Call<MovieData>, response: Response<MovieData>) {
                 if (response.isSuccessful) {
@@ -30,4 +40,13 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
 
         })
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class NaverRemoteDataSourceModule{
+
+    @Binds
+    @Singleton
+    abstract fun bindNaverRemoteDataSource(naverRemoteDataSourceImpl: NaverRemoteDataSourceImpl): NaverRemoteDataSource
 }

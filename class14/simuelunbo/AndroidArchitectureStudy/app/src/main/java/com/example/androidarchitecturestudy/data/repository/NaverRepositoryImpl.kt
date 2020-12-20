@@ -5,8 +5,14 @@ import com.example.androidarchitecturestudy.data.model.Movie
 import com.example.androidarchitecturestudy.data.model.MovieData
 import com.example.androidarchitecturestudy.data.model.QueryHistory
 import com.example.androidarchitecturestudy.data.remote.NaverRemoteDataSource
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NaverRepositoryImpl(
+class NaverRepositoryImpl @Inject constructor(
     private val naverRemoteDataSource: NaverRemoteDataSource,
     private val naverLocalDataSource: NaverLocalDataSource
 ) : NaverRepository {
@@ -37,5 +43,13 @@ class NaverRepositoryImpl(
         return naverLocalDataSource.getMovieQueryList()
     }
 
+}
 
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class NaverRepositoryModule{
+
+    @Binds
+    @Singleton
+    abstract fun bindNaverRepository(naverRepositoryImpl: NaverRepositoryImpl): NaverRepository
 }
