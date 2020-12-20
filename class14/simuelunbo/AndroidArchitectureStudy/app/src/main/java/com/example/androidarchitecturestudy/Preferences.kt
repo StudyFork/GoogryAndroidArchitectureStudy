@@ -7,12 +7,13 @@ import com.example.androidarchitecturestudy.data.model.Movie
 import com.example.androidarchitecturestudy.data.model.QueryHistory
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.json.JSONArray
 import javax.inject.Inject
 
 
-class Preferences @Inject constructor() {
-    private val preferences: SharedPreferences = MyApplication.context.getSharedPreferences(
+class Preferences @Inject constructor(@ApplicationContext context: Context) {
+    private val preferences: SharedPreferences = context.getSharedPreferences(
         MOVIE_LIST,
         Activity.MODE_PRIVATE
     )
