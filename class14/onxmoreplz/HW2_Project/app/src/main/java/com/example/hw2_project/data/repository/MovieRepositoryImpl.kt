@@ -1,13 +1,19 @@
 package com.example.hw2_project.data.repository
 
 import com.example.hw2_project.data.api.NaverMovieData
-import com.example.hw2_project.data.local.MovieLocalDataSourceImpl
-import com.example.hw2_project.data.remote.MovieRemoteDataSourceImpl
+import com.example.hw2_project.data.local.MovieLocalDataSource
+import com.example.hw2_project.data.remote.MovieRemoteDataSource
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MovieRepositoryImpl : MovieRepository {
-
-    private val remoteMovieDataSourceImp = MovieRemoteDataSourceImpl()
-    private val localMovieLocalDataSourceImpl = MovieLocalDataSourceImpl()
+class MovieRepositoryImpl @Inject constructor(
+    private val remoteMovieDataSource: MovieRemoteDataSource,
+    private val localMovieLocalDataSource: MovieLocalDataSource
+) : MovieRepository {
 
     override fun getMovieList(
         query: String,
@@ -15,7 +21,7 @@ class MovieRepositoryImpl : MovieRepository {
         fail: (Throwable) -> Unit
     ) {
         this.saveQuery(query)
-        remoteMovieDataSourceImp.getMovieFromRemote(
+        remoteMovieDataSource.getMovieFromRemote(
             query,
             success,
             fail
@@ -23,10 +29,21 @@ class MovieRepositoryImpl : MovieRepository {
     }
 
     override fun saveQuery(query: String) {
-        localMovieLocalDataSourceImpl.saveQuery(query)
+        localMovieLocalDataSource.saveQuery(query)
     }
 
     override fun getSavedQuery(): List<String> {
-        return localMovieLocalDataSourceImpl.getSavedQuery()
+        return localMovieLocalDataSource.getSavedQuery()
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class MovieRepositoryModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindMovieRepository(
+        movieRepositoryImpl: MovieRepositoryImpl
+    ): MovieRepository
 }

@@ -3,27 +3,23 @@ package com.example.hw2_project.recentSearch
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.example.hw2_project.R
-import com.example.hw2_project.data.repository.MovieRepositoryImpl
 import com.example.hw2_project.databinding.ActivityRecentSearchBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecentSearchActivity : AppCompatActivity(),
     RecentSearchRecyclerViewAdapter.ClickSavedMovieListener {
-    private lateinit var recentSearchViewModel: RecentSearchViewModel
+
     private lateinit var binding: ActivityRecentSearchBinding
+    private val recentSearchViewModel: RecentSearchViewModel by viewModels()
     private val recentSearchAdapter = RecentSearchRecyclerViewAdapter(this)
-    private val movieRepository = MovieRepositoryImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        recentSearchViewModel = ViewModelProvider(
-            this,
-            RecentSearchViewModel.RecentSearchViewModelFactory(movieRepository)
-        )
-            .get(RecentSearchViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recent_search)
         binding.lifecycleOwner = this
         binding.vm = recentSearchViewModel

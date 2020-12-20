@@ -5,12 +5,12 @@ import com.example.hw2_project.data.api.NaverMovieData
 interface MovieRepository {
 
     fun getMovieList(
-        query : String,
-        success : (NaverMovieData.NaverMovieResponse) -> Unit,
-        fail : (Throwable) -> Unit
+        query: String,
+        success: (NaverMovieData.NaverMovieResponse) -> Unit,
+        fail: (Throwable) -> Unit
     )
 
     fun saveQuery(query: String)
 
-    fun getSavedQuery() : List<String>
+    fun getSavedQuery(): List<String>
 }

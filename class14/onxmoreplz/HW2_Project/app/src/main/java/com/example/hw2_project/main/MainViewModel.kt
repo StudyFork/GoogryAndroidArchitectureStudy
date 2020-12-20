@@ -1,11 +1,13 @@
 package com.example.hw2_project.main
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.hw2_project.data.repository.MovieRepositoryImpl
+import com.example.hw2_project.data.repository.MovieRepository
 
-class MainViewModel(private val movieRepository: MovieRepositoryImpl) : ViewModel() {
+class MainViewModel @ViewModelInject constructor(
+    private val movieRepository: MovieRepository
+) : ViewModel() {
     val query = MutableLiveData<String>()
 
     val movieList: MutableLiveData<List<com.example.hw2_project.data.api.NaverMovieData.NaverMovie>> =
@@ -36,17 +38,6 @@ class MainViewModel(private val movieRepository: MovieRepositoryImpl) : ViewMode
 
     fun clickRecentBtn() {
         startRecentActivity.value = Unit
-    }
-
-    class MainViewModelFactory(private val repository: MovieRepositoryImpl) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-                MainViewModel(repository) as T
-            } else {
-                throw IllegalArgumentException()
-            }
-        }
     }
 
 }

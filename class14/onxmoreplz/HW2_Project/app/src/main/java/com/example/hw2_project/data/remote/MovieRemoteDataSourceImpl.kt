@@ -2,24 +2,25 @@ package com.example.hw2_project.data.remote
 
 import com.example.hw2_project.data.api.NaverMovieApi
 import com.example.hw2_project.data.api.NaverMovieData
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import retrofit2.Call
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
-    companion object {
-        //Naver 영화 검색 API 사용을 위한 App 등록
-        private const val CLIENT_ID = "fQFY7M9rMOVD2KDT8Aaq"
-        private const val CLIENT_SECRET = "v8aD8p_Ri0"
-    }
-
-    private val naverApi = NaverMovieApi.create()
+class MovieRemoteDataSourceImpl @Inject constructor(
+    private val naverMovieApi: NaverMovieApi
+) : MovieRemoteDataSource {
 
     override fun getMovieFromRemote(
         query: String,
         success: (NaverMovieData.NaverMovieResponse) -> Unit,
         fail: (Throwable) -> Unit
     ) {
-        naverApi.searchMovieInApi(query)
+        naverMovieApi.searchMovieInApi(query)
             .enqueue(object : retrofit2.Callback<NaverMovieData.NaverMovieResponse> {
                 override fun onResponse(
                     call: Call<NaverMovieData.NaverMovieResponse>,
@@ -38,7 +39,17 @@ class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
                 ) {
                     fail(t)
                 }
-
             })
     }
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+abstract class MovieRemoteModule {
+
+    @Binds
+    @Singleton
+    abstract fun bindMovieRemoteDataSource(
+        remoteDataSourceImpl: MovieRemoteDataSourceImpl
+    ): MovieRemoteDataSource
 }
