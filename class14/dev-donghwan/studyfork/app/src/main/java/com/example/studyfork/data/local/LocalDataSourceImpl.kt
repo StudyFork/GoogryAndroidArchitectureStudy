@@ -1,11 +1,21 @@
 package com.example.studyfork.data.local
 
-import android.content.SharedPreferences
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import org.json.JSONArray
 import org.json.JSONException
+import javax.inject.Inject
 
 
-class LocalDataSourceImpl(private val pref: SharedPreferences) : LocalDataSource {
+class LocalDataSourceImpl @Inject constructor(
+    @ApplicationContext context: Context
+) : LocalDataSource {
+    private val pref = context.getSharedPreferences("local", AppCompatActivity.MODE_PRIVATE)
 
     override fun putRecentSearchList(item: String) {
         val items = ArrayList(getRecentSearchList())
@@ -44,4 +54,11 @@ class LocalDataSourceImpl(private val pref: SharedPreferences) : LocalDataSource
     companion object {
         const val RECENT_SEARCH_LIST = "RECENT_SEARCH_LIST"
     }
+}
+
+@InstallIn(ApplicationComponent::class)
+@Module
+abstract class LocalDataSourceModule {
+    @Binds
+    abstract fun bindLocalDataSource(localDataSourceImpl: LocalDataSourceImpl): LocalDataSource
 }

@@ -1,13 +1,15 @@
 package com.example.studyfork.recent
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.studyfork.base.BaseViewModel
 import com.example.studyfork.data.repository.Repository
-import io.reactivex.subjects.PublishSubject
 
-class RecentSearchViewModel(private val repository: Repository) : BaseViewModel() {
+class RecentSearchViewModel @ViewModelInject constructor(
+    private val repository: Repository
+) : BaseViewModel() {
 
     val recentSearchList: MutableLiveData<List<String>> = MutableLiveData()
     val showListIsEmpty: MutableLiveData<Unit> = MutableLiveData()
@@ -18,16 +20,6 @@ class RecentSearchViewModel(private val repository: Repository) : BaseViewModel(
             showListIsEmpty.value = Unit
         } else {
             recentSearchList.value = result
-        }
-    }
-}
-
-class RecentSearchViewModelFactory(private val repository: Repository) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return if (modelClass.isAssignableFrom(RecentSearchViewModel::class.java)) {
-            RecentSearchViewModel(repository) as T
-        } else {
-            throw IllegalArgumentException()
         }
     }
 }
