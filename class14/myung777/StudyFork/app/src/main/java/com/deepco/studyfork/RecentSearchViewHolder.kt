@@ -1,7 +1,7 @@
 package com.deepco.studyfork
 
 import androidx.recyclerview.widget.RecyclerView
-import com.deepco.studyfork.data.model.RecentSearchData
+import com.deepco.data.data.model.RecentSearchData
 import com.deepco.studyfork.databinding.RecentSearchItemBinding
 
 class RecentSearchViewHolder(

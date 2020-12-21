@@ -1,6 +1,6 @@
-package com.deepco.studyfork.api
+package com.deepco.data.data.api
 
-import com.deepco.studyfork.BuildConfig
+import com.deepco.data.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

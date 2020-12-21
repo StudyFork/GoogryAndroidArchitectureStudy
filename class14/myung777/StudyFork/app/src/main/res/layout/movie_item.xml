@@ -6,7 +6,7 @@
 
         <variable
             name="movie"
-            type="com.deepco.studyfork.data.model.Item" />
+            type="com.deepco.data.data.model.Item" />
 
     </data>
 

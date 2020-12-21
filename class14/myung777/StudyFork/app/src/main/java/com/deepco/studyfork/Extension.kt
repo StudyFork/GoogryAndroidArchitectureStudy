@@ -5,8 +5,8 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.deepco.studyfork.data.model.Item
-import com.deepco.studyfork.data.model.RecentSearchData
+import com.deepco.data.data.model.Item
+import com.deepco.data.data.model.RecentSearchData
 
 @BindingAdapter("loadUrl")
 fun ImageView.loadImageView(imageUrl: String) {

@@ -4,8 +4,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.deepco.studyfork.data.model.Item
-import com.deepco.studyfork.data.repository.RepositoryMovieDataImpl
+import com.deepco.data.data.model.Item
+import com.deepco.data.data.repository.RepositoryMovieDataImpl
 
 class MainViewModel @ViewModelInject constructor(
     private val repositoryMovieDataImpl: RepositoryMovieDataImpl

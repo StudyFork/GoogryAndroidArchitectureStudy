@@ -1,4 +1,4 @@
-package com.deepco.studyfork.data.model
+package com.deepco.data.data.model
 
 data class RecentSearchData(
     val recentSearchTitle: String

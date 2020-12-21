@@ -1,6 +1,6 @@
-package com.deepco.studyfork.api
+package com.deepco.data.data.api
 
-import com.deepco.studyfork.data.model.MovieData
+import com.deepco.data.data.model.MovieData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

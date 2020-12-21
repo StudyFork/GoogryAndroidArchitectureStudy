@@ -1,8 +1,8 @@
-package com.deepco.studyfork.data.remote
+package com.deepco.data.data.remote
 
-import com.deepco.studyfork.api.RetrofitService
-import com.deepco.studyfork.data.model.Item
-import com.deepco.studyfork.data.model.MovieData
+import com.deepco.data.data.api.RetrofitService
+import com.deepco.data.data.model.Item
+import com.deepco.data.data.model.MovieData
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

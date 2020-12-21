@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.deepco.studyfork.data.model.Item
+import com.deepco.data.data.model.Item
 import com.deepco.studyfork.databinding.MovieItemBinding
 
 class MovieRecyclerAdapter :
