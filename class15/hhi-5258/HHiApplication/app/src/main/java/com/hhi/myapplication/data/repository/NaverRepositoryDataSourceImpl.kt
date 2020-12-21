@@ -1,8 +1,8 @@
 package com.hhi.myapplication.data.repository
 
-import com.hhi.myapplication.data.local.NaverLocalDataSourceImpl
+import com.hhi.myapplication.data.local.NaverLocalDataSource
 import com.hhi.myapplication.data.model.MovieData
-import com.hhi.myapplication.data.remote.NaverRemoteDataSourceImpl
+import com.hhi.myapplication.data.remote.NaverRemoteDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -11,8 +11,9 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 class NaverRepositoryDataSourceImpl @Inject constructor(
-    private val naverRemoteDataSource: NaverRemoteDataSourceImpl,
-    private val naverLocalDataSource: NaverLocalDataSourceImpl
+    private val naverRemoteDataSource: NaverRemoteDataSource,
+    private val naverLocalDataSource: NaverLocalDataSource
+
 ) : NaverRepositoryDataSource {
 
     override fun searchMovies(
