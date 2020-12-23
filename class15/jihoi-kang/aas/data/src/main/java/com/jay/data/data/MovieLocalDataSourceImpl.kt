@@ -1,9 +1,9 @@
-package com.jay.aas.data
+package com.jay.data.data
 
-import com.jay.aas.model.Movie
-import com.jay.aas.model.SearchHistory
-import com.jay.aas.room.MovieDao
-import com.jay.aas.room.SearchHistoryDao
+import com.jay.data.model.Movie
+import com.jay.data.model.SearchHistory
+import com.jay.data.room.MovieDao
+import com.jay.data.room.SearchHistoryDao
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

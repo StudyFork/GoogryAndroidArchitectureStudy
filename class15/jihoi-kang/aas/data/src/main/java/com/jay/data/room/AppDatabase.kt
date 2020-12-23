@@ -1,9 +1,9 @@
-package com.jay.aas.room
+package com.jay.data.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.jay.aas.model.Movie
-import com.jay.aas.model.SearchHistory
+import com.jay.data.model.Movie
+import com.jay.data.model.SearchHistory
 
 @Database(
     entities = [Movie::class, SearchHistory::class],

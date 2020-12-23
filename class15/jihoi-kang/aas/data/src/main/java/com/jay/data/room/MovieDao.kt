@@ -1,7 +1,7 @@
-package com.jay.aas.room
+package com.jay.data.room
 
 import androidx.room.*
-import com.jay.aas.model.Movie
+import com.jay.data.model.Movie
 
 @Dao
 interface MovieDao {

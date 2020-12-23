@@ -1,6 +1,6 @@
-package com.jay.aas.api
+package com.jay.data.api
 
-import com.jay.aas.BuildConfig
+import com.jay.data.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 

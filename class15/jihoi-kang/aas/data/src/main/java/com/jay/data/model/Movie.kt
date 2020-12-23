@@ -1,4 +1,4 @@
-package com.jay.aas.model
+package com.jay.data.model
 
 import androidx.room.Entity
 

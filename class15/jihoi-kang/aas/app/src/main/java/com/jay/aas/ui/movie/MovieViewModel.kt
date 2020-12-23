@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.jay.aas.base.BaseViewModel
-import com.jay.aas.data.MovieRepository
-import com.jay.aas.model.Movie
+import com.jay.data.data.MovieRepository
+import com.jay.data.model.Movie
 import kotlinx.coroutines.launch
 
 class MovieViewModel @ViewModelInject constructor(

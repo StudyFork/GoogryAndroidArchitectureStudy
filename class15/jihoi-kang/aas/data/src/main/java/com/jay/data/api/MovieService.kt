@@ -1,4 +1,4 @@
-package com.jay.aas.api
+package com.jay.data.api
 
 import retrofit2.http.GET
 import retrofit2.http.Query

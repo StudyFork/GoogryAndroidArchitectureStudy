@@ -8,7 +8,7 @@
 
         <variable
             name="item"
-            type="com.jay.aas.model.Movie" />
+            type="com.jay.data.model.Movie" />
 
     </data>
 

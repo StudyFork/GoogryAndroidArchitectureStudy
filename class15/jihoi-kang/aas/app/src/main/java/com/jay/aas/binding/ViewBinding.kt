@@ -11,8 +11,8 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.jay.aas.model.Movie
-import com.jay.aas.model.SearchHistory
+import com.jay.data.model.Movie
+import com.jay.data.model.SearchHistory
 import com.jay.aas.ui.history.SearchHistoryAdapter
 import com.jay.aas.ui.movie.MovieAdapter
 

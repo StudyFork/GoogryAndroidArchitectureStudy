@@ -1,6 +1,6 @@
-package com.jay.aas.api
+package com.jay.data.api
 
-import com.jay.aas.model.Movie
+import com.jay.data.model.Movie
 
 data class MovieResponse(
     val display: Int,

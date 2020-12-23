@@ -1,7 +1,7 @@
-package com.jay.aas.di
+package com.jay.data.di
 
-import com.jay.aas.api.MovieService
-import com.jay.aas.api.RequestInterceptor
+import com.jay.data.api.MovieService
+import com.jay.data.api.RequestInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable

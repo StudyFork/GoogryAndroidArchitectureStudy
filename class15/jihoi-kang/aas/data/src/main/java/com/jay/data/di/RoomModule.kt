@@ -1,22 +1,16 @@
-package com.jay.aas.di
+package com.jay.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.jay.aas.api.MovieService
-import com.jay.aas.api.RequestInterceptor
-import com.jay.aas.room.AppDatabase
-import com.jay.aas.room.MovieDao
-import com.jay.aas.room.SearchHistoryDao
+import com.jay.data.room.AppDatabase
+import com.jay.data.room.MovieDao
+import com.jay.data.room.SearchHistoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 
 @InstallIn(ApplicationComponent::class)
 @Module

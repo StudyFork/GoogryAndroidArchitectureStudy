@@ -1,7 +1,7 @@
-package com.jay.aas.data
+package com.jay.data.data
 
-import com.jay.aas.model.Movie
-import com.jay.aas.model.SearchHistory
+import com.jay.data.model.Movie
+import com.jay.data.model.SearchHistory
 
 interface MovieRepository {
 

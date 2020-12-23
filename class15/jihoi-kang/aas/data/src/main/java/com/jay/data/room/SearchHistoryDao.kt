@@ -1,10 +1,10 @@
-package com.jay.aas.room
+package com.jay.data.room
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.jay.aas.model.SearchHistory
+import com.jay.data.model.SearchHistory
 
 @Dao
 interface SearchHistoryDao {

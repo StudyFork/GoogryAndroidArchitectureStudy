@@ -1,21 +1,39 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+def getProperty(String filename, String propName) {
+    def propsFile = rootProject.file(filename)
+    if (propsFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        if (props[propName] != null) {
+            return props[propName]
+        } else {
+            print("No such property " + propName + " in file " + filename)
+        }
+    } else {
+        print(filename + " does not exist!")
+    }
+}
 
 android {
-    compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.jay.aas"
-        minSdkVersion rootProject.minSdkVersion
-        targetSdkVersion rootProject.targetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+        buildConfigField "String", "NAVER_CLIENT_ID", "\"${getProperty("local.properties", "naver_client_id")}\""
+        buildConfigField "String", "NAVER_CLIENT_SECRET", "\"${getProperty("local.properties", "naver_client_secret")}\""
     }
 
     buildTypes {
@@ -24,26 +42,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = '1.8'
     }
-
-    buildFeatures {
-        dataBinding true
-    }
-
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-
-    implementation project(":data")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     implementation "androidx.core:core-ktx:$coreKtxVersion"
@@ -80,5 +88,4 @@ dependencies {
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxTest"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-
 }

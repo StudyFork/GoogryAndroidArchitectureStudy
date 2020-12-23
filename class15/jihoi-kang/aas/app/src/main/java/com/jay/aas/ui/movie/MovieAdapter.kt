@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jay.aas.R
 import com.jay.aas.databinding.ItemMovieBinding
-import com.jay.aas.model.Movie
+import com.jay.data.model.Movie
 
 class MovieAdapter(
     private val onItemClick: (String) -> Unit,

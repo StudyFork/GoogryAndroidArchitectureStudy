@@ -1,6 +1,6 @@
-package com.jay.aas.data
+package com.jay.data.data
 
-import com.jay.aas.model.Movie
+import com.jay.data.model.Movie
 
 interface MovieRemoteDataSource {
 

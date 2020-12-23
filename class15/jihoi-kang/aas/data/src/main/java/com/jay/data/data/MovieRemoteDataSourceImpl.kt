@@ -1,6 +1,6 @@
-package com.jay.aas.data
+package com.jay.data.data
 
-import com.jay.aas.api.MovieService
+import com.jay.data.api.MovieService
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
