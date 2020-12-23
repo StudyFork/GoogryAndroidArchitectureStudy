@@ -1,9 +1,5 @@
-plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
-}
+apply plugin: 'com.android.library'
+apply from: '../shared.gradle'
 
 def getProperty(String filename, String propName) {
     def propsFile = rootProject.file(filename)
@@ -21,16 +17,7 @@ def getProperty(String filename, String propName) {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
-
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
         buildConfigField "String", "NAVER_CLIENT_ID", "\"${getProperty("local.properties", "naver_client_id")}\""
         buildConfigField "String", "NAVER_CLIENT_SECRET", "\"${getProperty("local.properties", "naver_client_secret")}\""
@@ -42,32 +29,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+
 }
 
 dependencies {
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation "androidx.core:core-ktx:$coreKtxVersion"
-    implementation "androidx.appcompat:appcompat:$accompatVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    implementation "androidx.recyclerview:recyclerview:$recyclerVersion"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-    implementation "androidx.activity:activity-ktx:$activityKtxVersion"
-
-    // di
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltLifecycleViewModelVersion"
-    kapt "androidx.hilt:hilt-compiler:$hiltLifecycleViewModelVersion"
-
     // network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
@@ -76,7 +41,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
-    // coroutine
+    // coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineCoreVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineAndroidVersion"
 
