@@ -1,6 +1,5 @@
 package com.hhi.myapplication.data.local
 
-import com.hhi.myapplication.App
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -9,7 +8,9 @@ import org.json.JSONArray
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class NaverLocalDataSourceImpl @Inject constructor() : NaverLocalDataSource {
+class NaverLocalDataSourceImpl @Inject constructor(
+    private val sharedPreferenceUtil: SharedPreferenceUtil
+) : NaverLocalDataSource {
     override fun saveQuery(query: String) {
         val queryList = getQueryList().toMutableList()
         queryList.add(query)
@@ -18,12 +19,12 @@ class NaverLocalDataSourceImpl @Inject constructor() : NaverLocalDataSource {
             queryList.removeAt(0)
         }
 
-        App.prefs.setString(JSONArray(queryList).toString(), PREF_QUERY_LIST)
+        sharedPreferenceUtil.setString(JSONArray(queryList).toString(), PREF_QUERY_LIST)
 
     }
 
     override fun getQueryList(): List<String> {
-        val queryListJSONString = App.prefs.getString(PREF_QUERY_LIST)
+        val queryListJSONString = sharedPreferenceUtil.getString(PREF_QUERY_LIST)
         val queryList = mutableListOf<String>()
 
         queryListJSONString?.let {
