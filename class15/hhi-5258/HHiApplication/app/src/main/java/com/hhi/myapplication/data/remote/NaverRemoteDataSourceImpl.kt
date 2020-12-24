@@ -11,8 +11,9 @@ import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class NaverRemoteDataSourceImpl @Inject constructor() : NaverRemoteDataSource {
-    private val api = NaverAPI.create()
+class NaverRemoteDataSourceImpl @Inject constructor(
+    private val api: NaverAPI
+) : NaverRemoteDataSource {
     override fun searchMovies(
         query: String,
         success: (MovieData.Response) -> Unit,
