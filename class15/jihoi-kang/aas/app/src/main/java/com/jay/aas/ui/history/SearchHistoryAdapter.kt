@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jay.aas.R
 import com.jay.aas.databinding.ItemSearchHistoryBinding
-import com.jay.aas.model.SearchHistory
+import com.jay.data.model.SearchHistory
 
 class SearchHistoryAdapter(
     private val onItemClick: (String) -> Unit,

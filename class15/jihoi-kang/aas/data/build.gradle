@@ -1,9 +1,26 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply from: '../shared.gradle'
+
+def getProperty(String filename, String propName) {
+    def propsFile = rootProject.file(filename)
+    if (propsFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        if (props[propName] != null) {
+            return props[propName]
+        } else {
+            print("No such property " + propName + " in file " + filename)
+        }
+    } else {
+        print(filename + " does not exist!")
+    }
+}
 
 android {
     defaultConfig {
-        applicationId "com.jay.aas"
+        consumerProguardFiles "consumer-rules.pro"
+        buildConfigField "String", "NAVER_CLIENT_ID", "\"${getProperty("local.properties", "naver_client_id")}\""
+        buildConfigField "String", "NAVER_CLIENT_SECRET", "\"${getProperty("local.properties", "naver_client_secret")}\""
     }
 
     buildTypes {
@@ -16,17 +33,6 @@ android {
 }
 
 dependencies {
-    // project
-    implementation project(":data")
-
-    implementation "androidx.core:core-ktx:$coreKtxVersion"
-    implementation "androidx.appcompat:appcompat:$accompatVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    implementation "androidx.recyclerview:recyclerview:$recyclerVersion"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-    implementation "androidx.activity:activity-ktx:$activityKtxVersion"
-
     // network
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
@@ -47,5 +53,4 @@ dependencies {
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxTest"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
-
 }

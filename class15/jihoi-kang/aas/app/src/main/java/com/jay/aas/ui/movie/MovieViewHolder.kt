@@ -2,7 +2,7 @@ package com.jay.aas.ui.movie
 
 import androidx.recyclerview.widget.RecyclerView
 import com.jay.aas.databinding.ItemMovieBinding
-import com.jay.aas.model.Movie
+import com.jay.data.model.Movie
 
 class MovieViewHolder(
     private val binding: ItemMovieBinding,
