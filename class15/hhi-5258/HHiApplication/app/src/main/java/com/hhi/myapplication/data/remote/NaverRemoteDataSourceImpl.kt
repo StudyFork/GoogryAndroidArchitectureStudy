@@ -2,11 +2,18 @@ package com.hhi.myapplication.data.remote
 
 import com.hhi.myapplication.api.NaverAPI
 import com.hhi.myapplication.data.model.MovieData
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import retrofit2.Call
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
-    private val api = NaverAPI.create()
+class NaverRemoteDataSourceImpl @Inject constructor(
+    private val api: NaverAPI
+) : NaverRemoteDataSource {
     override fun searchMovies(
         query: String,
         success: (MovieData.Response) -> Unit,
@@ -29,4 +36,12 @@ class NaverRemoteDataSourceImpl : NaverRemoteDataSource {
             }
         })
     }
+}
+
+@InstallIn(ApplicationComponent::class)
+@Module
+abstract class NaverRemoteDataModule {
+    @Binds
+    @Singleton
+    abstract fun bindNaverRemoteData(naverRemoteDataSourceImpl: NaverRemoteDataSourceImpl): NaverRemoteDataSource
 }

@@ -1,10 +1,11 @@
 package com.hhi.myapplication.data.local
 
-import android.content.Context
 import android.content.SharedPreferences
+import com.hhi.myapplication.App
+import javax.inject.Inject
 
-class SharedPreferenceUtil(context: Context) {
-    private val preference: SharedPreferences = context.getSharedPreferences(FILE_NAME, 0)
+class SharedPreferenceUtil @Inject constructor() {
+    private val preference: SharedPreferences = App.context.getSharedPreferences(FILE_NAME, 0)
 
     fun setString(value: String, key: String) {
         preference.edit().putString(key, value).apply()

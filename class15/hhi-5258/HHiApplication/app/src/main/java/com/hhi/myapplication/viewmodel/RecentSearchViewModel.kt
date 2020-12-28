@@ -1,12 +1,14 @@
 package com.hhi.myapplication.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hhi.myapplication.base.BaseViewModel
 import com.hhi.myapplication.data.repository.NaverRepositoryDataSourceImpl
 
-class RecentSearchViewModel : BaseViewModel() {
-    private val naverRepositoryDataSource = NaverRepositoryDataSourceImpl()
+class RecentSearchViewModel @ViewModelInject constructor(
+    private val naverRepositoryDataSource: NaverRepositoryDataSourceImpl
+) : BaseViewModel() {
     private val _queryList = MutableLiveData<List<String>>()
     val queryList: LiveData<List<String>> = _queryList
 
