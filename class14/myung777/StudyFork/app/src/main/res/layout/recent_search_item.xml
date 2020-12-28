@@ -10,7 +10,7 @@
 
         <variable
             name="recentSearch"
-            type="com.deepco.studyfork.data.model.RecentSearchData" />
+            type="com.deepco.data.data.model.RecentSearchData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

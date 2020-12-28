@@ -1,6 +1,6 @@
-package com.deepco.studyfork.data.local
+package com.deepco.data.data.local
 
-import com.deepco.studyfork.data.model.RecentSearchData
+import com.deepco.data.data.model.RecentSearchData
 
 interface LocalMovieData {
     fun saveQuery(query: String)

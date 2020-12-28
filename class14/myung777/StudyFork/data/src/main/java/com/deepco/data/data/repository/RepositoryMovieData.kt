@@ -1,7 +1,7 @@
-package com.deepco.studyfork.data.repository
+package com.deepco.data.data.repository
 
-import com.deepco.studyfork.data.model.Item
-import com.deepco.studyfork.data.model.RecentSearchData
+import com.deepco.data.data.model.Item
+import com.deepco.data.data.model.RecentSearchData
 
 interface RepositoryMovieData {
     fun getMovieList(

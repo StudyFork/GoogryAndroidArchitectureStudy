@@ -1,17 +1,25 @@
-package com.deepco.studyfork.data.local
+package com.deepco.data.data.local
 
+import android.content.Context
 import android.content.SharedPreferences
-import com.deepco.studyfork.MyApplication
-import com.deepco.studyfork.data.model.RecentSearchData
+import com.deepco.data.data.model.RecentSearchData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val MOVIE: String = "movie"
 private const val PREF_RECENT_SEARCH: String = "pref_recent_search"
 
-class SharedPreferenceUtil @Inject constructor() {
-    private val preference: SharedPreferences = MyApplication.context.getSharedPreferences(MOVIE, 0)
+class SharedPreferenceUtil @Inject constructor(
+    applicationContext: Context
+) {
+    private val preference: SharedPreferences = applicationContext.getSharedPreferences(MOVIE, 0)
     private var gson = Gson()
     fun saveQuery(queryList: List<RecentSearchData>) {
         preference.edit().putString(PREF_RECENT_SEARCH, gson.toJson(queryList).toString()).apply()
@@ -28,4 +36,14 @@ class SharedPreferenceUtil @Inject constructor() {
         return queryList
     }
 
+}
+
+@Module
+@InstallIn(ApplicationComponent::class)
+class SharedPreferenceUtilModule {
+    @Provides
+    @Singleton
+    fun provideSharedPreferenceUtil(@ApplicationContext applicationContext: Context): SharedPreferenceUtil {
+        return SharedPreferenceUtil(applicationContext)
+    }
 }

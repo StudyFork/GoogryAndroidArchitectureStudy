@@ -1,6 +1,6 @@
-package com.deepco.studyfork.data.remote
+package com.deepco.data.data.remote
 
-import com.deepco.studyfork.data.model.Item
+import com.deepco.data.data.model.Item
 
 interface RemoteMovieData {
 
