@@ -66,7 +66,6 @@ class MovieSearchViewModel @ViewModelInject constructor(
                 } finally {
                     try {
                         val movies = repository.searchMovies(it)
-                        _loading.value = View.GONE
                         if (movies.isEmpty()) {
                             _showNoSearchResultEvent.value = Unit
                             return@launch
@@ -75,6 +74,8 @@ class MovieSearchViewModel @ViewModelInject constructor(
                         _movieList.value = movies
                     } catch (e: Exception) {
                         _showSearchMovieFailedEvent.value = e
+                    } finally {
+                        _loading.value = View.GONE
                     }
                 }
             }
