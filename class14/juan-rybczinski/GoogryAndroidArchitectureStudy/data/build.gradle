@@ -1,0 +1,10 @@
+plugins {
+    id 'com.android.library'
+}
+apply from: "../commons.gradle"
+
+dependencies {
+    implementation project(":domain")
+    annotationProcessor 'androidx.room:room-compiler:2.2.6'
+    implementation 'androidx.room:room-runtime:2.2.6'
+}

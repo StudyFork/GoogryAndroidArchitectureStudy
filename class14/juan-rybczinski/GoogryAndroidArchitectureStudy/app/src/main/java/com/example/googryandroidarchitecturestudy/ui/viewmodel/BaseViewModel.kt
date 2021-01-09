@@ -4,7 +4,7 @@ import android.webkit.URLUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.googryandroidarchitecturestudy.domain.UrlResource
+import com.example.domain.model.UrlResource
 
 abstract class BaseViewModel : ViewModel() {
     private val _selectedUrl = MutableLiveData<String>()
