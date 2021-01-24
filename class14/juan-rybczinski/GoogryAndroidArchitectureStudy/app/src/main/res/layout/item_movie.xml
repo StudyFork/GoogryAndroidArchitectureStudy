@@ -11,7 +11,7 @@
 
         <variable
             name="movie"
-            type="com.example.googryandroidarchitecturestudy.domain.Movie" />
+            type="com.example.domain.model.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

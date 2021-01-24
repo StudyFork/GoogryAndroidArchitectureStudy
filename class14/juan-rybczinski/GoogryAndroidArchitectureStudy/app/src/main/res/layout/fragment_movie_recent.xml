@@ -8,7 +8,7 @@
 
         <variable
             name="recentList"
-            type="List&lt;com.example.googryandroidarchitecturestudy.domain.RecentSearch>" />
+            type="List&lt;com.example.domain.model.RecentSearch>" />
 
         <variable
             name="vm"

@@ -7,15 +7,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.example.googryandroidarchitecturestudy.data.repository.MovieRepository
-import com.example.googryandroidarchitecturestudy.domain.Movie
-import com.example.googryandroidarchitecturestudy.domain.RecentSearch
+import com.example.domain.model.Movie
+import com.example.domain.model.RecentSearch
 import com.example.googryandroidarchitecturestudy.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 import java.util.*
 
 class MovieSearchViewModel @ViewModelInject constructor(
-    private val repository: MovieRepository,
+    private val repository: com.example.domain.MovieRepository,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : BaseViewModel() {
     private val _movieList = MutableLiveData<List<Movie>>(emptyList())
@@ -66,7 +65,6 @@ class MovieSearchViewModel @ViewModelInject constructor(
                 } finally {
                     try {
                         val movies = repository.searchMovies(it)
-                        _loading.value = View.GONE
                         if (movies.isEmpty()) {
                             _showNoSearchResultEvent.value = Unit
                             return@launch
@@ -75,6 +73,8 @@ class MovieSearchViewModel @ViewModelInject constructor(
                         _movieList.value = movies
                     } catch (e: Exception) {
                         _showSearchMovieFailedEvent.value = e
+                    } finally {
+                        _loading.value = View.GONE
                     }
                 }
             }

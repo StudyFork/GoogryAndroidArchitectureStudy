@@ -2,7 +2,7 @@ package com.example.googryandroidarchitecturestudy.ui.extension
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.googryandroidarchitecturestudy.domain.Movie
+import com.example.domain.model.Movie
 import com.example.googryandroidarchitecturestudy.ui.recycler.MovieAdapter
 
 @BindingAdapter("list")

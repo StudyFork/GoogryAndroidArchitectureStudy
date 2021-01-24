@@ -1,7 +1,7 @@
 package com.example.googryandroidarchitecturestudy.ui.extension
 
 import androidx.databinding.BindingAdapter
-import com.example.googryandroidarchitecturestudy.domain.RecentSearch
+import com.example.domain.model.RecentSearch
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 

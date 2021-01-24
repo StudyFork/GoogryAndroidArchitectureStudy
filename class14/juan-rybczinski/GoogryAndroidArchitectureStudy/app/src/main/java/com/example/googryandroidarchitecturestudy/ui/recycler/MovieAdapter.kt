@@ -3,8 +3,8 @@ package com.example.googryandroidarchitecturestudy.ui.recycler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.domain.model.Movie
 import com.example.googryandroidarchitecturestudy.databinding.ItemMovieBinding
-import com.example.googryandroidarchitecturestudy.domain.Movie
 
 class MovieAdapter(
     private val onItemClick: (Movie) -> Unit

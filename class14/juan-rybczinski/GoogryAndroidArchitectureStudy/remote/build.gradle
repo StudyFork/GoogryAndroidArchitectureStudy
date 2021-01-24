@@ -1,0 +1,35 @@
+plugins {
+    id 'com.android.library'
+}
+apply from: "../commons.gradle"
+
+def getProperty(String filename, String propName) {
+    def propsFile = rootProject.file(filename)
+    if (propsFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        if (props[propName] != null) {
+            return props[propName]
+        } else {
+            print("No such property " + propName + " in file " + filename)
+        }
+    } else {
+        print(filename + " does not exist!")
+    }
+}
+
+android {
+    defaultConfig {
+        buildConfigField "String", "NAVER_CLIENT_ID", "\"${getProperty("local.properties", "naver_client_id")}\""
+        buildConfigField "String", "NAVER_CLIENT_SECRET", "\"${getProperty("local.properties", "naver_client_secret")}\""
+    }
+}
+
+dependencies {
+    // Retrofit2
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+
+    implementation project(":data")
+}
